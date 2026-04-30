@@ -455,16 +455,27 @@ if (! function_exists('request_is_portal')) {
 if (! function_exists('calculation_to_quantity')) {
     function calculation_to_quantity($quantity)
     {
-        if (! preg_match('/^[0-9+\-x*\/().\s]+$/', $quantity)) {
+        $quantity = trim((string) $quantity);
+
+        if ($quantity === '') {
             throw new \InvalidArgumentException('Invalid mathematical expression.');
         }
 
-        $quantity = Str::replace('x', '*', $quantity);
+        if (! preg_match('/^[0-9,+\-x*\/().\s]+$/', $quantity)) {
+            throw new \InvalidArgumentException('Invalid mathematical expression.');
+        }
+
+        $quantity = str_replace(',', '.', $quantity);
+        $quantity = str_ireplace('x', '*', $quantity);
 
         try {
             $result = eval('return ' . $quantity . ';');
         } catch (\Throwable $e) {
             throw new \InvalidArgumentException('Error evaluating the expression: ' . $e->getMessage());
+        }
+
+        if (! is_numeric($result)) {
+            throw new \InvalidArgumentException('Invalid mathematical expression.');
         }
 
         return $result;

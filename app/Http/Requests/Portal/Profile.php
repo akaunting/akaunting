@@ -45,6 +45,13 @@ class Profile extends FormRequest
             'current_password'  => 'required_if:change_password,true' . $current_password,
             'password'          => 'required_if:change_password,true' . $password,
             'picture'           => $picture,
+            'tax_number'       => 'nullable|string|max:50',
+            'phone'             => 'nullable|string|max:20',
+            'address'           => 'nullable|string|max:1000',
+            'city'              => 'nullable|string|max:100',
+            'state'             => 'nullable|string|max:100',
+            'zip_code'          => 'nullable|string|max:20',
+            'country'           => 'nullable|string|size:2',
         ];
     }
 

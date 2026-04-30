@@ -142,7 +142,7 @@ class BillsTest extends FeatureTestCase
         $this->loginAs()
             ->patch(route('bills.update', $bill->id), $request)
             ->assertStatus(200)
-			->assertSee($request['contact_email']);
+            ->assertSee($request['contact_email']);
 
         $this->assertFlashLevel('success');
 
@@ -240,42 +240,63 @@ class BillsTest extends FeatureTestCase
 
     public function testItShouldUpdateTransactionContactWhenBillVendorChanges()
     {
-        // Create two different vendors
         $vendorA = Contact::factory()->vendor()->enabled()->create();
         $vendorB = Contact::factory()->vendor()->enabled()->create();
 
-        // Create a bill with vendor A (must be draft so authorize() allows contact change)
         $request = $this->getRequest();
-
-        $request['status'] = 'draft';
-        $request['contact_id'] = $vendorA->id;
-        $request['contact_name'] = $vendorA->name;
+        $request['status']        = 'draft';
+        $request['contact_id']    = $vendorA->id;
+        $request['contact_name']  = $vendorA->name;
         $request['contact_email'] = $vendorA->email;
 
         $bill = $this->dispatch(new CreateDocument($request));
 
-        // Create a transaction (payment) for this bill with vendor A
+        // Non-reconciled transaction — must follow the new contact
         $transaction = Transaction::factory()->expense()->create([
             'document_id' => $bill->id,
-            'contact_id' => $vendorA->id,
-            'type' => 'expense',
+            'contact_id'  => $vendorA->id,
+            'reconciled'  => 0,
         ]);
 
-        // Verify transaction has vendor A's contact_id
-        $this->assertEquals($vendorA->id, $transaction->contact_id);
-
-        // Update the bill to use vendor B
-        $request['contact_id'] = $vendorB->id;
-        $request['contact_name'] = $vendorB->name;
+        $request['contact_id']    = $vendorB->id;
+        $request['contact_name']  = $vendorB->name;
         $request['contact_email'] = $vendorB->email;
 
         $this->dispatch(new UpdateDocument($bill, $request));
 
-        // Refresh the transaction from database
         $transaction->refresh();
 
-        // Verify transaction's contact_id was updated to vendor B
         $this->assertEquals($vendorB->id, $transaction->contact_id);
+    }
+
+    public function testItShouldThrowWhenChangingContactOnBillWithReconciledTransaction()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches('/reconciled/i');
+
+        $vendorA = Contact::factory()->vendor()->enabled()->create();
+        $vendorB = Contact::factory()->vendor()->enabled()->create();
+
+        $request = $this->getRequest();
+        $request['status']        = 'draft';
+        $request['contact_id']    = $vendorA->id;
+        $request['contact_name']  = $vendorA->name;
+        $request['contact_email'] = $vendorA->email;
+
+        $bill = $this->dispatch(new CreateDocument($request));
+
+        // Any reconciled transaction on the bill must block the contact change
+        Transaction::factory()->expense()->create([
+            'document_id' => $bill->id,
+            'contact_id'  => $vendorA->id,
+            'reconciled'  => 1,
+        ]);
+
+        $request['contact_id']    = $vendorB->id;
+        $request['contact_name']  = $vendorB->name;
+        $request['contact_email'] = $vendorB->email;
+
+        $this->dispatch(new UpdateDocument($bill, $request));
     }
 
     public function getRequest($recurring = false)

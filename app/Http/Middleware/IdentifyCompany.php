@@ -3,13 +3,14 @@
 namespace App\Http\Middleware;
 
 use App\Traits\Companies;
+use App\Traits\Modules;
 use App\Traits\Users;
 use Closure;
 use Illuminate\Auth\AuthenticationException;
 
 class IdentifyCompany
 {
-    use Companies, Users;
+    use Companies, Modules, Users;
 
     /**
      * Handle an incoming request.
@@ -44,6 +45,9 @@ class IdentifyCompany
         }
 
         $company->makeCurrent();
+
+        // Load company-specific modules (event listeners, providers)
+        $this->registerModules();
 
         // Fix file/folder paths
         config(['filesystems.disks.' . config('filesystems.default') . '.url' => url('/' . $company_id)  . '/uploads']);

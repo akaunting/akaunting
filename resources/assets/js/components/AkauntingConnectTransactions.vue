@@ -262,7 +262,7 @@
                                     </button>
 
                                     <button type="button"
-                                        :disabled="differenceAmount != 0 || (differenceAmount == 0 && form.loading)"
+                                        :disabled="!canConfirmConnect"
                                         class="relative px-6 py-1.5 bg-green hover:bg-green-700 text-white rounded-lg disabled:bg-green-100"
                                         @click="onConfirm"
                                     >
@@ -271,7 +271,7 @@
                                             class="animate-submit delay-[0.28s] absolute w-2 h-2 rounded-full left-0 right-0 -top-3.5 m-auto before:absolute before:w-2 before:h-2 before:rounded-full before:animate-submit before:delay-[0.14s] after:absolute after:w-2 after:h-2 after:rounded-full after:animate-submit before:-left-3.5 after:-right-3.5 after:delay-[0.42s]"
                                         >
                                         </i>
-                                        <span :class="[{'opacity-0': differenceAmount != 0}]">{{ translations.save }}</span>
+                                        <span :class="[{'opacity-0': !canConfirmConnect && !form.loading}]">{{ translations.save }}</span>
                                     </button>
                                 </div>
                             </slot>
@@ -351,7 +351,7 @@ export default {
         },
 
         difference_amount: function () {
-            if (! this.transaction_amount) {
+            if (this.transaction_amount === '' || this.transaction_amount === null || this.transaction_amount === undefined) {
                 this.differenceAmount = 0;
 
                 return 0;
@@ -360,9 +360,27 @@ export default {
             let transaction_amount = this.convertMoneyToFloat(this.transaction_amount);
             let amount = parseFloat((this.total_amount - transaction_amount).toFixed(this.currency.precision));
 
+            if (isNaN(amount)) {
+                amount = 0;
+            }
+
             this.differenceAmount = amount;
 
             return amount;
+        },
+
+        canConfirmConnect: function () {
+            if (this.form.loading || !this.form.items.length) {
+                return false;
+            }
+
+            if (this.transaction_amount === '' || this.transaction_amount === null || this.transaction_amount === undefined) {
+                return false;
+            }
+
+            const diff = this.difference_amount;
+
+            return Math.abs(diff) < Math.pow(10, -(this.currency.precision || 2));
         }
     },
 
@@ -426,21 +444,57 @@ export default {
         },
 
         convertMoneyToFloat(money) {
-            // "$198.4"
-            if (typeof(money) != "string") {
-                money = money.toString();
+            if (money === null || money === undefined || money === '') {
+                return 0;
             }
 
-            // 198.4
-            let regex = new RegExp(this.currency.thousands_separator, 'gi');
+            if (typeof money === 'number') {
+                return isNaN(money) ? 0 : parseFloat(money.toFixed(this.currency.precision));
+            }
 
-            money = money.replace(this.currency.symbol, '').replace(regex, '').replace(this.currency.decimal_mark, '.');
+            let value = String(money).trim();
+            const symbol = this.currency.symbol || '';
 
-            // "198.40"
-            money = parseFloat(money).toFixed(this.currency.precision);
+            if (symbol) {
+                value = value.split(symbol).join('');
+            }
 
-            // 198.40
-            return parseFloat(money);
+            value = value.replace(/\u00a0/g, '').trim();
+
+            const decimalMark = this.currency.decimal_mark;
+            const thousandsSeparator = this.currency.thousands_separator;
+
+            let normalized = '';
+
+            if (decimalMark === ',' && value.includes(',')) {
+                const index = value.lastIndexOf(',');
+                let whole = value.slice(0, index);
+                const fractional = value.slice(index + 1).replace(/\D/g, '');
+
+                if (thousandsSeparator) {
+                    whole = whole.split(thousandsSeparator).join('');
+                }
+
+                whole = whole.replace(/\D/g, '');
+                normalized = whole + '.' + fractional;
+            } else {
+                let stringValue = value;
+                const jsonDotDecimal = decimalMark === ',' && !stringValue.includes(',') && /\d+\.\d+/.test(stringValue);
+
+                if (thousandsSeparator && !jsonDotDecimal) {
+                    stringValue = stringValue.split(thousandsSeparator).join('');
+                }
+
+                if (decimalMark && decimalMark !== '.' && !jsonDotDecimal) {
+                    stringValue = stringValue.split(decimalMark).join('.');
+                }
+
+                normalized = stringValue.replace(/[^\d.-]/g, '');
+            }
+
+            const parsed = parseFloat(normalized);
+
+            return isNaN(parsed) ? 0 : parseFloat(parsed.toFixed(this.currency.precision));
         },
 
         checkAmount(index, amount) {
@@ -461,11 +515,17 @@ export default {
         show: function (newValue) {
             if (newValue) {
                 this.form.items = [];
+
+                if (this.transaction && this.transaction.amount !== undefined && this.transaction.amount !== null) {
+                    this.transaction_amount = this.transaction.amount;
+                }
             }
         },
 
         transaction: function (transaction) {
-            this.transaction_amount = transaction.amount;
+            if (transaction && transaction.amount !== undefined && transaction.amount !== null) {
+                this.transaction_amount = transaction.amount;
+            }
         },
 
         currency: function (currency) {

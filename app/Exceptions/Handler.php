@@ -61,6 +61,10 @@ class Handler extends ExceptionHandler
             if (config('logging.default') == 'bugsnag') {
                 call_user_func(config('bugsnag.before_send'), $e);
             }
+
+            if (config('app.error_tracker') === 'sentry') {
+                \Sentry\Laravel\Integration::captureUnhandledException($e);
+            }
         });
     }
 

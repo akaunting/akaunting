@@ -40,7 +40,7 @@ class Account extends Form
             $this->selected = $account_id;
 
             if (! $this->accounts->has($account_id)) {
-                $account = Model::with(['transactions', 'income_transactions', 'expense_transactions', 'currency'])->find($account_id);
+                $account = Model::with('currency')->find($account_id);
 
                 $this->accounts->push($account);
             }
@@ -68,10 +68,6 @@ class Account extends Form
 
     protected function getAccounts()
     {
-        if ($this->hideCurrency) {
-            return Model::with(['transactions', 'income_transactions', 'expense_transactions', 'currency'])->enabled()->orderBy('name')->get();
-        }
-
-        return Model::with(['transactions', 'income_transactions', 'expense_transactions', 'currency'])->enabled()->orderBy('name')->get();
+        return Model::with('currency')->enabled()->orderBy('name')->get();
     }
 }

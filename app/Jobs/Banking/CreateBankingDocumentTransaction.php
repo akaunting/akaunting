@@ -76,34 +76,45 @@ class CreateBankingDocumentTransaction extends Job implements ShouldCreate
         $code = $this->request['currency_code'];
         $rate = $this->request['currency_rate'];
 
-        $precision = currency($code)->getPrecision();
+        $transaction_precision = currency($code)->getPrecision();
+        $document_precision = currency($this->model->currency_code)->getPrecision();
 
-        $amount = $this->request['amount'] = round($this->request['amount'], $precision);
+        $amount = $this->request['amount'] = round($this->request['amount'], $transaction_precision);
 
         if ($this->model->currency_code != $code) {
             $converted_amount = $this->convertBetween($amount, $code, $rate, $this->model->currency_code, $this->model->currency_rate);
 
-            $amount = round($converted_amount, $precision);
+            $amount = round($converted_amount, $document_precision);
         }
 
         $this->model->paid_amount = $this->model->paid;
         event(new PaidAmountCalculated($this->model));
 
-        $total_amount = round($this->model->amount - $this->model->paid_amount, $precision);
+        $total_amount = round($this->model->amount - $this->model->paid_amount, $document_precision);
 
         unset($this->model->reconciled);
         unset($this->model->paid_amount);
 
-        $compare = bccomp($amount, $total_amount, $precision);
+        $compare = bccomp($amount, $total_amount, $document_precision);
 
         if ($compare === 1) {
-            if ($this->model->currency_code == $code) {
-                $message = trans('messages.error.over_payment', ['amount' => money($total_amount, $code)]);
+            $error_amount = $total_amount;
 
-                throw new \Exception($message);
-            } else {
-                $this->model->status = 'paid';
+            if ($this->model->currency_code != $code) {
+                $converted_amount = $this->convertBetween(
+                    $total_amount,
+                    $this->model->currency_code,
+                    $this->model->currency_rate,
+                    $code,
+                    $rate
+                );
+
+                $error_amount = round($converted_amount, $transaction_precision);
             }
+
+            $message = trans('messages.error.over_payment', ['amount' => money($error_amount, $code)]);
+
+            throw new \Exception($message);
         } else {
             $this->model->status = ($compare === 0) ? 'paid' : 'partial';
         }

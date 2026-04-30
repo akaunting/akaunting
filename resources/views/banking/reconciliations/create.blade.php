@@ -166,7 +166,7 @@
 
                     @if ($transactions->count())
                         <table class="min-w-full divide-y divide-gray-200">
-                            <tbody class="ltr:sm:float-right rtl:sm:float-left">
+                            <tbody class="sm:ltr:float-right sm:rtl:float-left">
                                 <tr class="border-b">
                                     <th class="w-9/12 ltr:pr-6 rtl:pl-6 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-bold text-black">
                                         {{ trans('reconciliations.opening_balance') }}:

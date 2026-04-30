@@ -17,18 +17,22 @@ abstract class Report
     protected $classes = [];
 
     protected $events = [
-        'App\Events\Report\FilterShowing',
-        'App\Events\Report\FilterApplying',
-        'App\Events\Report\GroupShowing',
-        'App\Events\Report\GroupApplying',
-        'App\Events\Report\RowsShowing',
+        \App\Events\Report\FilterShowing::class,
+        \App\Events\Report\FilterApplying::class,
+        \App\Events\Report\GroupShowing::class,
+        \App\Events\Report\GroupApplying::class,
+        \App\Events\Report\RowsShowing::class,
     ];
+
+    // Prevent deprecated dynamic property warnings in PHP 8.2+ by explicitly declaring these properties
+    protected $class;
+    protected $group;
 
     public function skipThisClass($event)
     {
         $fire_event = $event;
 
-        $this->fireEvent('App\Events\Report\SkipClass', $fire_event);
+        $this->fireEvent(\App\Events\Report\SkipClass::class, $fire_event);
 
         return (empty($event->class) || !in_array(get_class($event->class), $this->classes));
     }
@@ -38,11 +42,11 @@ abstract class Report
         $fire_event = $event;
         $fire_group = $group;
 
-        $this->fireEvent('App\Events\Report\SkipRowsShowing', $fire_event, $fire_group);
+        $this->fireEvent(\App\Events\Report\SkipRowsShowing::class, $fire_event, $fire_group);
 
         return $this->skipThisClass($event)
-                || empty($event->class->model->settings->group)
-                || ($event->class->model->settings->group != $group);
+                || empty($event->class->getGroup())
+                || ($event->class->getGroup() != $group);
     }
 
     public function setDateFilter($event)
@@ -106,7 +110,7 @@ abstract class Report
 
     public function getIncomeExpenseCategories($limit = false)
     {
-        $types = array_merge($this->getIncomeCategoryTypes(), $this->getExpenseCategoryTypes());
+        $types = array_merge($this->getIncomeCategoryTypes(), $this->getExpenseAndCogsCategoryTypes());
 
         return $this->getCategories($types, $limit);
     }
@@ -132,9 +136,13 @@ abstract class Report
         return $this->getContacts($this->getVendorTypes(), $limit);
     }
 
-    public function getContacts($types, $limit = false)
+    public function getContacts($types = null, $limit = false)
     {
-        $model = Contact::type($types)->orderBy('name');
+        if ($types) {
+            $model = Contact::type($types)->orderBy('name');
+        } else {
+            $model = Contact::orderBy('name');
+        }
 
         if ($limit !== false) {
             $model->take(setting('default.select_limit'));
@@ -199,17 +207,7 @@ abstract class Report
 
     public function applySearchStringFilter($event)
     {
-        $input = request('search', '');
-
-        // Remove basis as it's handled based on report itself
-        $search_basis = 'basis:' . $this->getSearchStringValue('basis', 'accrual', $input);
-        $input = str_replace($search_basis, '', $input);
-
-        // Remove period as it's handled based on report itself
-        $search_period = 'period:' . $this->getSearchStringValue('period', 'quarterly', $input);
-        $input = str_replace($search_period, '', $input);
-
-        $event->model->usingSearchString($input);
+        $event->model->usingSearchString();
     }
 
     public function applyAccountGroup($event)
@@ -323,7 +321,7 @@ abstract class Report
         $period = $this->getSearchStringValue('period');
 
         if (empty($period)) {
-            $period = $event->class->getSetting('period');
+            $period = $event->class->getPeriod();
         }
 
         return $this->getPeriodicDate($date, $period, $event->class->year);

@@ -21,7 +21,13 @@ class Category extends Factory
      */
     public function definition()
     {
-        $types = ['income', 'expense', 'item', 'other'];
+        $types = [
+            Model::INCOME_TYPE,
+            Model::EXPENSE_TYPE,
+            Model::COGS_TYPE,
+            Model::ITEM_TYPE,
+            Model::OTHER_TYPE,
+        ];
 
         return [
             'company_id' => $this->company->id,
@@ -65,7 +71,7 @@ class Category extends Factory
     public function income()
     {
         return $this->state([
-            'type' => 'income',
+            'type' => Model::INCOME_TYPE,
         ]);
     }
 
@@ -77,7 +83,19 @@ class Category extends Factory
     public function expense()
     {
         return $this->state([
-            'type' => 'expense',
+            'type' => Model::EXPENSE_TYPE,
+        ]);
+    }
+
+    /**
+     * Indicate that the model type is cogs.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function cogs()
+    {
+        return $this->state([
+            'type' => Model::COGS_TYPE,
         ]);
     }
 
@@ -89,7 +107,7 @@ class Category extends Factory
     public function item()
     {
         return $this->state([
-            'type' => 'item',
+            'type' => Model::ITEM_TYPE,
         ]);
     }
 
@@ -101,7 +119,7 @@ class Category extends Factory
     public function other()
     {
         return $this->state([
-            'type' => 'other',
+            'type' => Model::OTHER_TYPE,
         ]);
     }
 }

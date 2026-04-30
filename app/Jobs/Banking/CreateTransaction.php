@@ -18,7 +18,12 @@ class CreateTransaction extends Job implements HasOwner, HasSource, ShouldCreate
         event(new TransactionCreating($this->request));
 
         if (! array_key_exists($this->request->get('type'), config('type.transaction'))) {
-            $type = (empty($this->request->get('recurring_frequency')) || ($this->request->get('recurring_frequency') == 'no')) ? Transaction::INCOME_TYPE : Transaction::INCOME_RECURRING_TYPE;
+            $isExpense = str_contains((string) $this->request->get('type', ''), 'expense');
+            $isRecurring = ! empty($this->request->get('recurring_frequency')) && $this->request->get('recurring_frequency') !== 'no';
+
+            $type = $isExpense
+                ? ($isRecurring ? Transaction::EXPENSE_RECURRING_TYPE : Transaction::EXPENSE_TYPE)
+                : ($isRecurring ? Transaction::INCOME_RECURRING_TYPE : Transaction::INCOME_TYPE);
 
             $this->request->merge(['type' => $type]);
         }

@@ -1,7 +1,7 @@
 <template>
     <div
         :id="'search-string-' + _uid"
-        class="lg:h-12 my-5 searh-field flex flex-col lg:flex-row border-b transition-all js-search"
+        class="lg:h-12 my-5 search-field flex flex-col lg:flex-row border-b transition-all js-search"
         :class="input_focus ? 'border-gray-500' : 'border-gray-300'"
     >
         <slot name="filtered">
@@ -697,79 +697,79 @@ export default {
 </script>
 
 <style>
-    .searh-field .tags-group:hover > span {
+    .search-field .tags-group:hover > span {
         background:#cbd4de;
         background-color: #cbd4de;
         border-color: #cbd4de;
     }
 
-    .searh-field .el-tag.el-tag--primary .el-tag__close.el-icon-close {
+    .search-field .el-tag.el-tag--primary .el-tag__close.el-icon-close {
         color: #8898aa;
         margin-top: -3px;
     }
 
-    .searh-field .el-tag.el-tag--primary .el-tag__close.el-icon-close:hover {
+    .search-field .el-tag.el-tag--primary .el-tag__close.el-icon-close:hover {
         background-color: transparent;
     }
 
-    html[dir='ltr'] .searh-field .el-tag-option {
+    html[dir='ltr'] .search-field .el-tag-option {
         border-radius: 0.50rem 0 0 0.50rem;
         /* margin-left: 10px; */
     }
 
-    html[dir='rtl'] .searh-field .el-tag-option {
+    html[dir='rtl'] .search-field .el-tag-option {
         border-radius: 0 0.5rem 0.5rem 0;
     }
 
-    .searh-field .el-tag-operator {
+    .search-field .el-tag-operator {
         border-radius: 0;
         margin-left: -1px;
         margin-right: -1px;
     }
 
-    html[dir='ltr'] .searh-field .el-tag-value {
+    html[dir='ltr'] .search-field .el-tag-value {
         border-radius: 0 0.50rem 0.50rem 0;
         margin-right: 10px;
     }
 
-    html[dir='rtl'] .searh-field .el-tag-value {
+    html[dir='rtl'] .search-field .el-tag-value {
         border-radius: 0.5rem 0 0 0.5rem;
         margin-left: 10px;
     }
 
-    html[dir='rtl'] .searh-field .el-tag-operator {
+    html[dir='rtl'] .search-field .el-tag-operator {
         border-radius: 0;
     }
 
-    .searh-field .el-select.input-new-tag {
+    .search-field .el-select.input-new-tag {
         width: 100%;
     }
 
-    .searh-field .btn-helptext {
+    .search-field .btn-helptext {
         margin-inline-start: auto;
         color: var(--gray);
     }
 
-    .searh-field .btn:not(:disabled):not(.disabled):active:focus,
-    .searh-field .btn:not(:disabled):not(.disabled).active:focus {
+    .search-field .btn:not(:disabled):not(.disabled):active:focus,
+    .search-field .btn:not(:disabled):not(.disabled).active:focus {
         -webkit-box-shadow: none !important;
         box-shadow: none !important;
     }
 
-    .searh-field .form-control.datepicker.flatpickr-input {
+    .search-field .form-control.datepicker.flatpickr-input {
         padding: inherit !important;
     }
 
-    .searh-field .dropdown-menu.operator {
+    .search-field .dropdown-menu.operator {
         min-width: 50px !important;
     }
 
-    html[dir='ltr'] .searh-field .dropdown-menu.operator .btn i:not(:last-child),
+    html[dir='ltr'] .search-field .dropdown-menu.operator .btn i:not(:last-child),
     html[dir='ltr'] .btn svg:not(:last-child) {
         margin-right: inherit !important;
     }
 
-    html[dir='rtl'] .searh-field .dropdown-menu.operator .btn i:not(:last-child),
+    html[dir='rtl'] .search-field .dropdown-menu.operator .btn i:not(:last-child),
     html[dir='rtl'] .btn svg:not(:last-child) {
         margin-left: inherit !important;
     }

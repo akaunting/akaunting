@@ -63,11 +63,18 @@ class CreateTransactionTaxes extends Job implements HasOwner, HasSource, ShouldC
         ];
 
         // New variables by tax type & tax sorting
+        $known_types = ['inclusive', 'fixed', 'normal', 'withholding', 'compound'];
+
         foreach ((array) $this->request['tax_ids'] as $tax_id) {
             $tax = Tax::find($tax_id);
 
             // If tax not found, skip
             if (! $tax) {
+                continue;
+            }
+
+            if (! in_array($tax->type, $known_types)) {
+                report(new \UnexpectedValueException("CreateTransactionTaxes: unknown tax type '{$tax->type}' for tax ID {$tax->id} — skipped."));
                 continue;
             }
 

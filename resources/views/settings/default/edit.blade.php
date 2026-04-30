@@ -4,6 +4,7 @@
     <x-slot name="content">
         <x-form.container>
             <x-form id="setting" method="PATCH" route="settings.default.update">
+                @stack('general_section_start')
                 <x-form.section>
                     <x-slot name="head">
                         <x-form.section.head title="{{ trans('general.general') }}" description="{{ trans('settings.default.form_description.general') }}" />
@@ -24,7 +25,9 @@
                         <x-form.group.payment-method :clearable="'false'" />
                     </x-slot>
                 </x-form.section>
+                @stack('general_section_end')
 
+                @stack('category_section_start')
                 <x-form.section>
                     <x-slot name="head">
                         <x-form.section.head title="{{ trans_choice('general.categories', 1) }}" description="{{ trans('settings.default.form_description.category') }}" />
@@ -36,7 +39,9 @@
                         <x-form.group.select remote name="expense_category" label="{{ trans('settings.default.expense_category') }}" :options="$purchases_categories" :clearable="'false'" :selected="setting('default.expense_category')" remote_action="{{ route('categories.index'). '?search=type:' . $expense_category_types . ' enabled:1' }}" sort-options="false" />
                     </x-slot>
                 </x-form.section>
+                @stack('category_section_end')
 
+                @stack('other_section_start')
                 <x-form.section>
                     <x-slot name="head">
                         <x-form.section.head title="{{ trans_choice('general.others', 1) }}" description="{{ trans('settings.default.form_description.other') }}" />
@@ -58,6 +63,7 @@
                         </div>
                     </x-slot>
                 </x-form.section>
+                @stack('other_section_end')
 
                 @can('update-settings-defaults')
                 <x-form.section>

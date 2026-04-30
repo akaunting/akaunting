@@ -18,15 +18,17 @@ class DeleteDocument extends Job implements ShouldDelete
         event(new DocumentDeleting($this->model));
 
         \DB::transaction(function () {
-            Transaction::mute();
+            try {
+                Transaction::mute();
 
-            $this->deleteRelationships($this->model, [
-                'items', 'item_taxes', 'histories', 'transactions', 'recurring', 'totals'
-            ]);
+                $this->deleteRelationships($this->model, [
+                    'items', 'item_taxes', 'histories', 'transactions', 'recurring', 'totals'
+                ]);
 
-            $this->model->delete();
-
-            Transaction::unmute();
+                $this->model->delete();
+            } finally {
+                Transaction::unmute();
+            }
         });
 
         event(new DocumentDeleted($this->model));

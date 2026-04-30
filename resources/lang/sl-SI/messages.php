@@ -4,7 +4,7 @@ return [
 
     'success' => [
         'added'             => ':type dodan!',
-        'created'			=> ':type ustvarjen!',
+        'created'            => ':type ustvarjen!',
         'updated'           => ':type posodobljen!',
         'deleted'           => ':type izbrisan!',
         'duplicated'        => ':type podvojen!',

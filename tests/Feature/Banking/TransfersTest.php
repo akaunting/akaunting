@@ -146,6 +146,28 @@ class TransfersTest extends FeatureTestCase
         $this->assertFlashLevel('success');
     }
 
+    public function testItShouldThrowWhenFromAccountIsMissing(): void
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches('/not_found|accounts/i');
+
+        $request = $this->getRequest();
+        $request['from_account_id'] = 999999;
+
+        $this->dispatch(new CreateTransfer($request));
+    }
+
+    public function testItShouldThrowWhenToAccountIsMissing(): void
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessageMatches('/not_found|accounts/i');
+
+        $request = $this->getRequest();
+        $request['to_account_id'] = 999999;
+
+        $this->dispatch(new CreateTransfer($request));
+    }
+
     public function getRequest()
     {
         return Transfer::factory()->raw();

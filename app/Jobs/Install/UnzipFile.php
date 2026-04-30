@@ -42,7 +42,30 @@ class UnzipFile extends Job
         // Unzip the file
         $zip = new ZipArchive();
 
-        if (!$zip->open($file) || !$zip->extractTo($temp_path)) {
+        if (!$zip->open($file)) {
+            throw new \Exception(trans('modules.errors.unzip', ['module' => $this->alias]));
+        }
+
+        // Validate all entries before extraction to prevent ZipSlip path traversal attacks
+        for ($i = 0; $i < $zip->numFiles; $i++) {
+            $entry_name = $zip->getNameIndex($i);
+
+            if ($entry_name === false) {
+                continue;
+            }
+
+            if (
+                str_contains($entry_name, '..') ||
+                str_starts_with($entry_name, '/') ||
+                str_starts_with($entry_name, '\\') ||
+                str_contains($entry_name, "\0")
+            ) {
+                $zip->close();
+                throw new \Exception(trans('modules.errors.unzip', ['module' => $this->alias]));
+            }
+        }
+
+        if (!$zip->extractTo($temp_path)) {
             throw new \Exception(trans('modules.errors.unzip', ['module' => $this->alias]));
         }
 

@@ -7,8 +7,7 @@ return [
     'default'               => 'Huvudsaklig valuta',
     'decimal_mark'          => 'Decimalkomma',
     'thousands_separator'   => 'Tusentals avgränsare',
-    'precision'             => 'Noggrannhet
-	',
+    'precision'             => 'Noggrannhet',
     'conversion'            => 'Valutakonvertering: :price (:currency_code) vid :currency_rate',
     'symbol' => [
         'symbol'            => 'Symbol',

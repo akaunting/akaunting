@@ -100,6 +100,12 @@ abstract class Form extends Component
     /** @var bool */
     public $hideCurrency;
 
+    /** @var bool */
+    public $hideCategory;
+
+    /** @var string */
+    public $categoryType;
+
     /** @var string */
     public $textSectionAddressTitle;
 
@@ -162,7 +168,7 @@ abstract class Form extends Component
         bool $hideLogo = false,
         string $textSectionBillingTitle = '', string $textSectionBillingDescription = '',
         bool $hideTaxNumber = false, string $textTaxNumber = '',
-        bool $hideCurrency = false,
+        bool $hideCurrency = false, bool $hideCategory = false, string $categoryType = '',
         string $textSectionAddressTitle = '', string $textSectionAddressDescription = '',
         bool $hideAddress = false, string $textAddress = '',
         bool $hideCity = false, string $textCity = '',
@@ -219,6 +225,9 @@ abstract class Form extends Component
         $this->textTaxNumber = $this->getTextTaxNumber($type, $textTaxNumber);
 
         $this->hideCurrency = $hideCurrency;
+
+        $this->hideCategory = $hideCategory;
+        $this->categoryType = $this->getCategoryType($type, $categoryType);
         /* -- Billing End -- */
 
         /* -- Address Start -- */
@@ -421,6 +430,15 @@ abstract class Form extends Component
         }
 
         return 'general.tax_number';
+    }
+
+    protected function getCategoryType($type, $categoryType)
+    {
+        if (! empty($categoryType)) {
+            return $categoryType;
+        }
+
+        return config('type.contact.' . $type . '.transaction_type', 'income');
     }
     /* -- Billing End -- */
 

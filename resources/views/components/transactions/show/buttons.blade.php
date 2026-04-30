@@ -10,7 +10,7 @@
 
 @stack('edit_button_start')
 
-@if (! $transaction->reconciled && $transaction->isNotTransferTransaction())
+@if (! $transaction->reconciled && empty($transaction->document_id) && $transaction->isNotTransferTransaction())
     @if (! $hideButtonEdit)
         @can($permissionUpdate)
             <x-link href="{{ route($routeButtonEdit, [$transaction->id, 'type' => $type]) }}" id="show-more-actions-edit-{{ $transaction->type }}">

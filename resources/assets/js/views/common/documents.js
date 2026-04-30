@@ -281,7 +281,7 @@ const app = new Vue({
                 default_amount = this.convertToDefault(amount, from_code, from_rate, false, null);
             }
 
-            let converted_amount = this.convertFromDefault(default_amount, to_code, to_rate, false, from_code);
+            let converted_amount = this.convertFromDefault(default_amount, to_code, to_rate, false, null);
 
             return converted_amount;
         },

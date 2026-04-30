@@ -186,7 +186,7 @@ return [
             'payment_method',
             'reference',
             'category_id' => [
-                'route' => ['categories.index', 'search=type:' . Category::INCOME_TYPE . ',' . Category::EXPENSE_TYPE . ' enabled:1'],
+                'route' => ['categories.index', 'search=type:' . Category::INCOME_TYPE . ',' . Category::EXPENSE_TYPE . ',' . Category::COGS_TYPE . ' enabled:1'],
                 'fields' => [
                     'key' => 'id',
                     'value' => 'display_name',
@@ -347,7 +347,10 @@ return [
                 'route' => ['currencies.index', 'search=enabled:1'],
                 'multiple' => true,
             ],
-            'contact_id',
+            'contact_id' => [
+                'route' => 'contacts.index',
+                'multiple' => true,
+            ],
             'contact_name' => ['searchable' => true],
             'contact_email' => ['searchable' => true],
             'contact_tax_number',

@@ -35,6 +35,7 @@ class Vendors extends Import
 
         $row['type'] = 'vendor';
         $row['country'] = !empty($country) ? $country : null;
+        $row['category_id'] = $this->getCategoryId($row, 'expense');
         $row['currency_code'] = $this->getCurrencyCode($row);
         $row['user_id'] = null;
 

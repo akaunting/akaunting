@@ -19,6 +19,8 @@ class SplitTransaction extends Job implements ShouldUpdate
     {
         $this->checkAmount();
 
+        $this->authorize();
+
         event(new TransactionSplitting($this->request, $this->model));
 
         DB::transaction(function () {
@@ -28,18 +30,7 @@ class SplitTransaction extends Job implements ShouldUpdate
                 $transaction->amount    = $item['amount'];
                 $transaction->save();
 
-                $item['split'] = $transaction;
-
-                // Match only if document_id is given
-                if (empty($item['document_id'])) {
-                    return;
-                }
-
                 $document = Document::find($item['document_id']);
-
-                if (empty($document)) {
-                    return;
-                }
 
                 $this->dispatch(new MatchBankingDocumentTransaction($document, $transaction));
             }
@@ -51,6 +42,19 @@ class SplitTransaction extends Job implements ShouldUpdate
         event(new TransactionSplitted($this->request, $this->model));
 
         return $this->request->items;
+    }
+
+    public function authorize(): void
+    {
+        foreach ($this->request->items as $item) {
+            if (empty($item['document_id'])) {
+                throw new \Exception(trans('messages.error.not_found', ['type' => trans_choice('general.documents', 1)]));
+            }
+
+            if (! Document::find($item['document_id'])) {
+                throw new \Exception(trans('messages.error.not_found', ['type' => trans_choice('general.documents', 1)]));
+            }
+        }
     }
 
     protected function checkAmount(): bool

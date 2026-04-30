@@ -46,12 +46,29 @@ class Queue extends Provider
                 return;
             }
 
-            $company = company($payload['company_id']);
+            try {
+                $company = company($payload['company_id']);
+            } catch (\Throwable $e) {
+                $event->job->delete();
+
+                logger()->warning('Company could not be resolved for queued job, job deleted.', [
+                    'company_id' => $payload['company_id'],
+                    'payload' => $payload,
+                    'exception' => $e->getMessage(),
+                ]);
+
+                return;
+            }
 
             if (empty($company)) {
                 $event->job->delete();
 
-                throw new \Exception('Company not found. Payload: ' . json_encode($payload));
+                logger()->warning('Company not found, job deleted.', [
+                    'company_id' => $payload['company_id'],
+                    'payload' => $payload,
+                ]);
+
+                return;
             }
 
             $company->makeCurrent();

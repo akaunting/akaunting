@@ -8,6 +8,8 @@ class MakePayment extends Component
 {
     public $description;
 
+    public $text_document_transaction = 'documents.transaction';
+
     /**
      * Get the view / contents that represent the component.
      *
@@ -16,6 +18,14 @@ class MakePayment extends Component
     public function render()
     {
         $this->description = trans('general.amount_due') . ': ' . '<span class="font-medium">' . money($this->document->amount_due, $this->document->currency_code) . '</span>';
+
+        if (
+            request()->isSigned($this->document->company_id)
+            || request()->isPreview($this->document->company_id)
+            || request()->isPortal($this->document->company_id)
+        ) {
+            $this->text_document_transaction = 'documents.portal_transaction';
+        }
 
         return view('components.documents.show.make-payment');
     }

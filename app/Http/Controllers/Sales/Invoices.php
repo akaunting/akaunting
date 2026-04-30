@@ -31,7 +31,23 @@ class Invoices extends Controller
     {
         $this->setActiveTabForDocuments();
 
-        $invoices = Document::invoice()->with('contact', 'items', 'items.taxes', 'item_taxes', 'last_history', 'transactions', 'totals', 'histories', 'media')->collect(['document_number'=> 'desc']);
+        $invoices = Document::invoice()->with([
+            'contact' => function ($query) {
+                $query->withCount([
+                    'contact_persons as contact_persons_with_email_count' => function ($query) {
+                        $query->whereNotNull('email');
+                    },
+                ]);
+            },
+            'items',
+            'items.taxes',
+            'item_taxes',
+            'last_history',
+            'transactions',
+            'totals',
+            'histories',
+            'media',
+        ])->collect(['document_number'=> 'desc']);
 
         $total_invoices = Document::invoice()->count();
 

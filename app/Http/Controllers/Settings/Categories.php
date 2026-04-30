@@ -51,11 +51,15 @@ class Categories extends Controller
         $selected_types = ! empty($search_string_type) ? explode(',', $search_string_type) : array_keys($types);
 
         foreach (config('type.category', []) as $type => $config) {
+            if (! is_array($config)) {
+                continue;
+            }
+
             if (! in_array($type, $selected_types)) {
                 continue;
             }
 
-            if (empty($config['hide']) || !in_array('code', $config['hide'])) {
+            if (empty($config['hide']) || ! in_array('code', $config['hide'])) {
                 $hide_code_column = false;
                 break;
             }

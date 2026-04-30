@@ -14,5 +14,9 @@
         @if (! $hideCurrency)
             <x-form.group.currency />
         @endif
+
+        @if (! $hideCategory)
+            <x-form.group.category :type="$categoryType" not-required />
+        @endif
     </x-slot>
 </x-form.section>

@@ -56,8 +56,9 @@
                     <div class="my-4">
                         <span>
                             <x-date :date="$transaction->paid_at" />
-                             - {!! trans('documents.transaction', [
+                             - {!! trans($text_document_transaction, [
                                  'amount' => '<span class="font-medium">' . money($transaction->amount, $transaction->currency_code) . '</span>',
+                                 'payment_method' => '<span class="font-medium">' . $transaction->payment_method_title . '</span>',
                                  'account' => '<span class="font-medium">' . $transaction->account->name . '</span>',
                              ]) !!}
                         </span>

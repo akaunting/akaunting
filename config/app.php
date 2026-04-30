@@ -32,6 +32,8 @@ return [
         ],
     ],
 
+    'error_tracker' => env('APP_ERROR_TRACKER', ''),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

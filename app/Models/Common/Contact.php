@@ -10,6 +10,7 @@ use App\Traits\Documents;
 use App\Traits\Transactions;
 use App\Scopes\Contact as Scope;
 use App\Models\Document\Document;
+use App\Models\Setting\Category;
 use App\Utilities\Date;
 use App\Utilities\Str;
 use Bkwld\Cloner\Cloneable;
@@ -50,6 +51,7 @@ class Contact extends Model
         'type',
         'name',
         'email',
+        'category_id',
         'user_id',
         'tax_number',
         'phone',
@@ -136,6 +138,11 @@ class Contact extends Model
     public function currency()
     {
         return $this->belongsTo('App\Models\Setting\Currency', 'currency_code', 'code');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class)->withoutGlobalScope('App\Scopes\Category')->withDefault(['name' => trans('general.na')]);
     }
 
     public function expense_transactions()
@@ -298,7 +305,7 @@ class Contact extends Model
 
         return $amount;
     }
-    
+
     public function getHasEmailAttribute()
     {
         if (! empty($this->email)) {

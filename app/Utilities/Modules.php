@@ -55,7 +55,7 @@ class Modules
             $payment_methods[$method['code']] = $method['name'];
         }
 
-        if ($contact) {
+        if ($contact && ($type != 'all')) {
             Cache::put($cache_customer, $payment_methods, Date::now()->addHour(6));
         } else {
             Cache::put($cache_admin, $payment_methods, Date::now()->addHour(6));

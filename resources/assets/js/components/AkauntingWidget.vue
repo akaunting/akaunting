@@ -22,7 +22,6 @@
                         <base-input
                             :error="form.errors.class[0]"
                             :label="text.type">
-
                             <el-select
                                 @change="form.errors.class[0] = ''"
                                 v-model="form.class" filterable
@@ -248,7 +247,7 @@ export default {
         },
 
         onCancel() {
-            let documentClasses = document.body.classList;	
+            let documentClasses = document.body.classList;
 
             documentClasses.remove('overflow-y-hidden', 'overflow-overlay');
 

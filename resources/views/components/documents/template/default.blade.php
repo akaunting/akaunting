@@ -11,8 +11,8 @@
         </div>
     </div>
 
-    <div class="row border-bottom-1">
-        <div class="col-58">
+    <div class="row border-bottom-1 clearfix">
+        <div class="col-58 ltr:float-left rtl:float-right">
             <div class="text">
                 @stack('company_logo_input_start')
                 @if (! $hideCompanyLogo)
@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <div class="col-42">
+        <div class="col-42 ltr:float-right rtl:float-left">
             <div class="text right-column">
                 @stack('company_details_start')
                 @if ($textDocumentSubheading)
@@ -47,7 +47,7 @@
                     @stack('company_address_input_start')
                     @if (! $hideCompanyAddress)
                         <p>
-                            {!! nl2br(setting('company.address')) !!}
+                            <x-nl2br :value="setting('company.address')" />
                             {!! $document->company->location !!}
                         </p>
                     @endif
@@ -84,8 +84,8 @@
         </div>
     </div>
 
-    <div class="row top-spacing">
-        <div class="col-60">
+    <div class="row top-spacing clearfix">
+        <div class="col-60 ltr:float-left rtl:float-right">
             <div class="text p-index-left break-words">
                 @if (! $hideContactInfo)
                     <p class="font-semibold mb-0">
@@ -116,7 +116,7 @@
                 @stack('address_input_start')
                     @if (! $hideContactAddress)
                         <p>
-                            {!! nl2br($document->contact_address) !!}
+                            <x-nl2br :value="$document->contact_address" />
                             @if ($document->contact_location)
                                 <br>
                                 {!! $document->contact_location !!}
@@ -156,7 +156,7 @@
             </div>
         </div>
 
-        <div class="col-40">
+        <div class="col-40 ltr:float-right rtl:float-left">
             <div class="text p-index-right">
                 @stack('document_number_input_start')
                     @if (! $hideDocumentNumber)
@@ -319,7 +319,7 @@
                             {{ trans_choice('general.notes', 2) }}
                         </p>
 
-                        {!! nl2br($document->notes) !!}
+                        <x-nl2br :value="$document->notes" />
                     @endif
                 @stack('notes_input_end')
             </div>
@@ -381,7 +381,7 @@
                 <div class="col-100 ltr:text-left rtl:text-right">
                     <div class="text">
                         <span class="font-bold">
-                            {!! nl2br($document->footer) !!}
+                            <x-nl2br :value="$document->footer" />
                         </span>
                     </div>
                 </div>

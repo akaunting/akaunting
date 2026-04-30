@@ -11,7 +11,7 @@
                 @if (! $hideDescription)
                     @if (! empty($item->description))
                         <div class="small-text break-words">
-                            {!! \Illuminate\Support\Str::limit(nl2br($item->description), 500) !!}
+                            <x-nl2br :value="\Illuminate\Support\Str::limit($item->description, 500)" />
                         </div>
                     @endif
                 @endif

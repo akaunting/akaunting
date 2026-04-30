@@ -62,7 +62,7 @@ class CurrenciesTest extends FeatureTestCase
         $this->loginAs()
             ->patch(route('currencies.update', $currency->id), $request)
             ->assertStatus(200)
-			->assertSee($request['name']);
+            ->assertSee($request['name']);
 
         $this->assertFlashLevel('success');
 

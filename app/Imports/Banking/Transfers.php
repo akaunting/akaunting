@@ -36,7 +36,7 @@ class Transfers extends Import
     {
         $row = parent::map($row);
 
-        $row['transferred_at'] = Date::parse($row['transferred_at'])->format('Y-m-d');
+        $row['transferred_at'] = $this->normalizeTransferredAt($row['transferred_at'] ?? null);
         $row['from_currency_code'] = $this->getFromCurrencyCode($row);
         $row['to_currency_code'] = $this->getToCurrencyCode($row);
         $row['from_account_id'] = $this->getFromAccountId($row);
@@ -153,5 +153,18 @@ class Transfers extends Import
         $row['currency_rate'] = $row['to_currency_rate'] ?? null;
 
         return $this->getCurrencyCode($row);
+    }
+
+    protected function normalizeTransferredAt($value): ?string
+    {
+        if (empty($value)) {
+            return null;
+        }
+
+        if (preg_match('/^\d{4}-\d{2}-\d{2}(?:\s+\d{2}:\d{2}:\d{2})?$/', $value)) {
+            return substr((string) $value, 0, 10);
+        }
+
+        return Date::parseWithFallbackLocales($value, null, [$this->preferredLocale()])->format('Y-m-d');
     }
 }

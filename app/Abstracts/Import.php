@@ -73,7 +73,7 @@ abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRow
                 $row[$date_field] = is_numeric($row[$date_field]) 
                                     ? Date::parse(ExcelDate::excelToDateTimeObject($row[$date_field]))
                                             ->format('Y-m-d H:i:s')
-                                    : Date::parse($row[$date_field])
+                                    : Date::parseWithFallbackLocales($row[$date_field], null, [$this->preferredLocale()])
                                             ->format('Y-m-d H:i:s');
             } catch (InvalidFormatException | \Exception $e) {
                 Log::info($e->getMessage());

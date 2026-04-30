@@ -1,6 +1,6 @@
 # Prevent Directory Listing
 <IfModule autoindex>
-	IndexIgnore *
+    IndexIgnore *
 </IfModule>
 
 <IfModule mod_rewrite.c>

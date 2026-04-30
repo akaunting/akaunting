@@ -8,6 +8,7 @@ use App\Events\Common\SearchStringApplying;
 use App\Interfaces\Export\WithParentSheet;
 use App\Traits\DateTime;
 use App\Traits\Owners;
+use App\Traits\SearchString;
 use App\Traits\Sources;
 use App\Traits\Tenants;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
@@ -15,11 +16,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laratrust\Contracts\Ownable;
-use Lorisleiva\LaravelSearchString\Concerns\SearchString;
+use Lorisleiva\LaravelSearchString\Concerns\SearchString as LaravelSearchString;
 
 abstract class Model extends Eloquent implements Ownable
 {
-    use Cachable, DateTime, Owners, SearchString, SoftDeletes, Sortable, Sources, Tenants;
+    use Cachable, DateTime, LaravelSearchString, Owners, SearchString, SoftDeletes, Sortable, Sources, Tenants;
 
     protected $tenantable = true;
 
@@ -129,7 +130,9 @@ abstract class Model extends Eloquent implements Ownable
     {
         event(new SearchStringApplying($query));
 
-        $string = $string ?: request('search');
+        $string = $string ?: request('search', '');
+
+        $string = $this->stripUnknownSearchStringTokens($string, get_class($this));
 
         $this->getSearchStringManager()->updateBuilder($query, $string);
 

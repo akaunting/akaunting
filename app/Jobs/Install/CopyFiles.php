@@ -37,6 +37,14 @@ class CopyFiles extends Job
 
         $source = storage_path('app/temp/' . $this->path);
 
+        // Prevent path traversal: ensure source is strictly within the temp directory
+        $temp_base   = realpath(storage_path('app/temp'));
+        $real_source = realpath($source);
+
+        if ($real_source === false || $temp_base === false || ! str_starts_with($real_source, $temp_base . DIRECTORY_SEPARATOR)) {
+            throw new \Exception(trans('modules.errors.file_copy', ['module' => $this->alias]));
+        }
+
         $destination = $this->getDestination($source);
 
         // Move all files/folders from temp path

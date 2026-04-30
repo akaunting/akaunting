@@ -4,7 +4,7 @@ return [
 
     'success' => [
         'added'             => ':type eklendi!',
-        'created'			=> ':type oluşturuldu!',
+        'created'            => ':type oluşturuldu!',
         'updated'           => ':type güncellendi!',
         'deleted'           => ':type silindi!',
         'duplicated'        => ':type çoğaltıldı!',

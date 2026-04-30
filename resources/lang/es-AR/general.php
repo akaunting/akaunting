@@ -101,7 +101,7 @@ return [
     'confirm'               => 'Confirmar',
     'cancel'                => 'Cancelar',
     'loading'               => 'Cargando...',
-    'from'                  => 'De 	',
+    'from'                  => 'De     ',
     'to'                    => 'Para',
     'print'                 => 'Imprimir',
     'search'                => 'Buscar',

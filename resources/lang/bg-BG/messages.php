@@ -4,7 +4,7 @@ return [
 
     'success' => [
         'added'             => ':type добавен!',
-        'created'			=> ':type създаден!',
+        'created'            => ':type създаден!',
         'updated'           => ':type променен!',
         'deleted'           => ':type е изтрит/а!',
         'duplicated'        => ':type дублиран!',

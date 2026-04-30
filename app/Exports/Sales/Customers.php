@@ -9,7 +9,7 @@ class Customers extends Export
 {
     public function collection()
     {
-        return Model::customer()->collectForExport($this->ids);
+        return Model::with('category')->customer()->collectForExport($this->ids);
     }
 
     public function map($model): array
@@ -21,6 +21,7 @@ class Customers extends Export
         }
 
         $model->country = $country;
+        $model->category_name = $model->category->name ?? null;
 
         $model->can_login = $model->user_id ? true : false;
 
@@ -41,6 +42,7 @@ class Customers extends Export
             'city',
             'website',
             'currency_code',
+            'category_name',
             'reference',
             'enabled',
             'can_login',

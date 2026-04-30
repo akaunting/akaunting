@@ -492,6 +492,16 @@ export default {
             }
         },
 
+        onChangeContact(contact) {
+            if (!contact || !contact.category_id || !this.form) {
+                return;
+            }
+
+            this.form.category_id = contact.category_id;
+
+            this.$forceUpdate();
+        },
+
         // Pages limit change
         onChangePaginationLimit(event) {
             let path = '';
@@ -865,9 +875,10 @@ export default {
             let currency_code = (contact.currency_code) ? contact.currency_code : this.form.currency_code;
 
             this.onChangeCurrency(currency_code);
+            this.onChangeContact(contact);
 
             this.$forceUpdate();
-        },
+    },
 
         async onAddPayment(url) {
             let payment = {

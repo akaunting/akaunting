@@ -80,46 +80,46 @@
 </script>
 
 <style>
-    .searh-field .tags-group:hover > span {
+    .search-field .tags-group:hover > span {
         background:#cbd4de;
         background-color: #cbd4de;
         border-color: #cbd4de;
     }
 
-    .searh-field .el-tag.el-tag--primary .el-tag__close.el-icon-close {
+    .search-field .el-tag.el-tag--primary .el-tag__close.el-icon-close {
         color: #8898aa;
         margin-top: -3px;
     }
 
-    .searh-field .el-tag.el-tag--primary .el-tag__close.el-icon-close:hover {
+    .search-field .el-tag.el-tag--primary .el-tag__close.el-icon-close:hover {
         background-color: transparent;
     }
 
-    html[dir='ltr'] .searh-field .el-tag-option {
+    html[dir='ltr'] .search-field .el-tag-option {
         border-radius: 0.50rem 0 0 0.50rem;
     }
 
-    html[dir='rtl'] .searh-field .el-tag-option {
+    html[dir='rtl'] .search-field .el-tag-option {
         border-radius: 0 0.5rem 0.5rem 0;
     }
 
-    .searh-field .el-tag-operator {
+    .search-field .el-tag-operator {
         border-radius: 0;
         margin-left: -1px;
         margin-right: -1px;
     }
 
-    html[dir='ltr'] .searh-field .el-tag-value {
+    html[dir='ltr'] .search-field .el-tag-value {
         border-radius: 0 0.50rem 0.50rem 0;
         margin-right: 10px;
     }
 
-    html[dir='rtl'] .searh-field .el-tag-value {
+    html[dir='rtl'] .search-field .el-tag-value {
         border-radius: 0.5rem 0 0 0.5rem;
         margin-left: 10px;
     }
 
-    html[dir='rtl'] .searh-field .el-tag-operator {
+    html[dir='rtl'] .search-field .el-tag-operator {
         border-radius: 0;
     }
 </style>

@@ -39,7 +39,15 @@ class Transactions extends Controller
     {
         $this->setActiveTabForTransactions();
 
-        $transactions = Transaction::with('account', 'category', 'contact', 'taxes')->collect(['paid_at'=> 'desc']);
+        $transactions = Transaction::with(
+            'account',
+            'category',
+            'contact',
+            'taxes',
+            'document',
+            'document.items',
+            'document.last_history'
+        )->collect(['paid_at'=> 'desc']);
 
         $total_transactions = Transaction::count();
 

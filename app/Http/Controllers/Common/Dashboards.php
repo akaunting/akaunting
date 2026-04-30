@@ -140,6 +140,8 @@ class Dashboards extends Controller
             return redirect()->route('dashboards.index');
         }
 
+        $dashboard->load('users');
+
         $users = company()->users()->get()->reject(function ($user) {
             if ($user->cannot('read-admin-panel')) {
                 return true;

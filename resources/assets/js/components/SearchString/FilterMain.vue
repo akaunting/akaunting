@@ -295,7 +295,7 @@
 </script>
 
 <style>
-    .searh-field .form-control.datepicker.flatpickr-input {
+    .search-field .form-control.datepicker.flatpickr-input {
         padding: inherit !important;
     }
 </style>

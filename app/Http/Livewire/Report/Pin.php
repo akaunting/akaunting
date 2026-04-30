@@ -2,49 +2,35 @@
 
 namespace App\Http\Livewire\Report;
 
-use App\Models\Common\Report;
 use App\Utilities\Reports as Utility;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class Pin extends Component
 {
-    public $categories;
-
     public $pinned = false;
 
     public $report;
 
     public function render(): View
     {
+        // Report deleted, class missing, module disabled, or access restricted — render empty
+        if (
+            empty($this->report)
+            || ! Utility::getClassInstance($this->report, false)
+            || ! Utility::canRead($this->report->class)
+        ) {
+            $this->pinned = false;
+
+            return view('livewire.report.pin');
+        }
+
         $pins = setting('favorites.report.' . user()->id, []);
 
         if (!empty($pins)) {
             $pins = json_decode($pins, true);
 
-            foreach ($this->categories as $category) {
-                foreach($category['reports'] as $report) {
-                    if (is_array($report)) {
-                        $report = Report::find($report['id']);
-                    }
-
-                    if (! Utility::canShow($report->class)) {
-                        continue;
-                    }
-
-                    $class = Utility::getClassInstance($report, false);
-
-                    if (empty($class)) {
-                        continue;
-                    }
-
-                    if (in_array($this->report->id, $pins)) {
-                        $this->pinned = true;
-
-                        break;
-                    }
-                }
-            }
+            $this->pinned = in_array($this->report->id, $pins);
         }
 
         return view('livewire.report.pin');

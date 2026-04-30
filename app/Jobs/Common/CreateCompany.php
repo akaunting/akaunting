@@ -75,6 +75,7 @@ class CreateCompany extends Job implements HasOwner, HasSource, ShouldCreate
         ]);
 
         if (!$user = user()) {
+            report(new \UnexpectedValueException('CreateCompany: user() returned null — user:seed and company attachment skipped for company ID ' . $this->model->id));
             return;
         }
 
@@ -124,7 +125,7 @@ class CreateCompany extends Job implements HasOwner, HasSource, ShouldCreate
         setting()->save();
     }
 
-    protected function updateCurrency()
+    protected function updateCurrency(): void
     {
         $currency_code = $this->request->get('currency');
 
@@ -153,12 +154,15 @@ class CreateCompany extends Job implements HasOwner, HasSource, ShouldCreate
 
                 $currency = Currency::create($data);
             } catch (OutOfBoundsException $e) {
+                report($e);
             }
         }
 
         $account = Account::where('company_id', $this->model->id)->first();
 
-        $account->currency_code = $currency_code;
-        $account->save();
+        if ($account) {
+            $account->currency_code = $currency_code;
+            $account->save();
+        }
     }
 }

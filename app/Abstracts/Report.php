@@ -221,7 +221,7 @@ abstract class Report
         $total = array_sum($tmp_values);
         $total = !empty($total) ? $total : 1;
 
-        $group = $this->getSetting('group');
+        $group = $this->getGroup();
 
         $labels = $colors = $values = [];
 
@@ -265,7 +265,7 @@ abstract class Report
     {
         $data = [];
 
-        $group = Str::plural($this->group ?? $this->getSetting('group'));
+        $group = Str::plural($this->group ?? $this->getGroup());
 
         foreach ($this->tables as $table_key => $table_name) {
             if (! isset($this->row_values[$table_key])) {
@@ -456,7 +456,7 @@ abstract class Report
     {
         event(new TotalCalculating($this, $items, $date_field, $check_type, $table, $with_tax));
 
-        $group_field = $this->getSetting('group') . '_id';
+        $group_field = $this->getGroup() . '_id';
 
         foreach ($items as $item) {
             // Make groups extensible
@@ -498,7 +498,7 @@ abstract class Report
 
     public function setArithmeticTotals($items, $date_field, $operator = 'add', $table = 'default', $amount_field = 'amount')
     {
-        $group_field = $this->getSetting('group') . '_id';
+        $group_field = $this->getGroup() . '_id';
 
         $function = $operator . 'ArithmeticAmount';
 
@@ -606,12 +606,17 @@ abstract class Report
 
     public function getBasis()
     {
-        return $this->getSearchStringValue('basis', $this->getSetting('basis'));
+        return $this->getSearchStringValue('basis', $this->getSetting('basis', $this->getDefaultFieldSelection($this->getBasisField())));
     }
 
     public function getPeriod()
     {
-        return $this->getSearchStringValue('period', $this->getSetting('period'));
+        return $this->getSearchStringValue('period', $this->getSetting('period', $this->getDefaultFieldSelection($this->getPeriodField())));
+    }
+
+    public function getGroup()
+    {
+        return $this->getSearchStringValue('group', $this->getSetting('group', $this->getDefaultFieldSelection($this->getGroupField())));
     }
 
     public function getDiscount()
@@ -643,6 +648,11 @@ abstract class Report
                 'required' => 'required',
             ],
         ];
+    }
+
+    protected function getDefaultFieldSelection(array $field, string $fallback = ''): string
+    {
+        return $field['selected'] ?? $fallback;
     }
 
     public function getPeriodField()

@@ -45,7 +45,7 @@ class DeleteAccount extends Job implements ShouldDelete
 
         $relationships = $this->countRelationships($this->model, $rels);
 
-        if ($this->model->id == setting('default.account')) {
+        if ((int) $this->model->id === (int) setting('default.account')) {
             $relationships[] = strtolower(trans_choice('general.companies', 1));
         }
 

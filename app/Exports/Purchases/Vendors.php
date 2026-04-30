@@ -9,7 +9,7 @@ class Vendors extends Export
 {
     public function collection()
     {
-        return Model::vendor()->collectForExport($this->ids);
+        return Model::with('category')->vendor()->collectForExport($this->ids);
     }
 
     public function map($model): array
@@ -21,6 +21,7 @@ class Vendors extends Export
         }
 
         $model->country = $country;
+        $model->category_name = $model->category->name ?? null;
 
         return parent::map($model);
     }
@@ -39,6 +40,7 @@ class Vendors extends Export
             'city',
             'website',
             'currency_code',
+            'category_name',
             'reference',
             'enabled',
         ];

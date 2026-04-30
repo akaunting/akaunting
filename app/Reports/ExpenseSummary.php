@@ -35,7 +35,10 @@ class ExpenseSummary extends Report
 
     public function setData()
     {
-        $transactions = $this->applyFilters(Transaction::with('recurring')->expense()->isNotTransfer(), ['date_field' => 'paid_at']);
+        $transactions = $this->applyFilters(
+            model: Transaction::with('recurring')->expense()->isNotTransfer(),
+            args: ['date_field' => 'paid_at', 'model_type' => 'expense'],
+        );
 
         switch ($this->getBasis()) {
             case 'cash':
@@ -46,7 +49,10 @@ class ExpenseSummary extends Report
                 break;
             default:
                 // Bills
-                $bills = $this->applyFilters(Document::bill()->with('recurring', 'transactions', 'items')->accrued(), ['date_field' => 'issued_at'])->get();
+                $bills = $this->applyFilters(
+                    model: Document::bill()->with('recurring', 'transactions', 'items')->accrued(),
+                    args: ['date_field' => 'issued_at', 'model_type' => 'bill'],
+                )->get();
                 Recurring::reflect($bills, 'issued_at');
                 $this->setTotals($bills, 'issued_at', false, 'expense');
 

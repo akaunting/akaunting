@@ -26,7 +26,7 @@
 
                 <div class="flex flex-col gap-y-6">
                     <p class="font-semibold text-sm ltr:text-left rtl:text-right leading-loose">
-                        {!! nl2br($item->text) !!}
+                        <x-nl2br :value="$item->text" />
                     </p>
 
                     <div class="flex place-items-center">

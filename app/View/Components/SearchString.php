@@ -227,11 +227,14 @@ class SearchString extends Component
                     'value' => empty($options['translation']) ? trans('general.yes') : $this->findTranslation($options['translation'][1], 1),
                 ],
             ];
-        } else if (isset($options['values'])) {
+        } elseif (isset($options['values'])) {
             foreach ($options['values'] as $key => $value) {
-                $values[$key] = $this->findTranslation($value, 1);
+                $name = $this->findTranslation($value, 1);
+                if (! empty($name)) {
+                    $values[$key] = $name;
+                }
             }
-        } else if ($search = request()->get('search', false)) {
+        } elseif ($search = request()->get('search', false)) {
             $fields = explode(' ', $search);
 
             foreach ($fields as $field) {

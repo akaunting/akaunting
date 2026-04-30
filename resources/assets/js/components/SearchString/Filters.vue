@@ -347,16 +347,16 @@
 </script>
 
 <style>
-    .searh-field .dropdown-menu.operator {
+    .search-field .dropdown-menu.operator {
         min-width: 50px !important;
     }
 
-    html[dir='ltr'] .searh-field .dropdown-menu.operator .btn i:not(:last-child),
+    html[dir='ltr'] .search-field .dropdown-menu.operator .btn i:not(:last-child),
     html[dir='ltr'] .btn svg:not(:last-child) {
         margin-right: inherit !important;
     }
 
-    html[dir='rtl'] .searh-field .dropdown-menu.operator .btn i:not(:last-child),
+    html[dir='rtl'] .search-field .dropdown-menu.operator .btn i:not(:last-child),
     html[dir='rtl'] .btn svg:not(:last-child) {
         margin-left: inherit !important;
     }

@@ -65,6 +65,13 @@ class Categories extends Seeder
                 'color' => '#328aef',
                 'enabled' => '1',
             ],
+            [
+                'company_id' => $company_id,
+                'name' => trans_choice('general.cogs', 1),
+                'type' => 'cogs',
+                'color' => '#ef3281',
+                'enabled' => '1',
+            ],
         ];
 
         $income_category_id = $expense_category_id = 0;

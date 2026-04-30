@@ -92,14 +92,25 @@ class Document extends FormRequest
         if ($items) {
             foreach ($items as $key => $item) {
                 $size = 10;
+                $quantityRule = ['required'];
 
-                $items[$key]['quantity'] = calculation_to_quantity($item['quantity']);
+                try {
+                    $items[$key]['quantity'] = calculation_to_quantity($item['quantity']);
+                } catch (\InvalidArgumentException $e) {
+                    $quantityRule[] = function ($attribute, $value, $fail) {
+                        $fail(trans('validation.custom.invalid_quantity', [
+                            'attribute' => Str::lower(trans('invoices.quantity')),
+                        ]));
+                    };
+                }
 
                 if (Str::contains($item['quantity'], ['.', ','])) {
                     $size = 12;
                 }
 
-                $rules['items.' . $key . '.quantity'] = 'required|max:' . $size;
+                $quantityRule[] = 'max:' . $size;
+
+                $rules['items.' . $key . '.quantity'] = $quantityRule;
 
                 $this->items_quantity_size[$key] = $size;
             }

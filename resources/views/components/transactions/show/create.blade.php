@@ -16,7 +16,7 @@
     </x-slot>
 
     <x-slot name="body">
-        @if ($transaction->isNotTransferTransaction())
+        @if (empty($transaction->document_id) && $transaction->isNotTransferTransaction())
             <div class="flex my-3 space-x-2 rtl:space-x-reverse">
                 <x-link href="{{ route($routeButtonEdit, [$transaction->id, 'type' => $transaction->type]) }}" id="show-slider-actions-edit-{{ $transaction->type }}" class="px-3 py-1.5 mb-3 sm:mb-0 bg-gray-100 hover:bg-gray-200 rounded-xl text-purple text-xs font-bold leading-6">
                     {{ trans('general.edit') }}

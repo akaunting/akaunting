@@ -90,7 +90,7 @@ class VendorsTest extends FeatureTestCase
         $this->loginAs()
             ->patch(route('vendors.update', $vendor->id), $request)
             ->assertStatus(200)
-			->assertSee($request['email']);
+            ->assertSee($request['email']);
 
         $this->assertFlashLevel('success');
 

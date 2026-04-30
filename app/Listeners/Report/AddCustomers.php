@@ -3,6 +3,7 @@
 namespace App\Listeners\Report;
 
 use App\Abstracts\Listeners\Report as Listener;
+use App\Events\Report\FilterApplying;
 use App\Events\Report\FilterShowing;
 use App\Events\Report\GroupApplying;
 use App\Events\Report\GroupShowing;
@@ -11,9 +12,7 @@ use App\Events\Report\RowsShowing;
 class AddCustomers extends Listener
 {
     protected $classes = [
-        'App\Reports\IncomeSummary',
-        'App\Reports\IncomeExpenseSummary',
-        'App\Reports\DiscountSummary',
+        \App\Reports\IncomeSummary::class,
     ];
 
     /**
@@ -61,6 +60,32 @@ class AddCustomers extends Listener
         }
 
         $this->applyCustomerGroup($event);
+    }
+
+    /**
+     * Handle filter applying event.
+     *
+     * @param  $event
+     * @return void
+     */
+    public function handleFilterApplying(FilterApplying $event)
+    {
+        if ($this->skipThisClass($event)) {
+            return;
+        }
+
+        $model_type = $event->args['model_type'] ?? 'invoice';
+        if (! in_array($model_type, ['invoice', 'income'])) {
+            return;
+        }
+
+        if ($customer_ids = $this->getSearchStringValue('customer_id')) {
+            $where = $this->getSearchStringOperator('customer_id') == '!='
+                ? 'whereNotIn'
+                : 'whereIn';
+
+            $event->model->{$where}('contact_id', array_map('intval', explode(',', $customer_ids)));
+        }
     }
 
     /**

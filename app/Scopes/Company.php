@@ -27,6 +27,10 @@ class Company implements Scope
         $table = $model->getTable();
 
         // Skip for specific tables
+        // Note: 'notifications' is excluded because Laravel's notification system
+        // links to users (not companies). Queries against notifications should always
+        // be scoped to the authenticated user (e.g. auth()->user()->notifications)
+        // to avoid cross-company data exposure.
         $skip_tables = [
             'jobs', 'firewall_ips', 'firewall_logs', 'migrations', 'notifications', 'role_companies',
             'role_permissions', 'sessions', 'user_companies', 'user_dashboards', 'user_permissions', 'user_roles',

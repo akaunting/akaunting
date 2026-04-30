@@ -7,14 +7,14 @@
 
             <div id="dropdown" data-click-outside-none class="w-full px-0 hidden z-10">
                 <div class="flex flex-col md:flex-row">
-                    <div class="w-full lg:w-6/12 flex flex-col shadow-md bg-white px-4 ltr:lg:pl-8 rtl:lg:pr-8 py-8 gap-2 ltr:rounded-l-xl rtl:rounded-r-xl">
+                    <div class="w-full lg:w-6/12 flex flex-col shadow-md bg-white px-4 lg:ltr:pl-8 lg:rtl:pr-8 py-8 gap-2 ltr:rounded-l-xl rtl:rounded-r-xl">
                         <h4 class="capitalize font-thin">
                             {{ trans_choice('general.categories', 1) }}
                         </h4>
 
                         <div class="grid grid-cols-2 gap-2">
                             @foreach ($categories as $slug => $category)
-                                <x-link href="{{ $categoryUrl($slug) }}" class="font-semibold text-sm ltr:pr-4 rtl:pl-4 ltr:lg:pr-0 rtl:lg:pl-0 truncate bg-transparent" override="class">
+                                <x-link href="{{ $categoryUrl($slug) }}" class="font-semibold text-sm ltr:pr-4 rtl:pl-4 lg:ltr:pr-0 lg:rtl:pl-0 truncate bg-transparent" override="class">
                                     <x-link.hover>
                                         {{ $category }}
                                     </x-link.hover>
@@ -109,7 +109,7 @@
         </div>
     </div>
 
-    <div class="lg:absolute lg:bottom-2.5 ltr:lg:right-0 rtl:lg:left-0 flex flex-row items-end lg:items-center mb-1 divide-x rtl:divide-x-reverse divide-black-400 mt-4 lg:mt-0">
+    <div class="lg:absolute lg:bottom-2.5 lg:ltr:right-0 lg:rtl:left-0 flex flex-row items-end lg:items-center mb-1 divide-x rtl:divide-x-reverse divide-black-400 mt-4 lg:mt-0">
         <x-link href="{{ route('apps.home.index') }}" class="text-sm font-semibold px-2 sm:mt-0 sm:mb-0 leading-4" override="class">
             <x-link.hover color="to-black-400">
                 {{ trans('modules.home') }}

@@ -11,8 +11,8 @@
         </div>
     </div>
 
-    <div class="row modern-head pt-2 pb-2 mt-1 bg-{{ $backgroundColor }} text-white" style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
-        <div class="col-58">
+    <div class="row modern-head pt-2 pb-2 mt-1 bg-{{ $backgroundColor }} text-white clearfix" style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
+        <div class="col-58 ltr:float-left rtl:float-right">
             <div class="text text-white p-modern">
                 @stack('company_logo_input_start')
                 @if (! $hideCompanyLogo)
@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <div class="col-42">
+        <div class="col-42 ltr:float-right rtl:float-left">
             <div class="text text-white p-modern right-column">
                 @stack('company_details_start')
                 @if ($textDocumentSubheading)
@@ -47,7 +47,7 @@
                     @stack('company_address_input_start')
                     @if (! $hideCompanyAddress)
                         <p class="text-white">
-                            {!! nl2br(setting('company.address')) !!}
+                            <x-nl2br :value="setting('company.address')" />
                             {!! $document->company->location !!}
                         </p>
                     @endif
@@ -90,8 +90,8 @@
         </div>
     </div>
 
-    <div class="row top-spacing">
-        <div class="col-50">
+    <div class="row top-spacing clearfix">
+        <div class="col-50 ltr:float-left rtl:float-right">
             <div class="text p-modern">
                 @if (! $hideContactInfo)
                     <p class="font-semibold mb-0">
@@ -122,7 +122,7 @@
                 @stack('address_input_start')
                     @if (! $hideContactAddress)
                         <p>
-                            {!! nl2br($document->contact_address) !!}
+                            <x-nl2br :value="$document->contact_address" />
                             @if ($document->contact_location)
                                 <br/>
                                 {!! $document->contact_location !!}
@@ -162,7 +162,7 @@
             </div>
         </div>
 
-        <div class="col-50">
+        <div class="col-50 ltr:float-right rtl:float-left">
             <div class="text p-modern">
                 @stack('order_number_input_start')
                     @if (! $hideOrderNumber)
@@ -315,7 +315,7 @@
                             {{ trans_choice('general.notes', 2) }}
                         </p>
 
-                        {!! nl2br($document->notes) !!}
+                        <x-nl2br :value="$document->notes" />
                     @endif
                 @stack('notes_input_end')
             </div>
@@ -377,7 +377,7 @@
                 <div class="col-100 py-top p-modern" style="background-color:{{ $backgroundColor }} !important; -webkit-print-color-adjust: exact;">
                     <div class="text ltr:pl-2 rtl:pr-2">
                         <span class="text-white font-bold">
-                            {!! nl2br($document->footer) !!}
+                            <x-nl2br :value="$document->footer" />
                         </span>
                     </div>
                 </div>

@@ -26,7 +26,7 @@
                 v-if="cardType"
                 :key="cardType"
                 alt
-                class="w-full h-full object-right-top	object-contain"
+                class="w-full h-full object-right-top object-contain"
               />
             </transition>
           </div>

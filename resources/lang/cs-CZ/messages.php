@@ -4,7 +4,7 @@ return [
 
     'success' => [
         'added'             => ':type přidán!',
-        'created'			=> ':type vytvořen!',
+        'created'            => ':type vytvořen!',
         'updated'           => ':type aktualizováno!',
         'deleted'           => ':type odstraněno!',
         'duplicated'        => ':type duplikováno!',

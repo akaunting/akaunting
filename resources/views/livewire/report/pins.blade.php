@@ -9,7 +9,7 @@
 
             <div class="h-10 font-medium text-sm mt-2">
                 <x-link.hover group-hover>
-                    {!! $report->name !!}
+                    {{ $report->name }}
                 </x-link.hover>
             </div>
         </x-link>

@@ -173,6 +173,7 @@ return [
             'type' => [
                 'income'                => env('SETTING_FALLBACK_CATEGORY_TYPE_INCOME', Category::INCOME_TYPE),
                 'expense'               => env('SETTING_FALLBACK_CATEGORY_TYPE_EXPENSE', Category::EXPENSE_TYPE),
+                'cogs'                  => env('SETTING_FALLBACK_CATEGORY_TYPE_COGS', Category::COGS_TYPE),
                 'item'                  => env('SETTING_FALLBACK_CATEGORY_TYPE_ITEM', Category::ITEM_TYPE),
                 'other'                 => env('SETTING_FALLBACK_CATEGORY_TYPE_OTHER', Category::OTHER_TYPE),
             ],

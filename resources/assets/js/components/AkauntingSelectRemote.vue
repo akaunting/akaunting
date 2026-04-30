@@ -737,6 +737,25 @@ export default {
             }
         },
 
+        matchesRemoteOptionQuery(item, query) {
+            const q = (query || '').toString().toLowerCase();
+
+            if (!q) {
+                return true;
+            }
+
+            const label = (item && item.value ? item.value.toString() : '').toLowerCase();
+
+            if (label.indexOf(q) > -1) {
+                return true;
+            }
+
+            // Backward-compatible fallback: also check payload values returned by backend.
+            const rawPayload = item && item.option ? JSON.stringify(item.option).toLowerCase() : '';
+
+            return rawPayload.indexOf(q) > -1;
+        },
+
         setSortedOptions() {
             // Reset sorted_options
             this.sorted_options = [];
@@ -1144,7 +1163,8 @@ export default {
 
                     if (response.data.data) {
                         let data = response.data.data;
-                        //this.sorted_options = [];
+                        // Use backend response as the single source of truth for remote search.
+                        this.sorted_options = [];
 
                         data.forEach(function (option) {
                             let check = false;
@@ -1170,13 +1190,8 @@ export default {
                             }
 
                         }, this);
-
-                        this.sorted_options = this.sorted_options.filter(item => {
-                            return item.value.toLowerCase()
-                                .indexOf(query.toLowerCase()) > -1;
-                        });
                     } else {
-                        this.sortedOptions = [];
+                        this.sorted_options = [];
                     }
                 })
                 .catch(e => {
@@ -1638,6 +1653,22 @@ export default {
         display: inline-flex;
         align-items: center;
         height: 100%;
+    }
+
+    html[dir="rtl"] .el-input__prefix {
+        right: 5px;
+        left: unset;
+        transition: all .3s;
+    }
+
+    html[dir="rtl"] .with-color-prefix .el-input__inner {
+        padding-left: unset !important;
+        padding-right: 2.25rem !important;
+    }
+
+    html[dir="rtl"] .with-color-prefix.with-icon-prefix .el-input__inner {
+        padding-left: unset !important;
+        padding-right: 2.8rem !important;
     }
 
     .with-color-prefix .el-input__inner {

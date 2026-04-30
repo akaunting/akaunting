@@ -4,7 +4,6 @@ namespace App\Reports;
 
 use App\Abstracts\Report;
 use App\Models\Banking\Transaction;
-use App\Models\Banking\TransactionTax;
 use App\Models\Document\Document;
 use App\Models\Setting\Tax;
 use App\Traits\Currencies;
@@ -51,34 +50,52 @@ class TaxSummary extends Report
         switch ($this->getBasis()) {
             case 'cash':
                 // Invoice Payments
-                $invoices = $this->applyFilters(Transaction::with('recurring', 'invoice', 'invoice.totals')->income()->isDocument()->isNotTransfer(), ['date_field' => 'paid_at'])->get();
+                $invoices = $this->applyFilters(
+                    model: Transaction::with('recurring', 'invoice', 'invoice.totals')->income()->isDocument()->isNotTransfer(),
+                    args: ['date_field' => 'paid_at', 'model_type' => 'income'],
+                )->get();
                 $this->setTotals($invoices, 'paid_at');
 
                 // Bill Payments
-                $bills = $this->applyFilters(Transaction::with('recurring', 'bill', 'bill.totals')->expense()->isDocument()->isNotTransfer(), ['date_field' => 'paid_at'])->get();
+                $bills = $this->applyFilters(
+                    model: Transaction::with('recurring', 'bill', 'bill.totals')->expense()->isDocument()->isNotTransfer(),
+                    args: ['date_field' => 'paid_at', 'model_type' => 'expense'],
+                )->get();
                 $this->setTotals($bills, 'paid_at');
 
                 break;
             default:
                 // Invoices
-                $invoices = $this->applyFilters(Document::invoice()->with('recurring', 'totals', 'transactions', 'items')->accrued(), ['date_field' => 'issued_at'])->get();
+                $invoices = $this->applyFilters(
+                    model: Document::invoice()->with('recurring', 'totals', 'transactions', 'items')->accrued(),
+                    args: ['date_field' => 'issued_at', 'model_type' => 'invoice'],
+                )->get();
                 Recurring::reflect($invoices, 'issued_at');
                 $this->setTotals($invoices, 'issued_at');
 
                 // Bills
-                $bills = $this->applyFilters(Document::bill()->with('recurring', 'totals', 'transactions', 'items')->accrued(), ['date_field' => 'issued_at'])->get();
+                $bills = $this->applyFilters(
+                    model: Document::bill()->with('recurring', 'totals', 'transactions', 'items')->accrued(),
+                    args: ['date_field' => 'issued_at', 'model_type' => 'bill'],
+                )->get();
                 Recurring::reflect($bills, 'issued_at');
                 $this->setTotals($bills, 'issued_at');
 
                 break;
         }
 
-        // Incomes 
-        $incomes = $this->applyFilters(Transaction::with('taxes')->income()->isNotDocument()->isNotTransfer(), ['date_field' => 'paid_at'])->get();
+        // Incomes
+        $incomes = $this->applyFilters(
+            model: Transaction::with('taxes')->income()->isNotDocument()->isNotTransfer(),
+            args: ['date_field' => 'paid_at', 'model_type' => 'income'],
+        )->get();
         $this->setTotals($incomes, 'paid_at');
 
         // Expenses
-        $expenses = $this->applyFilters(Transaction::with('taxes')->expense()->isNotDocument()->isNotTransfer(), ['date_field' => 'paid_at'])->get();
+        $expenses = $this->applyFilters(
+            model: Transaction::with('taxes')->expense()->isNotDocument()->isNotTransfer(),
+            args: ['date_field' => 'paid_at', 'model_type' => 'expense'],
+        )->get();
         $this->setTotals($expenses, 'paid_at');
     }
 
@@ -166,16 +183,16 @@ class TaxSummary extends Report
             ) {
                 continue;
             }
-    
+
             $amount = $this->convertToDefault($tax->amount, $item->currency_code, $item->currency_rate);
-    
+
             if ($type == 'income') {
                 $this->row_values[$tax->name][$type][$date] += $amount;
-    
+
                 $this->footer_totals[$tax->name][$date] += $amount;
             } else {
                 $this->row_values[$tax->name][$type][$date] -= $amount;
-    
+
                 $this->footer_totals[$tax->name][$date] -= $amount;
             }
         }

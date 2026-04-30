@@ -43,7 +43,7 @@
                                     <div class="ltr:ml-2 rtl:mr-2">
                                         <h2 class="mb-1">
                                             <x-link.hover group-hover>
-                                                {!! $report->name !!}
+                                                {{ $report->name }}
                                             </x-link.hover>
                                         </h2>
 
@@ -55,7 +55,7 @@
                             </div>
 
                             <div class="flex items-start space-x-2 rtl:space-x-reverse">
-                                <livewire:report.pin :categories="$categories" :report="$report" />
+                                <livewire:report.pin :report="$report" />
 
                                 @canany(['create-common-reports', 'update-common-reports', 'delete-common-reports'])
                                 <x-dropdown id="index-line-actions-report-{{ $category_id }}-{{ $report->id }}">

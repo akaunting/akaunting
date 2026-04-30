@@ -42,11 +42,14 @@ class ShowInNotifications
             foreach ($updates as $key => $update) {
                 $prefix = ($key == 'core') ? 'core' : 'module';
 
-                if ($prefix == 'module' && ! module($key)) {
+                // Resolve module once per iteration to avoid redundant lookups.
+                $module = ($prefix === 'module') ? module($key) : null;
+
+                if ($prefix === 'module' && ! $module) {
                     continue;
                 }
 
-                $name = ($prefix == 'core') ? 'Akaunting' : module($key)?->getName();
+                $name = ($prefix === 'core') ? 'Akaunting' : $module->getName();
 
                 $new = new Notification();
                 $new->id = $key;
@@ -65,9 +68,10 @@ class ShowInNotifications
 
         // New app notifications
         $new_apps = $this->getNotifications('new-apps');
+         $read_notifications = (array) setting('notifications.' . user()->id, []);
 
         foreach ($new_apps as $key => $new_app) {
-            if (setting('notifications.' . user()->id . '.' . $new_app->alias)) {
+            if (! empty($read_notifications[$new_app->alias])) {
                 unset($new_apps[$key]);
 
                 continue;

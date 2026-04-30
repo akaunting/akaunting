@@ -29,11 +29,11 @@ class PhpExecutableFinder
 
     public function getPhpPath()
     {
-		$php_path = getenv('APP_PHP_PATH');
+        $php_path = getenv('APP_PHP_PATH');
 
-		if (! empty($php_path)) {
-			return $php_path;
-		}
+        if (! empty($php_path)) {
+            return $php_path;
+        }
 
         if ($this->isCpanel()) {
             return '/usr/local/bin/php';

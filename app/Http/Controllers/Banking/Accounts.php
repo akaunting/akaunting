@@ -292,16 +292,16 @@ class Accounts extends Controller
         // Get currency object
         $currency = Currency::where('code', $currency_code)->first();
 
-        $account->currency_name = $currency->name;
-        $account->currency_code = $currency_code;
-        $account->currency_rate = $currency->rate;
-
-        $account->thousands_separator = $currency->thousands_separator;
-        $account->decimal_mark = $currency->decimal_mark;
-        $account->precision = (int) $currency->precision;
-        $account->symbol_first = $currency->symbol_first;
-        $account->symbol = $currency->symbol;
-
-        return response()->json($account);
+        return response()->json([
+            'id' => $account->id,
+            'currency_name' => $currency->name,
+            'currency_code' => $currency_code,
+            'currency_rate' => $currency->rate,
+            'thousands_separator' => $currency->thousands_separator,
+            'decimal_mark' => $currency->decimal_mark,
+            'precision' => (int) $currency->precision,
+            'symbol_first' => $currency->symbol_first,
+            'symbol' => $currency->symbol,
+        ]);
     }
 }

@@ -4,7 +4,7 @@ return [
 
     'success' => [
         'added'             => ':type added!',
-        'created'			=> ':type created!',
+        'created'            => ':type created!',
         'updated'           => ':type updated!',
         'deleted'           => ':type deleted!',
         'duplicated'        => ':type duplicated!',

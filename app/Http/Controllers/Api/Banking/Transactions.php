@@ -19,7 +19,7 @@ class Transactions extends ApiController
      */
     public function index()
     {
-        $transactions = Transaction::with('account', 'category', 'contact')->collect(['paid_at'=> 'desc']);
+        $transactions = Transaction::with('account', 'category', 'contact', 'currency', 'media', 'taxes')->collect(['paid_at'=> 'desc']);
 
         return Resource::collection($transactions);
     }

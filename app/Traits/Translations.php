@@ -9,6 +9,10 @@ trait Translations
 {
     public function findTranslation($keys, $number = 2)
     {
+        if (is_callable($keys)) {
+            return $keys();
+        }
+
         $keys = Arr::wrap($keys);
 
         try {

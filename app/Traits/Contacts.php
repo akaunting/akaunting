@@ -91,7 +91,7 @@ trait Contacts
 
         $formatted_address = str_replace(
             ["{city}", "{country}", "{state}", "{zip_code}", "\n"],
-            [$city, $country, $state, $zip_code, '<br>'],
+            [e($city), e($country), e($state), e($zip_code), '<br>'],
             $address_format
         );
 

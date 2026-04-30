@@ -102,8 +102,8 @@
                                     <x-form.group.toggle
                                         name="{{ $field['name'] }}"
                                         label="{{ trans($field['title']) }}"
-                                        enable="{{ $field['enable'] ? trans($field['enable']) : '' }}"
-                                        disable="{{ $field['disable'] ? trans($field['disable']) : '' }}"
+                                        enable="{{ ! empty($field['enable']) ? trans($field['enable']) : trans('general.enable') }}"
+                                        disable="{{ ! empty($field['disable']) ? trans($field['disable']) : trans('general.disable') }}"
                                         :value="$value"
                                         :dynamic-attributes="$field['attributes']"
                                     />

@@ -20,6 +20,9 @@ class Contact implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        //
+        // Tenant isolation for Contact is handled by the global Company scope
+        // added via the Tenants trait (App\Traits\Tenants::bootTenants).
+        // This scope is reserved for future contact-type or owner filtering
+        // (e.g. vendor-only or customer-only views) without breaking Company scope.
     }
 }

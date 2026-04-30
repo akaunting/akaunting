@@ -128,7 +128,7 @@ return [
     'confirm'               => 'Confirmar',
     'cancel'                => 'Cancelar',
     'loading'               => 'Cargando...',
-    'from'                  => 'De 	',
+    'from'                  => 'De     ',
     'to'                    => 'Para',
     'subject'               => 'Asunto',
     'body'                  => 'Cuerpo del mensaje',

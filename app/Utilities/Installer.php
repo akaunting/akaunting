@@ -132,8 +132,8 @@ class Installer
      *
      * @return void
      */
-	public static function createDefaultEnvFile()
-	{
+    public static function createDefaultEnvFile()
+    {
         // Rename file
         if (!is_file(base_path('.env')) && is_file(base_path('.env.example'))) {
             File::move(base_path('.env.example'), base_path('.env'));
@@ -143,7 +143,7 @@ class Installer
         static::updateEnv([
             'APP_KEY' => 'base64:'.base64_encode(random_bytes(32)),
         ]);
-	}
+    }
 
     public static function createDbTables($host, $port, $database, $username, $password, $prefix = null)
     {

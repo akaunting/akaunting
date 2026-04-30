@@ -329,6 +329,20 @@ class Transaction extends Model
     }
 
     /**
+     * Get the payment method title.
+     *
+     * @return string
+     */
+    public function getPaymentMethodTitleAttribute()
+    {
+        $payment_method = $this->payment_method;
+
+        $payment_methods = \App\Utilities\Modules::getPaymentMethods('all');
+
+        return $payment_methods[$payment_method] ?? $payment_method;
+    }
+
+    /**
      * Convert amount to double.
      *
      * @return float
@@ -411,13 +425,23 @@ class Transaction extends Model
      */
     public function getTypeTitleAttribute($value)
     {
+        if ($value) {
+            return $value;
+        }
+
+        $translation = config('type.transaction.' . $this->type . '.translation.transactions');
+
+        if (! empty($translation)) {
+            return trans_choice($translation, 1);
+        }
+
         $type = $this->getRealTypeOfRecurringTransaction($this->type);
         $type = $this->getRealTypeOfTransferTransaction($type);
         $type = $this->getRealTypeOfSplitTransaction($type);
 
         $type = str_replace('-', '_', $type);
 
-        return $value ?? trans_choice('general.' . Str::plural($type), 1);
+        return trans_choice('general.' . Str::plural($type), 1);
     }
 
     /**
@@ -557,7 +581,7 @@ class Transaction extends Model
         } catch (\Exception $e) {}
 
         try {
-            if (! $this->reconciled && $this->isNotTransferTransaction()) {
+            if (! $this->reconciled && empty($this->document_id) && $this->isNotTransferTransaction()) {
                 $actions[] = [
                     'title' => trans('general.edit'),
                     'icon' => 'edit',

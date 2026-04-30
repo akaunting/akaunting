@@ -82,9 +82,16 @@ abstract class Export implements FromCollection, HasLocalePreference, ShouldAuto
                 $value = ExcelDate::PHPToExcel(Date::parse($value)->format('Y-m-d'));
             }
 
-            // Prevent CSV injection https://security.stackexchange.com/a/190848
-            if (Str::startsWith($value, $evil_chars)) {
-                $value = "'" . $value;
+            // Prevent CSV injection (OWASP CSV Injection)
+            if (is_string($value)) {
+                // Neutralize embedded newlines and tabs that could inject additional rows
+                $value = str_replace(["\t", "\r", "\n"], ' ', $value);
+
+                // Prefix with apostrophe to neutralize formula characters,
+                // including whitespace-prefix bypass (e.g., " =SUM(...)")
+                if (Str::startsWith($value, $evil_chars) || Str::startsWith(ltrim($value), $evil_chars)) {
+                    $value = "'" . $value;
+                }
             }
 
             $map[] = $value;

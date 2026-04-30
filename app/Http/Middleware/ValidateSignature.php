@@ -75,6 +75,12 @@ class ValidateSignature
     {
         $expires = $request->query('expires');
 
-        return !($expires && Carbon::now()->getTimestamp() > $expires);
+        // No expiry parameter: URL is permanently valid (intentional design for shared invoice links)
+        if ($expires === null) {
+            return true;
+        }
+
+        // Cast to int so expires=0 (epoch/falsy) is correctly treated as a past timestamp
+        return Carbon::now()->getTimestamp() <= (int) $expires;
     }
 }

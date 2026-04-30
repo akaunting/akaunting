@@ -48,7 +48,7 @@ trait Currencies
             $default_amount = $this->convertToDefault($amount, $from_code, $from_rate);
         }
 
-        $converted_amount = $this->convertFromDefault($default_amount, $to_code, $to_rate, false, $from_code);
+        $converted_amount = $this->convertFromDefault($default_amount, $to_code, $to_rate);
 
         return $converted_amount;
     }

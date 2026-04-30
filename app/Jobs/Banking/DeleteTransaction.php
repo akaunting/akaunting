@@ -38,7 +38,7 @@ class DeleteTransaction extends Job implements ShouldDelete
         }
 
         if ($this->model->isTransferTransaction()) {
-            throw new \Exception('Unauthorized');
+            throw new \Exception(trans('messages.error.transfer_transaction'));
         }
     }
 }

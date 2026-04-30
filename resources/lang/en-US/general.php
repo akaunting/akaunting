@@ -11,6 +11,7 @@ return [
     'recurring_incomes'     => 'Recurring Income|Recurring Incomes',
     'expenses'              => 'Expense|Expenses',
     'recurring_expenses'    => 'Recurring Expense|Recurring Expenses',
+    'cogs'                  => 'Cost of Goods Sold|Cost of Goods Sold',
     'bills'                 => 'Bill|Bills',
     'recurring_bills'       => 'Recurring Bill|Recurring Bills',
     'vendors'               => 'Vendor|Vendors',

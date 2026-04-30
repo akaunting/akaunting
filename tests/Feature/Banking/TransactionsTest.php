@@ -4,8 +4,10 @@ namespace Tests\Feature\Banking;
 
 use App\Exports\Banking\Transactions as Export;
 use App\Jobs\Banking\CreateTransaction;
+use App\Jobs\Document\CreateDocument;
 use App\Notifications\Banking\Transaction as Notification;
 use App\Models\Banking\Transaction;
+use App\Models\Document\Document;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Notification as NotificationFacade;
@@ -20,6 +22,26 @@ class TransactionsTest extends FeatureTestCase
             ->get(route('transactions.index'))
             ->assertStatus(200)
             ->assertSeeText(trans_choice('general.transactions', 2));
+    }
+
+    public function testItShouldSeeTransactionListPageWithDocumentTransactions()
+    {
+        $invoice = $this->createInvoice();
+
+        $request = Transaction::factory()->income()->raw([
+            'contact_id' => $invoice->contact_id,
+            'document_id' => $invoice->id,
+            'amount' => $invoice->amount,
+            'currency_code' => $invoice->currency_code,
+            'currency_rate' => $invoice->currency_rate,
+        ]);
+
+        $this->dispatch(new CreateTransaction($request));
+
+        $this->loginAs()
+            ->get(route('transactions.index'))
+            ->assertStatus(200)
+            ->assertSeeText($invoice->document_number);
     }
 
     public function testItShouldSeeTransactionShowPage()
@@ -53,6 +75,22 @@ class TransactionsTest extends FeatureTestCase
         $this->assertFlashLevel('success');
 
         $this->assertDatabaseHas('transactions', $request);
+    }
+
+    public function testItShouldCreateTransactionWithIsoDateThroughApi()
+    {
+        $request = $this->getRequest();
+        $request['paid_at'] = '2025-12-22 00:00:00';
+
+        $this->withHeaders([
+                'Authorization' => 'Basic ' . base64_encode('test@company.com:123456'),
+            ])
+            ->postJson(route('api.transactions.store'), $request)
+            ->assertStatus(201);
+
+        $transaction = Transaction::where('number', $request['number'])->firstOrFail();
+
+        $this->assertSame('2025-12-22', $transaction->paid_at->format('Y-m-d'));
     }
 
     public function testItShouldCreateTransactionWithRecurring()
@@ -109,17 +147,17 @@ class TransactionsTest extends FeatureTestCase
         NotificationFacade::assertSentTimes(Notification::class, $limit_per_minute);
     }
 
-	public function testItShouldSeeTransactionUpdatePage()
-	{
+    public function testItShouldSeeTransactionUpdatePage()
+    {
         $request = $this->getRequest();
 
         $transaction = $this->dispatch(new CreateTransaction($request));
 
-		$this->loginAs()
-			->get(route('transactions.edit', $transaction->id))
-			->assertStatus(200)
-			->assertSee($transaction->amount);
-	}
+        $this->loginAs()
+            ->get(route('transactions.edit', $transaction->id))
+            ->assertStatus(200)
+            ->assertSee($transaction->amount);
+    }
 
     public function testItShouldUpdateTransaction()
     {
@@ -132,7 +170,7 @@ class TransactionsTest extends FeatureTestCase
         $this->loginAs()
             ->patch(route('transactions.update', $transaction->id), $request)
             ->assertStatus(200)
-			->assertSee($request['amount']);
+            ->assertSee($request['amount']);
 
         $this->assertFlashLevel('success');
 
@@ -244,5 +282,14 @@ class TransactionsTest extends FeatureTestCase
             'subject'           => $notification->getSubject(),
             'body'              => $notification->getBody(),
         ];
+    }
+
+    private function createInvoice(): Document
+    {
+        $request = Document::factory()->invoice()->items()->raw([
+            'status' => 'sent',
+        ]);
+
+        return $this->dispatch(new CreateDocument($request));
     }
 }

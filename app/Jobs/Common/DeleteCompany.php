@@ -29,15 +29,17 @@ class DeleteCompany extends Job implements ShouldDelete
 
         event(new CompanyDeleting($this->model, $this->current_company_id));
 
-        \DB::transaction(function () {
-            $this->deleteRelationships($this->model, $this->model->relationships_to_delete);
+        try {
+            \DB::transaction(function () {
+                $this->deleteRelationships($this->model, $this->model->relationships_to_delete);
 
-            $this->model->delete();
-        });
+                $this->model->delete();
+            });
 
-        event(new CompanyDeleted($this->model, $this->current_company_id));
-
-        company($this->current_company_id)->makeCurrent();
+            event(new CompanyDeleted($this->model, $this->current_company_id));
+        } finally {
+            company($this->current_company_id)->makeCurrent();
+        }
 
         return true;
     }

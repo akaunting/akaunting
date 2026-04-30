@@ -60,7 +60,7 @@ class CategoriesTest extends FeatureTestCase
         $this->loginAs()
             ->patch(route('categories.update', $category->id), $request)
             ->assertStatus(200)
-			->assertSee($request['name']);
+            ->assertSee($request['name']);
 
         $this->assertFlashLevel('success');
 
@@ -70,6 +70,10 @@ class CategoriesTest extends FeatureTestCase
     public function testItShouldDeleteCategory()
     {
         $request = $this->getRequest();
+
+        $this->dispatch(new CreateCategory(array_merge($request, [
+            'name' => $this->faker->text(15),
+        ])));
 
         $category = $this->dispatch(new CreateCategory($request));
 

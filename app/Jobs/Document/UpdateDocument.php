@@ -71,9 +71,9 @@ class UpdateDocument extends Job implements ShouldUpdate
 
             $this->model->update($this->request->all());
 
-            // Sync transaction contact_id if document contact changed
+            // Sync transaction contact_id if document contact changed (skip reconciled transactions)
             if (isset($this->request['contact_id']) && $originalContactId != $this->request['contact_id']) {
-                $this->model->transactions()->update([
+                $this->model->transactions()->where('reconciled', 0)->update([
                     'contact_id' => $this->request['contact_id'],
                 ]);
             }
@@ -91,17 +91,23 @@ class UpdateDocument extends Job implements ShouldUpdate
      */
     public function authorize(): void
     {
-        $lockedStatuses = ['sent', 'received', 'viewed', 'partial', 'paid', 'overdue', 'unpaid', 'cancelled'];
-
         if (
             isset($this->request['contact_id']) &&
-            (int) $this->request['contact_id'] !== (int) $this->model->contact_id &&
-            in_array($this->model->status, $lockedStatuses)
+            (int) $this->request['contact_id'] !== (int) $this->model->contact_id
         ) {
-            $type = Str::plural($this->model->type);
-            $message = trans('messages.warning.contact_change', ['type' => trans_choice("general.$type", 1)]);
+            $lockedStatuses = ['sent', 'received', 'viewed', 'partial', 'paid', 'overdue', 'unpaid', 'cancelled'];
 
-            throw new \Exception($message);
+            if (in_array($this->model->status, $lockedStatuses)) {
+                $type = Str::plural($this->model->type);
+                $message = trans('messages.warning.contact_change', ['type' => trans_choice("general.$type", 1)]);
+
+                throw new \Exception($message);
+            } else if ($this->model->transactions()->isReconciled()->exists()) {
+                $type = Str::plural($this->model->type);
+                $message = trans('messages.warning.reconciled_doc', ['type' => trans_choice("general.$type", 1)]);
+
+                throw new \Exception($message);
+            }
         }
     }
 }

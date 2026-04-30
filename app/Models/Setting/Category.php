@@ -23,6 +23,7 @@ class Category extends Model
 
     public const INCOME_TYPE = 'income';
     public const EXPENSE_TYPE = 'expense';
+    public const COGS_TYPE = 'cogs';
     public const ITEM_TYPE = 'item';
     public const OTHER_TYPE = 'other';
 
@@ -189,6 +190,18 @@ class Category extends Model
     public function scopeExpense($query)
     {
         return $query->whereIn($this->qualifyColumn('type'), $this->getExpenseCategoryTypes());
+    }
+
+    /**
+     * Scope to include only COGS.
+     * Uses Categories trait to support multiple COGS types (e.g. from modules).
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeCogs($query)
+    {
+        return $query->whereIn($this->qualifyColumn('type'), $this->getCogsCategoryTypes());
     }
 
     /**

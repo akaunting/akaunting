@@ -4,7 +4,7 @@ return [
 
     'success' => [
         'added'             => 'S\'ha afegit :type!',
-        'created'			=> ':type creat!',
+        'created'            => ':type creat!',
         'updated'           => 'S\'ha actualitzat :type!',
         'deleted'           => 'S\'ha esborrat :type!',
         'duplicated'        => 'S\'ha duplicat :type!',

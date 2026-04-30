@@ -20,6 +20,8 @@ class CreateTransfer extends Job implements HasOwner, HasSource, ShouldCreate
 
     public function handle(): Transfer
     {
+        $this->authorize();
+
         \DB::transaction(function () {
             $expense_currency_code = $this->getCurrencyCode('from');
             $income_currency_code = $this->getCurrencyCode('to');
@@ -89,6 +91,17 @@ class CreateTransfer extends Job implements HasOwner, HasSource, ShouldCreate
         });
 
         return $this->model;
+    }
+
+    public function authorize(): void
+    {
+        foreach (['from', 'to'] as $type) {
+            $account_id = $this->request->get($type . '_account_id');
+
+            if (empty($account_id) || ! Account::find($account_id)) {
+                throw new \Exception(trans('messages.error.not_found', ['type' => trans_choice('general.accounts', 1)]));
+            }
+        }
     }
 
     protected function getCurrencyCode($type)

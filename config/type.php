@@ -13,7 +13,7 @@ return [
             'alias' => '',
             'group' => Category::INCOME_TYPE,
             'translation' => [
-                'prefix'        => 'general',
+                'prefix' => 'general',
             ],
             'hide' => ['code'],
         ],
@@ -22,7 +22,16 @@ return [
             'alias' => '',
             'group' => Category::EXPENSE_TYPE,
             'translation' => [
-                'prefix'        => 'general',
+                'prefix' => 'general',
+            ],
+            'hide' => ['code'],
+        ],
+
+        Category::COGS_TYPE => [
+            'alias' => '',
+            'group' => Category::COGS_TYPE,
+            'translation' => [
+                'prefix' => 'general',
             ],
             'hide' => ['code'],
         ],
@@ -31,7 +40,7 @@ return [
             'alias' => '',
             'group' => Category::ITEM_TYPE,
             'translation' => [
-                'prefix'        => 'general',
+                'prefix' => 'general',
             ],
             'hide' => ['code'],
         ],
@@ -40,7 +49,7 @@ return [
             'alias' => '',
             'group' => Category::OTHER_TYPE,
             'translation' => [
-                'prefix'        => 'general',
+                'prefix' => 'general',
             ],
             'hide' => ['code'],
         ],

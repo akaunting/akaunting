@@ -62,7 +62,17 @@ class Invoices extends Controller
 
         event(new \App\Events\Document\DocumentViewed($invoice));
 
-        return view('portal.invoices.show', compact('invoice', 'payment_methods'));
+        $text_document_transaction = 'documents.transaction';
+
+        if (
+            request()->isSigned($invoice->company_id)
+            || request()->isPreview($invoice->company_id)
+            || request()->isPortal($invoice->company_id)
+        ) {
+            $text_document_transaction = 'documents.portal_transaction';
+        }
+
+        return view('portal.invoices.show', compact('invoice', 'payment_methods', 'text_document_transaction'));
     }
 
     /**
@@ -139,7 +149,17 @@ class Invoices extends Controller
             }
         }
 
-        return view('portal.invoices.preview', compact('invoice', 'payment_methods', 'payment_actions'));
+        $text_document_transaction = 'documents.transaction';
+
+        if (
+            request()->isSigned($invoice->company_id)
+            || request()->isPreview($invoice->company_id)
+            || request()->isPortal($invoice->company_id)
+        ) {
+            $text_document_transaction = 'documents.portal_transaction';
+        }
+
+        return view('portal.invoices.preview', compact('invoice', 'payment_methods', 'payment_actions', 'text_document_transaction'));
     }
 
     public function signed(Document $invoice)
@@ -168,6 +188,16 @@ class Invoices extends Controller
             event(new \App\Events\Document\DocumentViewed($invoice));
         }
 
-        return view('portal.invoices.signed', compact('invoice', 'payment_methods', 'payment_actions', 'print_action', 'pdf_action'));
+        $text_document_transaction = 'documents.transaction';
+
+        if (
+            request()->isSigned($invoice->company_id)
+            || request()->isPreview($invoice->company_id)
+            || request()->isPortal($invoice->company_id)
+        ) {
+            $text_document_transaction = 'documents.portal_transaction';
+        }
+
+        return view('portal.invoices.signed', compact('invoice', 'payment_methods', 'payment_actions', 'print_action', 'pdf_action', 'text_document_transaction'));
     }
 }

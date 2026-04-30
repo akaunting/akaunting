@@ -123,11 +123,13 @@ class Reports
             return true;
         }
 
-        if (module_is_enabled($alias)) {
-            return true;
+        static $cache = [];
+
+        if (! array_key_exists($alias, $cache)) {
+            $cache[$alias] = module_is_enabled($alias);
         }
 
-        return false;
+        return $cache[$alias];
     }
 
     public static function isModuleDisabled($class)

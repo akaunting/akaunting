@@ -20,6 +20,11 @@ class AddXHeader
         // Check if we should add header
         if (method_exists($response, 'header')) {
             $response->header('X-Akaunting', 'Online Accounting Software');
+            $response->header('X-Content-Type-Options', 'nosniff');
+            $response->header('X-Frame-Options', 'SAMEORIGIN');
+            $response->header('Referrer-Policy', 'strict-origin-when-cross-origin');
+            $response->header('X-XSS-Protection', '0');
+            $response->header('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
         }
 
         return $response;

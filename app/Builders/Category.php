@@ -20,6 +20,7 @@ class Category extends Builder
         return $collection->withChildren('sub_categories', function ($list, $parent, $relation, $level, $addChildren) {
             $parent->load($relation);
             $parent->level = $level;
+            $parent->syncOriginalAttribute('level');
 
             $list->push($parent);
 

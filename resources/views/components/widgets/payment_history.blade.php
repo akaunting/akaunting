@@ -7,9 +7,16 @@
         @foreach ($payments as $item)
         <span class="text-xs mb-3">
             @if (! $item->document)
-            {{ trans('portal.payment_history.description', ['date' => company_date($item->created_at), 'amount' => money($item->amount, $item->currency_code)]) }}
+            {{ trans('portal.payment_history.description', [
+                'date' => company_date($item->created_at),
+                'amount' => money($item->amount, $item->currency_code)
+            ]) }}
             @else
-            {{ trans('portal.payment_history.invoice_description', ['date' => company_date($item->created_at), 'amount' => money($item->amount, $item->currency_code), 'invoice_nember' => $item->document->document_number]) }}
+            {{ trans('portal.payment_history.invoice_description', [
+                'date' => company_date($item->created_at),
+                'amount' => money($item->amount, $item->currency_code),
+                'invoice_number' => $item->document->document_number
+            ]) }}
             @endif
         </span>
         @endforeach

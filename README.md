@@ -27,7 +27,20 @@ Akaunting uses [Laravel](http://laravel.com), the best existing PHP framework, a
 
 ## Installation
 
-* Install [Composer](https://getcomposer.org/download) and [Npm](https://nodejs.org/en/download)
+Before installing Akaunting, make sure your environment has the required dependencies installed:
+
+* PHP 8.1 or higher with the required PHP extensions
+* Composer
+* Node.js and npm
+* Git
+* A supported database server, such as MariaDB, MySQL, PostgreSQL, or SQLite
+* A web server, such as Apache, Nginx, or IIS
+* Build tools required by some npm packages, such as `build-essential` on Debian/Ubuntu systems
+
+For the full list of PHP extensions and server requirements, see the [on-premise requirements](https://akaunting.com/hc/docs/on-premise/requirements/).
+
+Then install Akaunting:
+
 * Clone the repository: `git clone https://github.com/akaunting/akaunting.git`
 * Install dependencies: `composer install ; npm install ; npm run dev`
 * Install Akaunting:

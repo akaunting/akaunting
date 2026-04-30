@@ -53,12 +53,18 @@ class DiscountSummary extends Report
 
     public function setData()
     {
-        $invoices = $this->applyFilters(Document::invoice()->with('totals')->accrued(), ['date_field' => 'issued_at'])->get();
+        $invoices = $this->applyFilters(
+            model: Document::invoice()->with('totals')->accrued(),
+            args: ['date_field' => 'issued_at', 'model_type' => 'invoice'],
+        )->get();
         Recurring::reflect($invoices, 'issued_at');
         $this->setTotals($invoices, 'issued_at', false, 'income');
 
         // Bills
-        $bills = $this->applyFilters(Document::bill()->with('totals')->accrued(), ['date_field' => 'issued_at'])->get();
+        $bills = $this->applyFilters(
+            model: Document::bill()->with('totals')->accrued(),
+            args: ['date_field' => 'issued_at', 'model_type' => 'bill'],
+        )->get();
         Recurring::reflect($bills, 'issued_at');
         $this->setTotals($bills, 'issued_at', false, 'expense');
     }
@@ -67,7 +73,7 @@ class DiscountSummary extends Report
     {
         event(new TotalCalculating($this, $items, $date_field, $check_type, $table, $with_tax));
 
-        $group_field = $this->getSetting('group') . '_id';
+        $group_field = $this->getGroup() . '_id';
 
         foreach ($items as $item) {
             // Make groups extensible
@@ -102,11 +108,11 @@ class DiscountSummary extends Report
 
                 if (($check_type == false) || ($type == 'income')) {
                     $this->row_values[$table][$group][$date] += $amount;
-    
+
                     $this->footer_totals[$table][$date] += $amount;
                 } else {
                     $this->row_values[$table][$group][$date] -= $amount;
-    
+
                     $this->footer_totals[$table][$date] -= $amount;
                 }
             }

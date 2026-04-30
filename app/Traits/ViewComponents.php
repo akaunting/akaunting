@@ -58,7 +58,7 @@ trait ViewComponents
         switch ($trans_type) {
             case 'trans':
                 foreach ($translations as $trans) {
-                    if (trans($trans) !== $trans) {
+                    if (is_string(trans($trans)) && trans($trans) !== $trans) {
                         return $trans;
                     }
                 }
@@ -66,7 +66,7 @@ trait ViewComponents
                 break;
             case 'trans_choice':
                 foreach ($translations as $trans_choice) {
-                    if (trans_choice($trans_choice, 1) !== $trans_choice) {
+                    if (is_string(trans($trans_choice)) && trans_choice($trans_choice, 1) !== $trans_choice) {
                         return $trans_choice;
                     }
                 }

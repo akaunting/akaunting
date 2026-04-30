@@ -55,11 +55,26 @@ class Notifications extends Component
 
     public function markReadAll()
     {
-        $notifications = $this->getNotifications();
-
-        foreach ($notifications as $notification) {
-            $this->markRead($notification->type, $notification->id, false);
+        // Mark all DB notifications as read using the loaded collection.
+        // Matches Akaunting's own pattern (Auth\Users, Portal\Profile) —
+        // iterates unreadNotifications so each markAsRead() fires properly.
+        foreach (user()->unreadNotifications as $notification) {
+            $notification->markAsRead();
         }
+
+        // Handle non-DB notification types (new-apps, updates).
+        foreach ($this->getNotifications() as $notification) {
+            if ($notification->type !== 'new-apps' || empty($notification->data['alias'])) {
+                continue;
+            }
+
+            setting()->set(
+                'notifications.' . $notification->notifiable_id . '.' . $notification->data['alias'],
+                '1'
+            );
+        }
+
+        setting()->save();
 
         $this->dispatch('mark-read-all', type: 'notification', message: trans('notifications.messages.mark_read_all', ['type' => trans('general.export')]));
     }
