@@ -3,6 +3,11 @@ name: build-akaunting-image
 on:
   push:
     branches: ["master"]
+    paths-ignore:
+      - "docker/base/**"
+      - ".github/workflows/build-base-image.yaml"
+  repository_dispatch:
+    types: ["akaunting-base-updated"]
   workflow_dispatch:
 
 permissions:
