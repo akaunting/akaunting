@@ -10,15 +10,18 @@ RUN set -eux; \
       build-essential \
       curl \
       git \
+      libcurl4-openssl-dev \
       libfreetype6-dev \
       libicu-dev \
       libjpeg62-turbo-dev \
       libonig-dev \
       libpng-dev \
+      libxml2-dev \
       libzip-dev \
       locales \
       unzip \
-      zip; \
+      zip \
+      zlib1g-dev; \
     rm -rf /var/lib/apt/lists/*
 
 RUN set -eux; \
