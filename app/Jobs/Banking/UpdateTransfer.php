@@ -3,6 +3,8 @@
 namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
+use App\Events\Banking\TransferUpdated;
+use App\Events\Banking\TransferUpdating;
 use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
@@ -17,6 +19,8 @@ class UpdateTransfer extends Job implements ShouldUpdate
     public function handle(): Transfer
     {
         $this->authorize();
+
+        event(new TransferUpdating($this->model, $this->request));
 
         \DB::transaction(function () {
             // Upload attachment
@@ -86,6 +90,8 @@ class UpdateTransfer extends Job implements ShouldUpdate
                 'income_transaction_id' => $income_transaction->id,
             ]);
         });
+
+        event(new TransferUpdated($this->model, $this->request));
 
         return $this->model;
     }
