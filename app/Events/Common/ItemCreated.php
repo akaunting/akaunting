@@ -9,13 +9,17 @@ class ItemCreated extends Event
 {
     public $item;
 
+    public $request;
+
     /**
      * Create a new event instance.
      *
      * @param $item
+     * @param $request
      */
-    public function __construct(Item $item)
+    public function __construct(Item $item, $request)
     {
         $this->item = $item;
+        $this->request = $request;
     }
 }
