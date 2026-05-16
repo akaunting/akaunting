@@ -19,7 +19,7 @@ return [
     'invoice_detail' => [
         'marked'                => '<b>Siz</b> bu faturayı şöyle işaretlediniz',
         'services'              => 'Hizmetler',
-        'another_item'          => 'Başka Bir Öğe',
+        'another_item'          => 'Başka Bir Ürün',
         'another_description'   => 've başka bir açıklama',
         'more_item'             => '+:count öğe daha',
     ],

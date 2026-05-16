@@ -66,6 +66,7 @@ return [
     'image' => 'El camp :attribute ha de ser una <strong>imatge</strong>.',
     'in' => 'El camp :attribute seleccionat és invàlid',
     'in_array' => 'El camp :attribute no existeix dins de :other.',
+    'in_detailed' => 'El camp :attribute amb valor ":value" no és vàlid. Valors vàlids: :values',
     'integer' => 'El camp :attribute ha de ser un nombre <strong>enter</strong>.',
     'ip' => 'El camp :attribute ha de ser una adreça IP vàlida.',
     'ipv4' => 'El camp :attribute ha de ser una adreça IPv4 vàlida.',

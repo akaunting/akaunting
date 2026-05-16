@@ -13,7 +13,7 @@ return [
 
     'view_report'               => 'Raporu Görüntüle',
     'total_unpaid_invoices'     => 'Toplam ödenmemiş faturalar',
-    'total_unpaid_bills'        => 'Toplam ödenmemiş faturalar',
+    'total_unpaid_bills'        => 'Toplam ödenmemiş gider faturaları',
 
     'description' => [
         'receivables'           => 'Henüz müşterilerinizden almadığınız tutar',

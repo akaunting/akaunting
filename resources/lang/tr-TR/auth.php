@@ -2,16 +2,16 @@
 
 return [
 
-    'auth'                  => 'Doğrulama',
+    'auth'                  => 'Kimlik doğrulama',
     'profile'               => 'Profil',
     'logout'                => 'Çıkış',
     'login'                 => 'Giriş',
     'forgot'                => 'Unutmak',
     'login_to'              => 'Oturum açmak için giriş yapınız',
     'remember_me'           => 'Beni Hatırla',
-    'forgot_password'       => 'Şifremi unuttum',
-    'reset_password'        => 'Şifremi Sıfırla',
-    'change_password'       => 'Şifre Değiştir',
+    'forgot_password'       => 'Parolamı unuttum',
+    'reset_password'        => 'Parolamı Sıfırla',
+    'change_password'       => 'Parola Değiştir',
     'enter_email'           => 'Email Adresinizi Giriniz',
     'current_email'         => 'Geçerli Email',
     'reset'                 => 'Sıfırla',
@@ -22,18 +22,18 @@ return [
     'register'              => 'Kayıt Ol',
 
     'form_description' => [
-        'personal'          => 'Davet bağlantısı yeni kullanıcıya gönderilecektir, bu nedenle e-posta adresinin doğru olduğundan emin olun. Kullanıcı kendi şifresini belirleyebilecektir.',
+        'personal'          => 'Davet bağlantısı yeni kullanıcıya gönderilecektir, bu nedenle e-posta adresinin doğru olduğundan emin olun. Kullanıcı kendi parolasını belirleyebilecektir.',
         'assign'            => 'Kullanıcılar seçili olan şirketlere erişebileceklerdir. İzinleri <a href=":url" class="border-b border-black">roller</a> sayfasından kısıtlayabilirsiniz.',
         'preferences'       => 'Kullanıcının varsayılan dilini seçin. Ayrıca kullanıcı giriş yaptıktan sonra açılış sayfasını da ayarlayabilirsiniz.',
     ],
 
     'password' => [
-        'pass'              => 'Şifre',
-        'pass_confirm'      => 'Şifre Doğrula',
-        'current'           => 'Mevcut Şifre',
-        'current_confirm'   => 'Mevcut Şifre Onayı',
-        'new'               => 'Yeni Şifre',
-        'new_confirm'       => 'Yeni Şifre Onayı',
+        'pass'              => 'Parola',
+        'pass_confirm'      => 'Parola Doğrula',
+        'current'           => 'Mevcut Parola',
+        'current_confirm'   => 'Mevcut Parola Onayı',
+        'new'               => 'Yeni Parola',
+        'new_confirm'       => 'Yeni Parola Onayı',
     ],
 
     'error' => [
@@ -78,14 +78,14 @@ return [
         ],
         'customer' => [
             'name'          => 'Müşteri',
-            'description'   => 'Müşteri Portalına erişebilir ve belirlediğiniz ödeme yöntemleri aracılığıyla faturalarını çevrimiçi olarak ödeyebilirler.',
+            'description'   => 'Müşteri Portalına erişebilir ve belirlediğiniz ödeme yöntemleri aracılığıyla faturalarını online olarak ödeyebilirler.',
         ],
         'accountant' => [
             'name'          => 'Muhasebeci',
             'description'   => 'Faturalara, işlemlere, raporlara erişebilir ve yevmiye kayıtları oluşturabilirler.',
         ],
         'employee' => [
-            'name'          => 'Personel',
+            'name'          => 'Çalışan',
             'description'   => 'Gider talepleri oluşturabilir ve atanan projeler için zaman takibi yapabilirler, ancak yalnızca kendi bilgilerini görebilirler.',
         ],
     ],
