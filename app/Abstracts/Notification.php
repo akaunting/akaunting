@@ -135,7 +135,8 @@ abstract class Notification extends BaseNotification implements ShouldQueue
         foreach ($tags as $index => $tag) {
             $key = Str::replace($wrappers, '', $tag);
 
-            $bindings[$key] = $replacements[$index];
+            $value = $replacements[$index];
+            $bindings[$key] = is_string($value) ? e($value) : $value;
         }
 
         return $bindings;
