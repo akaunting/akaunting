@@ -305,10 +305,10 @@ class Category extends Model
      */
     public function getDisplayNameAttribute(): string
     {
-        $hideCode = $this->hideCodeCategoryType($this->type);
+        $hideCode = $this->type ? $this->hideCodeCategoryType($this->type) : true;
         $typeNames = $this->getCategoryTypes();
 
-        $typeName = $typeNames[$this->type] ?? ucfirst($this->type);
+        $typeName = $this->type ? ($typeNames[$this->type] ?? ucfirst($this->type)) : '';
 
         $prefix = (!$hideCode && $this->code) ? $this->code . ' - ' : '';
 
