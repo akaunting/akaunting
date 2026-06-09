@@ -111,12 +111,6 @@ class Route extends Provider
                 'as'            => 'api.' . $alias . '.',
             ], $attributes));
         });
-
-        Facade::macro('oauth', function ($alias, $routes, $attributes = []) {
-            return Facade::module($alias, $routes, array_merge([
-                'middleware'    => 'oauth',
-            ], $attributes));
-        });
     }
 
     /**
@@ -131,8 +125,6 @@ class Route extends Provider
         $this->mapInstallRoutes();
 
         $this->mapApiRoutes();
-
-        $this->mapOAuthRoutes();
 
         $this->mapCommonRoutes();
 
@@ -180,21 +172,6 @@ class Route extends Provider
             ->middleware(config('api.middleware'))
             ->namespace($this->namespace . '\Api')
             ->group(base_path('routes/api.php'));
-    }
-
-    /**
-     * Define the "oauth" routes for the application.
-     *
-     * These routes handle OAuth authorization and token management.
-     *
-     * @return void
-     */
-    protected function mapOAuthRoutes()
-    {
-        Facade::prefix('oauth')
-            ->middleware('oauth')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/oauth.php'));
     }
 
     /**
@@ -327,7 +304,8 @@ class Route extends Provider
         });
 
         RateLimiter::for('oauth', function (Request $request) {
-            return Limit::perMinute(config('app.throttles.oauth'));
+            return Limit::perMinute(config('app.throttles.oauth'))
+                        ->by($request->user()?->id ?: $request->ip());
         });
 
         RateLimiter::for('dcr', function (Request $request) {

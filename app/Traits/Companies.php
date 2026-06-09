@@ -2,7 +2,6 @@
 
 namespace App\Traits;
 
-use App\Models\OAuth\AccessToken;
 use App\Traits\Users;
 
 trait Companies
@@ -37,11 +36,9 @@ trait Companies
 
     public function getCompanyIdFromApi($request): ?int
     {
-        // Priority 0: OAuth token — when the request carries a Bearer token,
-        // the token's company_id is the authoritative source (Salesforce/Shopify model).
-        // This ensures an OAuth client can only access the company the token
-        // was issued for, regardless of URL or headers.
-        if ($request->bearerToken() && config('oauth.enabled', false)) {
+        // Priority 0: OAuth token — when the request carries a Bearer token, the token's company_id is the authoritative source.
+        // This ensures an OAuth client can only access the company the token was issued for, regardless of URL or headers.
+        if (config('oauth.enabled', false) && $request->bearerToken()) {
             $company_id = $this->getCompanyIdFromToken($request);
 
             if ($company_id) {
@@ -152,7 +149,7 @@ trait Companies
 
                 // Try to find the token in database
                 $tokenModel = config('oauth.company_aware', true)
-                    ? AccessToken::withoutGlobalScope('company')->where('id', $tokenId)->first()
+                    ? \Modules\Oauth\Models\AccessToken::withoutGlobalScope('company')->where('id', $tokenId)->first()
                     : null;
 
                 if ($tokenModel && isset($tokenModel->company_id)) {

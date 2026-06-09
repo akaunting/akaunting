@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Http\Middleware;
 
@@ -16,24 +16,33 @@ class AuthenticateOnceWithOAuth
      */
     public function handle($request, $next)
     {
-        $guard = config('oauth.guards.api', 'passport');
+        // Skip if OAuth module is disabled to avoid unnecessary processing
+        if (! config('oauth.enabled', false)) {
+            return $next($request);
+        }
 
-        // Log incoming request for debugging
-        Log::debug('OAuth: Attempting authentication', [
-            'method' => $request->method(),
-            'path' => $request->path(),
-            'has_bearer' => $request->bearerToken() ? 'yes' : 'no',
-            'bearer_preview' => $request->bearerToken() ? substr($request->bearerToken(), 0, 30) . '...' : null,
-            'guard' => $guard,
-        ]);
+        $guard = config('oauth.guards.api', 'passport');
+        $shouldLog = ! app()->environment('production');
+
+        if ($shouldLog) {
+            // Keep verbose diagnostics outside production only.
+            Log::debug('OAuth: Attempting authentication', [
+                'method' => $request->method(),
+                'path' => $request->path(),
+                'has_bearer' => $request->bearerToken() ? 'yes' : 'no',
+                'guard' => $guard,
+            ]);
+        }
 
         // Check if user is authenticated via Passport
         if (! Auth::guard($guard)->check()) {
-            Log::warning('OAuth: Authentication failed', [
-                'guard' => $guard,
-                'ip' => $request->ip(),
-                'user_agent' => $request->userAgent(),
-            ]);
+            if ($shouldLog) {
+                Log::warning('OAuth: Authentication failed', [
+                    'guard' => $guard,
+                    'ip' => $request->ip(),
+                    'user_agent' => $request->userAgent(),
+                ]);
+            }
 
             return response()->json([
                 'message' => 'Unauthenticated.',
@@ -44,10 +53,11 @@ class AuthenticateOnceWithOAuth
 
         // Fire authenticated event with passport protocol
         if ($user = Auth::guard($guard)->user()) {
-            Log::debug('OAuth: Authentication successful', [
-                'user_id' => $user->id,
-                'email' => $user->email,
-            ]);
+            if ($shouldLog) {
+                Log::debug('OAuth: Authentication successful', [
+                    'user_id' => $user->id,
+                ]);
+            }
 
             // Set the user on the default guard so that the user() helper
             // and middleware like IdentifyCompany (which calls auth()->user())

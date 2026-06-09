@@ -158,7 +158,7 @@ class MiddlewareTest extends OAuthTestCase
 
     public function testWwwAuthenticateHeaderMiddlewareExists(): void
     {
-        $this->assertTrue(class_exists(\App\Http\Middleware\AddOAuthWWWAuthenticateHeader::class));
+        $this->assertTrue(class_exists(\App\Http\Middleware\AddWWWAuthenticateHeader::class));
     }
 
     // ------------------------------------------------------------------
@@ -171,7 +171,7 @@ class MiddlewareTest extends OAuthTestCase
     }
 
     // ------------------------------------------------------------------
-    // DualApiAuth — class & kernel alias
+    // Dynamic API auth dispatcher — class & kernel alias
     // ------------------------------------------------------------------
 
     public function testDualApiAuthMiddlewareClassExists(): void
@@ -181,14 +181,12 @@ class MiddlewareTest extends OAuthTestCase
 
     public function testDualApiAuthAliasIsRegisteredInKernel(): void
     {
-        $router     = $this->app->make(\Illuminate\Contracts\Routing\Registrar::class);
         $middleware = $this->app->make('router')->getMiddleware();
 
-        $this->assertArrayHasKey('dual.api.auth', $middleware);
-        $this->assertEquals(\App\Http\Middleware\DualApiAuth::class, $middleware['dual.api.auth']);
+        $this->assertArrayNotHasKey('dual.api.auth', $middleware);
     }
 
-    public function testDualApiAuthIsInApiMiddlewareGroup(): void
+    public function testAuthDynamicOnceIsInApiMiddlewareGroup(): void
     {
         $kernel = $this->app->make(\Illuminate\Contracts\Http\Kernel::class);
         $ref    = new \ReflectionClass($kernel);
@@ -197,7 +195,7 @@ class MiddlewareTest extends OAuthTestCase
         $groups = $prop->getValue($kernel);
 
         $this->assertArrayHasKey('api', $groups);
-        $this->assertContains('dual.api.auth', $groups['api']);
+        $this->assertContains('auth.dynamic.once', $groups['api']);
     }
 
     public function testApiMiddlewareGroupNoLongerContainsAuthBasicOnce(): void
@@ -209,7 +207,19 @@ class MiddlewareTest extends OAuthTestCase
         $groups = $prop->getValue($kernel);
 
         $this->assertNotContains('auth.basic.once', $groups['api'],
-            'auth.basic.once should be replaced by dual.api.auth in the api group');
+            'auth.basic.once should be replaced by auth.dynamic.once in the api group');
+    }
+
+    public function testApiMiddlewareGroupContainsWwwAuthenticateWrapper(): void
+    {
+        $kernel = $this->app->make(\Illuminate\Contracts\Http\Kernel::class);
+        $ref    = new \ReflectionClass($kernel);
+        $prop   = $ref->getProperty('middlewareGroups');
+        $prop->setAccessible(true);
+        $groups = $prop->getValue($kernel);
+
+        $this->assertArrayHasKey('api', $groups);
+        $this->assertContains('header.www.authenticate', $groups['api']);
     }
 
     // ------------------------------------------------------------------

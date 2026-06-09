@@ -69,33 +69,5 @@ class ShowInSettings
             $menu->route('taxes.index', $title, [], 100, ['icon' => 'percent', 'search_keywords' => trans('settings.taxes.search_keywords')]);
         }
 
-        // OAuth
-        $title = trim(trans('settings.oauth.title'));
-        if ($this->canAccessMenuItem($title, 'read-settings-o-auth')) {
-            $menu->dropdown($title, function ($sub) {
-                $title = trim(trans('oauth.dashboard.title'));
-                if ($this->canAccessMenuItem($title, 'read-settings-o-auth-dashboard')) {
-                    $sub->route('settings.oauth.dashboard.index', $title, [], 5, ['search_keywords' => trans('oauth.dashboard.search_keywords')]);
-                }
-
-                $title = trim(trans('settings.oauth.title'));
-                if ($this->canAccessMenuItem($title, 'read-settings-o-auth')) {
-                    $sub->route('settings.oauth.edit', $title, [], 10, ['search_keywords' => trans('settings.oauth.search_keywords')]);
-                }
-
-                $title = trim(trans('oauth.scopes.title'));
-                if ($this->canAccessMenuItem($title, 'read-settings-o-auth-scopes')) {
-                    $sub->route('settings.oauth.scopes.index', $title, [], 20, ['search_keywords' => trans('oauth.scopes.search_keywords')]);
-                }
-
-                $title = trim(trans('oauth.activity.title'));
-                if ($this->canAccessMenuItem($title, 'read-settings-o-auth-activity')) {
-                    $sub->route('settings.oauth.activity.index', $title, [], 30, ['search_keywords' => trans('oauth.activity.search_keywords')]);
-                }
-            }, 110, [
-                'title' => $title,
-                'icon' => 'vpn_key',
-            ]);
-        }
     }
 }

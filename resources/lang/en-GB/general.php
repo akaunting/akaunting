@@ -79,6 +79,8 @@ return [
     'bank_feeds'            => 'Bank Feed|Bank Feeds',
     'receipts'              => 'Receipt|Receipts',
     'discounts'             => 'Discount|Discounts',
+    'tokens'                => 'Token|Tokens',
+    'clients'               => 'Client|Clients',
     'ofx'                   => 'OFX',
     'mt940'                 => 'MT940',
 

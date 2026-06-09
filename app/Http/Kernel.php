@@ -48,7 +48,8 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            'dual.api.auth',   // Accepts Bearer (OAuth) OR Basic Auth — auto-detected
+            'header.www.authenticate', // Centralize WWW-Authenticate handling for API 401 responses
+            'auth.dynamic.once', // Unified: Bearer (OAuth) OR Basic Auth — auto-detected per request
             'auth.disabled',
             'throttle:api',
             'permission:read-api',
@@ -57,20 +58,6 @@ class Kernel extends HttpKernel
             'read.only',
             'language',
             'firewall.all',
-        ],
-
-        'oauth' => [
-            'oauth.www.authenticate', // MCP REQUIRED: Must be first so it wraps auth and adds WWW-Authenticate to 401s
-            'auth.oauth.once',
-            'auth.disabled',
-            'throttle:oauth',
-            'permission:read-api', // auth.oauth.once already sets the active user via the passport guard
-            'company.identify',
-            'bindings',
-            'read.only',
-            'language',
-            'firewall.all',
-            'oauth.validate.audience', // MCP REQUIRED: Validate token audience (RFC 8707)
         ],
 
         'common' => [
@@ -185,16 +172,13 @@ class Kernel extends HttpKernel
         'api.key' => \App\Http\Middleware\RedirectIfNoApiKey::class,
         'auth.basic.once' => \App\Http\Middleware\AuthenticateOnceWithBasicAuth::class,
         'auth.oauth.once' => \App\Http\Middleware\AuthenticateOnceWithOAuth::class,
+        'auth.dynamic.once' => \App\Http\Middleware\AuthenticateOnceWithDynamicApi::class, // Unified Bearer+Basic, per-request detection (active: api group)
         'auth.disabled' => \App\Http\Middleware\LogoutIfUserDisabled::class,
-        'dual.api.auth' => \App\Http\Middleware\DualApiAuth::class,
-        'dynamic.api.auth' => \App\Http\Middleware\DynamicApiAuth::class, // @deprecated — use dual.api.auth (auto-detects Bearer vs Basic per request)
         'auth.redirect' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'oauth.www.authenticate' => \App\Http\Middleware\AddOAuthWWWAuthenticateHeader::class,
-        'oauth.validate.audience' => \App\Http\Middleware\ValidateOAuthTokenAudience::class,
-        'oauth.scopes' => \App\Http\Middleware\ValidateOAuthScopes::class,
         'company.identify' => \App\Http\Middleware\IdentifyCompany::class,
         'dropzone' => \App\Http\Middleware\Dropzone::class,
         'header.x' => \App\Http\Middleware\AddXHeader::class,
+        'header.www.authenticate' =>  \App\Http\Middleware\AddWWWAuthenticateHeader::class,
         'plan.limits' => \App\Http\Middleware\RedirectIfHitPlanLimits::class,
         'module.subscription' => \App\Http\Middleware\RedirectIfHitModuleSubscription::class,
         'menu.admin' => \App\Http\Middleware\AdminMenu::class,
@@ -211,10 +195,6 @@ class Kernel extends HttpKernel
         'role' => \Laratrust\Middleware\LaratrustRole::class,
         'permission' => \Laratrust\Middleware\LaratrustPermission::class,
 
-        // OAuth Scopes (Akaunting - extends Passport)
-        // @deprecated — use 'oauth.scopes' instead; it integrates with ScopeMapper + Laratrust permissions
-        'scopes' => \App\Http\Middleware\CheckScopes::class,      // ALL listed scopes required (AND) — Passport built-in, no ScopeMapper
-        'scope'  => \App\Http\Middleware\CheckForAnyScope::class, // ANY listed scope sufficient (OR) — Passport built-in, no ScopeMapper
     ];
 
     /**

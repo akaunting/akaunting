@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Http\Middleware;
 
@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AddOAuthWWWAuthenticateHeader
+class AddWWWAuthenticateHeader
 {
     /**
      * Handle an incoming request.
@@ -22,6 +22,11 @@ class AddOAuthWWWAuthenticateHeader
      */
     public function handle(Request $request, Closure $next)
     {
+        // Skip if OAuth module is disabled to avoid unnecessary processing
+        if (! config('oauth.enabled', false)) {
+            return $next($request);
+        }
+
         $response = $next($request);
 
         // Only add header to 401 Unauthorized responses
@@ -41,18 +46,28 @@ class AddOAuthWWWAuthenticateHeader
      */
     protected function addWWWAuthenticateHeader(Response $response, Request $request): void
     {
-        // Use the named route if available (registered in MCP ai.php routes).
-        // The MCP package's AddWwwAuthenticateHeader middleware also checks for this
-        // same named route, so using it here keeps both middlewares consistent.
-        if (app('router')->has('mcp.oauth.protected-resource')) {
-            $resourceMetadataUrl = route('mcp.oauth.protected-resource', ['path' => $request->path()]);
-        } else {
-            $baseUrl = url('/');
-            $oauthPrefix = config('oauth.routes.prefix', 'oauth');
-            $resourceMetadataUrl = "{$baseUrl}/{$oauthPrefix}/.well-known/oauth-protected-resource";
-        }
+        $resourceMetadataUrl = route('oauth.well-known.protected-resource', ['path' => $request->path()]);
 
         $realm = config('app.name', 'Akaunting');
+
+        // If another middleware already set a challenge (e.g. Bearer+Basic),
+        // preserve it and only enrich with resource_metadata when Bearer exists.
+        $existingHeader = $response->headers->get('WWW-Authenticate');
+
+        if (! empty($existingHeader)) {
+            if (str_contains($existingHeader, 'resource_metadata="')) {
+                return;
+            }
+
+            if (preg_match('/\bBearer\b/i', $existingHeader) === 1) {
+                $response->headers->set(
+                    'WWW-Authenticate',
+                    $existingHeader . ', resource_metadata="' . $resourceMetadataUrl . '"'
+                );
+            }
+
+            return;
+        }
 
         // RFC 6750: 'error' should only be present when a token was provided
         // but failed authentication. For unauthenticated probes (no token),
@@ -65,6 +80,7 @@ class AddOAuthWWWAuthenticateHeader
 
             // Try to extract error from JSON response body
             $contentType = $response->headers->get('Content-Type', '');
+            
             if (str_contains($contentType, 'application/json')) {
                 $content = json_decode($response->getContent(), true);
 

@@ -1,17 +1,17 @@
-<?php
+﻿<?php
 
-namespace App\Traits\OAuth;
+namespace App\Traits;
 
-use App\Services\OAuth\ScopeMapper;
+use Modules\Oauth\Services\ScopeMapper;
 use Illuminate\Support\Collection;
 
 /**
- * HasOAuthScopes — User-level OAuth scope helpers.
+ * HasOAuthScopes â€” User-level OAuth scope helpers.
  *
  * Add this trait to App\Models\Auth\User (alongside HasApiTokens and
  * LaratrustUserTrait) to get scope-awareness on the user model.
  *
- * All scope ↔ permission logic lives in ScopeMapper; this trait is just
+ * All scope â†” permission logic lives in ScopeMapper; this trait is just
  * a thin, cache-backed convenience layer for the User model.
  */
 trait HasOAuthScopes
@@ -78,7 +78,7 @@ trait HasOAuthScopes
      * Example:
      *   $requested = ['sales:read', 'banking:delete', 'mcp:use']
      *   $user->filterGrantableScopes($requested)
-     *   // → ['sales:read', 'mcp:use']  (assuming no banking:delete permission)
+     *   // â†’ ['sales:read', 'mcp:use']  (assuming no banking:delete permission)
      */
     public function filterGrantableScopes(array $scopes): array
     {
@@ -107,7 +107,7 @@ trait HasOAuthScopes
      *
      * Example:
      *   $user->currentTokenSatisfies('read-sales-invoices')
-     *   // → true when token has 'sales:read' or 'read-sales-invoices' directly
+     *   // â†’ true when token has 'sales:read' or 'read-sales-invoices' directly
      */
     public function currentTokenSatisfies(string $permission): bool
     {
@@ -142,3 +142,4 @@ trait HasOAuthScopes
         return ScopeMapper::anyScopeSatisfies($scopes, $permission);
     }
 }
+

@@ -68,6 +68,7 @@ trait Jobs
                 'success' => false,
                 'error' => true,
                 'data' => null,
+                'code' => $e->getCode(),
                 'message' => $e->getMessage(),
             ];
         }
