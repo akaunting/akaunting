@@ -32,31 +32,62 @@ class Reports extends Controller
      */
     public function index()
     {
-        $totals = $icons = $categories = [];
+        $icons = $categories = [];
 
         $reports = Report::orderBy('name')->get();
 
+        // Pre-compute which module aliases are enabled once, so the loop
+        // never re-reads module JSON files from disk (150+ modules were causing 256s+ timeouts).
+        $moduleStatusCache = [];
+
         foreach ($reports as $report) {
-            if (Utility::cannotShow($report->class)) {
+            $alias = $report->alias ?? 'core';
+
+            // Check module enabled status from cache
+            if ($alias !== 'core') {
+                if (! array_key_exists($alias, $moduleStatusCache)) {
+                    $moduleStatusCache[$alias] = Utility::isModuleEnabled($report->class);
+                }
+
+                if (! $moduleStatusCache[$alias]) {
+                    continue;
+                }
+            }
+
+            // Permission check (no disk I/O, just DB/memory)
+            if (Utility::cannotRead($report->class)) {
                 continue;
             }
 
-            $class = Utility::getClassInstance($report, false);
-
-            if (empty($class)) {
+            if (! class_exists($report->class)) {
                 continue;
             }
 
-            $icons[$report->id] = $class->getIcon();
+            // Read icon & category from class properties via reflection
+            // instead of instantiating (which triggers setGroups() event dispatch for every single report).
+            $ref = new \ReflectionClass($report->class);
 
-            if (empty($categories[$class->getCategory()])) {
-                $categories[$class->getCategory()] = [
-                    'name' => $class->getCategory(),
-                    'description' => $class->getCategoryDescription(),
+            $iconProp = $ref->getProperty('icon');
+            $icons[$report->id] = $iconProp->getDefaultValue() ?? 'donut_small';
+
+            $categoryProp = $ref->getProperty('category');
+            $categoryKey = $categoryProp->getDefaultValue() ?? 'reports.income_expense';
+            $category = trans($categoryKey);
+
+            if (empty($categories[$category])) {
+                $descKey = null;
+
+                if ($ref->hasProperty('category_description')) {
+                    $descKey = $ref->getProperty('category_description')->getDefaultValue();
+                }
+
+                $categories[$category] = [
+                    'name' => $category,
+                    'description' => $descKey ? trans($descKey) : '',
                     'reports' => [$report],
                 ];
             } else {
-                $categories[$class->getCategory()]['reports'][] = $report;
+                $categories[$category]['reports'][] = $report;
             }
         }
 

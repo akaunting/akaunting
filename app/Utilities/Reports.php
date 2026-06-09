@@ -63,7 +63,9 @@ class Reports
             return false;
         }
 
-        if (! empty($model) && ($model->alias != 'core') && (new static)->moduleIsDisabled($model->alias)) {
+        // Use the static cache from isModuleEnabled() instead of creating
+        // a new instance and re-reading module JSON from disk each time.
+        if (! empty($model) && ($model->alias != 'core') && ! static::isModuleEnabled($model->class)) {
             return false;
         }
 
