@@ -31,8 +31,6 @@ class Permissions extends Seeder
                 'api' => 'r',
                 'auth-profile' => 'r,u',
                 'auth-users' => 'c,r,u,d',
-                'oauth-clients' => 'c,r,u,d',
-                'oauth-tokens' => 'c,r,u,d',
                 'banking-accounts' => 'c,r,u,d',
                 'banking-reconciliations' => 'c,r,u,d',
                 'banking-transactions' => 'c,r,u,d',
@@ -85,8 +83,6 @@ class Permissions extends Seeder
             'manager' => [
                 'admin-panel' => 'r',
                 'auth-profile' => 'r,u',
-                'oauth-clients' => 'r',
-                'oauth-tokens' => 'c,r,d',
                 'banking-accounts' => 'c,r,u,d',
                 'banking-reconciliations' => 'c,r,u,d',
                 'banking-transactions' => 'c,r,u,d',
