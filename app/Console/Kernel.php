@@ -34,8 +34,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('recurring:check')->dailyAt($schedule_time)->runInBackground();
         $schedule->command('storage-temp:clear')->dailyAt('17:00');
         $schedule->command('model:prune')->dailyAt('17:00');
-        $schedule->command('oauth:purge --force')->dailyAt('02:00')->runInBackground();
-        $schedule->command('oauth:cleanup')->weeklyOn(0, '03:00')->runInBackground();
     }
 
     /**

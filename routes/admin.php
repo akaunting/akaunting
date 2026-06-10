@@ -196,7 +196,6 @@ Route::group(['prefix' => 'settings'], function () {
         Route::patch('default', 'Settings\Defaults@update')->name('default.update');
         Route::get('email', 'Settings\Email@edit')->name('email.edit');
         Route::patch('email', 'Settings\Email@update')->name('email.update');
-
         Route::get('email-templates', 'Settings\EmailTemplates@edit')->name('email-templates.edit');
         Route::patch('email-templates', 'Settings\EmailTemplates@update')->name('email-templates.update');
         Route::get('email-templates/get', 'Settings\EmailTemplates@get')->name('email-templates.get');

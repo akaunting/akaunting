@@ -68,6 +68,5 @@ class ShowInSettings
         if ($this->canAccessMenuItem($title, 'read-settings-taxes')) {
             $menu->route('taxes.index', $title, [], 100, ['icon' => 'percent', 'search_keywords' => trans('settings.taxes.search_keywords')]);
         }
-
     }
 }
