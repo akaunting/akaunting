@@ -206,54 +206,5 @@ return [
         'search_keywords'               => 'tax, rate, type, fixed, inclusive, compound, withholding',
     ],
 
-    'oauth' => [
-        'title'                         => 'OAuth Settings',
-        'description'                   => 'Configure OAuth 2.1 authentication and authorization settings',
-        'search_keywords'               => 'oauth, api, authentication, token, client, authorization, security, pkce, mcp',
-
-        'general'                       => 'General Settings',
-        'general_description'           => 'Enable OAuth and configure basic settings for API authentication.',
-        'general_info'                  => 'OAuth 2.1 allows third-party applications to access your data securely. Enable company-aware mode to isolate tokens by company.',
-
-        'security'                      => 'Security Settings',
-        'security_description'          => 'Configure advanced security features for OAuth authentication.',
-        'security_warning'              => 'PKCE is required by MCP specification. Disabling it may break third-party integrations like ChatGPT.',
-
-        'token_expiration'              => 'Token Expiration',
-        'token_expiration_description'  => 'Set how long different types of tokens remain valid.',
-
-        'default_scopes'                => 'Default Scopes',
-        'default_scopes_description'    => 'Choose which scope is granted by default when no specific scope is requested.',
-        'default_scope_help'            => 'The default scope is automatically granted to all tokens if no specific scopes are requested during authorization.',
-
-        'dcr'                           => 'Dynamic Client Registration',
-        'dcr_description'               => 'Allow third-party applications to automatically register OAuth clients (RFC 7591).',
-        'dcr_info'                      => 'DCR is required for MCP-compatible integrations like ChatGPT. It allows apps to automatically register without manual setup.',
-
-        'enabled'                       => 'Enable OAuth 2.1',
-        'company_aware'                 => 'Company-Aware Tokens',
-        'hash_client_secrets'           => 'Hash Client Secrets',
-        'require_pkce'                  => 'Require PKCE (Proof Key for Code Exchange)',
-        'require_audience'              => 'Require Audience Validation (RFC 8707)',
-
-        'access_token_lifetime'         => 'Access Token Lifetime',
-        'refresh_token_lifetime'        => 'Refresh Token Lifetime',
-        'personal_token_lifetime'       => 'Personal Access Token Lifetime',
-
-        'default_scope'                 => 'Default Scope',
-
-        'dcr_enable_management'         => 'Enable Client Management via DCR',
-        'dcr_max_clients'               => 'Maximum Clients per IP',
-        'dcr_expiration_days'           => 'Client Expiration (days)',
-
-        'minutes'                       => 'minutes',
-        'hour'                          => 'hour',
-        'hours'                         => 'hours',
-        'day'                           => 'day',
-        'week'                          => 'week',
-        'weeks'                         => 'weeks',
-        'month'                         => 'month',
-        'year'                          => 'year',
-    ],
-
 ];
+
