@@ -86,6 +86,7 @@ class Macro extends ServiceProvider
         Request::macro('isAdmin', function ($company_id) {
             return $this->isNotApi()
                     && $this->isNotAuth()
+                    && $this->isNotOAuth()
                     && $this->isNotInstall()
                     && $this->isNotSigned($company_id)
                     && $this->isNotPortal($company_id)
@@ -94,6 +95,22 @@ class Macro extends ServiceProvider
 
         Request::macro('isNotAdmin', function ($company_id) {
             return ! $this->isAdmin($company_id);
+        });
+
+        Request::macro('isOAuth', function () {
+            return $this->is(config('oauth.prefix', 'oauth') . '/*');
+        });
+
+        Request::macro('isNotOAuth', function () {
+            return ! $this->isOAuth();
+        });
+
+        Request::macro('isMcp', function () {
+            return $this->is('mcp') || $this->is('mcp/*');
+        });
+
+        Request::macro('isNotMcp', function () {
+            return ! $this->isMcp();
         });
 
         Request::macro('isCloudHost', function () {

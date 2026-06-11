@@ -153,6 +153,7 @@ return [
         'sentry_logs' => [
             'driver' => 'sentry_logs',
             'level' => env('LOG_LEVEL', 'debug'),
+            'ignore_exceptions' => true,
         ],
 
     ],

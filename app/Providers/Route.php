@@ -303,6 +303,19 @@ class Route extends Provider
                         ->by($request->user()?->id ?: $request->ip());
         });
 
+        RateLimiter::for('oauth', function (Request $request) {
+            return Limit::perMinute(config('app.throttles.oauth'))
+                        ->by($request->user()?->id ?: $request->ip());
+        });
+
+        RateLimiter::for('dcr', function (Request $request) {
+            // Dynamic Client Registration: Strict rate limiting to prevent spam
+            return [
+                Limit::perHour(10)->by($request->ip()), // 10 per hour per IP
+                Limit::perDay(50)->by($request->ip()), // 50 per day per IP
+            ];
+        });
+
         RateLimiter::for('import', function (Request $request) {
             return Limit::perMinute(config('app.throttles.import'));
         });

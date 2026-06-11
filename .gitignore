@@ -80,6 +80,7 @@ fabric.properties
 /.idea
 /.history
 /.vscode
+/.claude
 /.vagrant
 Homestead.json
 Homestead.yaml

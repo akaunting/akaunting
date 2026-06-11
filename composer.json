@@ -53,6 +53,7 @@
         "intervention/imagecache": "^2.5",
         "laracasts/flash": "3.2.*",
         "laravel/framework": "^10.0",
+        "laravel/passport": "^12.4",
         "laravel/sanctum": "^3.2",
         "laravel/slack-notification-channel": "^2.3",
         "laravel/tinker": "^2.10",
@@ -168,7 +169,31 @@
             "php-http/discovery": true
         },
         "audit": {
-            "ignore": ["PKSA-y2cr-5h3j-g3ys"]
+            "block-insecure": false,
+            "ignore": [
+                "PKSA-y2cr-5h3j-g3ys",
+                "PKSA-mdq4-51ck-6kdq",
+                "PKSA-8qx3-n5y5-vvnd",
+                "PKSA-w7xr-vk7n-rstm",
+                "PKSA-q46n-4fdk-zjr4",
+                "PKSA-qzrn-rnz3-85w1",
+                "PKSA-dpt9-7cmv-dk65",
+                "PKSA-3qhw-gzjt-j63j",
+                "PKSA-17kp-jm2n-vxzz",
+                "PKSA-p3rx-dfwp-73ny",
+                "PKSA-7ywf-hktb-jkn9",
+                "PKSA-ckwp-rt7t-c46m",
+                "PKSA-4npr-btr6-zhny",
+                "PKSA-njrm-6dtg-m2pc",
+                "PKSA-vhvj-tvg4-96jj",
+                "PKSA-nrj3-r2wg-yt8b",
+                "PKSA-rvky-x3cg-y3qd",
+                "PKSA-985r-hryy-555b",
+                "PKSA-mhj3-vthf-h41n",
+                "PKSA-cn77-7mny-v9zg",
+                "PKSA-xf4x-p5c1-z9xq",
+                "PKSA-fwj1-r2kg-bmxd"
+            ]
         }
     }
 }

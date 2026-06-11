@@ -16,6 +16,7 @@ class Kernel extends HttpKernel
     protected $middleware = [
         \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
+        \App\Http\Middleware\DisableQuic::class, // Prevent ERR_QUIC_PROTOCOL_ERROR in browsers by disabling QUIC (HTTP/3) via Alt-Svc header
         \Illuminate\Http\Middleware\HandleCors::class,
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
@@ -48,7 +49,8 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            'auth.basic.once',
+            'header.www.authenticate', // Centralize WWW-Authenticate handling for API 401 responses
+            'auth.dynamic.once', // Unified: Bearer (OAuth) OR Basic Auth — auto-detected per request
             'auth.disabled',
             'throttle:api',
             'permission:read-api',
@@ -170,11 +172,14 @@ class Kernel extends HttpKernel
         // Akaunting
         'api.key' => \App\Http\Middleware\RedirectIfNoApiKey::class,
         'auth.basic.once' => \App\Http\Middleware\AuthenticateOnceWithBasicAuth::class,
+        'auth.oauth.once' => \App\Http\Middleware\AuthenticateOnceWithOAuth::class,
+        'auth.dynamic.once' => \App\Http\Middleware\AuthenticateOnceWithDynamicApi::class, // Unified Bearer+Basic, per-request detection (active: api group)
         'auth.disabled' => \App\Http\Middleware\LogoutIfUserDisabled::class,
         'auth.redirect' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'company.identify' => \App\Http\Middleware\IdentifyCompany::class,
         'dropzone' => \App\Http\Middleware\Dropzone::class,
         'header.x' => \App\Http\Middleware\AddXHeader::class,
+        'header.www.authenticate' =>  \App\Http\Middleware\AddWWWAuthenticateHeader::class,
         'plan.limits' => \App\Http\Middleware\RedirectIfHitPlanLimits::class,
         'module.subscription' => \App\Http\Middleware\RedirectIfHitModuleSubscription::class,
         'menu.admin' => \App\Http\Middleware\AdminMenu::class,
