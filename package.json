@@ -92,7 +92,8 @@
         "ws": "^8.14.2",
         "postcss": "^8.4.32",
         "express": "^4.19.2",
-        "body-parser": "^1.20.3"
+        "body-parser": "^1.20.3",
+        "webpackbar": "^7.0.0"
     },
     "browserslist": [
         "> 1%",
