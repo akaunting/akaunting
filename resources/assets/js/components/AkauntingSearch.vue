@@ -1268,11 +1268,6 @@ export default {
         background-color: transparent;
     }
 
-    html[dir='rtl'] .searh-field .el-tag .el-tag__close.el-icon-close {
-        left: auto;
-        right: -5px;
-    }
-
     html[dir='rtl'] .search-field .el-tag .el-tag__close.el-icon-close {
         left: auto;
         right: 4px;

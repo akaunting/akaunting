@@ -23,7 +23,7 @@ th, td {
     margin-bottom: 9px;
 }
 
-html[dir='ltr'] .print-report-padding {
+html[dir="ltr"] .print-report-padding {
     padding-left: 25px;
 }
 
