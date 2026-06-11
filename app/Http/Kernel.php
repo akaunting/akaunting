@@ -16,6 +16,7 @@ class Kernel extends HttpKernel
     protected $middleware = [
         \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
+        \App\Http\Middleware\DisableQuic::class, // Prevent ERR_QUIC_PROTOCOL_ERROR in browsers by disabling QUIC (HTTP/3) via Alt-Svc header
         \Illuminate\Http\Middleware\HandleCors::class,
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
@@ -194,7 +195,6 @@ class Kernel extends HttpKernel
         'ability' => \Laratrust\Middleware\LaratrustAbility::class,
         'role' => \Laratrust\Middleware\LaratrustRole::class,
         'permission' => \Laratrust\Middleware\LaratrustPermission::class,
-
     ];
 
     /**
