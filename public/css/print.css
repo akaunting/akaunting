@@ -23,8 +23,9 @@ th, td {
     margin-bottom: 9px;
 }
 
-html[dir='ltr'] .print-report-padding { padding-left: 25px; }
-html[dir='rtl'] .print-report-padding { padding-right: 25px; }
+html[dir='ltr'] .print-report-padding {
+    padding-left: 25px;
+}
 
 html[dir="rtl"] .print-report-padding {
     padding-right: 25px;
@@ -607,9 +608,6 @@ html[dir="ltr"] .lines .quantity {
     text-align: right;
 }
 
-html[dir='ltr'] .lines .quantity { text-align: right; }
-html[dir='rtl'] .lines .quantity { text-align: left; }
-
 html[dir="rtl"] .lines .quantity {
     text-align: left;
 }
@@ -624,9 +622,6 @@ html[dir="ltr"] .lines .price {
     text-align: right;
 }
 
-html[dir='ltr'] .lines .price { text-align: right; }
-html[dir='rtl'] .lines .price { text-align: left; }
-
 html[dir="rtl"] .lines .price {
     text-align: left;
 }
@@ -638,9 +633,6 @@ html[dir="rtl"] .lines .price {
 html[dir="ltr"] .lines .discount {
     text-align: right;
 }
-
-html[dir='ltr'] .lines .discount { text-align: right; }
-html[dir='rtl'] .lines .discount { text-align: left; }
 
 html[dir="rtl"] .lines .discount {
     text-align: left;
@@ -736,9 +728,6 @@ html[dir="ltr"] .c-lines .quantity {
     text-align: right;
 }
 
-html[dir='ltr'] .c-lines .quantity { text-align: right; }
-html[dir='rtl'] .c-lines .quantity { text-align: left; }
-
 html[dir="rtl"] .c-lines .quantity {
     text-align: left;
 }
@@ -750,9 +739,6 @@ html[dir="rtl"] .c-lines .quantity {
 html[dir="ltr"] .c-lines .price {
     text-align: right;
 }
-
-html[dir='ltr'] .c-lines .price { text-align: right; }
-html[dir='rtl'] .c-lines .price { text-align: left; }
 
 html[dir="rtl"] .c-lines .price {
     text-align: left;
@@ -766,9 +752,6 @@ html[dir="ltr"] .c-lines .discount {
     text-align: right;
 }
 
-html[dir='ltr'] .c-lines .discount { text-align: right; }
-html[dir='rtl'] .c-lines .discount { text-align: left; }
-
 html[dir="rtl"] .c-lines .discount {
     text-align: left;
 }
@@ -780,9 +763,6 @@ html[dir="rtl"] .c-lines .discount {
 html[dir="ltr"] .c-lines .total {
     text-align: right;
 }
-
-html[dir='ltr'] .c-lines .total { text-align: right; }
-html[dir='rtl'] .c-lines .total { text-align: left; }
 
 html[dir="rtl"] .c-lines .total {
     text-align: left;
@@ -836,9 +816,6 @@ html[dir="ltr"] .modern-lines .price {
     text-align: right;
 }
 
-html[dir='ltr'] .modern-lines .price { text-align: right; }
-html[dir='rtl'] .modern-lines .price { text-align: left; }
-
 html[dir="rtl"] .modern-lines .price {
     text-align: left;
 }
@@ -850,9 +827,6 @@ html[dir="rtl"] .modern-lines .price {
 html[dir="ltr"] .modern-lines .discount {
     text-align: right;
 }
-
-html[dir='ltr'] .modern-lines .discount { text-align: right; }
-html[dir='rtl'] .modern-lines .discount { text-align: left; }
 
 html[dir="rtl"] .modern-lines .discount {
     text-align: left;
