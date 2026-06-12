@@ -79,6 +79,8 @@ return [
     'bank_feeds'            => 'Bank Feed|Bank Feeds',
     'receipts'              => 'Receipt|Receipts',
     'discounts'             => 'Discount|Discounts',
+    'tokens'                => 'Token|Tokens',
+    'clients'               => 'Client|Clients',
     'ofx'                   => 'OFX',
     'mt940'                 => 'MT940',
 
@@ -239,6 +241,7 @@ return [
     'last_received'         => 'Last Received :date',
     'preview_in_window'     => 'Preview in new window',
     'copied'                => 'Copied',
+    'done'                  => 'Done',
     'preview_mode'          => 'Preview Mode',
     'go_back'               => 'Go back to :type',
     'validation_error'      => 'Validation error',
