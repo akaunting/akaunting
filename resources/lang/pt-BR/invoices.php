@@ -8,7 +8,7 @@ return [
     'total_price'           => 'Valor total',
     'due_date'              => 'Data de Vencimento',
     'order_number'          => 'Número',
-    'bill_to'               => 'Pagar para',
+    'bill_to'               => 'Cobrar de',
     'cancel_date'           => 'Data de cancelamento',
 
     'quantity'              => 'Quantidade',
