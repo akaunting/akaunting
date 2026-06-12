@@ -14,6 +14,8 @@ class DocumentItemTax extends Model
 
     protected $table = 'document_item_taxes';
 
+    protected $isCachable = false;
+
     protected $fillable = ['company_id', 'type', 'document_id', 'document_item_id', 'tax_id', 'name', 'amount', 'created_from', 'created_by'];
 
     public function document()
