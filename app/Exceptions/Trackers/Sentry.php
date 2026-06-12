@@ -7,6 +7,7 @@ use App\Traits\Trackers as Base;
 use Illuminate\Support\Str;
 use Sentry\Event;
 use Sentry\EventHint;
+use Sentry\Logs\Log;
 use Sentry\Tracing\SamplingContext;
 
 class Sentry
@@ -22,6 +23,19 @@ class Sentry
         $event->setTags($tags);
 
         return $event;
+    }
+
+    public static function beforeSendLog(Log $log): ?Log
+    {
+        $log->setAttribute('release', Version::short());
+
+        $tags = static::getTrackerTags();
+
+        foreach ($tags as $key => $value) {
+            $log->setAttribute($key, $value);
+        }
+
+        return $log;
     }
 
     public static function tracesSampler(SamplingContext $context): float
