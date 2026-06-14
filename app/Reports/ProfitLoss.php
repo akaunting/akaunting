@@ -5,6 +5,7 @@ namespace App\Reports;
 use App\Abstracts\Report;
 use App\Models\Banking\Transaction;
 use App\Models\Document\Document;
+use App\Models\Document\DocumentItem;
 use App\Models\Setting\Category;
 use App\Utilities\Date;
 use App\Utilities\Recurring;
@@ -76,29 +77,43 @@ class ProfitLoss extends Report
                 // Invoices
                 $invoices = $invoices_query->get();
                 Recurring::reflect($invoices, 'issued_at');
-                $this->setTotals($invoices, 'issued_at', false, Category::INCOME_TYPE, false);
+                $this->setTotals(
+                    items: $this->flattenDocumentItems($invoices),
+                    date_field: 'issued_at',
+                    check_type: false,
+                    table: Category::INCOME_TYPE,
+                    with_tax: false,
+                );
 
                 // Incomes
                 $incomes = $incomes_query->isNotDocument()->get();
                 Recurring::reflect($incomes, 'paid_at');
                 $this->setTotals($incomes, 'paid_at', false, Category::INCOME_TYPE, false);
 
-                // COGS: Bills
-                $cogs_bills_query = clone $bills_query; // To avoid affecting the original query used for non-COGS bills
-                $cogs_bills = $cogs_bills_query->whereHas('category', fn (Builder $q) => $q->cogs())->get();
-                Recurring::reflect($cogs_bills, 'issued_at');
-                $this->setTotals($cogs_bills, 'issued_at', false, Category::COGS_TYPE, false);
+                // Bills: COGS & Expenses
+                $bills = $bills_query->get();
+                Recurring::reflect($bills, 'issued_at');
+                $flat_bill_items = $this->flattenDocumentItems($bills);
+                $this->setTotals(
+                    items: $flat_bill_items->filter(fn (DocumentItem $i) => $i->category?->isCogsCategory()),
+                    date_field: 'issued_at',
+                    check_type: false,
+                    table: Category::COGS_TYPE,
+                    with_tax: false,
+                );
+                $this->setTotals(
+                    items: $flat_bill_items->filter(fn (DocumentItem $i) => ! $i->category?->isCogsCategory()),
+                    date_field: 'issued_at',
+                    check_type: false,
+                    table: Category::EXPENSE_TYPE,
+                    with_tax: false,
+                );
 
                 // COGS: Expenses
                 $cogs_expenses_query = clone $expenses_query; // To avoid affecting the original query used for non-COGS expenses
                 $cogs_expenses = $cogs_expenses_query->whereHas('category', fn (Builder $q) => $q->cogs())->get();
                 Recurring::reflect($cogs_expenses, 'paid_at');
                 $this->setTotals($cogs_expenses, 'paid_at', false, Category::COGS_TYPE, false);
-
-                // Bills
-                $bills = $bills_query->whereDoesntHave('category', fn (Builder $q) => $q->cogs())->get();
-                Recurring::reflect($bills, 'issued_at');
-                $this->setTotals($bills, 'issued_at', false, Category::EXPENSE_TYPE, false);
 
                 // Expenses
                 $expenses = $expenses_query->whereDoesntHave('category', fn (Builder $q) => $q->cogs())->get();
@@ -123,7 +138,7 @@ class ProfitLoss extends Report
     public function getDocumentQuery(string $type): Builder
     {
         return $this->applyFilters(
-            model: Document::with('recurring', 'totals', 'transactions', 'items')->$type()->accrued(),
+            model: Document::with('recurring', 'totals', 'transactions', 'items.category')->$type()->accrued(),
             args: ['date_field' => 'issued_at', 'model_type' => $type],
         );
     }

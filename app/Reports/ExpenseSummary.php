@@ -54,7 +54,7 @@ class ExpenseSummary extends Report
                     args: ['date_field' => 'issued_at', 'model_type' => 'bill'],
                 )->get();
                 Recurring::reflect($bills, 'issued_at');
-                $this->setTotals($bills, 'issued_at', false, 'expense');
+                $this->setTotals($this->flattenDocumentItems($bills), 'issued_at', false, 'expense');
 
                 // Expenses
                 $expenses = $transactions->isNotDocument()->get();
