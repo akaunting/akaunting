@@ -12,7 +12,7 @@ return [
     'net_profit'                => 'Net Profit',
     'net_profit_loss'           => 'Net Profit (Loss)',
     'total_income'              => 'Total Income',
-    'total_cogs'                => 'Total Cost of Goods Sold',
+    'total_direct_cost'         => 'Total Cost of Goods Sold',
     'total_expense'             => 'Total Expenses',
     'net'                       => 'NET',
     'income_expense'            => 'Income & Expense',

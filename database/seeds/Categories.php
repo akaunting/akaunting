@@ -4,6 +4,7 @@ namespace Database\Seeds;
 
 use App\Abstracts\Model;
 use App\Jobs\Setting\CreateCategory;
+use App\Models\Setting\Category;
 use App\Traits\Jobs;
 use Illuminate\Database\Seeder;
 
@@ -33,42 +34,42 @@ class Categories extends Seeder
             [
                 'company_id' => $company_id,
                 'name' => trans_choice('general.transfers', 1),
-                'type' => 'other',
+                'type' => Category::OTHER_TYPE,
                 'color' => '#3c3f72',
                 'enabled' => '1',
             ],
             [
                 'company_id' => $company_id,
                 'name' => trans('demo.categories.deposit'),
-                'type' => 'income',
+                'type' => Category::INCOME_TYPE,
                 'color' => '#efad32',
                 'enabled' => '1',
             ],
             [
                 'company_id' => $company_id,
                 'name' => trans('demo.categories.sales'),
-                'type' => 'income',
+                'type' => Category::INCOME_TYPE,
                 'color' => '#6da252',
                 'enabled' => '1',
             ],
             [
                 'company_id' => $company_id,
                 'name' => trans_choice('general.others', 1),
-                'type' => 'expense',
+                'type' => Category::OTHER_TYPE,
                 'color' => '#e5e5e5',
                 'enabled' => '1',
             ],
             [
                 'company_id' => $company_id,
                 'name' => trans('general.general'),
-                'type' => 'item',
+                'type' => Category::ITEM_TYPE,
                 'color' => '#328aef',
                 'enabled' => '1',
             ],
             [
                 'company_id' => $company_id,
                 'name' => trans_choice('general.cogs', 1),
-                'type' => 'cogs',
+                'type' => Category::DIRECT_COST_TYPE,
                 'color' => '#ef3281',
                 'enabled' => '1',
             ],
@@ -82,13 +83,13 @@ class Categories extends Seeder
             $category = $this->dispatch(new CreateCategory($row));
 
             switch ($category->type) {
-                case 'income':
+                case Category::INCOME_TYPE:
                     if (empty($income_category_id)) {
                         $income_category_id = $category->id;
                     }
 
                     break;
-                case 'expense':
+                case Category::EXPENSE_TYPE:
                     if (empty($expense_category_id)) {
                         $expense_category_id = $category->id;
                     }

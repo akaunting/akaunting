@@ -41,8 +41,8 @@ class ProfitLoss extends Report
     public function setTables()
     {
         $this->tables = [
-            Category::INCOME_TYPE  => trans_choice('general.incomes', 1),
-            Category::COGS_TYPE    => trans_choice('general.cogs', 2),
+            Category::INCOME_TYPE => trans_choice('general.incomes', 1),
+            Category::DIRECT_COST_TYPE => trans_choice('general.cogs', 2),
             Category::EXPENSE_TYPE => trans_choice('general.expenses', 2),
         ];
     }
@@ -58,13 +58,13 @@ class ProfitLoss extends Report
                 $incomes = $incomes_query->get();
                 $this->setTotals($incomes, 'paid_at', false, Category::INCOME_TYPE, false);
 
-                // COGS: Expenses
-                $cogs_expenses_query = clone $expenses_query; // To avoid affecting the original query used for non-COGS expenses
-                $cogs_expenses = $cogs_expenses_query->whereHas('category', fn (Builder $q) => $q->cogs())->get();
-                $this->setTotals($cogs_expenses, 'paid_at', false, Category::COGS_TYPE, false);
+                // Direct Costs: Expenses
+                $direct_costs_expenses_query = clone $expenses_query; // To avoid affecting the original query used for non-Direct Costs expenses
+                $direct_costs_expenses = $direct_costs_expenses_query->whereHas('category', fn (Builder $q) => $q->directCost())->get();
+                $this->setTotals($direct_costs_expenses, 'paid_at', false, Category::DIRECT_COST_TYPE, false);
 
                 // Expenses
-                $expenses = $expenses_query->whereDoesntHave('category', fn (Builder $q) => $q->cogs())->get();
+                $expenses = $expenses_query->whereDoesntHave('category', fn (Builder $q) => $q->directCost())->get();
                 $this->setTotals($expenses, 'paid_at', false, Category::EXPENSE_TYPE, false);
 
                 break;
@@ -90,33 +90,33 @@ class ProfitLoss extends Report
                 Recurring::reflect($incomes, 'paid_at');
                 $this->setTotals($incomes, 'paid_at', false, Category::INCOME_TYPE, false);
 
-                // Bills: COGS & Expenses
+                // Bills: Direct Costs & Expenses
                 $bills = $bills_query->get();
                 Recurring::reflect($bills, 'issued_at');
                 $flat_bill_items = $this->flattenDocumentItems($bills);
                 $this->setTotals(
-                    items: $flat_bill_items->filter(fn (DocumentItem $i) => $i->category?->isCogsCategory()),
+                    items: $flat_bill_items->filter(fn (DocumentItem $i) => $i->category?->isDirectCostCategory()),
                     date_field: 'issued_at',
                     check_type: false,
-                    table: Category::COGS_TYPE,
+                    table: Category::DIRECT_COST_TYPE,
                     with_tax: false,
                 );
                 $this->setTotals(
-                    items: $flat_bill_items->filter(fn (DocumentItem $i) => ! $i->category?->isCogsCategory()),
+                    items: $flat_bill_items->filter(fn (DocumentItem $i) => ! $i->category?->isDirectCostCategory()),
                     date_field: 'issued_at',
                     check_type: false,
                     table: Category::EXPENSE_TYPE,
                     with_tax: false,
                 );
 
-                // COGS: Expenses
-                $cogs_expenses_query = clone $expenses_query; // To avoid affecting the original query used for non-COGS expenses
-                $cogs_expenses = $cogs_expenses_query->whereHas('category', fn (Builder $q) => $q->cogs())->get();
-                Recurring::reflect($cogs_expenses, 'paid_at');
-                $this->setTotals($cogs_expenses, 'paid_at', false, Category::COGS_TYPE, false);
+                // Direct Costs: Expenses
+                $direct_costs_expenses_query = clone $expenses_query; // To avoid affecting the original query used for non-Direct Costs expenses
+                $direct_costs_expenses = $direct_costs_expenses_query->whereHas('category', fn (Builder $q) => $q->directCost())->get();
+                Recurring::reflect($direct_costs_expenses, 'paid_at');
+                $this->setTotals($direct_costs_expenses, 'paid_at', false, Category::DIRECT_COST_TYPE, false);
 
                 // Expenses
-                $expenses = $expenses_query->whereDoesntHave('category', fn (Builder $q) => $q->cogs())->get();
+                $expenses = $expenses_query->whereDoesntHave('category', fn (Builder $q) => $q->directCost())->get();
                 Recurring::reflect($expenses, 'paid_at');
                 $this->setTotals($expenses, 'paid_at', false, Category::EXPENSE_TYPE, false);
 
@@ -147,9 +147,9 @@ class ProfitLoss extends Report
     {
         foreach ($this->dates as $date) {
             $income = $this->footer_totals[Category::INCOME_TYPE][$date] ?? 0;
-            $cogs = $this->footer_totals[Category::COGS_TYPE][$date] ?? 0;
+            $direct_costs = $this->footer_totals[Category::DIRECT_COST_TYPE][$date] ?? 0;
 
-            $this->gross_profit[$date] = $income - $cogs;
+            $this->gross_profit[$date] = $income - $direct_costs;
         }
     }
 

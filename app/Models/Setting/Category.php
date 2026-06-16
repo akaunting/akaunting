@@ -23,7 +23,7 @@ class Category extends Model
 
     public const INCOME_TYPE = 'income';
     public const EXPENSE_TYPE = 'expense';
-    public const COGS_TYPE = 'cogs';
+    public const DIRECT_COST_TYPE = 'direct_cost';
     public const ITEM_TYPE = 'item';
     public const OTHER_TYPE = 'other';
 
@@ -193,15 +193,15 @@ class Category extends Model
     }
 
     /**
-     * Scope to include only COGS.
-     * Uses Categories trait to support multiple COGS types (e.g. from modules).
+     * Scope to include only direct cost.
+     * Uses Categories trait to support multiple direct cost types (e.g. from modules).
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeCogs($query)
+    public function scopeDirectCost($query)
     {
-        return $query->whereIn($this->qualifyColumn('type'), $this->getCogsCategoryTypes());
+        return $query->whereIn($this->qualifyColumn('type'), $this->getDirectCostCategoryTypes());
     }
 
     /**
