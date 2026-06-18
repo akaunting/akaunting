@@ -208,9 +208,13 @@ trait Categories
             }
 
             if ($group) {
-                $group_key = $attr['group'] ?? $type;
+                $group_value = $attr['group'] ?? $type;
 
-                $category_types[$group_key][$type] = $name;
+                if (is_callable($attr['translation']['group'] ?? null)) {
+                    $group_value = $attr['translation']['group']();
+                }
+
+                $category_types[$group_value][$type] = $name;
             } else {
                 $category_types[$type] = $name;
             }
