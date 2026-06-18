@@ -40,7 +40,7 @@ const app = new Vue({
                 return;
             }
 
-            if (typeof JSON.parse(this.form.categories)[event] === 'undefined') {
+            if (typeof categoryData[event] === 'undefined') {
                 this.categoriesBasedTypes = [];
 
                 return;
@@ -54,7 +54,7 @@ const app = new Vue({
 
             this.selected_type = false;
 
-            this.categoriesBasedTypes = JSON.parse(this.form.categories)[event];
+            this.categoriesBasedTypes = categoryData[event];
         }
     }
 });

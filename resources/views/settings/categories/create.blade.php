@@ -29,9 +29,6 @@
                         <x-form.group.select name="parent_id" label="{{ trans('general.parent') . ' ' . trans_choice('general.categories', 1) }}" :options="[]" not-required dynamicOptions="categoriesBasedTypes" sort-options="false" v-disabled="selected_type" />
 
                         <x-form.group.textarea name="description" label="{{ trans('general.description') }}" not-required />
-
-                        <x-form.input.hidden name="categories" value="{{ json_encode($categories) }}" />
-                        <x-form.input.hidden name="type_codes" value="{{ json_encode($hide_code_types) }}" />
                     </x-slot>
                 </x-form.section>
 
@@ -43,6 +40,13 @@
             </x-form>
         </x-form.container>
     </x-slot>
+
+    @push('scripts_start')
+        <script type="text/javascript">
+            var categoryData = {!! json_encode($categories) !!};
+            var typeCodes = {!! json_encode($hide_code_types) !!};
+        </script>
+    @endpush
 
     <x-script folder="settings" file="categories" />
 </x-layouts.admin>
