@@ -257,7 +257,7 @@ return [
             'contact_type'              => Contact::VENDOR_TYPE,
             'inventory_stock_action'    => 'increase', // increases stock in stock tracking
             'transaction' => [
-                'email_template'        => 'invoice_payment_customer', // use email template
+                'email_template'        => 'payment_made_vendor', // use email template
             ],
             'hide'                      => [],
             'notification' => [
