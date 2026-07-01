@@ -55,7 +55,7 @@ class Categories extends Seeder
             [
                 'company_id' => $company_id,
                 'name' => trans_choice('general.others', 1),
-                'type' => Category::OTHER_TYPE,
+                'type' => Category::EXPENSE_TYPE,
                 'color' => '#e5e5e5',
                 'enabled' => '1',
             ],
