@@ -24,7 +24,7 @@ class Category extends Factory
         $types = [
             Model::INCOME_TYPE,
             Model::EXPENSE_TYPE,
-            Model::COGS_TYPE,
+            Model::DIRECT_COST_TYPE,
             Model::ITEM_TYPE,
             Model::OTHER_TYPE,
         ];
@@ -88,14 +88,14 @@ class Category extends Factory
     }
 
     /**
-     * Indicate that the model type is cogs.
+     * Indicate that the model type is direct cost.
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */
-    public function cogs()
+    public function directCost()
     {
         return $this->state([
-            'type' => Model::COGS_TYPE,
+            'type' => Model::DIRECT_COST_TYPE,
         ]);
     }
 

@@ -20,7 +20,7 @@
             :readonly="readonly"
             :collapse-tags="collapse"
             :loading="loading"
-            class="forms"
+            :class="['forms', { 'with-color-prefix': selectedOptionColor, 'with-icon-prefix': icon }]"
         >
             <div v-if="loading" class="el-select-dropdown__wrap" slot="empty">
                 <p class="el-select-dropdown__empty pt-2 pb-0 loading">
@@ -62,8 +62,13 @@
             </div>
 
             <template slot="prefix">
-                <span class="el-input__suffix-inner el-select-icon">
-                    <i :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
+                <span class="aka-select-prefix">
+                    <span
+                        v-if="selectedOptionColor"
+                        class="aka-select-prefix-dot"
+                        :style="{ backgroundColor: selectedOptionColor }"
+                    ></span>
+                    <i v-if="icon" :class="'select-icon-position el-input__icon fa fa-' + icon"></i>
                 </span>
             </template>
 
@@ -116,10 +121,10 @@
                 </el-option>
             </el-option-group>
 
-            <el-option 
+            <el-option
                 v-if="!loading && addNew.status && options.length != 0 && sortedOptions.length > 0"
                 class="el-select-dropdown__item  el-select__footer select-add-new bg-purple sticky bottom-0"
-                disabled 
+                disabled
                 value=""
             >
                 <div class="w-full flex items-center" @click="onAddItem">
@@ -371,6 +376,7 @@ export default {
             new_options: {},
             loading: false,
             remote: false,
+            isDropdownVisible: false,
         }
     },
 
@@ -402,6 +408,28 @@ export default {
 
             return this.sorted_options;
         },
+
+        selectedOptionColor() {
+            const selectedOption = this.getSelectedOptionData();
+
+            if (!selectedOption || typeof selectedOption !== 'object') {
+                return '';
+            }
+
+            if (selectedOption.color_hex_code) {
+                return selectedOption.color_hex_code;
+            }
+
+            if (selectedOption.color_hex) {
+                return selectedOption.color_hex;
+            }
+
+            if (selectedOption.color && selectedOption.color.toString().startsWith('#')) {
+                return selectedOption.color;
+            }
+
+            return '';
+        },
     },
 
     mounted() {
@@ -432,6 +460,56 @@ export default {
     },
 
     methods: {
+        getSelectedOptionData() {
+            const selectedKey = this.multiple
+                ? (Array.isArray(this.selected) && this.selected.length ? this.selected[0] : null)
+                : this.selected;
+
+            if (selectedKey === null || selectedKey === undefined || selectedKey === '') {
+                return null;
+            }
+
+            const foundOption = this.findOptionByKey(selectedKey);
+
+            if (!foundOption) {
+                return null;
+            }
+
+            return foundOption.option ? foundOption.option : foundOption;
+        },
+
+        findOptionByKey(optionKey) {
+            const normalizedKey = optionKey.toString();
+
+            if (this.group) {
+                for (const groupOption of this.sorted_options) {
+                    if (!Array.isArray(groupOption.value)) {
+                        continue;
+                    }
+
+                    const found = groupOption.value.find(option => option.key == normalizedKey);
+
+                    if (found) {
+                        return found;
+                    }
+                }
+            } else {
+                const found = this.sorted_options.find(option => option.key == normalizedKey);
+
+                if (found) {
+                    return found;
+                }
+            }
+
+            const foundInFullOptions = this.full_options.find(option => option.key == normalizedKey);
+
+            if (foundInFullOptions) {
+                return foundInFullOptions;
+            }
+
+            return null;
+        },
+
         sortBy(option) {
             return (firstEl, secondEl) => {
                 let first_element = firstEl[option].toUpperCase(); // ignore upper and lowercase
@@ -579,7 +657,7 @@ export default {
         },
 
         setFullOptions() {
-            // Reset full_options 
+            // Reset full_options
             this.full_options = [];
 
             let created_options = (this.dynamicOptions) ? this.dynamicOptions : this.fullOptions;
@@ -762,6 +840,8 @@ export default {
 
         visibleChange(event) {
             this.$emit('visible-change', event);
+
+            this.isDropdownVisible = event;
 
             this.dynamicPlaceholder = this.placeholder;
 
@@ -1231,6 +1311,43 @@ export default {
 </script>
 
 <style>
+    .aka-select-prefix {
+        display: inline-flex;
+        align-items: center;
+        height: 100%;
+    }
+
+    .aka-select-prefix-dot {
+        width: 1rem;
+        height: 1rem;
+        border-radius: 9999px;
+        margin-inline-start: 0.5rem;
+    }
+
+    html[dir="rtl"] .el-input__prefix {
+        right: 5px;
+        left: unset;
+        transition: all .3s;
+    }
+
+    html[dir="rtl"] .with-color-prefix .el-input__inner {
+        padding-left: unset !important;
+        padding-right: 2.25rem !important;
+    }
+
+    html[dir="rtl"] .with-color-prefix.with-icon-prefix .el-input__inner {
+        padding-left: unset !important;
+        padding-right: 2.8rem !important;
+    }
+
+    .with-color-prefix .el-input__inner {
+        padding-left: 2.25rem !important;
+    }
+
+    .with-color-prefix.with-icon-prefix .el-input__inner {
+        padding-left: 2.8rem !important;
+    }
+
     .el-select-dropdown__item.el-select__footer.bg-purple.sticky.bottom-0 {
         background-color: #fff !important;
     }

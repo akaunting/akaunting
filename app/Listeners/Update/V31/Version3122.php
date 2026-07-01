@@ -48,20 +48,13 @@ class Version3122 extends Listener
     {
         Log::channel('stdout')->info('Updating document items...');
 
-        DB::table('documents')
-            ->whereNotNull('category_id')
-            ->chunk(500, function ($documents) {
-                DB::transaction(function () use ($documents) {
-                    foreach ($documents as $document) {
-                        DB::table('document_items')
-                            ->where('document_id', $document->id)
-                            ->whereNull('category_id')
-                            ->update([
-                                'category_id' => $document->category_id,
-                            ]);
-                    }
-                });
-            });
+        DB::table('document_items')
+            ->join('documents', 'documents.id', '=', 'document_items.document_id')
+            ->whereNull('document_items.category_id')
+            ->whereNotNull('documents.category_id')
+            ->update([
+                'document_items.category_id' => DB::raw(DB::getTablePrefix() . 'documents.category_id'),
+            ]);
 
         Log::channel('stdout')->info('Document items updated.');
     }

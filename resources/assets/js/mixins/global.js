@@ -302,11 +302,15 @@ export default {
         },
 
         isCategoryCodeFieldVisible() {
-            if (!this.form || !this.form.type || !this.form.type_codes) {
+            if (!this.form || !this.form.type) {
                 return false;
             }
 
-            let type_codes = this.form.type_codes;
+            let type_codes = (typeof typeCodes !== 'undefined') ? typeCodes : this.form.type_codes;
+
+            if (!type_codes) {
+                return false;
+            }
 
             if (typeof type_codes === 'string') {
                 try {

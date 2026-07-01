@@ -17,7 +17,21 @@ class CreateCategory extends Job implements HasOwner, HasSource, ShouldCreate
         event(new CategoryCreating($this->request));
 
         \DB::transaction(function () {
-            $this->model = Category::create($this->request->all());
+            $payload = $this->request->all();
+
+            if (! empty($payload['code'])) {
+                $this->model = Category::firstOrCreate(
+                    [
+                        'company_id' => $payload['company_id'],
+                        'code' => $payload['code']
+                    ],
+                    $payload,
+                );
+
+                return;
+            }
+
+            $this->model = Category::create($payload);
         });
 
         event(new CategoryCreated($this->model, $this->request));

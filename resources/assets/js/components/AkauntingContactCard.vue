@@ -98,7 +98,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>  
+            </div>
 
             <div :class="show.contact_selected ? 'flex' : 'hidden'" class="absolute flex-col mt-2">
                 <button type="button" class="p-0 text-xs text-purple ltr:text-left rtl:text-right" @click="onContactEdit">
@@ -111,7 +111,7 @@
                         {{ chooseDifferentContactText }}
                     </span>
                 </button>
-            </div> 
+            </div>
 
             <component v-bind:is="add_new_html" @submit="onSubmit" @cancel="onCancel"></component>
         </div>
@@ -192,7 +192,6 @@ export default {
                     country:'',
                     location:'',
                     reference: '',
-                    category_id: '',
                 };
             },
             description: 'List of Contacts'
@@ -307,7 +306,6 @@ export default {
                 country: '',
                 location: '',
                 reference: '',
-                category_id: '',
             });
         },
 
@@ -341,8 +339,7 @@ export default {
                             state: (contact.state) ? contact.state : '',
                             country: (contact.country) ? contact.country : '',
                             location: (contact.location) ? contact.location : '',
-                            reference: (contact.reference) ? contact.reference : '',
-                            category_id: (contact.category_id) ? contact.category_id : ''
+                            reference: (contact.reference) ? contact.reference : ''
                         });
                     }
                 }, this);
@@ -553,8 +550,7 @@ export default {
                         state: (contact.state) ? contact.state : '',
                         country: (contact.country) ? contact.country : '',
                         location: (contact.location) ? contact.location : '',
-                        reference: (contact.reference) ? contact.reference : '',
-                        category_id: (contact.category_id) ? contact.category_id : ''
+                        reference: (contact.reference) ? contact.reference : ''
                     });
 
                     this.$emit('new', contact);
@@ -616,7 +612,6 @@ export default {
                     country: '',
                     location: '',
                     reference: '',
-                    category_id: '',
                 });
 
                 index++;
@@ -642,8 +637,7 @@ export default {
                     state: (contact.state) ? contact.state : '',
                     country: (contact.country) ? contact.country : '',
                     location: (contact.location) ? contact.location : '',
-                    reference: (contact.reference) ? contact.reference : '',
-                    category_id: (contact.category_id) ? contact.category_id : ''
+                    reference: (contact.reference) ? contact.reference : ''
                 });
             }, this);
         }
