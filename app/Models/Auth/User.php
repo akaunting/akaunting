@@ -16,14 +16,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
 use Laratrust\Traits\LaratrustUserTrait;
 use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 class User extends Authenticatable implements HasLocalePreference
 {
-    use HasApiTokens, HasFactory, HasOAuthScopes, HasRelationships, LaratrustUserTrait, Media, Notifiable, Owners, SearchString, SoftDeletes, Sortable, Sources, Tenants, Users;
+    use HasFactory, HasOAuthScopes, HasRelationships, LaratrustUserTrait, Media, Notifiable, Owners, SearchString, SoftDeletes, Sortable, Sources, Tenants, Users;
 
     protected $table = 'users';
 

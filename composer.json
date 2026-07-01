@@ -53,7 +53,6 @@
         "intervention/imagecache": "^2.5",
         "laracasts/flash": "3.2.*",
         "laravel/framework": "^10.0",
-        "laravel/passport": "^12.4",
         "laravel/sanctum": "^3.2",
         "laravel/slack-notification-channel": "^2.3",
         "laravel/tinker": "^2.10",
