@@ -23,8 +23,7 @@ while [ $# -gt 0 ]; do
     shift
 done
 
-mkdir -p storage/framework/{sessions,views,cache}
-mkdir -p storage/app/uploads
+mkdir -p storage/framework/sessions storage/framework/views storage/framework/cache storage/logs storage/app/uploads bootstrap/cache
 
 if [ "$do_setup" -o "$AKAUNTING_SETUP" == "true" ]; then
     retry_for=30

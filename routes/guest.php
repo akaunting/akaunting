@@ -24,8 +24,6 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('register', 'Auth\Register@store')->name('register.store');
 });
 
-Route::get('gritchi/sso', 'Gritchi\SsoController@consume')->name('gritchi.sso');
-
 Route::get('/', function () {
     return redirect()->route('login');
 });

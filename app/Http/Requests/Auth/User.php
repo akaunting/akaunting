@@ -32,7 +32,7 @@ class User extends FormRequest
                     . '|dimensions:max_width=' . config('filesystems.max_width') . ',max_height=' . config('filesystems.max_height');
         }
 
-        $email = 'required|email:rfc,dns';
+        $email = 'required|email:rfc';
 
         if (in_array($this->getMethod(), ['PATCH', 'PUT'])) {
             // Updating user
@@ -66,13 +66,14 @@ class User extends FormRequest
 
         $change_password = $this->request->get('change_password') == true || $this->request->get('change_password') != null;
 
-        $current_password = $change_password ? '|current_password' : '';
+        $current_password_required = $this->is('api/*') ? 'nullable' : 'required_if:change_password,true';
+        $current_password = ($change_password && ! $this->is('api/*')) ? '|current_password' : '';
         $password = $change_password ? '|confirmed' : '';
 
         return [
             'name'              => 'required|string',
             'email'             => $email,
-            'current_password'  => 'required_if:change_password,true' . $current_password,
+            'current_password'  => $current_password_required . $current_password,
             'password'          => 'required_if:change_password,true' . $password,
             'companies'         => $companies,
             'roles'             => $roles,

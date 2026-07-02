@@ -23,6 +23,8 @@ class CreateUser extends Job implements HasOwner, HasSource, ShouldCreate
         event(new UserCreating($this->request));
 
         \DB::transaction(function () {
+            $this->normalizeCompanies();
+
             if (empty($this->request->get('password', false))) {
                 $this->request->merge(['password' => Str::random(40)]);
             }
@@ -49,13 +51,15 @@ class CreateUser extends Job implements HasOwner, HasSource, ShouldCreate
             }
 
             if ($this->request->has('companies')) {
+                $company_ids = $this->normalizedCompanies();
+
                 if (app()->runningInConsole() || request()->isInstall()) {
-                    $this->model->companies()->attach($this->request->get('companies'));
+                    $this->model->companies()->attach($company_ids);
                 } else {
                     $user = user();
 
-                    $companies = $user->withoutEvents(function () use ($user) {
-                        return $user->companies()->whereIn('id', $this->request->get('companies'))->pluck('id');
+                    $companies = $user->withoutEvents(function () use ($user, $company_ids) {
+                        return $user->companies()->whereIn('id', $company_ids)->pluck('id');
                     });
 
                     if ($companies->isNotEmpty()) {
@@ -100,6 +104,18 @@ class CreateUser extends Job implements HasOwner, HasSource, ShouldCreate
 
     protected function shouldSendInvitation()
     {
+        if (request()->is('api/*')) {
+            return false;
+        }
+
+        if (env('GRITCHI_SKIP_USER_INVITATIONS', false)) {
+            return false;
+        }
+
+        if ($this->request->has('send_invitation') && ! $this->request->boolean('send_invitation')) {
+            return false;
+        }
+
         if (app()->runningUnitTests()) {
             return true;
         }
@@ -113,5 +129,25 @@ class CreateUser extends Job implements HasOwner, HasSource, ShouldCreate
         }
 
         return true;
+    }
+
+    protected function normalizeCompanies(): void
+    {
+        if (! $this->request->has('companies') || is_array($this->request->get('companies'))) {
+            return;
+        }
+
+        $this->request->merge(['companies' => $this->normalizedCompanies()]);
+    }
+
+    protected function normalizedCompanies(): array
+    {
+        $companies = $this->request->get('companies');
+
+        if (is_array($companies)) {
+            return $companies;
+        }
+
+        return array_filter(array_map('trim', explode(',', (string) $companies)));
     }
 }

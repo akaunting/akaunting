@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Banking\Transaction;
+use App\Models\Common\Contact;
+use App\Models\Document\Document;
 use Illuminate\Support\ServiceProvider as Provider;
 
 class Observer extends Provider
@@ -24,6 +26,9 @@ class Observer extends Provider
      */
     public function boot()
     {
+        Contact::observe('App\Observers\GritchiContact');
+        Document::observe('App\Observers\GritchiFinance');
+        Transaction::observe('App\Observers\GritchiFinance');
         Transaction::observe('App\Observers\Transaction');
     }
 }
