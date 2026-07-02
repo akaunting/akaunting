@@ -58,7 +58,7 @@ trait Plans
 
     public function getPlanLimitByType($type): object
     {
-        if (! config('app.installed') || running_in_test()) {
+        if (! config('app.installed') || running_in_test() || env('GRITCHI_DISABLE_PLAN_LIMITS', false)) {
             $limit = new \stdClass();
 
             $limit->action_status = true;

@@ -35,7 +35,7 @@ class Contact extends FormRequest
         }
 
         if (!empty($this->request->get('email'))) {
-            $email .= 'email:rfc,dns|unique:contacts,NULL,'
+            $email .= 'email:rfc|unique:contacts,NULL,'
                       . $id . ',id'
                       . ',company_id,' . $company_id
                       . ',type,' . $type
@@ -65,7 +65,7 @@ class Contact extends FormRequest
         if ($this->request->has('contact_persons')) {
             $rules = array_merge($rules, [
                 'contact_persons.*.name'    => 'nullable|string',
-                'contact_persons.*.email'   => 'nullable|email:rfc,dns',
+                'contact_persons.*.email'   => 'nullable|email:rfc',
                 'contact_persons.*.phone'   => 'nullable|string',
             ]);
         }
