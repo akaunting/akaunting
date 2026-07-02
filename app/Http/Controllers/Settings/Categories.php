@@ -24,8 +24,6 @@ class Categories extends Controller
      */
     public function index()
     {
-        $this->setActiveTabForCategories();
-
         $query = Category::with('sub_categories');
 
         if (search_string_value('searchable')) {
@@ -39,11 +37,6 @@ class Categories extends Controller
         }
 
         $categories = $query->collect();
-
-        $tabs = $this->getCategoryTabs();
-
-        $tab = request()->get('list_records');
-        $tab_active = ! empty($tab) ? 'categories-' . $tab : 'categories-all';
 
         $hide_code_column = true;
 
@@ -65,7 +58,7 @@ class Categories extends Controller
             }
         }
 
-        return $this->response('settings.categories.index', compact('categories', 'types', 'tabs', 'tab_active', 'hide_code_column'));
+        return $this->response('settings.categories.index', compact('categories', 'types', 'hide_code_column'));
     }
 
     /**

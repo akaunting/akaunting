@@ -3,7 +3,7 @@
 @foreach($class->tables as $table_key => $table_name)
     @include($class->views['detail.table'])
 
-    @if($table_key === 'cogs' && !empty($class->gross_profit))
+    @if($table_key === 'direct_cost' && !empty($class->gross_profit))
     <div class="overflow-x-scroll large-overflow-unset mb-8">
         <table class="w-full small-table-width rp-border-collapse">
             <tbody>

@@ -39,6 +39,13 @@ trait Scopes
                 continue;
             }
 
+            // Skip Expression objects (e.g. DB::raw()) — they are not
+            // simple "table.column" strings and cannot be parsed here.
+            // Fixes CLOUD-PROD-LARAVEL-1TKA
+            if (! is_string($where['column'])) {
+                continue;
+            }
+
             if (strstr($where['column'], '.')) {
                 $whr = explode('.', $where['column']);
 
@@ -66,6 +73,11 @@ trait Scopes
 
         foreach ((array) $query->wheres as $key => $where) {
             if (empty($where) || empty($where['column']) || empty($where['value'])) {
+                continue;
+            }
+
+            // Skip Expression objects — same guard as scopeColumnExists
+            if (! is_string($where['column'])) {
                 continue;
             }
 

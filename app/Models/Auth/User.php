@@ -5,6 +5,7 @@ namespace App\Models\Auth;
 use Akaunting\Sortable\Traits\Sortable;
 use App\Notifications\Auth\Reset;
 use App\Traits\Media;
+use App\Traits\HasOAuthScopes;
 use App\Traits\Owners;
 use App\Traits\Sources;
 use App\Traits\Tenants;
@@ -22,7 +23,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 class User extends Authenticatable implements HasLocalePreference
 {
-    use HasApiTokens, HasFactory, HasRelationships, LaratrustUserTrait, Media, Notifiable, Owners, SearchString, SoftDeletes, Sortable, Sources, Tenants, Users;
+    use HasFactory, HasOAuthScopes, HasRelationships, LaratrustUserTrait, Media, Notifiable, Owners, SearchString, SoftDeletes, Sortable, Sources, Tenants, Users;
 
     protected $table = 'users';
 

@@ -54,7 +54,7 @@ class IncomeSummary extends Report
                     args: ['date_field' => 'issued_at', 'model_type' => 'invoice'],
                 )->get();
                 Recurring::reflect($invoices, 'issued_at');
-                $this->setTotals($invoices, 'issued_at', false, 'income');
+                $this->setTotals($this->flattenDocumentItems($invoices), 'issued_at', false, 'income');
 
                 // Incomes
                 $incomes = $transactions->isNotDocument()->get();

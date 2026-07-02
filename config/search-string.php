@@ -186,7 +186,7 @@ return [
             'payment_method',
             'reference',
             'category_id' => [
-                'route' => ['categories.index', 'search=type:' . Category::INCOME_TYPE . ',' . Category::EXPENSE_TYPE . ',' . Category::COGS_TYPE . ' enabled:1'],
+                'route' => ['categories.index', 'search=type:' . Category::INCOME_TYPE . ',' . Category::EXPENSE_TYPE . ',' . Category::DIRECT_COST_TYPE . ' enabled:1'],
                 'fields' => [
                     'key' => 'id',
                     'value' => 'display_name',

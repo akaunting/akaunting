@@ -37,6 +37,8 @@ return [
 
     'before_send' => [env('SENTRY_BEFORE_SEND_CLASS', 'App\\Exceptions\\Trackers\\Sentry'), 'beforeSend'],
 
+    'before_send_log' => [env('SENTRY_BEFORE_SEND_LOG_CLASS', 'App\\Exceptions\\Trackers\\Sentry'), 'beforeSendLog'],
+
     'traces_sampler' => [env('SENTRY_TRACES_SAMPLER_CLASS', 'App\\Exceptions\\Trackers\\Sentry'), 'tracesSampler'],
 
     'breadcrumbs' => [
