@@ -46,7 +46,14 @@ class AddWWWAuthenticateHeader
      */
     protected function addWWWAuthenticateHeader(Response $response, Request $request): void
     {
-        $resourceMetadataUrl = route('oauth.well-known.protected-resource', ['path' => $request->path()]);
+        // Use the named route if available (registered in MCP ai.php routes).
+        // The MCP package's AddWwwAuthenticateHeader middleware also checks for this
+        // same named route, so using it here keeps both middlewares consistent.
+        if (app('router')->has('mcp.oauth.protected-resource')) {
+            $resourceMetadataUrl = route('mcp.oauth.protected-resource', ['path' => $request->path()]);
+        } else {
+            $resourceMetadataUrl = route('oauth.well-known.protected-resource', ['path' => $request->path()]);
+        }
 
         $realm = config('app.name', 'Akaunting');
 

@@ -407,7 +407,7 @@ if (! function_exists('request_is_mcp')) {
 if (! function_exists('request_is_oauth_api')) {
     /**
      * Returns true when the current request is an API call authenticated
-     * via an OAuth Bearer token (as set by DualApiAuth middleware).
+     * via an OAuth Bearer token (as set by AuthenticateOnceWithDynamicApi middleware).
      */
     function request_is_oauth_api(Request|null $request = null): bool
     {
