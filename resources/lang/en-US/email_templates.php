@@ -47,4 +47,14 @@ return [
         'body'          => 'Hello,<br /><br />Based on {vendor_name} recurring circle, <strong>{bill_number}</strong> invoice has been automatically created.<br /><br />You can see the bill details from the following link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Best Regards,<br />{company_name}',
     ],
 
+    'payment_received_customer' => [
+        'subject'       => 'Your receipt from {company_name}',
+        'body'          => 'Dear {contact_name},<br /><br />Thank you for the payment. <br /><br />You can see the payment details from the following link: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Feel free to contact us with any questions.<br /><br />Best Regards,<br />{company_name}',
+    ],
+
+    'payment_made_vendor' => [
+        'subject'       => 'Payment made by {company_name}',
+        'body'          => 'Dear {contact_name},<br /><br />We have made the following payment. <br /><br />You can see the payment details from the following link: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Feel free to contact us with any questions.<br /><br />Best Regards,<br />{company_name}',
+    ],
+
 ];
