@@ -21,8 +21,8 @@ return [
         'disabled'          => 'يجب تعطيل :feature!',
         'extension'         => 'يجب تثبيت وتشغيل ملحق :extension!',
         'directory'         => 'يجب منح صلاحية الكتابة على مجلد :directory!',
-        'executable'        => 'ان الملف التنفيذى ل PHP CLI غير معرف او لا يعمل او ان اصداره ليس :php_version او اعلى منه, من فضلك اطلب من شركه الاستضافه تعيين متغير بيئة PHP_BINARY أو PHP_PATH بشكل صحيح.
-',
+        'executable'        => 'ان الملف التنفيذى ل PHP CLI غير معرف او لا يعمل او ان اصداره ليس :php_version او اعلى منه, من فضلك اطلب من شركه الاستضافه تعيين متغير بيئة PHP_BINARY أو PHP_PATH بشكل صحيح.',
+        'npm'               => '<b>ملفات JavaScript مفقودة!</b> <br><br><span>يجب عليك تشغيل أوامر <em class="underline">npm install</em> و <em class="underline">npm run dev</em>.</span>',
     ],
 
     'database' => [
@@ -44,4 +44,8 @@ return [
         'connection'        => 'خطأ: لا يمكن الاتصال بقاعدة البيانات! من فضلك، تأكد من صحة المعلومات.',
     ],
 
+    'update' => [
+        'core'              => 'إصدار جديد من Akaunting متاح! يرجى تحديث <a href=":url">تثبيتك.</a>',
+        'module'            => 'إصدار جديد من :module متاح! يرجى تحديث <a href=":url">تثبيتك.</a>',
+    ],
 ];

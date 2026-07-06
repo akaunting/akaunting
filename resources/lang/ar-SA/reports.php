@@ -10,8 +10,13 @@ return [
     'expense_summary'               => 'ملخص المصروفات',
     'income_expense_summary'        => 'الإيرادات مقابل المصروفات',
     'tax_summary'                   => 'ملخص الضرائب',
+    'discount_summary'              => 'ملخص الخصومات',
     'gross_profit'                  => 'إجمالي الربح',
     'net_profit'                    => 'صافي الربح',
+    'net_profit_loss'               => 'صافي الربح (الخسارة)',
+    'total_income'                  => 'إجمالي الإيرادات',
+    'total_direct_cost'             => 'إجمالي تكلفة المبيعات',
+    'total_expense'                 => 'إجمالي المصروفات',
     'total_expenses'                => 'إجمالي المصروفات',
     'net'                           => 'صافي الدخل',
     'income_expense'                => 'الإيرادات و المصروفات',
@@ -34,6 +39,8 @@ return [
     'pin_text' => [
         'unpin_report'              => 'إلغاء تثبيت تقريرك',
         'pin_report'                => 'ثبّت تقريرك',
-    ]
+    ],
+
+    'percentage_of_income'          => 'إظهار % من الإيرادات',
 
 ];

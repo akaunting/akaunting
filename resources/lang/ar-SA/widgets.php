@@ -2,22 +2,33 @@
 
 return [
 
-    'total_income'              => 'إجمالي الدخل',
     'receivables'               => 'المستحقات',
-    'open_invoices'             => 'الفواتير المفتوحة',
-    'overdue_invoices'          => 'الفواتير المتأخرة',
-    'total_expenses'            => 'إجمالي المصاريف',
-    'payables'                  => 'المستحقات علينا',
-    'open_bills'                => 'فواتير مفتوحة',
-    'overdue_bills'             => 'فواتير متأخرة',
-    'total_profit'              => 'إجمالي الربح',
-    'open_profit'               => 'الربح المفتوح',
-    'overdue_profit'            => 'الربح المتأخر',
-    'cash_flow'                 => 'التدفق المالي',
-    'no_profit_loss'            => 'لا توجد أرباح ضائعة',
-    'income_by_category'        => 'الدخل حسب الفئة',
+    'payables'                  => 'المستحقات للغير',
+    'cash_flow'                 => 'التدفق النقدي',
+    'profit_loss'               => 'الربح والخسارة',
     'expenses_by_category'      => 'المصروفات حسب الفئة',
     'account_balance'           => 'رصيد الحساب',
-    'latest_income'             => 'آخر الإيرادات',
-    'latest_expenses'           => 'آخر المصاريف',
+    'bank_feeds'                => 'ربط الحسابات البنكية',
+    'currencies'                => 'العملات',
+
+    'view_report'               => 'عرض التقرير',
+    'total_unpaid_invoices'     => 'إجمالي الفواتير غير المدفوعة',
+    'total_unpaid_bills'        => 'إجمالي فواتير الشراء غير المدفوعة',
+
+    'description' => [
+        'receivables'           => 'المبلغ الذي لم تتلقاه بعد من عملائك',
+        'payables'              => 'المبلغ الذي لم تدفعه بعد لمورديك',
+        'cash_flow'             => 'النقد الداخل والخارج من نشاطك التجاري',
+        'profit_loss'           => 'الإيرادات والمصروفات بما في ذلك الفواتير غير المدفوعة',
+        'expenses_by_category'  => 'أعلى المصروفات عبر فئات مختلفة',
+        'account_balance'       => 'الرصيد الحالي لحساباتك البنكية',
+        'bank_feeds'            => 'استورد عملياتك إلى Akaunting تلقائياً </br>عن طريق ربط حساباتك البنكية',
+    ],
+
+    'periods' => [
+        'overdue_1_30'          => 'متأخر 1-30 يوماً',
+        'overdue_30_60'         => 'متأخر 30-60 يوماً',
+        'overdue_60_90'         => 'متأخر 60-90 يوماً',
+        'overdue_90_un'         => '> 90 يوماً متأخر',
+    ],
 ];

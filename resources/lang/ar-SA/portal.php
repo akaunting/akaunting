@@ -12,6 +12,7 @@ return [
     'see_all_details'       => 'شاهد جميع تفاصيل الحساب',
     'all_payments'          => 'تسجيل الدخول لعرض جميع الدفعات',
     'received_date'         => 'تاريخ الاستلام',
+    'redirect_description'  => 'سيتم إعادة توجيهك إلى موقع :name لإجراء الدفع.',
 
     'last_payment'          => [
         'title'             => 'آخر دفع تم',
