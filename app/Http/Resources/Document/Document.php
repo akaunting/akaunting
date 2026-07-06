@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Document;
 
+use App\Events\Document\DocumentResourceShowing;
 use App\Http\Resources\Banking\Transaction;
 use App\Http\Resources\Common\Contact;
 use App\Http\Resources\Document\DocumentHistory;
@@ -22,7 +23,7 @@ class Document extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $resources = [
             'id' => $this->id,
             'company_id' => $this->company_id,
             'type' => $this->type,
@@ -61,5 +62,15 @@ class Document extends JsonResource
             'totals' => [static::$wrap => DocumentTotal::collection($this->totals)],
             'transactions' => [static::$wrap => Transaction::collection($this->transactions)],
         ];
+
+        $event = new DocumentResourceShowing($this->resource);
+
+        event($event);
+
+        if (! empty($event->resources)) {
+            $resources = array_merge($resources, $event->resources);
+        }
+
+        return $resources;
     }
 }
