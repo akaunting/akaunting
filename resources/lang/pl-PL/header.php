@@ -2,15 +2,32 @@
 
 return [
 
-    'change_language'       => 'Zmień język',
-    'last_login'            => 'Ostatnie logowanie :time',
+    'change_language'       => 'Change Language',
+    'last_login'            => 'Last login :time',
+
     'notifications' => [
-        'counter'           => '{0} Nie masz powiadomień|{1} Masz :count powiadomienie|[2,*] Masz :count powiadomienia',
-        'overdue_invoices'  => '{1} :count zaległa faktura|[2,*] :count zaległe faktury|[5,*] :count zaległych faktur',
-        'upcoming_bills'    => '{1} :count nadchodzący rachunek|[2,*] :count nadchodzące rachunki',
-        'view_all'          => 'Pokaż wszystko'
+        'counter'           => '{0} You have no new notifications|{1} You have :count new notification|[2,*] You have :count new notifications',
+        'new_apps'          => '{1} :count new app is published|[2,*] :count new apps published',
+        'overdue_invoices'  => '{1} :count overdue invoice|[2,*] :count overdue invoices',
+        'upcoming_bills'    => '{1} :count upcoming bill|[2,*] :count upcoming bills',
+        'view_all'          => 'View All',
+
+        'exports' => [
+            'completed' => '{1} :count finished export|[2,*] :count finished exports',
+            'failed' => '{1} :count failed export|[2,*] :count failed exports',
+        ],
+        'imports' => [
+            'completed' => '{1} :count finished import|[2,*] :count finished imports',
+            'failed' => '{1} :count failed import|[2,*] :count failed imports',
+        ],
     ],
+
     'docs_link'             => 'https://akaunting.com/docs',
     'support_link'          => 'https://akaunting.com/support',
+
+    'favorite' => [
+        'added_favorite'    => 'Added to favorites',
+        'add_favorite'      => 'Add to favorites',
+    ],
 
 ];

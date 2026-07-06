@@ -2,17 +2,21 @@
 
 return [
 
-    'reconcile'             => 'Uzgodnij',
-    'unreconcile'           => 'Cofnij uzgodnienie',
-    'reconciled'            => 'Uzgodnione',
-    'opening_balance'       => 'Saldo początkowe',
-    'closing_balance'       => 'Saldo Końcowe',
-    'unreconciled'          => 'Nieuzgodnione',
-    'transactions'          => 'Transakcje',
-    'start_date'            => 'Data początkowa',
-    'end_date'              => 'Data końcowa',
-    'cleared_amount'        => 'Wyczyszczona kwota',
-    'deposit'               => 'Wpłata',
-    'withdrawal'            => 'Wypłata',
+    'reconcile'             => 'Reconcile',
+    'unreconcile'           => 'Unreconcile',
+    'reconciled'            => 'Reconciled',
+    'opening_balance'       => 'Opening Balance',
+    'closing_balance'       => 'Closing Balance',
+    'unreconciled'          => 'Unreconciled',
+    'transactions'          => 'Transactions',
+    'start_date'            => 'Start Date',
+    'end_date'              => 'End Date',
+    'cleared_amount'        => 'Cleared Amount',
+    'deposit'               => 'Deposit',
+    'withdrawal'            => 'Withdrawal',
+    'reconciled_amount'     => 'Reconciled',
+    'in_progress'           => 'In Progress',
+    'save_draft'            => 'Save as Draft',
+    'irreconcilable'        => 'Irreconcilable',
 
 ];

@@ -2,59 +2,82 @@
 
 return [
 
-    'invoice_number'        => 'Numer faktury',
-    'invoice_date'          => 'Data wystawienia faktury',
-    'total_price'           => 'Cena Całkowita',
-    'due_date'              => 'Termin płatności',
-    'order_number'          => 'Numer zamówienia',
-    'bill_to'               => 'Dane płatnika',
+    'invoice_number'        => 'Invoice Number',
+    'invoice_date'          => 'Invoice Date',
+    'invoice_amount'        => 'Invoice Amount',
+    'total_price'           => 'Total Price',
+    'due_date'              => 'Due Date',
+    'order_number'          => 'Order Number',
+    'bill_to'               => 'Bill To',
+    'cancel_date'           => 'Cancel Date',
 
-    'quantity'              => 'Ilość',
-    'price'                 => 'Cena',
-    'sub_total'             => 'Suma częściowa',
-    'discount'              => 'Rabat',
-    'item_discount'         => 'Rabat Liniowy',
-    'tax_total'             => 'Suma podatku',
-    'total'                 => 'Razem',
+    'quantity'              => 'Quantity',
+    'price'                 => 'Price',
+    'sub_total'             => 'Subtotal',
+    'discount'              => 'Discount',
+    'item_discount'         => 'Line Discount',
+    'tax_total'             => 'Tax Total',
+    'total'                 => 'Total',
 
-    'item_name'             => 'Nazwa artykułu|Nazwy artykułów',
+    'item_name'             => 'Item Name|Item Names',
+    'recurring_invoices'    => 'Recurring Invoice|Recurring Invoices',
 
-    'show_discount'         => ':discount% Rabatu',
-    'add_discount'          => 'Dodaj Rabat',
-    'discount_desc'         => 'sumy częściowej',
+    'show_discount'         => ':discount% Discount',
+    'add_discount'          => 'Add Discount',
+    'discount_desc'         => 'of subtotal',
 
-    'payment_due'           => 'Termin płatności',
-    'paid'                  => 'Zapłacone',
-    'histories'             => 'Historia',
-    'payments'              => 'Płatności',
-    'add_payment'           => 'Dodaj płatność',
-    'mark_paid'             => 'Oznacz jako zapłacone',
-    'mark_sent'             => 'Oznacz jako wysłane',
-    'mark_viewed'           => 'Oznacz jako obejrzane',
-    'mark_cancelled'        => 'Oznacz jako Anulowane',
-    'download_pdf'          => 'Pobierz PDF',
-    'send_mail'             => 'Wyślij e-mail',
-    'all_invoices'          => 'Zaloguj się, aby wyświetlić wszystkie faktury',
-    'create_invoice'        => 'Utwórz fakturę',
-    'send_invoice'          => 'Wyślij fakturę',
-    'get_paid'              => 'Otrzymaj zapłatę',
-    'accept_payments'       => 'Akceptuj płatności online',
+    'payment_due'           => 'Payment Due',
+    'paid'                  => 'Paid',
+    'histories'             => 'Histories',
+    'payments'              => 'Payments',
+    'add_payment'           => 'Add Payment',
+    'mark_paid'             => 'Mark Paid',
+    'mark_sent'             => 'Mark Sent',
+    'mark_viewed'           => 'Mark Viewed',
+    'mark_cancelled'        => 'Mark Cancelled',
+    'download_pdf'          => 'Download PDF',
+    'send_mail'             => 'Send Email',
+    'all_invoices'          => 'Login to view all invoices',
+    'create_invoice'        => 'Create Invoice',
+    'send_invoice'          => 'Send Invoice',
+    'get_paid'              => 'Get Paid',
+    'accept_payments'       => 'Accept Online Payments',
+    'payments_received'     => 'Payments received',
+    'over_payment'          => 'The amount you entered passes the total: :amount',
+
+    'form_description' => [
+        'billing'           => 'Billing details appear in your invoice. Invoice Date is used in the dashboard and reports. Select the date you expect to get paid as the Due Date.',
+    ],
 
     'messages' => [
-        'email_required'    => 'Brak adresu e-mail dla tego klienta!',
-        'draft'             => 'To jest <b>SZKIC</b> faktury i zostanie odzwierciedlone na wykresach po jej wysłaniu.',
+        'email_required'    => 'No email address for this customer!',
+        'totals_required'   => 'Invoice totals are required Please edit the :type and save it again.',
+
+        'draft'             => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
 
         'status' => [
-            'created'       => 'Utworzono :date',
-            'viewed'        => 'Przeglądane',
+            'created'       => 'Created on :date',
+            'viewed'        => 'Viewed',
             'send' => [
-                'draft'     => 'Nie wysłano',
-                'sent'      => 'Wysłano :date',
+                'draft'     => 'Not sent',
+                'sent'      => 'Sent on :date',
             ],
             'paid' => [
-                'await'     => 'Oczekiwanie na płatność',
+                'await'     => 'Awaiting payment',
             ],
         ],
+
+        'name_or_description_required' => 'Your invoice must show at least one of the <b>:name</b> or <b>:description</b>.',
+    ],
+
+    'share' => [
+        'show_link'         => 'Your customer can view the invoice at this link',
+        'copy_link'         => 'Copy the link and share it with your customer.',
+        'success_message'   => 'Copied share link to clipboard!',
+    ],
+
+    'sticky' => [
+        'description'       => 'You are previewing how your customer will see the web version of your invoice.',
     ],
 
 ];
