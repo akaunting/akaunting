@@ -3,6 +3,7 @@
 return [
 
     'years'                         => 'Ano|Anos',
+    'date_range'                    => 'Intervalo de Datas',
     'preferences'                   => 'Preferência|Preferências',
     'this_year'                     => 'Este Ano',
     'previous_year'                 => 'Ano Anterior',
@@ -14,8 +15,13 @@ return [
     'expense_summary'               => 'Resumo de Despesas',
     'income_expense_summary'        => 'Receita vs Despesa',
     'tax_summary'                   => 'Resumo financeiro',
+    'discount_summary'              => 'Resumo de descontos',
     'gross_profit'                  => 'Lucro Bruto',
     'net_profit'                    => 'Lucro líquido',
+    'net_profit_loss'               => 'Lucro líquido (prejuízo)',
+    'total_income'                  => 'Receita total',
+    'total_direct_cost'             => 'Custo total das vendas',
+    'total_expense'                 => 'Despesas Totais',
     'total_expenses'                => 'Despesas Totais',
     'net'                           => 'Líquido',
     'income_expense'                => 'Receita vs Despesa',
@@ -38,6 +44,8 @@ return [
     'pin_text' => [
         'unpin_report'              => 'Desafixar seu relatório',
         'pin_report'                => 'Fixar seu relatório',
-    ]
+    ],
+
+    'percentage_of_income'          => 'Mostrar % da Receita',
 
 ];

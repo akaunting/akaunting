@@ -28,6 +28,24 @@ return [
 
     ],
 
+    'download' => [
+
+        'completed' => [
+
+            'title'         => 'Download pronto',
+            'description'   => 'O arquivo está pronto para download no seguinte link:',
+
+        ],
+
+        'failed' => [
+
+            'title'         => 'Falha no download',
+            'description'   => 'Não foi possível criar o arquivo devido ao seguinte problema:',
+
+        ],
+
+    ],
+
     'import' => [
 
         'completed' => [
@@ -63,32 +81,52 @@ return [
 
     ],
 
+    'email' => [
+
+        'invalid' => [
+
+            'title'         => 'E-mail :type inválido',
+            'description'   => 'O endereço de e-mail :email foi relatado como inválido e a pessoa foi desativada. Verifique a seguinte mensagem de erro e corrija o endereço de e-mail:',
+
+        ],
+
+    ],
+
     'menu' => [
+
+        'download_completed' => [
+
+            'title'         => 'Download pronto',
+            'description'   => 'Seu arquivo <strong>:type</strong> está pronto para <a href=":url" target="_blank"><strong>download</strong></a>.',
+        ],
+
+        'download_failed' => [
+
+            'title'         => 'Falha no download',
+            'description'   => 'Não foi possível criar o arquivo devido a vários problemas. Confira seu e-mail para os detalhes.',
+        ],
 
         'export_completed' => [
 
             'title'         => 'A exportação está pronta',
             'description'   => 'Seu arquivo de exportação <strong>:type</strong> está pronto para <a href=":url" target="_blank"><strong>baixar</strong></a>.',
-
         ],
 
         'export_failed' => [
 
             'title'         => 'A exportação falhou',
             'description'   => 'Não é possível importar o arquivo devido aos seguintes problemas: :issues',
-
         ],
 
         'import_completed' => [
 
             'title'         => 'Importação concluída',
             'description'   => 'Seu <strong>:type</strong> em linha <strong>:count</strong> dados estão importados com sucesso.',
-
         ],
 
         'import_failed' => [
 
-            'subject'       => 'Importação falhou',
+            'title'         => 'Importação falhou',
             'description'   => 'Não foi possível importar o arquivo devido a vários problemas. Confira seu e-mail para os detalhes.',
 
         ],
@@ -97,21 +135,18 @@ return [
 
             'title'         => 'Novo app',
             'description'   => '<strong>:name</strong> app esgotado. <a href=":url">Clique aqui</a> para ver os detalhes.',
-
         ],
 
         'invoice_new_customer' => [
 
             'title'         => 'Nova fatura',
             'description'   => '<strong>:invoice_number</strong> fatura foi criada. <a href=":invoice_portal_link">Clique aqui</a> para ver os detalhes e prosseguir com o pagamento.',
-
         ],
 
         'invoice_remind_customer' => [
 
             'title'         => 'Fatura atrasada',
             'description'   => '<strong>:invoice_number</strong> fatura foi vencida em <strong>:invoice_due_date</strong>. <a href=":invoice_portal_link">Clique aqui</a> para ver os detalhes e prosseguir com o pagamento.',
-
         ],
 
         'invoice_remind_admin' => [
@@ -177,6 +212,13 @@ return [
 
         ],
 
+        'invalid_email' => [
+
+            'title'         => 'E-mail :type inválido',
+            'description'   => 'O endereço de e-mail <strong>:email</strong> foi relatado como inválido e a pessoa foi desativada. Verifique e corrija o endereço de e-mail.',
+
+        ],
+
     ],
 
     'messages' => [
@@ -185,4 +227,16 @@ return [
         'mark_read_all'         => ':type está lendo todas as notificações!',
 
     ],
+
+    'browser' => [
+
+        'firefox' => [
+
+            'title' => 'Configuração de ícones do Firefox',
+            'description'  => '<span class="font-medium">Se seus ícones não aparecerem, por favor;</span> <br /> <span class="font-medium">Permita que as páginas escolham suas próprias fontes, em vez de suas seleções acima</span> <br /><br /> <span class="font-bold"> Configurações (Preferências) > Fontes > Avançado </span>',
+
+        ],
+
+    ],
+
 ];

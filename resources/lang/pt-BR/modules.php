@@ -50,6 +50,7 @@ return [
     'get_premium_cloud'     => 'Obter Nuvem Premium',
     'switch_to_cloud'       => 'Trocar para Nuvem',
     'hosted_on_akaunting'   => 'Hospedado em akaunting.com',
+    'information_on_preme'  => 'A opção :period está disponível apenas na <a href=":url" target="_blank" class="to-black-400 hover:bg-full-2 bg-no-repeat bg-0-2 bg-0-full bg-gradient-to-b from-transparent transition-backgroundSize"><strong>Nuvem.</strong></a>',
     'only_works_cloud'      => 'Este aplicativo está disponível apenas em <strong>Nuvem</strong>.',
     'only_premium_plan'     => 'Este aplicativo funciona apenas com o <strong>Serviço Premium na Nuvem</strong>.',
     'not_found'             => 'Nenhum módulo encontrado',

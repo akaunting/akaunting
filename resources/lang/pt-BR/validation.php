@@ -3,14 +3,14 @@
 return [
 
     /*
-    |--------------------------------------------------------------------------
-    | Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines contain the default error messages used by
-    | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
-    |
+|--------------------------------------------------------------------------
+|Validation Language Lines
+|--------------------------------------------------------------------------
+|
+|The following language lines contain the default error messages used by
+|the validator class. Some of these rules have multiple versions such
+|as the size rules. Feel free to tweak each of these messages here.
+|
     */
 
     'accepted' => 'O :attribute deve ser aceito.',
@@ -67,6 +67,7 @@ O atributo deve ser um duplo válido',
     'image' => 'O :attribute deve ser uma <strong>imagem</strong>.',
     'in' => 'O :attribute é inválido.',
     'in_array' => 'O :attribute campo não existe em :other.',
+    'in_detailed' => 'O valor :attribute ":value" é inválido. Esperado um de: :values',
     'integer' => 'O :attribute deve ser um <strong>inteiro</strong>.',
     'ip' => 'O :attribute deve ser um endereço IP válido.',
     'ipv4' => 'O campo :attribute deve ter um endereço IPv4 válido.',
@@ -140,14 +141,14 @@ O atributo deve ser um duplo válido',
     'uuid' => 'O :attribute deve ser um UUID válido.',
 
     /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify custom validation messages for attributes using the
-    | convention "attribute.rule" to name the lines. This makes it quick to
-    | specify a specific custom language line for a given attribute rule.
-    |
+|--------------------------------------------------------------------------
+|Custom Validation Language Lines
+|--------------------------------------------------------------------------
+|
+|Here you may specify custom validation messages for attributes using the
+|convention "attribute.rule" to name the lines. This makes it quick to
+|specify a specific custom language line for a given attribute rule.
+|
     */
 
     'custom' => [
@@ -156,6 +157,7 @@ O atributo deve ser um duplo válido',
         ],
         'invalid_currency'      => 'O código :attribute é inválido.',
         'invalid_amount'        => 'O :attribute é inválido.',
+        'invalid_quantity'      => 'O :attribute não é uma expressão matemática válida.',
         'invalid_extension'     => 'A extensão do arquivo é inválida.',
         'invalid_dimension'     => 'As dimensões :attribute devem ser no máximo :width x :height px.',
         'invalid_colour'        => '
@@ -164,14 +166,14 @@ A cor do atributo é inválida.',
     ],
 
     /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Attributes
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used to swap our attribute placeholder
-    | with something more reader friendly such as "E-Mail Address" instead
-    | of "email". This simply helps us make our message more expressive.
-    |
+|--------------------------------------------------------------------------
+|Custom Validation Attributes
+|--------------------------------------------------------------------------
+|
+|The following language lines are used to swap our attribute placeholder
+|with something more reader friendly such as "E-Mail Address" instead
+|of "email". This simply helps us make our message more expressive.
+|
     */
 
     'attributes' => [],

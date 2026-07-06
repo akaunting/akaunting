@@ -79,10 +79,14 @@ return [
         'subheading'                    => 'Subtítulo',
         'due_receipt'                   => 'Vence após recebimento',
         'due_days'                      => 'Vence em :days dias',
+        'due_custom'                    => 'Dia(s) personalizado(s)',
+        'due_custom_day'                => 'após o dia',
         'choose_template'               => 'Escolha o modelo da fatura',
         'default'                       => 'Padrão',
         'classic'                       => 'Clássico',
         'modern'                        => 'Moderno',
+        'logo_size_width'               => 'Largura do logotipo',
+        'logo_size_height'              => 'Altura do logotipo',
         'hide' => [
             'item_name'                 => 'Ocultar Nome do item',
             'item_description'          => 'Ocultar descrição do item',
@@ -113,6 +117,8 @@ return [
         'use_gravatar'                  => 'Usar Gravatar',
         'income_category'               => 'Categoria de renda',
         'expense_category'              => 'Categoria de despesa',
+        'address_format'                => 'Formato de endereço',
+        'address_tags'                  => '<strong>Tags disponíveis:</strong> :tags',
 
         'form_description' => [
             'general'                   => 'Selecione a conta padrão, o imposto e a forma de pagamento para criar registros rapidamente. O Painel e os Relatórios são exibidos na moeda padrão.',

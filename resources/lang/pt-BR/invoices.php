@@ -43,6 +43,7 @@ return [
     'get_paid'              => 'Quitar',
     'accept_payments'       => 'Aceitar Pagamentos Online',
     'payments_received'     => 'Pagamentos recebidos',
+    'over_payment'          => 'O valor que você inseriu ultrapassa o total: :amount',
 
     'form_description' => [
         'billing'           => 'Os detalhes de faturamento aparecem na sua conta. A Data da Fatura é usada no painel e nos relatórios. Selecione a data que pretende pagar como Data de Vencimento.',
@@ -50,6 +51,7 @@ return [
 
     'messages' => [
         'email_required'    => 'Nenhum endereço de e-mail para este cliente!',
+        'totals_required'   => 'Os totais da fatura são obrigatórios. Por favor, edite o :type e salve novamente.',
         'draft'             => 'Isto é um <b>RASCUNHO</b> da fatura e será refletida nos gráficos depois de enviada.',
 
         'status' => [
@@ -63,6 +65,8 @@ return [
                 'await'     => 'Aguardando pagamento',
             ],
         ],
+
+        'name_or_description_required' => 'Sua fatura deve mostrar pelo menos um destes: <b>:name</b> ou <b>:description</b>.',
     ],
 
     'slider' => [

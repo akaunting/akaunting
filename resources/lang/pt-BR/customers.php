@@ -20,6 +20,7 @@ return [
         'general'               => 'As informações de contato do cliente aparecerão nas faturas e em seus perfis. Você também pode permitir que seus clientes efetuem login para acompanhar as faturas que enviar, marcando a caixa abaixo.',
         'billing'               => 'O número fiscal aparece em cada fatura emitida para o cliente. A moeda selecionada se tornará a moeda padrão para esse cliente.',
         'address'               => 'O endereço é obrigatório para as faturas, então é preciso adicionar os detalhes do endereço de cobrança para seu cliente.',
+        'contact_persons'       => 'Você pode adicionar pessoas de contato para este cliente.',
     ],
 
     'no_records' => [
