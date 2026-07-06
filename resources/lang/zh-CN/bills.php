@@ -18,7 +18,7 @@ return [
     'tax_total'             => '税率',
     'total'                 => '总计',
 
-    'item_name'             => '产品名称 | 产品名称',
+    'item_name'             => '产品名称|产品名称',
     'recurring_bills'       => '重复计费|重复计费',
 
     'show_discount'         => ':discount% 折扣',
