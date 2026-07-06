@@ -7,6 +7,7 @@ return [
     'grand_total'               => 'Eindtotaal',
     'accept_payment_online'     => 'Online Betalingen Accepteren',
     'transaction'               => 'Een betaling voor :amount werd gedaan met :account.',
+    'portal_transaction'        => 'Een betaling voor :amount werd gedaan met :payment_method.',
     'billing'                   => 'Facturatie',
     'advanced'                  => 'Geavanceerd',
 

@@ -47,6 +47,7 @@ return [
         'payment_cancel'    => 'U heeft uw recente :method betaling geannuleerd!',
         'missing_transfer'  => 'Waarschuwing: De overdracht met betrekking tot deze transactie ontbreekt. Je kunt overwegen deze transactie te verwijderen.',
         'connect_tax'       => 'Waarschuwing: Dit :type heeft een BTW-bedrag. Belastingen toegevoegd aan het :type kunnen niet worden verbonden, dus de belasting zal worden toegevoegd aan het totaal en zal overeenkomstig worden berekend.',
+        'contact_change'    => 'Waarschuwing: U mag de contactpersoon niet wijzigen op een :type die al is verzonden, ontvangen of betaald!',
     ],
 
 ];
