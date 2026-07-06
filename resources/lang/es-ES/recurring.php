@@ -29,8 +29,10 @@ return [
     'child'                 => ':url fue creado automáticamente el :date',
     'message'               => 'Éste es un :type periódico y el siguiente :type se generará automáticamente el día :date',
     'message_parent'        => 'Este :type se generó automáticamente desde :link',
+    'send_email_auto'       => 'Enviar correo automáticamente',
 
     'frequency_type'        => 'Repetir esto :type',
+    'custom_frequency_desc' => 'Repetir cada :interval :frequency',
     'limit_date'            => 'Crear primero :type en',
     'limit_middle'          => 'y termina',
 

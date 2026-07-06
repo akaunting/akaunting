@@ -19,5 +19,6 @@ return [
         '404'       => 'No pudimos encontrar la página que estaba buscando.',
         '500'       => 'Trabajaremos para arreglarlo de inmediato.',
         'record'    => 'No pudimos encontrar el registro que estaba buscando.',
+        'amount'    => 'No pudimos encontrar el importe que estaba buscando.',
     ],
 ];

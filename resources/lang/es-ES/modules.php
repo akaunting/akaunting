@@ -30,6 +30,8 @@ return [
     'per_month'             => 'al mes',
     'billed_yearly'         => 'Facturado anual',
     'billed_monthly'        => 'Facturado mensual',
+    'billed_once'           => 'Facturado una vez',
+    'once'                  => 'una vez',
     'save_year'             => 'Ahorras <strong>:price</strong> al año!',
     'if_paid_year'          => 'O <strong>:price/mes</strong> si se paga anualmente',
     'information_monthly'   => 'Esta opción es válida sólo para <strong>Cloud Service</strong>',
@@ -48,8 +50,10 @@ return [
     'get_premium_cloud'     => 'Obtener Nube Premium',
     'switch_to_cloud'       => 'Cambiar a la nube',
     'hosted_on_akaunting'   => 'Alojado en akaunting.com',
+    'information_on_preme'  => 'La opción :period está disponible solo en <a href=":url" target="_blank" class="to-black-400 hover:bg-full-2 bg-no-repeat bg-0-2 bg-0-full bg-gradient-to-b from-transparent transition-backgroundSize"><strong>Cloud.</strong></a>',
     'only_works_cloud'      => 'Esta aplicación está disponible solamente en <strong>Nube<strong>',
     'only_premium_plan'     => 'Esta aplicación está disponible solamente en <strong>Nube Premium</strong>',
+    'not_found'             => 'No se encontró ninguna aplicación',
 
     'about'                 => 'Acerca de',
 
@@ -99,6 +103,10 @@ return [
         'unzip'             => 'No se puede descomprimir :module',
         'file_copy'         => 'No se pueden copiar los archivos de :module',
         'finish'            => 'No se puede finalizar la instalación de :module',
+    ],
+
+    'warning' => [
+        'latest_version'    => 'Está utilizando la última versión de :module, no hay actualizaciones disponibles.',
     ],
 
     'badge' => [

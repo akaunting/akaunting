@@ -18,7 +18,7 @@ return [
     'tax_total'             => 'Total Impuestos',
     'total'                 => 'Total ',
 
-    'item_name'             => 'Nombre del artículo | Nombres de artículo',
+    'item_name'             => 'Nombre del artículo|Nombres de artículo',
     'recurring_bills'       => 'Factura recurrente|Facturas recurrentes',
 
     'show_discount'         => ':discount% Descuento',

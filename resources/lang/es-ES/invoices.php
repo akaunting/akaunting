@@ -19,7 +19,7 @@ return [
     'tax_total'             => 'Total Impuestos',
     'total'                 => 'Total ',
 
-    'item_name'             => 'Nombre del artículo | Nombres de artículo',
+    'item_name'             => 'Nombre del artículo|Nombres de artículo',
     'recurring_invoices'    => 'Factura recurrente|Facturas recurrentes',
 
     'show_discount'         => ':discount% Descuento',
@@ -42,7 +42,8 @@ return [
     'send_invoice'          => 'Enviar Factura',
     'get_paid'              => 'Recibir Pago',
     'accept_payments'       => 'Aceptar Pagos Online',
-    'payment_received'      => 'Pago recibido',
+    'payments_received'     => 'Pagos recibidos',
+    'over_payment'          => 'El importe introducido supera el total: :amount',
 
     'form_description' => [
         'billing'           => 'Los datos de facturación aparecen en su factura. La fecha de la factura se utiliza en el panel de control e informes. Seleccione la fecha que usted espera que se le pague como fecha de vencimiento.',
@@ -50,6 +51,7 @@ return [
 
     'messages' => [
         'email_required'    => 'Ninguna dirección de correo electrónico para este cliente!',
+        'totals_required'   => 'Los totales de la factura son obligatorios. Por favor, edite el :type y guárdelo de nuevo.',
         'draft'             => 'Esta es una factura <b>BORRADOR</b> y se reflejará en los gráficos luego de que sea enviada.',
 
         'status' => [
@@ -63,6 +65,8 @@ return [
                 'await'     => 'Pendiente de pago',
             ],
         ],
+
+        'name_or_description_required' => 'Su factura debe mostrar al menos uno de los siguientes: <b>:name</b> o <b>:description</b>.',
     ],
 
     'slider' => [
