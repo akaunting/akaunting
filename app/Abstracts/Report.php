@@ -15,6 +15,7 @@ use App\Events\Report\TotalCalculated;
 use App\Exports\Common\Reports as Export;
 use App\Models\Common\Report as Model;
 use App\Models\Document\Document;
+use App\Models\Document\DocumentItem;
 use App\Models\Setting\Category;
 use App\Traits\Charts;
 use App\Traits\DateTime;
@@ -22,6 +23,7 @@ use App\Traits\SearchString;
 use App\Traits\Translations;
 use App\Utilities\Date;
 use App\Utilities\Export as ExportHelper;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 abstract class Report
@@ -579,6 +581,26 @@ abstract class Report
         event(new GroupApplying($this, $model, $args));
 
         return $model;
+    }
+
+    public function flattenDocumentItems(Collection $documents): Collection
+    {
+        return $documents->flatMap(fn (Document $d) =>
+            $d->items->map(function (DocumentItem $di) use ($d) {
+                $proxy = clone $di;
+                $proxy->type = $d->type;
+                $proxy->document_number = $d->document_number;
+                $proxy->status = $d->status;
+                $proxy->issued_at = $d->issued_at;
+                $proxy->due_at = $d->due_at;
+                $proxy->currency_code = $d->currency_code;
+                $proxy->currency_rate = $d->currency_rate;
+                $proxy->amount = $di->total;
+                $proxy->contact_id = $d->contact_id;
+
+                return $proxy;
+            })
+        );
     }
 
     public function getUrl($action = 'print')

@@ -70,7 +70,7 @@
 
                 @if ($tabActive == $type . '-all')
                     <x-tabs.nav-pin
-                        id="transactions"
+                        id="{{ $type }}-all"
                         name="{{ trans('general.all_type', ['type' => trans_choice('general.transactions', 2)]) }}"
                         type="transactions"
                         tab="all"

@@ -75,7 +75,7 @@ class IncomeExpenseSummary extends Report
                     args: ['date_field' => 'issued_at', 'model_type' => 'invoice'],
                 )->get();
                 Recurring::reflect($invoices, 'issued_at');
-                $this->setTotals($invoices, 'issued_at', false, 'income');
+                $this->setTotals($this->flattenDocumentItems($invoices), 'issued_at', false, 'income');
 
                 // Incomes
                 $incomes = $income_transactions->isNotDocument()->get();
@@ -88,7 +88,7 @@ class IncomeExpenseSummary extends Report
                     args: ['date_field' => 'issued_at', 'model_type' => 'bill'],
                 )->get();
                 Recurring::reflect($bills, 'issued_at');
-                $this->setTotals($bills, 'issued_at', false, 'expense');
+                $this->setTotals($this->flattenDocumentItems($bills), 'issued_at', false, 'expense');
 
                 // Expenses
                 $expenses = $expense_transactions->isNotDocument()->get();

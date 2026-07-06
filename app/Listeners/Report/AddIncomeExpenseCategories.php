@@ -28,7 +28,7 @@ class AddIncomeExpenseCategories extends Listener
             return;
         }
 
-        $types = array_merge($this->getIncomeCategoryTypes(), $this->getExpenseAndCogsCategoryTypes());
+        $types = array_merge($this->getIncomeCategoryTypes(), $this->getExpenseAndDirectCostCategoryTypes());
 
         $event->class->filters['categories'] = $this->getIncomeExpenseCategories(limit: true);
         $event->class->filters['routes']['categories'] = ['categories.index', 'search=type:' . implode(',', $types) . ' enabled:1'];
@@ -62,7 +62,7 @@ class AddIncomeExpenseCategories extends Listener
             return;
         }
 
-        $types = array_merge($this->getIncomeCategoryTypes(), $this->getExpenseAndCogsCategoryTypes());
+        $types = array_merge($this->getIncomeCategoryTypes(), $this->getExpenseAndDirectCostCategoryTypes());
         $categories = Category::type($types)->orderBy('name')->get();
         $rows = $categories->pluck('name', 'id')->toArray();
 
@@ -113,10 +113,10 @@ class AddIncomeExpenseCategories extends Listener
     protected function getCategoryTypesForTable(string $table_key): array
     {
         return match ($table_key) {
-            Category::INCOME_TYPE  => $this->getIncomeCategoryTypes(),
+            Category::INCOME_TYPE => $this->getIncomeCategoryTypes(),
             Category::EXPENSE_TYPE => $this->getExpenseCategoryTypes(),
-            Category::COGS_TYPE    => $this->getCogsCategoryTypes(),
-            default                => $this->getExpenseCategoryTypes(),
+            Category::DIRECT_COST_TYPE => $this->getDirectCostCategoryTypes(),
+            default => $this->getExpenseCategoryTypes(),
         };
     }
 }

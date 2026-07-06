@@ -395,6 +395,28 @@ if (! function_exists('request_is_api')) {
     }
 }
 
+if (! function_exists('request_is_mcp')) {
+    function request_is_mcp(Request|null $request = null): bool
+    {
+        $r = $request ?: request();
+
+        return $r->is('/mcp') || $r->is('/mcp/*');
+    }
+}
+
+if (! function_exists('request_is_oauth_api')) {
+    /**
+     * Returns true when the current request is an API call authenticated
+     * via an OAuth Bearer token (as set by AuthenticateOnceWithDynamicApi middleware).
+     */
+    function request_is_oauth_api(Request|null $request = null): bool
+    {
+        $r = $request ?: request();
+
+        return request_is_api($r) && $r->attributes->get('auth_method') === 'oauth';
+    }
+}
+
 if (! function_exists('request_is_auth')) {
     function request_is_auth(Request|null $request = null): bool
     {

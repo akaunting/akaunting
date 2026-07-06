@@ -22,11 +22,11 @@ trait Categories
         return in_array($type, $this->getExpenseCategoryTypes());
     }
 
-    public function isCogsCategory(): bool
+    public function isDirectCostCategory(): bool
     {
-        $type = $this->type ?? $this->category->type ?? $this->model->type ?? Category::COGS_TYPE;
+        $type = $this->type ?? $this->category->type ?? $this->model->type ?? Category::DIRECT_COST_TYPE;
 
-        return in_array($type, $this->getCogsCategoryTypes());
+        return in_array($type, $this->getDirectCostCategoryTypes());
     }
 
     public function isItemCategory(): bool
@@ -50,10 +50,10 @@ trait Categories
                 $types = $this->getIncomeCategoryTypes($return);
                 break;
             case Category::EXPENSE_TYPE:
-                $types = $this->getExpenseAndCogsCategoryTypes($return);
+                $types = $this->getExpenseAndDirectCostCategoryTypes($return);
                 break;
-            case Category::COGS_TYPE:
-                $types = $this->getCogsCategoryTypes($return);
+            case Category::DIRECT_COST_TYPE:
+                $types = $this->getDirectCostCategoryTypes($return);
                 break;
             case Category::ITEM_TYPE:
                 $types = $this->getItemCategoryTypes($return);
@@ -78,14 +78,14 @@ trait Categories
         return $this->getCategoryTypesByIndex(Category::EXPENSE_TYPE, $return);
     }
 
-    public function getCogsCategoryTypes(string $return = 'array'): string|array
+    public function getDirectCostCategoryTypes(string $return = 'array'): string|array
     {
-        return $this->getCategoryTypesByIndex(Category::COGS_TYPE, $return);
+        return $this->getCategoryTypesByIndex(Category::DIRECT_COST_TYPE, $return);
     }
 
-    public function getExpenseAndCogsCategoryTypes(string $return = 'array'): string|array
+    public function getExpenseAndDirectCostCategoryTypes(string $return = 'array'): string|array
     {
-        $types = array_merge($this->getExpenseCategoryTypes(), $this->getCogsCategoryTypes());
+        $types = array_merge($this->getExpenseCategoryTypes(), $this->getDirectCostCategoryTypes());
 
         return ($return == 'array') ? $types : implode(',', $types);
     }
@@ -117,9 +117,9 @@ trait Categories
         $this->addCategoryType($new_type, Category::EXPENSE_TYPE);
     }
 
-    public function addCogsCategoryType(string $new_type): void
+    public function addDirectCostCategoryType(string $new_type): void
     {
-        $this->addCategoryType($new_type, Category::COGS_TYPE);
+        $this->addCategoryType($new_type, Category::DIRECT_COST_TYPE);
     }
 
     public function addItemCategoryType(string $new_type): void
@@ -208,9 +208,13 @@ trait Categories
             }
 
             if ($group) {
-                $group_key = $attr['group'] ?? $type;
+                $group_value = $attr['group'] ?? $type;
 
-                $category_types[$group_key][$type] = $name;
+                if (is_callable($attr['translation']['group'] ?? null)) {
+                    $group_value = $attr['translation']['group']();
+                }
+
+                $category_types[$group_value][$type] = $name;
             } else {
                 $category_types[$type] = $name;
             }
@@ -227,12 +231,16 @@ trait Categories
             return $type;
         }
 
-        $group = $config['group'] ?? $type;
-        $plural_type = $count === 1 ? Str::plural($group, 1) : Str::plural($group);
-        $name = ($config['translation']['prefix'] ?? 'general') . '.' . $plural_type;
+        if (is_callable($config['translation']['type'] ?? null)) {
+            $name = $config['translation']['type']();
+        } else {
+            $group = $config['group'] ?? $type;
+            $plural_type = $count === 1 ? Str::plural($group, 1) : Str::plural($group);
+            $name = ($config['translation']['prefix'] ?? 'general') . '.' . $plural_type;
 
-        if (! empty($config['alias'])) {
-            $name = $config['alias'] . '::' . $name;
+            if (! empty($config['alias'])) {
+                $name = $config['alias'] . '::' . $name;
+            }
         }
 
         return trans_choice($name, $count);

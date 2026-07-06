@@ -27,9 +27,9 @@ return [
             'hide' => ['code'],
         ],
 
-        Category::COGS_TYPE => [
+        Category::DIRECT_COST_TYPE => [
             'alias' => '',
-            'group' => Category::COGS_TYPE,
+            'group' => Category::EXPENSE_TYPE,
             'translation' => [
                 'prefix' => 'general',
             ],
