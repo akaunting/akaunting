@@ -12,6 +12,7 @@ return [
     'recurring_expense'     => 'Yinelenen Gider',
     'included_tax'          => 'Dahil edilen vergi tutarı',
     'connected'             => 'Bağlantılı',
+    'connect_message'       => 'Bağlama işlemi sırasında bu :type için vergiler hesaplanmadı. Vergiler bağlanamaz.',
 
     'form_description' => [
         'general'           => 'Burada tarih, tutar, hesap, açıklama gibi işlemin genel bilgilerini girebilirsiniz.',
@@ -45,6 +46,13 @@ return [
 
     'sticky' => [
         'description'       => 'Müşterinizin ödemenizin web sürümünü nasıl göreceğini önizleyebilirsiniz.',
+    ],
+
+    'messages' => [
+        'update_document_transaction' => 'Bu işlemi güncelleyebilirsiniz. Belgeye gitmeli ve orada düzenlemelisiniz.',
+        'create_document_transaction_error' => 'Bu uç nokta bir belgeye eklenemez. {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions kullanın',
+        'update_document_transaction_error' => 'Bu uç nokta bir belgeye güncellenemez. {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions/{akaunting_transaction_id} kullanın',
+        'delete_document_transaction_error' => 'Bu uç nokta bir belgeden silinemez. {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions/{akaunting_transaction_id} kullanın',
     ],
 
 ];

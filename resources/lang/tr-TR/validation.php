@@ -3,14 +3,14 @@
 return [
 
     /*
-    |--------------------------------------------------------------------------
-    | Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines contain the default error messages used by
-    | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
-    |
+|--------------------------------------------------------------------------
+|Validation Language Lines
+|--------------------------------------------------------------------------
+|
+|The following language lines contain the default error messages used by
+|the validator class. Some of these rules have multiple versions such
+|as the size rules. Feel free to tweak each of these messages here.
+|
     */
 
     'accepted' => ':attribute kabul edilmelidir.',
@@ -66,6 +66,7 @@ return [
     'image' => ':attribute alanı resim dosyası olmalıdır.',
     'in' => ':attribute değeri geçersiz.',
     'in_array' => ':attribute alanı :other içinde mevcut değil.',
+    'in_detailed' => ':attribute değeri ":value" geçersiz. Şunlardan biri bekleniyordu: :values',
     'integer' => ':attribute tamsayı olmalıdır.',
     'ip' => ':attribute geçerli bir IP adresi olmalıdır.',
     'ipv4' => ':attribute geçerli bir IPv4 adresi olmalıdır.',
@@ -139,14 +140,14 @@ return [
     'uuid' => ':attribute geçerli bir UUID olmalıdır.',
 
     /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify custom validation messages for attributes using the
-    | convention "attribute.rule" to name the lines. This makes it quick to
-    | specify a specific custom language line for a given attribute rule.
-    |
+|--------------------------------------------------------------------------
+|Custom Validation Language Lines
+|--------------------------------------------------------------------------
+|
+|Here you may specify custom validation messages for attributes using the
+|convention "attribute.rule" to name the lines. This makes it quick to
+|specify a specific custom language line for a given attribute rule.
+|
     */
 
     'custom' => [
@@ -155,6 +156,7 @@ return [
         ],
         'invalid_currency'      => ':attribute geçersiz bir döviz kuru kodu.',
         'invalid_amount'        => 'Tutar :attribute geçersiz.',
+        'invalid_quantity'      => ':attribute geçerli bir matematiksel ifade değil.',
         'invalid_extension'     => 'Dosyanın uzantısı geçersiz.',
         'invalid_dimension'     => ':attribute boyutları en fazla :width x :height px olmalıdır.',
         'invalid_colour'        => ':attribute rengi geçersiz.',
@@ -162,14 +164,14 @@ return [
     ],
 
     /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Attributes
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used to swap our attribute placeholder
-    | with something more reader friendly such as "E-Mail Address" instead
-    | of "email". This simply helps us make our message more expressive.
-    |
+|--------------------------------------------------------------------------
+|Custom Validation Attributes
+|--------------------------------------------------------------------------
+|
+|The following language lines are used to swap our attribute placeholder
+|with something more reader friendly such as "E-Mail Address" instead
+|of "email". This simply helps us make our message more expressive.
+|
     */
 
     'attributes' => [],

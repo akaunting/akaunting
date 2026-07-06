@@ -7,6 +7,7 @@ return [
     'grand_total'               => 'Genel Toplam',
     'accept_payment_online'     => 'Çevrimiçi Ödemeleri Kabul Et',
     'transaction'               => ':account kullanılarak :amount tutarında bir ödeme yapıldı.',
+    'portal_transaction'        => ':payment_method kullanılarak :amount tutarında bir ödeme yapıldı.',
     'billing'                   => 'Faturalama',
     'advanced'                  => 'Gelişmiş',
 

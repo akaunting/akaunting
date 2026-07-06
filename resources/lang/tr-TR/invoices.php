@@ -19,7 +19,7 @@ return [
     'tax_total'             => 'Vergi Toplamı',
     'total'                 => 'Toplam',
 
-    'item_name'             => 'Öğe Adı | Öğe Adları',
+    'item_name'             => 'Öğe Adı|Öğe Adları',
     'recurring_invoices'    => 'Yinelenen Fatura|Yinelenen Faturalar',
 
     'show_discount'         => '%:discount İndirim',

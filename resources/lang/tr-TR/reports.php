@@ -10,8 +10,13 @@ return [
     'expense_summary'               => 'Gider Özeti',
     'income_expense_summary'        => 'Gelir Gider Dengesi',
     'tax_summary'                   => 'Vergi Özeti',
+    'discount_summary'              => 'İndirim Özeti',
     'gross_profit'                  => 'Brüt Kar',
     'net_profit'                    => 'Net Kar',
+    'net_profit_loss'               => 'Net Kar (Zarar)',
+    'total_income'                  => 'Toplam Gelir',
+    'total_direct_cost'             => 'Toplam Satış Maliyeti',
+    'total_expense'                 => 'Toplam Giderler',
     'total_expenses'                => 'Toplam Gider',
     'net'                           => 'NET',
     'income_expense'                => 'Gelir - Gider',
@@ -34,6 +39,8 @@ return [
     'pin_text' => [
         'unpin_report'              => 'Raporunuzun sabitlemesini kaldırın',
         'pin_report'                => 'Raporunuzu sabitleyin',
-    ]
+    ],
+
+    'percentage_of_income'          => 'Gelirin % oranını göster',
 
 ];

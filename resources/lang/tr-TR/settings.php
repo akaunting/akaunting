@@ -79,10 +79,14 @@ return [
         'subheading'                    => 'Altbaşlık',
         'due_receipt'                   => 'Teslim alındığında vadeli',
         'due_days'                      => ':days vadeli',
+        'due_custom'                    => 'Özel gün(ler)',
+        'due_custom_day'                => 'gün sonrasında',
         'choose_template'               => 'Fatura şablonu seçin',
         'default'                       => 'Varsayılan',
         'classic'                       => 'Klasik',
         'modern'                        => 'Modern',
+        'logo_size_width'               => 'Logo Genişliği',
+        'logo_size_height'              => 'Logo Yüksekliği',
         'hide' => [
             'item_name'                 => 'Ürün/Hizmet İsmini Gizle',
             'item_description'          => 'Ürün/Hizmet Açıklamasını Gizle',
@@ -113,6 +117,8 @@ return [
         'use_gravatar'                  => 'Gravatar kullanın',
         'income_category'               => 'Gelir Kategorisi',
         'expense_category'              => 'Gider Kategorisi',
+        'address_format'                => 'Adres Biçimi',
+        'address_tags'                  => '<strong>Kullanılabilir Etiketler:</strong> :tags',
 
         'form_description' => [
             'general'                   => 'Kayıtları hızla oluşturmak için varsayılan hesabı, vergiyi ve ödeme yöntemini seçin.  Gösterge Tablosu ve Raporlar, varsayılan para birimi altında gösterilir.',

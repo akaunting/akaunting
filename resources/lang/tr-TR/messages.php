@@ -46,6 +46,8 @@ return [
         'disable_code'      => 'Uyarı: <b>:name</b> devre dışı bırakılamaz veya kur değiştirilemez çünkü :text ile ilişkilidir.',
         'payment_cancel'    => 'Uyarı: :method ödemesini iptal ettiniz!',
         'missing_transfer'  => 'Uyarı: Bu işlemle ilgili transfer eksik. Bu işlemi silmeyi düşünmelisiniz.',
+        'connect_tax'       => 'Uyarı: Bu :type bir vergi tutarı içeriyor. :type eklenen vergiler bağlanamadığından, vergi topama eklenecek ve buna göre hesaplanacaktır.',
+        'contact_change'    => 'Uyarı: Halihazırda gönderilmiş, alınmış veya ödenmiş bir :type üzerindeki kişiyi değiştirmenize izin verilmez!',
     ],
 
 ];
