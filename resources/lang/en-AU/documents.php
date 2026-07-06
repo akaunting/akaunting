@@ -7,6 +7,7 @@ return [
     'grand_total'               => 'Grand Total',
     'accept_payment_online'     => 'Accept Payments Online',
     'transaction'               => 'A payment for :amount was made using :account.',
+    'portal_transaction'        => 'A payment for :amount was made using :payment_method.',
     'billing'                   => 'Billing',
     'advanced'                  => 'Advanced',
 

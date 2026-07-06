@@ -12,7 +12,11 @@ return [
     'tax_summary'                   => 'Tax Summary',
     'gross_profit'                  => 'Gross Profit',
     'net_profit'                    => 'Net Profit',
-    'total_expenses'                => 'Total Expenses',
+    'discount_summary'              => 'Discount Summary',
+    'net_profit_loss'               => 'Net Profit (Loss)',
+    'total_income'                  => 'Total Income',
+    'total_direct_cost'             => 'Total Cost of Sales',
+    'total_expense'                 => 'Total Expenses',
     'net'                           => 'NET',
     'income_expense'                => 'Income & Expense',
     'pin'                           => 'Pin your report',
@@ -34,6 +38,8 @@ return [
     'pin_text' => [
         'unpin_report'              => 'Unpin your report',
         'pin_report'                => 'Pin your report',
-    ]
+    ],
+
+    'percentage_of_income'          => 'Show % of Income',
 
 ];
