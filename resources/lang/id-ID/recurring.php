@@ -32,6 +32,7 @@ return [
     'send_email_auto'       => 'Kirim email secara otomatis',
 
     'frequency_type'        => 'Ulangi :type ini',
+    'custom_frequency_desc' => 'Ulangi setiap :interval :frequency',
     'limit_date'            => 'Buat :type pertama aktif',
     'limit_middle'          => 'dan akhir',
 

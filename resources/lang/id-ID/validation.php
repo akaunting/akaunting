@@ -44,6 +44,7 @@ return [
     'dimensions' => ':attribute tidak memiliki dimensi gambar yang valid.',
     'distinct' => ':attribute memiliki nilai yang duplikat.',
     'doesnt_start_with' => 'Atribute :attribute tidak boleh dimulai dengan salah satu nilai dari berikut ini: :values.',
+    'double' => ':attribute harus berupa angka desimal yang valid.',
     'email' => ':attribute harus berupa alamat surel yang valid.',
     'ends_with' => ':attribute harus diakhiri salah satu dari berikut: :values',
     'enum' => 'Atribut :attribute tidak valid.',
@@ -65,6 +66,7 @@ return [
     'image' => ':attribute harus berupa gambar.',
     'in' => ':attribute yang dipilih tidak valid.',
     'in_array' => ':attribute tidak ada di dalam :other.',
+    'in_detailed' => 'Nilai :attribute ":value" tidak valid. Diharapkan salah satu dari: :values',
     'integer' => ':attribute harus berupa bilangan bulat.',
     'ip' => ':attribute harus berupa alamat IP yang valid.',
     'ipv4' => ':attribute harus berupa sebuah alamat IPv4 yang valid.',
@@ -154,8 +156,11 @@ return [
         ],
         'invalid_currency'      => ':attribute kode tidak valid.',
         'invalid_amount'        => 'Jumlah :attribute tidak valid.',
+        'invalid_quantity'      => ':attribute bukan ekspresi matematika yang valid.',
         'invalid_extension'     => 'Ekstensi file tidak valid',
         'invalid_dimension'     => 'Maksimal dimensi atribut :attribute adalah :width x :height px.',
+        'invalid_colour'        => 'Warna :attribute tidak valid.',
+        'invalid_payment_method'=> 'Metode pembayaran tidak valid.',
     ],
 
     /*

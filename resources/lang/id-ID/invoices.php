@@ -43,6 +43,7 @@ return [
     'get_paid'              => 'Telah dibayar',
     'accept_payments'       => 'Menerima pembayaran online',
     'payments_received'     => 'Pembayaran diterima',
+    'over_payment'          => 'Jumlah yang Anda masukkan melebihi total: :amount',
 
     'form_description' => [
         'billing'           => 'Detail penagihan muncul di faktur Anda. Tanggal Faktur digunakan di dasbor dan laporan. Pilih tanggal yang Anda harapkan untuk dibayar sebagai Tanggal Jatuh Tempo.',

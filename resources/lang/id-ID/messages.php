@@ -4,6 +4,7 @@ return [
 
     'success' => [
         'added'             => ':type ditambahkan!',
+        'created'           => ':type dibuat!',
         'updated'           => ':type diperbaharui!',
         'deleted'           => ':type dihapus!',
         'duplicated'        => ':type duplikat!',
@@ -11,6 +12,7 @@ return [
         'import_queued'     => 'Impor :type telah dijadwalkan! Anda akan menerima sebuah email ketika hal tersebut selesai.',
         'exported'          => ':type diekspor!',
         'export_queued'     => 'Ekspor :type dari halaman ini telah dijadwalkan! Anda akan menerima sebuah email ketika hal tersebut siap untuk diunduh.',
+        'download_queued'   => 'Unduhan :type dari halaman ini telah dijadwalkan! Anda akan menerima sebuah email ketika hal tersebut siap untuk diunduh.',
         'enabled'           => ':type diaktifkan!',
         'disabled'          => ':type dinonaktifkan!',
         'connected'         => ':type terhubung!',
@@ -29,6 +31,7 @@ return [
         'transfer_category' => 'Error: Tidak dapat menghapus kategori transfer <b>:type</b>!',
         'change_type'       => 'Kesalahan: Tidak dapat mengubah jenis karena memiliki :text terkait!',
         'invalid_apikey'    => 'Galat: Token API yang dimasukkan tidak sah!',
+        'empty_apikey'      => 'Galat: Anda belum memasukkan Kunci API! <a href=":url" class="font-bold underline underline-offset-4">Klik di sini</a> untuk memasukkan Kunci API Anda.',
         'import_column'     => 'Kesalahan: :message Nama kolom: :column. Nomor baris: :line.',
         'import_sheet'      => 'Error: Nama sheet tidak valid. Mohon untuk memeriksa contoh file yang tersedia.',
         'same_amount'       => 'Error: Jumlah total pembagian harus sama persis dengan :transaction total: :amount',
@@ -43,6 +46,8 @@ return [
         'disable_code'      => 'Peringatan: Anda tidak diizinkan untuk menonaktifkan atau mengubah kurs <b>:name</b> karena memiliki keterkaitan dengan :text.',
         'payment_cancel'    => 'Peringatan: kamu tidak dapat membatalkan :method pembayaran!',
         'missing_transfer'  => 'Peringatan: Tidak ada transfer yang terkait dengan transaksi ini. Anda harus mempertimbangkan untuk menghapus transaksi ini.',
+        'connect_tax'       => 'Peringatan: :type ini memiliki jumlah pajak. Pajak yang ditambahkan ke :type tidak dapat dihubungkan, sehingga pajak akan ditambahkan ke total dan dihitung sesuai itu.',
+        'contact_change'    => 'Peringatan: Anda tidak diizinkan mengubah kontak pada :type yang sudah dikirim, diterima, atau dibayar!',
     ],
 
 ];

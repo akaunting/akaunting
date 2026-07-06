@@ -28,6 +28,24 @@ return [
 
     ],
 
+    'download' => [
+
+        'completed' => [
+
+            'title'         => 'Unduhan siap',
+            'description'   => 'Berkas siap diunduh dari tautan berikut:',
+
+        ],
+
+        'failed' => [
+
+            'title'         => 'Unduhan gagal',
+            'description'   => 'Tidak dapat membuat berkas dikarenakan beberapa masalah. Periksa email Anda untuk detailnya.',
+
+        ],
+
+    ],
+
     'import' => [
 
         'completed' => [
@@ -63,12 +81,37 @@ return [
 
     ],
 
+    'email' => [
+
+        'invalid' => [
+
+            'title'         => 'Email :type tidak valid',
+            'description'   => 'Alamat email :email telah dilaporkan tidak valid, dan orang tersebut telah dinonaktifkan. Silakan periksa pesan galat berikut dan perbaiki alamat email:',
+
+        ],
+
+    ],
+
     'menu' => [
+
+        'download_completed' => [
+
+            'title'         => 'Unduhan siap',
+            'description'   => 'Berkas <strong>:type</strong> Anda siap untuk <a href=":url" target="_blank"><strong>diunduh</strong></a>',
+
+        ],
+
+        'download_failed' => [
+
+            'title'         => 'Unduhan gagal',
+            'description'   => 'Tidak dapat membuat berkas dikarenakan beberapa masalah. Periksa email Anda untuk detailnya.',
+
+        ],
 
         'export_completed' => [
 
             'title'         => 'Ekspor siap',
-            'description'   => 'File ekspor <strong>:type</strong> Anda siap untuk <a href=":url" target="_blank"><strong>mengunduh</strong></a>.',
+            'description'   => 'File ekspor <strong>:type</strong> Anda siap untuk <a href=":url" target="_blank"><strong>mengunduh</strong></a>',
 
         ],
 
@@ -88,7 +131,7 @@ return [
 
         'import_failed' => [
 
-            'subject'       => 'Impor gagal',
+            'title'         => 'Impor gagal',
             'description'   => 'Tidak dapat mengimpor file karena beberapa masalah. Periksa email Anda untuk detailnya.',
 
         ],
@@ -174,6 +217,13 @@ return [
 
             'title'         => 'Tagihan Berulang Baru',
             'description'   => 'Tagihan <strong>:bill_number</strong> dibuat berdasarkan <strong>:vendor_name</strong> lingkaran berulang. Anda dapat <a href=":bill_admin_link">klik di sini</a> untuk melihat detailnya.',
+
+        ],
+
+        'invalid_email' => [
+
+            'title'         => 'Email :type tidak valid',
+            'description'   => 'Alamat email <strong>:email</strong> telah dilaporkan tidak valid, dan orang tersebut telah dinonaktifkan. Silakan periksa dan perbaiki alamat email.',
 
         ],
 

@@ -10,6 +10,7 @@ return [
         'duplicate'     => 'Yakin ingin <b> menggandakan </b> catatan yang dipilih?',
         'delete'        => 'Yakin ingin <b>menghapus</b> data yang dipilih?|Yakin ingin <b>menghapus</b> data yang dipilih?',
         'export'        => 'Yakin ingin <b>mengekspor</b> data yang dipilih?|Yakin ingin <b>mengekspor</b> data yang dipilih?',
+        'download'      => 'Yakin ingin <b>unduh</b> data yang dipilih?|Yakin ingin <b>unduh</b> data yang dipilih?',
         'enable'        => 'Yakin ingin <b>mengaktifkan</b> data yang dipilih?|Yakin ingin <b>mengaktifkan</b> data yang dipilih?',
         'disable'       => 'Yakin ingin <b>menonaktifkan</b> data yang dipilih?|Yakin ingin <b>menonaktifkan</b> data yang dipilih?',
         'paid'          => 'Yakin ingin menandai faktur yang dipilih sebagai <b>dibayar</b>?|Yakin ingin menandai faktur yang dipilih sebagai <b>dibayar</b>?',

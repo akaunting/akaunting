@@ -3,6 +3,7 @@
 return [
 
     'years'                         => 'Tahun|Tahun',
+    'date_range'                    => 'Rentang Tanggal',
     'preferences'                   => 'Preferensi|Preferensi',
     'this_year'                     => 'Tahun ini',
     'previous_year'                 => 'Tahun sebelumnya',
@@ -14,8 +15,13 @@ return [
     'expense_summary'               => 'Ringkasan Pengeluaran',
     'income_expense_summary'        => 'Pendapatan berbanding Pengeluaran',
     'tax_summary'                   => 'Ringkasan Pajak',
+    'discount_summary'              => 'Ringkasan Diskon',
     'gross_profit'                  => 'Laba Kotor',
     'net_profit'                    => 'Laba Bersih',
+    'net_profit_loss'               => 'Laba Bersih (Rugi)',
+    'total_income'                  => 'Total Pendapatan',
+    'total_direct_cost'             => 'Total Harga Pokok Penjualan',
+    'total_expense'                 => 'Total Pengeluaran',
     'total_expenses'                => 'Total Pengeluaran',
     'net'                           => 'Laba Bersih',
     'income_expense'                => 'Pendapatan & Pengeluaran',
@@ -38,6 +44,8 @@ return [
     'pin_text' => [
         'unpin_report'              => 'Lepas sematan laporan Anda',
         'pin_report'                => 'Sematkan laporan Anda',
-    ]
+    ],
+
+    'percentage_of_income'          => 'Tampilkan % dari Pendapatan',
 
 ];

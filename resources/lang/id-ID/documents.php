@@ -7,6 +7,7 @@ return [
     'grand_total'               => 'Total Keseluruhan',
     'accept_payment_online'     => 'Menerima Pembayaran Daring',
     'transaction'               => 'Pembayaran untuk :amount telah dilakukan menggunakan :account',
+    'portal_transaction'        => 'Pembayaran untuk :amount telah dilakukan menggunakan :payment_method',
     'billing'                   => 'Tagihan',
     'advanced'                  => 'Opsi Lanjutan',
 
@@ -70,8 +71,18 @@ return [
         'attachment'            => 'Unduh berkas terlampir ke :type',
     ],
 
+    'slider' => [
+        'create'            => ':user membuat :type ini pada :date',
+        'create_recurring'  => ':user membuat templat berulang ini pada :date',
+        'send'              => ':user mengirim :type ini pada :date',
+        'schedule'          => 'Ulangi setiap :interval :frequency sejak :date',
+        'children'          => ':count :type dibuat secara otomatis',
+        'cancel'            => ':user membatalkan :type ini pada :date',
+    ],
+
     'messages' => [
         'email_sent'            => ':type email telah dikirim!',
+        'restored'              => ':type telah dipulihkan!',
         'marked_as'             => ':type ditandai sebagai :status!',
         'marked_sent'           => ':type ditandai terkirim!',
         'marked_paid'           => ':type ditandai telah terbayar!',

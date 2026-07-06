@@ -10,6 +10,9 @@ return [
     'related_bill'          => 'Tagihan Terkait',
     'recurring_income'      => 'Penghasilan Berulang',
     'recurring_expense'     => 'Biaya Berulang',
+    'included_tax'          => 'Jumlah pajak termasuk',
+    'connected'             => 'Terhubung',
+    'connect_message'       => 'Pajak untuk :type ini tidak dihitung selama proses koneksi. Pajak tidak dapat dihubungkan.',
 
     'form_description' => [
         'general'           => 'Di sini Anda dapat memasukkan informasi umum transaksi seperti tanggal, jumlah, akun, deskripsi, dll.',
@@ -24,6 +27,7 @@ return [
         'create_recurring'  => ':user membuat template berulang ini pada :date',
         'schedule'          => 'Ulangi setiap :interval :frequency sejak :date',
         'children'          => ':count transaksi dibuat secara otomatis',
+        'connect'           => 'Transaksi ini terhubung ke :count transaksi',
         'transfer_headline' => '<div> <span class="font-bold"> Dari: </span> :from_account </div> <div> <span class="font-bold"> ke: </span> :to_account </div>',
         'transfer_desc'     => 'Transfer dibuat pada :date.',
     ],
@@ -42,6 +46,13 @@ return [
 
     'sticky' => [
         'description'       => 'Anda melihat pratinjau bagaimana pelanggan Anda akan melihat versi web pembayaran Anda.',
+    ],
+
+    'messages' => [
+        'update_document_transaction' => 'Anda dapat memperbarui transaksi ini. Anda harus pergi ke dokumen dan menyuntingnya di sana.',
+        'create_document_transaction_error' => 'Titik akhir ini tidak dapat ditambahkan ke dokumen. Gunakan {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions',
+        'update_document_transaction_error' => 'Titik akhir ini tidak dapat diperbarui ke dokumen. Gunakan {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions/{akaunting_transaction_id}',
+        'delete_document_transaction_error' => 'Titik akhir ini tidak dapat dihapus dari dokumen. Gunakan {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions/{akaunting_transaction_id}',
     ],
 
 ];

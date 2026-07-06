@@ -79,10 +79,14 @@ return [
         'subheading'                    => 'Subjudul',
         'due_receipt'                   => 'Jatuh tempo saat diterima',
         'due_days'                      => 'Jatuh tempo dalam :days hari',
+        'due_custom'                    => 'Hari kustom',
+        'due_custom_day'                => 'setelah hari',
         'choose_template'               => 'Pilih template faktur',
         'default'                       => 'Default',
         'classic'                       => 'Klasik',
         'modern'                        => 'Modern',
+        'logo_size_width'               => 'Lebar Logo',
+        'logo_size_height'              => 'Tinggi Logo',
         'hide' => [
             'item_name'                 => 'Sembunyikan Nama Item',
             'item_description'          => 'Sembunyikan Deskripsi Item',
@@ -113,6 +117,8 @@ return [
         'use_gravatar'                  => 'Gunakan Gravatar',
         'income_category'               => 'Kategori Pemasukan',
         'expense_category'              => 'Kategori Pengeluaran',
+        'address_format'                => 'Format Alamat',
+        'address_tags'                  => '<strong>Tag Tersedia:</strong> :tags',
 
         'form_description' => [
             'general'                   => 'Pilih akun bawaan, pajak, dan metode pembayaran untuk membuat catatan dengan cepat. Dasbor dan Laporan ditampilkan di bawah mata uang default.',
