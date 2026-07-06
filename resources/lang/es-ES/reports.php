@@ -3,6 +3,7 @@
 return [
 
     'years'                         => 'Año|Años',
+    'date_range'                    => 'Rango de fechas',
     'preferences'                   => 'Preferencia|Preferencias',
     'this_year'                     => 'Este año',
     'previous_year'                 => 'Año Anterior',
@@ -14,8 +15,13 @@ return [
     'expense_summary'               => 'Resumen de Gastos',
     'income_expense_summary'        => 'Ingresos vs Gastos',
     'tax_summary'                   => 'Resumen de impuestos',
+    'discount_summary'              => 'Resumen de descuentos',
     'gross_profit'                  => 'Ganancia Bruta',
     'net_profit'                    => 'Ganancia Neta',
+    'net_profit_loss'               => 'Ganancia Neta (Pérdida)',
+    'total_income'                  => 'Ingresos totales',
+    'total_direct_cost'             => 'Costo total de ventas',
+    'total_expense'                 => 'Total de gastos',
     'total_expenses'                => 'Total de gastos',
     'net'                           => 'Neto',
     'income_expense'                => 'Ingresos y Gastos',
@@ -38,6 +44,8 @@ return [
     'pin_text' => [
         'unpin_report'              => 'Desanclar tu informe',
         'pin_report'                => 'Anclar tu informe',
-    ]
+    ],
+
+    'percentage_of_income'          => 'Mostrar % de los ingresos',
 
 ];

@@ -40,6 +40,7 @@ return [
         'self_delete'       => 'Error: No puede eliminarse usted mismo!',
         'self_disable'      => 'Error: ¡No puede desactivarse a usted mismo!',
         'no_company'        => 'Error: No hay compañías asignadas a su cuenta. Por favor contacte al administrador del sistema.',
+        'unassigned'        => 'Error: Esta cuenta no ha sido asignada a ninguna empresa. Por favor contacte al administrador del sistema.',
     ],
 
     'login_redirect'        => '¡Verificación realizada! Estás siendo redirigido...',

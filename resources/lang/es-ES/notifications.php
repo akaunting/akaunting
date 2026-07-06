@@ -28,6 +28,24 @@ return [
 
     ],
 
+    'download' => [
+
+        'completed' => [
+
+            'title'         => 'La descarga está lista',
+            'description'   => 'El archivo está listo para descargar desde el siguiente enlace:',
+
+        ],
+
+        'failed' => [
+
+            'title'         => 'Error en la descarga',
+            'description'   => 'No se pudo crear el archivo debido al siguiente problema:',
+
+        ],
+
+    ],
+
     'import' => [
 
         'completed' => [
@@ -63,12 +81,39 @@ return [
 
     ],
 
+    'email' => [
+
+        'invalid' => [
+
+            'title'         => 'Correo electrónico :type no válido',
+            'description'   => 'La dirección de correo electrónico :email ha sido reportada como no válida y la persona ha sido desactivada. Por favor, revise el siguiente mensaje de error y corrija la dirección de correo electrónico:',
+
+        ],
+
+    ],
+
     'menu' => [
+
+        'download_completed' => [
+
+            'title'         => 'La descarga está lista',
+            'description'   => 'Su archivo <strong>:type</strong> está listo para <a href=":url" target="_blank"><strong>descargar</strong></a>.',
+            'url'           => 'https://example.com',
+
+        ],
+
+        'download_failed' => [
+
+            'title'         => 'Error en la descarga',
+            'description'   => 'No se pudo crear el archivo debido a varios problemas. Revise su correo electrónico para los detalles.',
+
+        ],
 
         'export_completed' => [
 
             'title'         => 'La exportación está lista',
             'description'   => 'Tu archivo de exportación <strong>:type</strong> está listo para <a href=":url" target="_blank"><strong>descargar</strong></a>.',
+            'url'           => 'https://example.com',
 
         ],
 
@@ -83,6 +128,13 @@ return [
 
             'title'         => 'Importación completada',
             'description'   => 'Tus datos <strong>:type</strong> alineados <strong>:count</strong> se han importado correctamente.',
+
+        ],
+
+        'import_failed' => [
+
+            'title'         => 'Importación fallida',
+            'description'   => 'No se pudo importar el archivo debido a varios problemas. Revise su correo electrónico para los detalles.',
 
         ],
 
@@ -170,6 +222,13 @@ return [
 
         ],
 
+        'invalid_email' => [
+
+            'title'         => 'Correo electrónico :type no válido',
+            'description'   => 'La dirección de correo electrónico <strong>:email</strong> ha sido reportada como no válida y la persona ha sido desactivada. Por favor, revise y corrija la dirección de correo electrónico.',
+
+        ],
+
     ],
 
     'messages' => [
@@ -178,4 +237,16 @@ return [
         'mark_read_all'         => ':type has leído todas las notificaciones!',
 
     ],
+
+    'browser' => [
+
+        'firefox' => [
+
+            'title' => 'Configuración de iconos de Firefox',
+            'description'  => '<span class="font-medium">Si sus iconos no aparecen, por favor;</span> <br /> <span class="font-medium">Permita que las páginas elijan sus propias fuentes, en lugar de sus selecciones anteriores</span> <br /><br /> <span class="font-bold"> Ajustes (Preferencias) > Fuentes > Avanzado </span>',
+
+        ],
+
+    ],
+
 ];

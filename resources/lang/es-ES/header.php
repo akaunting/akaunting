@@ -6,9 +6,9 @@ return [
     'last_login'            => 'Último ingreso :time',
 
     'notifications' => [
-        'counter'           => '{0} No tiene notificaciones |{1} Tiene :count notificación | [2,*] Tiene :count notificaciones',
+        'counter'           => '{0} No tiene notificaciones|{1} Tiene :count notificación|[2,*] Tiene :count notificaciones',
         'new_apps'          => '{1} :count nueva aplicación fue publicada|[2,*] :count nuevas aplicaciones publicadas',
-        'overdue_invoices'  => '{1} :count factura vencida | [2,*] :count facturas vencidas',
+        'overdue_invoices'  => '{1} :count factura vencida|[2,*] :count facturas vencidas',
         'upcoming_bills'    => '{1} :count recibo por vencer|[2,*] :count recibos por vencer',
         'view_all'          => 'Ver todas',
 

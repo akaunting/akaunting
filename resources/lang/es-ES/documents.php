@@ -7,8 +7,15 @@ return [
     'grand_total'               => 'Suma total',
     'accept_payment_online'     => 'Aceptar pagos en línea',
     'transaction'               => 'Un pago por :amount se realizó usando :account.',
+    'portal_transaction'        => 'Un pago por :amount se realizó usando :payment_method.',
     'billing'                   => 'Facturación',
     'advanced'                  => 'Avanzado',
+
+    'item_price_hidden'         => 'Esta columna está oculta en su :type.',
+
+    'actions' => [
+        'cancel'                => 'Cancelar',
+    ],
 
     'invoice_detail' => [
         'marked'                => '<b>Tú</b> has marcado esta factura como',
@@ -64,8 +71,18 @@ return [
         'attachment'            => 'Descargar los archivos adjuntos a este :type',
     ],
 
+    'slider' => [
+        'create'            => ':user creó este :type el :date',
+        'create_recurring'  => ':user creó esta plantilla recurrente el :date',
+        'send'              => ':user envió este :type el :date',
+        'schedule'          => 'Repetir cada :interval :frequency desde el :date',
+        'children'          => ':count :type se crearon automáticamente',
+        'cancel'            => ':user canceló este :type el :date',
+    ],
+
     'messages' => [
         'email_sent'            => '¡Se ha enviado :type por correo!',
+        'restored'              => '¡:type ha sido restaurado/a!',
         'marked_as'             => '¡:type marcado/a como :status!',
         'marked_sent'           => '¡:type marcado/a como enviado!',
         'marked_paid'           => '¡:type marcado/a como pagado/a!',
@@ -83,4 +100,5 @@ return [
         ],
     ],
 
+    'empty_attachments'         => 'No hay archivos adjuntos a este :type.',
 ];

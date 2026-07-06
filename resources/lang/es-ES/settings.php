@@ -79,10 +79,14 @@ return [
         'subheading'                    => 'Subtítulo',
         'due_receipt'                   => 'Vence a la recepción',
         'due_days'                      => 'Vencimiento dentro de :days días',
+        'due_custom'                    => 'Día(s) personalizado(s)',
+        'due_custom_day'                => 'después del día',
         'choose_template'               => 'Elegir plantilla de factura',
         'default'                       => 'Por defecto',
         'classic'                       => 'Clásica',
         'modern'                        => 'Moderna',
+        'logo_size_width'               => 'Ancho del logotipo',
+        'logo_size_height'              => 'Alto del logotipo',
         'hide' => [
             'item_name'                 => 'Ocultar el nombre del artículo',
             'item_description'          => 'Ocultar la descripción del artículo',
@@ -113,6 +117,8 @@ return [
         'use_gravatar'                  => 'Usar Gravatar',
         'income_category'               => 'Categoría de ingresos',
         'expense_category'              => 'Categoría de gastos',
+        'address_format'                => 'Formato de dirección',
+        'address_tags'                  => '<strong>Etiquetas disponibles:</strong> :tags',
 
         'form_description' => [
             'general'                   => 'Seleccione la cuenta por defecto, los impuestos y el método de pago para crear registros rápidamente. El panel de control y los informes se muestran bajo la moneda predeterminada.',

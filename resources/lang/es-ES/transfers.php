@@ -26,6 +26,8 @@ return [
     'slider' => [
         'create'            => ':user creó esta transferencia el :date',
         'transactions'      => 'Esta lista es de las transacciones que se crearon automáticamente.',
+        'transactions_desc' => ':number transacción para :account',
+        'attachments'       => 'Descargar los archivos adjuntos a esta transferencia',
         'from_desc'         => 'transacción :number desde :account',
         'to_desc'           => 'transacción :number a :account',
     ],

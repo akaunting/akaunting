@@ -22,6 +22,7 @@ return [
         'extension'         => 'La extensión :extension necesita ser instalada y cargada!',
         'directory'         => 'El directorio :directorio necesita tener permiso de escritura!',
         'executable'        => '¡El archivo ejecutable PHP CLI no está definido/funcionando o su versión no es :php_version o superior! Por favor, pida a su compañía de hosting que configure correctamente la variable de entorno PHP_BINARY o PHP_PATH.',
+        'npm'               => '<b>¡Faltan archivos de JavaScript!</b> <br><br><span>Debería ejecutar los comandos <em class="underline">npm install</em> y <em class="underline">npm run dev</em>.</span>',
     ],
 
     'database' => [

@@ -20,6 +20,7 @@ return [
         'general'               => 'La información de contacto de su cliente aparecerá en las facturas y sus perfiles. También puede permitir que sus clientes inicien sesión para rastrear las facturas que les envíe marcando la casilla de abajo.',
         'billing'               => 'El número de identificación fiscal aparece en cada factura que se emite al cliente. La moneda seleccionada se convierte en la moneda predeterminada para este cliente.',
         'address'               => 'La dirección es obligatoria para las facturas, por lo que debe agregar los detalles de la dirección de facturación de su cliente.',
+        'contact_persons'       => 'Puede agregar personas de contacto para este cliente.',
     ],
 
     'no_records' => [
