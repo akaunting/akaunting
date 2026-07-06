@@ -3,120 +3,149 @@
 return [
 
     /*
-    |--------------------------------------------------------------------------
-    | Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines contain the default error messages used by
-    | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
-    |
+|--------------------------------------------------------------------------
+|Validation Language Lines
+|--------------------------------------------------------------------------
     */
 
-    'accepted'             => ':attribute debe ser aceptado.',
-    'active_url'           => ':attribute no es una URL válida.',
-    'after'                => ':attribute debe ser posterior a :date.',
-    'after_or_equal'       => ':attribute debe ser una fecha posterior o igual a :date.',
-    'alpha'                => ':attribute solo puede contener letras.',
-    'alpha_dash'           => ':attribute solo puede contener letras, números y guiones.',
-    'alpha_num'            => ':attribute solo puede contener letras y números.',
-    'array'                => ':attribute debe ser un array.',
-    'before'               => ':attribute debe ser una fecha anterior a :date.',
-    'before_or_equal'      => ':attribute debe ser una fecha anterior o igual a :date.',
-    'between'              => [
+    'accepted' => ':attribute debe ser aceptado.',
+    'accepted_if' => ':attribute debe ser aceptado cuando :other es :value.',
+    'active_url' => ':attribute no es una URL válida.',
+    'after' => ':attribute debe ser una fecha posterior a :date.',
+    'after_or_equal' => ':attribute debe ser una fecha posterior o igual a :date.',
+    'alpha' => ':attribute sólo debe contener letras.',
+    'alpha_dash' => ':attribute sólo debe contener letras, números, guiones y guiones bajos.',
+    'alpha_num' => ':attribute sólo debe contener letras y números.',
+    'array' => ':attribute debe ser un array.',
+    'before' => ':attribute debe ser una fecha anterior a :date.',
+    'before_or_equal' => ':attribute debe ser una fecha anterior o igual a :date.',
+    'between' => [
+        'array' => ':attribute debe tener entre :min y :max elementos.',
+        'file' => ':attribute debe tener entre :min y :max kilobytes.',
         'numeric' => ':attribute debe estar entre :min y :max.',
-        'file'    => ':attribute debe estar entre :min - :max kilobytes.',
-        'string'  => ':attribute debe estar entre :min - :max caracteres.',
-        'array'   => ':attribute debe tener entre :min y :max items.',
+        'string' => ':attribute debe tener entre :min y :max caracteres.',
     ],
-    'boolean'              => ':attribute debe ser verdadero o falso.',
-    'confirmed'            => ':attribute, la confirmación no coincide.',
-    'date'                 => ':attribute no es una fecha válida.',
-    'date_format'          => ':attribute no coincide con el formato :format.',
-    'different'            => ':attribute y :other deben ser <strong>diferentes</strong>.',
-    'digits'               => ':attribute debe tener :digits dígitos.',
-    'digits_between'       => ':attribute debe tener entre :min y :max dígitos.',
-    'dimensions'           => ':attribute tiene dimensiones de imagen no válidas.',
-    'distinct'             => ':attribute tiene un valor duplicado.',
-    'email'                => ':attribute debe ser una <strong>dirección de correo electrónico</strong> válida.',
-    'ends_with'            => ':attribute debe terminar con uno de los siguientes: :values',
-    'exists'               => 'El :attribute seleccionado es inválido.',
-    'file'                 => ':attribute debe ser un <strong>archivo</strong>.',
-    'filled'               => ':attribute debe tener un <strong>valor</strong>.',
-    'image'                => ':attribute debe ser una <strong>imagen</strong>.',
-    'in'                   => 'El :attribute seleccionado es inválido.',
-    'in_array'             => ':attribute no existe en :other.',
-    'integer'              => ':attribute debe ser un <strong>entero</strong>.',
-    'ip'                   => ':attribute debe ser una dirección IP válida.',
-    'json'                 => ':attribute debe ser una cadena JSON válida.',
-    'max'                  => [
-        'numeric' => ':attribute no debe ser mayor que :max.',
-        'file'    => ':attribute no debe ser mayor que :max kilobytes.',
-        'string'  => ':attribute no debe tener como máximo :max caracteres.',
-        'array'   => ':attribute no debe tener más de :max items.',
+    'boolean' => 'El campo :attribute debe ser verdadero o falso.',
+    'confirmed' => 'La confirmación de :attribute no coincide.',
+    'current_password' => 'La contraseña es incorrecta.',
+    'date' => ':attribute no es una fecha válida.',
+    'date_equals' => ':attribute debe ser una fecha igual a :date.',
+    'date_format' => ':attribute no coincide con el formato :format.',
+    'declined' => ':attribute debe ser rechazado.',
+    'declined_if' => ':attribute debe ser rechazado cuando :other es :value.',
+    'different' => ':attribute y :other deben ser diferentes.',
+    'digits' => ':attribute debe tener :digits dígitos.',
+    'digits_between' => ':attribute debe tener entre :min y :max dígitos.',
+    'dimensions' => ':attribute tiene dimensiones de imagen no válidas.',
+    'distinct' => 'El campo :attribute tiene un valor duplicado.',
+    'doesnt_start_with' => ':attribute no puede empezar por uno de los siguientes: :values.',
+    'double' => ':attribute debe ser un número decimal válido.',
+    'email' => ':attribute debe ser una dirección de correo electrónico válida.',
+    'ends_with' => ':attribute debe terminar con uno de los siguientes: :values.',
+    'enum' => 'El :attribute seleccionado no es válido.',
+    'exists' => 'El :attribute seleccionado no es válido.',
+    'file' => ':attribute debe ser un archivo.',
+    'filled' => 'El campo :attribute debe tener un valor.',
+    'gt' => [
+        'array' => ':attribute debe tener más de :value elementos.',
+        'file' => ':attribute debe ser mayor que :value kilobytes.',
+        'numeric' => ':attribute debe ser mayor que :value.',
+        'string' => ':attribute debe tener más de :value caracteres.',
     ],
-    'mimes'                => ':attribute debe ser un archivo de los tipos: :values.',
-    'mimetypes'            => ':attribute debe ser un archivo de los tipos: :values.',
-    'min'                  => [
-        'numeric' => ':attribute debe ser como mínimo :min.',
-        'file'    => ':attribute debe ser como mínimo de :min kilobytes.',
-        'string'  => ':attribute debe contener como mínimo :min caracteres.',
-        'array'   => ':attribute debe contener como mínimo :min items.',
+    'gte' => [
+        'array' => ':attribute debe tener :value elementos o más.',
+        'file' => ':attribute debe ser mayor o igual que :value kilobytes.',
+        'numeric' => ':attribute debe ser mayor o igual que :value.',
+        'string' => ':attribute debe tener :value caracteres o más.',
     ],
-    'not_in'               => 'El :attribute seleccionado es inválido.',
-    'numeric'              => ':attribute debe ser un número.',
-    'present'              => ':attribute debe estar <strong>presente</strong>.',
-    'regex'                => 'El formato de :attribute es <strong>inválido</strong>.',
-    'required'             => 'El campo :attribute es <strong>obligatorio</strong>.',
-    'required_if'          => ':attribute es obligatorio cuando :other es :value.',
-    'required_unless'      => ':attribute es obligatorio a menos que :other esté en :values.',
-    'required_with'        => ':attribute es obligatorio cuando :values está presente.',
-    'required_with_all'    => ':attribute es obligatorio cuando :values está presente.',
-    'required_without'     => ':attribute es obligatorio cuando :values no está presente.',
-    'required_without_all' => ':attribute es obligatorio cuando ningún :values está presente.',
-    'same'                 => ':attribute y :other deben coincidir.',
-    'size'                 => [
+    'image' => ':attribute debe ser una imagen.',
+    'in' => 'El :attribute seleccionado no es válido.',
+    'in_array' => 'El campo :attribute no existe en :other.',
+    'in_detailed' => 'El valor :attribute ":value" no es válido. Se esperaba uno de: :values',
+    'integer' => ':attribute debe ser un número entero.',
+    'ip' => ':attribute debe ser una dirección IP válida.',
+    'ipv4' => ':attribute debe ser una dirección IPv4 válida.',
+    'ipv6' => ':attribute debe ser una dirección IPv6 válida.',
+    'json' => ':attribute debe ser una cadena JSON válida.',
+    'lt' => [
+        'array' => ':attribute debe tener menos de :value elementos.',
+        'file' => ':attribute debe ser menor que :value kilobytes.',
+        'numeric' => ':attribute debe ser menor que :value.',
+        'string' => ':attribute debe tener menos de :value caracteres.',
+    ],
+    'lte' => [
+        'array' => ':attribute no debe tener más de :value elementos.',
+        'file' => ':attribute debe ser menor o igual que :value kilobytes.',
+        'numeric' => ':attribute debe ser menor o igual que :value.',
+        'string' => ':attribute debe tener :value caracteres o menos.',
+    ],
+    'mac_address' => ':attribute debe ser una dirección MAC válida.',
+    'max' => [
+        'array' => ':attribute no debe tener más de :max elementos.',
+        'file' => ':attribute no debe ser mayor de :max kilobytes.',
+        'numeric' => ':attribute no debe ser mayor de :max.',
+        'string' => ':attribute no debe tener más de :max caracteres.',
+    ],
+    'mimes' => ':attribute debe ser un archivo de tipo: :values.',
+    'mimetypes' => ':attribute debe ser un archivo de tipo: :values.',
+    'min' => [
+        'array' => ':attribute debe tener al menos :min elementos.',
+        'file' => ':attribute debe tener al menos :min kilobytes.',
+        'numeric' => ':attribute debe ser al menos :min.',
+        'string' => ':attribute debe tener al menos :min caracteres.',
+    ],
+    'multiple_of' => ':attribute debe ser múltiplo de :value.',
+    'not_in' => 'El :attribute seleccionado no es válido.',
+    'not_regex' => 'El formato de :attribute no es válido.',
+    'numeric' => ':attribute debe ser un número.',
+    'password' => [
+        'letters' => ':attribute debe contener al menos una letra.',
+        'mixed' => ':attribute debe contener al menos una letra mayúscula y una minúscula.',
+        'numbers' => ':attribute debe contener al menos un número.',
+        'symbols' => ':attribute debe contener al menos un símbolo.',
+        'uncompromised' => 'El :attribute dado ha aparecido en una filtración de datos. Por favor, elija un :attribute diferente.',
+    ],
+    'present' => 'El campo :attribute debe estar presente.',
+    'prohibited' => 'El campo :attribute está prohibido.',
+    'prohibited_if' => 'El campo :attribute está prohibido cuando :other es :value.',
+    'prohibited_unless' => 'El campo :attribute está prohibido a menos que :other esté en :values.',
+    'prohibits' => 'El campo :attribute prohíbe que :other esté presente.',
+    'regex' => 'El formato de :attribute no es válido.',
+    'required' => 'El campo :attribute es obligatorio.',
+    'required_array_keys' => 'El campo :attribute debe contener entradas para: :values.',
+    'required_if' => 'El campo :attribute es obligatorio cuando :other es :value.',
+    'required_unless' => 'El campo :attribute es obligatorio a menos que :other esté en :values.',
+    'required_with' => 'El campo :attribute es obligatorio cuando :values está presente.',
+    'required_with_all' => 'El campo :attribute es obligatorio cuando :values están presentes.',
+    'required_without' => 'El campo :attribute es obligatorio cuando :values no está presente.',
+    'required_without_all' => 'El campo :attribute es obligatorio cuando ninguno de :values está presente.',
+    'same' => ':attribute y :other deben coincidir.',
+    'size' => [
+        'array' => ':attribute debe contener :size elementos.',
+        'file' => ':attribute debe tener :size kilobytes.',
         'numeric' => ':attribute debe ser :size.',
-        'file'    => ':attribute debe tener :size kilobytes.',
-        'string'  => ':attribute debe tener <strong>:size caracteres</strong>.',
-        'array'   => ':attribute debe tener al menos :size items.',
+        'string' => ':attribute debe tener :size caracteres.',
     ],
-    'string'               => ':attribute debe ser una <strong>cadena de caracteres</strong>.',
-    'timezone'             => ':attribute debe ser una zona válida.',
-    'unique'               => 'El atributo :attribute ya ha sido <strong>tomado</strong>.',
-    'uploaded'             => 'El :attribute <strong>falló</strong> al subirlo.',
-    'url'                  => 'El formato de :attribute es <strong>inválido</strong>.',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify custom validation messages for attributes using the
-    | convention "attribute.rule" to name the lines. This makes it quick to
-    | specify a specific custom language line for a given attribute rule.
-    |
-    */
+    'starts_with' => ':attribute debe empezar con uno de los siguientes: :values.',
+    'string' => ':attribute debe ser una cadena.',
+    'timezone' => ':attribute debe ser una zona horaria válida.',
+    'unique' => ':attribute ya ha sido tomado.',
+    'uploaded' => ':attribute no se pudo subir.',
+    'url' => ':attribute debe ser una URL válida.',
+    'uuid' => ':attribute debe ser un UUID válido.',
 
     'custom' => [
         'attribute-name' => [
-            'rule-name'             => 'custom-message',
+            'rule-name' => 'mensaje-personalizado',
         ],
-        'invalid_currency'      => 'El código de :attribute es incorrecto.',
-        'invalid_amount'        => 'La cantidad :attribute no es válida.',
+        'invalid_currency'      => 'El código de :attribute es inválido.',
+        'invalid_amount'        => 'El monto :attribute es inválido.',
+        'invalid_quantity'      => ':attribute no es una expresión matemática válida.',
         'invalid_extension'     => 'La extensión del archivo no es válida.',
+        'invalid_dimension'     => 'Las dimensiones de :attribute deben ser máximo :width x :height px.',
+        'invalid_colour'        => 'El color de :attribute es inválido.',
+        'invalid_payment_method'=> 'El método de pago es inválido.',
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Attributes
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used to swap attribute place-holders
-    | with something more reader friendly such as E-Mail Address instead
-    | of "email". This simply helps us make messages a little cleaner.
-    |
-    */
 
     'attributes' => [],
 
