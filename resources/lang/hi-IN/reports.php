@@ -13,6 +13,10 @@ return [
     'discount_summary'              => 'छूट सारांश',
     'gross_profit'                  => 'कुल लाभ',
     'net_profit'                    => 'शुद्ध लाभ',
+    'net_profit_loss'               => 'शुद्ध लाभ (हानि)',
+    'total_income'                  => 'कुल आय',
+    'total_direct_cost'             => 'कुल बिक्री लागत',
+    'total_expense'                 => 'कुल व्यय',
     'total_expenses'                => 'कुल व्यय',
     'net'                           => 'शुद्ध',
     'income_expense'                => 'आय & व्यय',
@@ -35,6 +39,8 @@ return [
     'pin_text' => [
         'unpin_report'              => 'अपनी रिपोर्ट अनपिन करें',
         'pin_report'                => 'अपनी रिपोर्ट पिन करें',
-    ]
+    ],
+
+    'percentage_of_income'          => 'आय का % दिखाएँ',
 
 ];

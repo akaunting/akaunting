@@ -7,6 +7,7 @@ return [
     'grand_total'               => 'कुल योग',
     'accept_payment_online'     => 'ऑनलाइन भुगतान स्वीकार करें',
     'transaction'               => ':account का उपयोग करके :amount का भुगतान किया गया था।',
+    'portal_transaction'        => ':payment_method का उपयोग करके :amount का भुगतान किया गया था।',
     'billing'                   => 'बिलिंग',
     'advanced'                  => 'अग्रिम',
 

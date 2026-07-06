@@ -12,6 +12,7 @@ return [
     'recurring_expense'     => 'आवर्ती व्यय',
     'included_tax'          => 'कर राशि शामिल है',
     'connected'             => 'सफलतापूर्वक कनेक्ट किया गया',
+    'connect_message'       => 'कनेक्शन प्रक्रिया के दौरान इस :type के करों की गणना नहीं की गई थी। करों को जोड़ा नहीं जा सकता।',
 
     'form_description' => [
         'general'           => 'यहां आप लेन-देन की सामान्य जानकारी जैसे दिनांक, राशि, खाता, विवरण आदि दर्ज कर सकते हैं।',
@@ -45,6 +46,13 @@ return [
 
     'sticky' => [
         'description'       => 'आप पूर्वावलोकन कर रहे हैं कि आपका ग्राहक आपके भुगतान के वेब संस्करण को कैसे देखेगा।',
+    ],
+
+    'messages' => [
+        'update_document_transaction' => 'आप इस लेन-देन को अपडेट कर सकते हैं। आपको दस्तावेज़ पर जाकर इसे वहीं संपादित करना चाहिए।',
+        'create_document_transaction_error' => 'इस समापनबिंदु को दस्तावेज़ में नहीं जोड़ा जा सकता। {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions का उपयोग करें',
+        'update_document_transaction_error' => 'इस समापनबिंदु को दस्तावेज़ में अपडेट नहीं किया जा सकता। {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions/{akaunting_transaction_id} का उपयोग करें',
+        'delete_document_transaction_error' => 'इस समापनबिंदु को दस्तावेज़ से हटाया नहीं जा सकता। {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions/{akaunting_transaction_id} का उपयोग करें',
     ],
 
 ];
