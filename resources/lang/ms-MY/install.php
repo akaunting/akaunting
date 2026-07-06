@@ -2,43 +2,50 @@
 
 return [
 
-    'next'                  => 'Seterusnya',
-    'refresh'               => 'Muat Semula',
+    'next'                  => 'Selanjutnya',
+    'refresh'               => 'Perbarui',
 
     'steps' => [
-        'requirements'      => 'Sila minta pembekal hosting untuk betulkan ralat!',
-        'language'          => 'Langkah 1/3 : Pilihan Bahasa',
-        'database'          => 'Langkah 2/3 : Persediaan Pangkalan Data',
-        'settings'          => 'Langkah 3/3 : Maklumat Syarikat dan Pentadbir',
+        'requirements'      => 'Silakan meminta ke penyedia hosting Anda untuk memperbaiki kesalahan!',
+        'language'          => 'Langkah 1/3 : Seleksi Bahasa',
+        'database'          => 'Langkah 2/3 : Atur Database',
+        'settings'          => 'Langkah 3/3 : Detail Perusahaan dan Admin',
     ],
 
     'language' => [
-        'select'            => 'Pilih Bahasa',
+        'select'            => 'Pilih bahasa',
     ],
 
     'requirements' => [
-        'enabled'           => ':feature perlu dihidupkan!',
-        'disabled'          => ':feature perlu dimatikan!',
-        'extension'         => 'Extension :extension perlu dipasang dan dimuatkan!',
-        'directory'         => 'Direktori :directory perlu boleh ditulis!',
+        'enabled'           => ':feature perlu diaktifkan!',
+        'disabled'          => ':feature perlu dinonaktifkan!',
+        'extension'         => ':extension ekstensi perlu diinstal dan dimuat!',
+        'directory'         => ':directory direktori perlu ditulis!',
+        'executable'        => 'Berkas PHP CLI belum didefinisikan/bekerja atau bukan versi :php_version ke atas. Mohon tanyakan ke penyedia hosting untuk mengatur variabel PHP_BINARY atau PHP_PATH dengan benar.',
+        'npm'               => '<b>File JavaScript tidak ada !</b> <br><br><span>Anda harus menjalankan <em class="underline">npm install</em> dan <em class="underline">npm run dev< /em> perintah.</span>', 
     ],
 
     'database' => [
-        'hostname'          => 'Nama Host',
-        'username'          => 'Nama Pengguna',
-        'password'          => 'Kata laluan',
-        'name'              => 'Pangkalan Data',
+        'hostname'          => 'Nama host',
+        'username'          => 'Nama pengguna',
+        'password'          => 'Kata Sandi',
+        'name'              => 'Database',
     ],
 
     'settings' => [
-        'company_name'      => 'Nama Syarikat',
-        'company_email'     => 'Emel Syarikat',
-        'admin_email'       => 'Emel Pentadbir',
-        'admin_password'    => 'Kata Laluan Pentadbir',
+        'company_name'      => 'Nama Perusahaan',
+        'company_email'     => 'Email Perusahaan',
+        'admin_email'       => 'Email Admin',
+        'admin_password'    => 'Kata Sandi Admin',
     ],
 
     'error' => [
-        'connection'        => 'Ralat: Pangkalan data tidak boleh dihubungkan! Sila pastikan maklumat adalah betul.',
+        'php_version'       => 'Terjadi Kesalahan: Minta ke penyedia hosting Anda untuk menggunakan PHP :php_version atau lebih tinggi untuk HTTP dan CLI.',
+        'connection'        => 'Kesalahan: Tidak dapat terhubung ke database! Silahkan, pastikan bahwa rinciannya benar.',
     ],
 
+    'update' => [
+        'core'              => 'Versi baru akaunting tersedia! Harap perbarui <a href=":url">pemasangan Anda.</a>',
+        'module'            => ':module versi baru tersedia! Harap perbarui <a href=":url">pemasangan Anda.</a>',
+    ],
 ];

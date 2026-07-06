@@ -2,15 +2,32 @@
 
 return [
 
-    'change_language'       => 'Tukar Bahasa',
-    'last_login'            => 'Log masuk terakhir :time',
+    'change_language'       => 'Ganti Bahasa',
+    'last_login'            => 'Terakhir Masuk :time',
+
     'notifications' => [
-        'counter'           => '{0} Anda tiada pemberitahuan|{1} Anda ada :count pemberitahuan|[2,*] Anda ada :count pemberitahuan',
-        'overdue_invoices'  => '{1} :count invois tertunggak|[2,*] :count invois-invois tertunggak',
-        'upcoming_bills'    => '{1} :count bil akan datang|[2,*] :count bil-bil akan datang',
-        'view_all'          => 'Lihat Semua'
+        'counter'           => '{0} Anda tidak memiliki pemberitahuan baru|{1} Anda memiliki :count pemberitahuan baru|[2,*] Anda memiliki :count pemberitahuan baru',
+        'new_apps'          => '{1} :count aplikasi baru dipublikasikan|[2,*] :count aplikasi baru dipublikasikan',
+        'overdue_invoices'  => '{1} :count faktur yang telah tenggat|[2,*] :count faktur yang telah tenggat',
+        'upcoming_bills'    => '{1} :count Bil mendatang|[2,*] :count Bil mendatang',
+        'view_all'          => 'Tampilkan Semua',
+
+        'exports' => [
+            'completed' => '{1} :count ekspor selesai|[2,*] :count ekspor selesai',
+            'failed' => '{1} :count ekspor gagal|[2,*] :count ekspor gagal',
+        ],
+        'imports' => [
+            'completed' => '{1} :count impor selesai|[2,*] :count impor selesai',
+            'failed' => '{1} :count impor gagal|[2,*] :count impor gagal',
+        ],
     ],
+
     'docs_link'             => 'https://akaunting.com/docs',
-    'support_link'          => 'https://akaunting.com/sokongan',
+    'support_link'          => 'https://akaunting.com/support',
+
+    'favorite' => [
+        'added_favorite'    => 'Ditambahkan ke favorit',
+        'add_favorite'      => 'Tambahkan ke favorit',
+    ],
 
 ];

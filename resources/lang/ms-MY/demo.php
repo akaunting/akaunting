@@ -7,25 +7,25 @@ return [
     ],
 
     'categories' => [
-        'deposit'           => 'Bayaran pendahuluan',
-        'sales'             => 'Jualan',
+        'deposit'           => 'Deposit',
+        'sales'             => 'Penjualan',
     ],
 
     'currencies' => [
-        'usd'               => 'Dolar AS',
+        'usd'               => 'Dolar Amerika Serikat',
     ],
 
     'offline_payments' => [
         'cash'              => 'Tunai',
-        'bank'              => 'Bayaran melalui pemindahan bank',
+        'bank'              => 'Pemindahan Bank',
     ],
 
     'reports' => [
-        'income'            => 'Ringkasan pendapatan bulanan melalui kategori.',
-        'expense'           => 'Ringkasan perbelanjaan bulanan melalui kategori.',
-        'income_expense'    => 'Pendapatan bulanan vs perbelanjaan melalui kategori.',
-        'tax'               => 'Ringkasan cukai suku tahunan.',
-        'profit_loss'       => 'Utung & rugi suku tahunan melalui kategori.',
+        'income'            => 'Ringkasan penghasilan bulanan berdasarkan kategori.',
+        'expense'           => 'Ringkasan perbelanjaan bulanan berdasarkan kategori.',
+        'income_expense'    => 'Penghasilan bulanan vs perbelanjaan berdasarkan kategori.',
+        'tax'               => 'Ringkasan pajak triwulanan.',
+        'profit_loss'       => 'Laba & rugi triwulan menurut kategori.',
     ],
 
 ];

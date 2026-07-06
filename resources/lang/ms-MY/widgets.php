@@ -2,22 +2,33 @@
 
 return [
 
-    'total_income'              => 'Jumlah pendapatan',
-    'receivables'               => 'Penghutang',
-    'open_invoices'             => 'Buka Invois',
-    'overdue_invoices'          => 'Invois Tertunggak',
-    'total_expenses'            => 'Jumlah Perbelanjaan',
-    'payables'                  => 'Pemiutang',
-    'open_bills'                => 'Buka Bil',
-    'overdue_bills'             => 'Bil Tertunggak',
-    'total_profit'              => 'Jumlah Keuntungan',
-    'open_profit'               => 'Keuntungan Terbuka',
-    'overdue_profit'            => 'Keuntungan Tertunggak',
-    'cash_flow'                 => 'Aliran Tunai',
-    'no_profit_loss'            => 'Tiada Untung Rugi',
-    'income_by_category'        => 'Pendapatan mengikut Kategori',
-    'expenses_by_category'      => 'Perbelanjaan mengikut Kategori',
-    'account_balance'           => 'Baki Akaun',
-    'latest_income'             => 'Pendapatan Terkini',
-    'latest_expenses'           => 'Perbelanjaan Terkini',
+    'receivables'               => 'Piutang',
+    'payables'                  => 'Hutang',
+    'cash_flow'                 => 'Arus Kas',
+    'profit_loss'               => 'Laba & Rugi',
+    'expenses_by_category'      => 'Perbelanjaan Berdasarkan Kategori',
+    'account_balance'           => 'Saldo Rekening',
+    'bank_feeds'                => 'Hubungkan Rekening Bank',
+    'currencies'                => 'Mata Uang',
+
+    'view_report'               => 'Lihat Laporan',
+    'total_unpaid_invoices'     => 'Total faktur belum dibayar',
+    'total_unpaid_bills'        => 'Total Bil belum dibayar',
+
+    'description' => [
+        'receivables'           => 'Jumlah yang diterima dari pelanggan',
+        'payables'              => 'Jumlah yang belum dibayarkan ke penyedia',
+        'cash_flow'             => 'Uang masuk dan keluar dari bisnis Anda',
+        'profit_loss'           => 'Pendapatan dan perbelanjaan termasuk faktur dan Bil belum dibayar',
+        'expenses_by_category'  => 'Perbelanjaan terbesar di berbagai kategori',
+        'account_balance'       => 'Saldo rekening bank Anda',
+        'bank_feeds'            => 'Impor transaksi Anda ke Akaunting secara otomatis</br>dengan menghubungkan rekening bank Anda',
+    ],
+
+    'periods' => [
+        'overdue_1_30'          => 'Terlambat 1-30 hari',
+        'overdue_30_60'         => 'Terlambat 30-60 hari',
+        'overdue_60_90'         => 'Terlambat 60-90 hari',
+        'overdue_90_un'         => 'Terlambat 90 hari lebih',
+    ],
 ];

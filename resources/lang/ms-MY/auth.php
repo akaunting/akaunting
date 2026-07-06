@@ -2,40 +2,92 @@
 
 return [
 
+    'auth'                  => 'Autentikasi',
     'profile'               => 'Profil',
-    'logout'                => 'Log Keluar',
-    'login'                 => 'Log Masuk',
-    'login_to'              => 'Log masuk untuk memulakan sesi',
-    'remember_me'           => 'Ingat saya',
-    'forgot_password'       => 'Lupa kata laluan',
-    'reset_password'        => 'Set semula kata laluan',
-    'enter_email'           => 'Masukkan Alamat Emel Anda',
-    'current_email'         => 'Emel Sekarang',
-    'reset'                 => 'Reset',
-    'never'                 => 'tidak pernah',
-    'landing_page'          => 'Halaman Pendaratan',
+    'logout'                => 'Keluar',
+    'login'                 => 'Masuk',
+    'forgot'                => 'Lupa',
+    'login_to'              => 'Masuk untuk memulai sesi Anda',
+    'remember_me'           => 'Ingat Saya',
+    'forgot_password'       => 'Lupa kata sandi',
+    'reset_password'        => 'Atur Ulang Kata Sandi',
+    'change_password'       => 'Ubah Kata Sandi',
+    'enter_email'           => 'Masukan Alamat Email Anda',
+    'current_email'         => 'Email saat ini',
+    'reset'                 => 'Atur Ulang',
+    'never'                 => 'jangan pernah',
+    'landing_page'          => 'Halaman Muka',
+    'personal_information'  => 'Informasi pribadi',
+    'register_user'         => 'Pendaftaran Pengguna',
+    'register'              => 'Daftar',
+
+    'form_description' => [
+        'personal'          => 'Link undangan akan dikirimkan ke pengguna baru, pastikan email tertera benar. Mereka akan segera bisa memasukkan password.',
+        'assign'            => 'Pengguna tersebut akan memiliki akses ke perusahaan yang dipilih. Anda dapat mengatur hak akses melalui halaman <a href=":url" class="border-b border-black">roles</a>.',
+        'preferences'       => 'Pilih bahasa default untuk pengguna. Anda juga bisa tentukan untuk halaman muka setelah pengguna berhasil masuk',
+    ],
 
     'password' => [
-        'current'           => 'Kata laluan',
-        'current_confirm'   => 'Pengesahan kata laluan',
-        'new'               => 'Kata Laluan Baru',
-        'new_confirm'       => 'Pengesahan Kata Laluan Baru',
+        'pass'              => 'Kata Sandi',
+        'pass_confirm'      => 'Konfirmasi Kata Sandi',
+        'current'           => 'Kata Sandi',
+        'current_confirm'   => 'Konfirmasi Kata Sandi',
+        'new'               => 'Kata Sandi Baru',
+        'new_confirm'       => 'Konfirmasi Kata Sandi Baru',
     ],
 
     'error' => [
-        'self_delete'       => 'Ralat: Tidak boleh memadam diri sendiri!',
-        'self_disable'      => 'Ranat: Tidak boleh melumpuhkan diri sendiri!',
-        'no_company'        => 'Ralat: tiada syarikat ditugaskan untuk akaun anda. Sila hubungi pentadbir sistem.',
+        'self_delete'       => 'Kesalahan: Tidak dapat menghapus akaun sendiri!',
+        'self_disable'      => 'Kesalahan: Tidak dapat menonaktifkan akaun sendiri!',
+        'unassigned'        => 'Error: Tidak dapat membatalkan penetapan perusahaan! :company harus di tugaskan kepada minimal satu pengguna.',
+        'no_company'        => 'Kesalahan: Tidak ada perusahaan yang ditunjuk ke akaun Anda. Silakan hubungi administrator sistem.',
     ],
 
-    'failed'                => 'Butiran ini tidak sepadan dengan rekod kami.',
-    'throttle'              => 'Terlalu banyak percubaan log masuk. Sila cuba lagi dalam :seconds saat.',
-    'disabled'              => 'Akaun ini dinyahaktifkan. Sila, hubungi pentadbir sistem.',
+    'login_redirect'        => 'Verifikasi selesai! Anda sedang diarahkan...',
+    'failed'                => 'Identitas ini tidak cocok dengan data kami.',
+    'throttle'              => 'Terlalu banyak upaya masuk. Silahkan coba lagi dalam :seconds detik.',
+    'disabled'              => 'Akaun ini dinonaktifkan. Silahkan, hubungi administrator sistem.',
 
     'notification' => [
-        'message_1'     => 'Anda menerima emel ini kerana kami menerima permohonan set semula kata laluan untuk akaun anda.',
-        'message_2'     => 'Jika anda tidak memohon set semula kata laluan, tiada tindakan yang diperlukan.',
-        'button'        => 'Set Semula Kata Laluan',
+        'message_1'         => 'Anda menerima email ini karena kami menerima permintaan tetapan ulang kata sandi untuk akaun Anda.',
+        'message_2'         => 'Jika Anda tidak melakukan permintaan tetapan ulang kata sandi, tindakan lebih lanjut tidak diperlukan.',
+        'button'            => 'Atur ulang Kata Sandi',
+    ],
+
+    'invitation' => [
+        'message_1'         => 'Anda menerima email ini karena anda diundang untuk mendaftar ke Akaunting.',
+        'message_2'         => 'Jika Anda tidak ingin membuat sebuah akaun, tidak diperlukan tindakan lebih lanjut.',
+        'button'            => 'Mulai',
+    ],
+
+    'information' => [
+        'invoice'           => 'Buat faktur instan',
+        'reports'           => 'Dapatkan detail laporan',
+        'expense'           => 'Lacak semua perbelanjaan',
+        'customize'         => 'Sesuaikan Akaunting Anda',
+    ],
+
+    'roles' => [
+        'admin' => [
+            'name'          => 'Admin',
+            'description'   => 'Mereka memiliki akses penuh ke aplikasi termasuk ke area pelanggan, faktur, laporan, tetapan dan apps.',
+        ],
+        'manager' => [
+            'name'          => 'Manajer',
+            'description'   => 'Mereka mendapat akses penuh ke aplikasi, tapi tidak bisa mengelola pengguna dan apps.',
+        ],
+        'customer' => [
+            'name'          => 'Pelanggan',
+            'description'   => 'Mereka bisa mengakses Portal Klien dan membayar online melalui metode bayaran yang sudah anda tentukan',
+        ],
+        'accountant' => [
+            'name'          => 'Akauntan',
+            'description'   => 'Mereka bisa mengakses faktur, transaksi, laporan, dan membuat entri jurnal',
+        ],
+        'employee' => [
+            'name'          => 'Karyawan',
+            'description'   => 'Mereka dapat membuat klaim perbelanjaan dan melacak waktu untuk proyek yang ditugaskan, tetapi hanya dapat melihat informasi mereka sendiri.',
+        ],
     ],
 
 ];

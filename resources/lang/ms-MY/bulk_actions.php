@@ -2,18 +2,26 @@
 
 return [
 
-    'bulk_actions'     => 'Tindakan Pukal|Tindakan Pukal',
-    'selected'         => 'dipilih',
+    'bulk_actions'      => 'Tindakan Masal|Tindakan Masal',
+    'selected'          => 'dipilih',
+    'no_action'         => 'Tidak ada  yang tersedia',
 
     'message' => [
-        'duplicate'     => 'Adakah anda pasti anda mahu <b>menduplikasi</b> rekod yang dipilih?',
-        'delete'        => 'Adakah anda pasti anda mahu <b>memadamkan</b> rekod yang dipilih?',
-        'export'        => 'Adakah anda pasti anda mahu <b>mengeksport</b> rekod yang dipilih?',
-        'enable'        => 'Adakah anda pasti anda mahu <b>mendayakan</b> rekod yang dipilih?',
-        'disable'       => 'Adakah anda pasti anda mahu <b>melumpuhkan</b> rekod yang dipilih?',
-        'paid'          => 'Adakah anda pasti anda mahu menandai invois yang dipilih sebagai <b>dibayar</b>?',
-        'sent'          => 'Adakah anda pasti anda mahu menandai invois yang dipilih sebagai <b>dihantar</b>?',
-        'received'      => 'Adakah anda pasti anda mahu menandai bil yang dipilih sebagai <b>diterima</b>?',
+        'duplicate'     => 'Yakin ingin <b> menggandakan </b> catatan yang dipilih?',
+        'delete'        => 'Yakin ingin <b>menghapus</b> data yang dipilih?|Yakin ingin <b>menghapus</b> data yang dipilih?',
+        'export'        => 'Yakin ingin <b>mengekspor</b> data yang dipilih?|Yakin ingin <b>mengekspor</b> data yang dipilih?',
+        'download'      => 'Yakin ingin <b>unduh</b> data yang dipilih?|Yakin ingin <b>unduh</b> data yang dipilih?',
+        'enable'        => 'Yakin ingin <b>mengaktifkan</b> data yang dipilih?|Yakin ingin <b>mengaktifkan</b> data yang dipilih?',
+        'disable'       => 'Yakin ingin <b>menonaktifkan</b> data yang dipilih?|Yakin ingin <b>menonaktifkan</b> data yang dipilih?',
+        'paid'          => 'Yakin ingin menandai faktur yang dipilih sebagai <b>dibayar</b>?|Yakin ingin menandai faktur yang dipilih sebagai <b>dibayar</b>?',
+        'sent'          => 'Yakin ingin menandai faktur yang dipilih sebagai <b>terkirim</b>?|Yakin ingin menandai faktur yang dipilih sebagai <b>terkirim</b>?',
+        'received'      => 'Yakin ingin menandai Bil yang dipilih sebagai <b>diterima</b>?|Yakin ingin menandai Bil yang dipilih sebagai <b>diterima</b>?',
+        'cancelled'     => 'Yakin ingin <b>membatalkan</b> faktur/Bil yg dipilih?|Yakin ingin <b>membatalkan</b> faktur/Bil yg dipilih?',
+        'reconcile'     => 'Yakin ingin <b>merekonsiliasi</b> data yang dipilih?|Yakin ingin <b>merekonsiliasi</b> data yang dipilih?',
+        'unreconcile'   => 'Yakin ingin <b>membatalkan rekonsiliasi</b> data yang dipilih?|Yakin ingin <b>membatalkan rekonsiliasi</b> data yang dipilih?',
     ],
 
+    'success' => [
+        'general'       => ':count catatan :type.',
+    ],
 ];
