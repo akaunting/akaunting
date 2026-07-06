@@ -10,8 +10,13 @@ return [
     'expense_summary'               => 'Sommaire des dépenses',
     'income_expense_summary'        => 'Revenus vs dépenses',
     'tax_summary'                   => 'Résumé des taxes',
+    'discount_summary'              => 'Résumé des remises',
     'gross_profit'                  => 'Bénéfices brut',
     'net_profit'                    => 'Bénéfices net',
+    'net_profit_loss'               => 'Bénéfice net (perte)',
+    'total_income'                  => 'Total des revenus',
+    'total_direct_cost'             => 'Total des coûts des ventes',
+    'total_expense'                 => 'Total des dépenses',
     'total_expenses'                => 'Total des dépenses',
     'net'                           => 'NET',
     'income_expense'                => 'Recettes & Dépenses',
@@ -34,6 +39,8 @@ return [
     'pin_text' => [
         'unpin_report'              => 'Désépingler votre rapport',
         'pin_report'                => 'Épingler votre rapport',
-    ]
+    ],
+
+    'percentage_of_income'          => 'Afficher le % des revenus',
 
 ];

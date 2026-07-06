@@ -7,6 +7,7 @@ return [
     'grand_total'               => 'Total global',
     'accept_payment_online'     => 'Accepter les paiements en ligne',
     'transaction'               => 'Un paiement de :amount a été effectué en utilisant :account.',
+    'portal_transaction'        => 'Un paiement de :amount a été effectué en utilisant :payment_method.',
     'billing'                   => 'Facturation des achats',
     'advanced'                  => 'Avancé',
 

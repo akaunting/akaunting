@@ -12,6 +12,7 @@ return [
         'import_queued'     => ':type import a été planifié ! Vous recevrez un email quand il sera terminé.',
         'exported'          => ':type exporté !',
         'export_queued'     => 'L\'export de :type de la page courante a été programmé ! Vous recevrez un email quand il sera prêt à être téléchargé.',
+        'download_queued'   => 'Le téléchargement de :type de la page courante a été programmé ! Vous recevrez un email quand il sera prêt à être téléchargé.',
         'enabled'           => ':type activé !',
         'disabled'          => ':type désactivé !',
         'connected'         => ':type connecté !',
@@ -45,6 +46,8 @@ return [
         'disable_code'      => 'Avertissement : vous n\'êtes pas autorisé à désactiver ou modifier la devise de <b>:name</b> car elle est liée à :text.',
         'payment_cancel'    => 'Avertissement : Vous avez annulé votre paiement récent par :method !',
         'missing_transfer'  => 'Avertissement : Le transfert lié à cette transaction est manquant. Vous devriez envisager de supprimer cette transaction.',
+        'connect_tax'       => 'Avertissement : Ce :type comporte un montant de taxe. Les taxes ajoutées au :type ne peuvent pas être connectées, la taxe sera donc ajoutée au total et calculée en conséquence.',
+        'contact_change'    => 'Avertissement : Vous n\'êtes pas autorisé à modifier le contact sur un :type qui a déjà été envoyé, reçu ou payé !',
     ],
 
 ];

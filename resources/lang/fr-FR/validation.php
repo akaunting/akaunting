@@ -3,14 +3,14 @@
 return [
 
     /*
-    |--------------------------------------------------------------------------
-    | Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines contain the default error messages used by
-    | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
-    |
+|--------------------------------------------------------------------------
+|Validation Language Lines
+|--------------------------------------------------------------------------
+|
+|The following language lines contain the default error messages used by
+|the validator class. Some of these rules have multiple versions such
+|as the size rules. Feel free to tweak each of these messages here.
+|
     */
 
     'accepted' => ':attribute doit être accepté.',
@@ -44,6 +44,7 @@ return [
     'dimensions' => ':attribut possède des dimensions d\'image non valide.',
     'distinct' => ':champ a une valeur dupliquée.',
     'doesnt_start_with' => 'Le champ :attribute doit commencer par l\'une des valeurs suivantes : :values.',
+    'double' => 'Le champ :attribute doit être un nombre à virgule flottante valide.',
     'email' => 'Le champ :attribute doit être une adresse email valide.',
     'ends_with' => 'Le champ :attribute doit se terminer par une des valeurs suivantes : :values',
     'enum' => 'Le champ :attribute sélectionné est invalide.',
@@ -52,19 +53,20 @@ return [
     'filled' => 'Le champ :attribute doit avoir une valeur.',
     'gt' => [
         'array' => 'Le champ :attribute doit avoir plus de :value éléments.',
-        'file' => 'La taille du fichier de :attribute doit être supérieure à :value kilo-octets.',
+        'file' => 'Le champ :attribute doit être supérieur à :value kilo-octets.',
         'numeric' => 'Le champ :attribute doit être supérieur à :value.',
-        'string' => 'Le texte :attribute doit contenir plus de :value caractères.',
+        'string' => 'Le champ :attribute doit être supérieur à :value caractères.',
     ],
     'gte' => [
-        'array' => 'Le tableau :attribute doit contenir au moins :value éléments.',
-        'file' => 'La taille du fichier de :attribute doit être supérieure ou égale à :value kilo-octets.',
-        'numeric' => 'La valeur de :attribute doit être supérieure ou égale à :value.',
+        'array' => 'Le champ :attribute doit avoir :value éléments ou plus.',
+        'file' => 'Le champ :attribute doit être supérieur ou égal à :value kilo-octets.',
+        'numeric' => 'Le champ :attribute doit être supérieur ou égal à :value.',
         'string' => 'Le champ :attribute doit être supérieur ou égal à :value caractères.',
     ],
     'image' => 'Le champ :attribute doit être une image.',
     'in' => ':attribute est invalide.',
     'in_array' => 'Le champ :attribute n\'existe pas dans :other.',
+    'in_detailed' => 'La valeur :attribute « :value » est invalide. Attendu l\'une des suivantes : :values',
     'integer' => 'Le champ :attribute doit être un entier.',
     'ip' => ':attribute doit être une adresse IP valide.',
     'ipv4' => 'Le champ :attribute doit être une adresse IPv4 valide.',
@@ -138,14 +140,14 @@ return [
     'uuid' => 'Le champ :attribute doit être un identifiant valide',
 
     /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify custom validation messages for attributes using the
-    | convention "attribute.rule" to name the lines. This makes it quick to
-    | specify a specific custom language line for a given attribute rule.
-    |
+|--------------------------------------------------------------------------
+|Custom Validation Language Lines
+|--------------------------------------------------------------------------
+|
+|Here you may specify custom validation messages for attributes using the
+|convention "attribute.rule" to name the lines. This makes it quick to
+|specify a specific custom language line for a given attribute rule.
+|
     */
 
     'custom' => [
@@ -154,19 +156,22 @@ return [
         ],
         'invalid_currency'      => 'Le code de :attribute est invalide.',
         'invalid_amount'        => 'Le montant :amount n\'est pas valide.',
+        'invalid_quantity'      => 'Le champ :attribute n\'est pas une expression mathématique valide.',
         'invalid_extension'     => 'L\'extension de fichier n\'est pas valide.',
         'invalid_dimension'     => 'Les dimensions de :attribute doivent être max :width x :height px.',
+        'invalid_colour'        => 'La couleur :attribute est invalide.',
+        'invalid_payment_method'=> 'La méthode de paiement est invalide.',
     ],
 
     /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Attributes
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used to swap our attribute placeholder
-    | with something more reader friendly such as "E-Mail Address" instead
-    | of "email". This simply helps us make our message more expressive.
-    |
+|--------------------------------------------------------------------------
+|Custom Validation Attributes
+|--------------------------------------------------------------------------
+|
+|The following language lines are used to swap our attribute placeholder
+|with something more reader friendly such as "E-Mail Address" instead
+|of "email". This simply helps us make our message more expressive.
+|
     */
 
     'attributes' => [],

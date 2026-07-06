@@ -63,6 +63,24 @@ return [
 
     ],
 
+    'download' => [
+
+        'completed' => [
+
+            'title'         => 'Le téléchargement est prêt',
+            'description'   => 'Le fichier est prêt à être téléchargé à partir du lien suivant :',
+
+        ],
+
+        'failed' => [
+
+            'title'         => 'Le téléchargement a échoué',
+            'description'   => 'Impossible de créer le fichier en raison du problème suivant :',
+
+        ],
+
+    ],
+
     'email' => [
 
         'invalid' => [
@@ -76,10 +94,26 @@ return [
 
     'menu' => [
 
+        'download_completed' => [
+
+            'title'         => 'Le téléchargement est prêt',
+            'description'   => 'Votre fichier <strong>:type</strong> est prêt à être <a href=":url" target="_blank"><strong>téléchargé</strong></a>.',
+            'download'      => 'Télécharger',
+
+        ],
+
+        'download_failed' => [
+
+            'title'         => 'Le téléchargement a échoué',
+            'description'   => 'Impossible de créer le fichier en raison de plusieurs problèmes. Consultez votre e-mail pour plus de détails.',
+
+        ],
+
         'export_completed' => [
 
             'title'         => 'L\'export est prêt',
             'description'   => 'Votre fichier d\'exportation <strong>:type</strong> est prêt à être<a href=":url" target="_blank"><strong>téléchargé</strong></a>.',
+            'download'      => 'Télécharger',
 
         ],
 

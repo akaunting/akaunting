@@ -79,10 +79,14 @@ return [
         'subheading'                    => 'Sous-titre',
         'due_receipt'                   => 'Échéance après réception',
         'due_days'                      => 'Échéance dans :days jours',
+        'due_custom'                    => 'Jour(s) personnalisé(s)',
+        'due_custom_day'                => 'après le jour',
         'choose_template'               => 'Choisir un modèle de facture',
         'default'                       => 'Défaut',
         'classic'                       => 'Classique',
         'modern'                        => 'Moderne',
+        'logo_size_width'               => 'Largeur du logo',
+        'logo_size_height'              => 'Hauteur du logo',
         'hide' => [
             'item_name'                 => 'Cacher le nom de l\'article',
             'item_description'          => 'Cacher la description de l\'article',
@@ -113,6 +117,8 @@ return [
         'use_gravatar'                  => 'Utiliser Gravatar',
         'income_category'               => 'Catégorie de factures',
         'expense_category'              => 'Catégorie de dépenses',
+        'address_format'                => 'Format d\'adresse',
+        'address_tags'                  => '<strong>Balises disponibles :</strong> :tags',
 
         'form_description' => [
             'general'                   => 'Sélectionnez le compte par défaut, la taxe et la méthode de paiement pour créer des enregistrements rapidement. Le tableau de bord et les rapports sont affichés dans la devise par défaut.',
