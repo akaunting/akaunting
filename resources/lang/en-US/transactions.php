@@ -12,6 +12,7 @@ return [
     'recurring_expense'     => 'Recurring Expense',
     'included_tax'          => 'Included tax amount',
     'connected'             => 'Connected',
+    'connect_message'       => 'Taxes for this :type were not calculated during the connection process. Taxes can not be connected.',
 
     'form_description' => [
         'general'           => 'Here you can enter the general information of transaction such as date, amount, account, description, etc.',
@@ -45,6 +46,13 @@ return [
 
     'sticky' => [
         'description'       => 'You are previewing how your customer will see the web version of your payment.',
+    ],
+
+    'messages' => [
+        'update_document_transaction' => 'You can update this transaction. You should go to the document and edit it there.',
+        'create_document_transaction_error' => 'This endpoint cannot be added to a document. Use {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions',
+        'update_document_transaction_error' => 'This endpoint cannot be updated to a document. Use {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions/{akaunting_transaction_id}',
+        'delete_document_transaction_error' => 'This endpoint cannot be deleted to a document. Use {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions/{akaunting_transaction_id}',
     ],
 
 ];

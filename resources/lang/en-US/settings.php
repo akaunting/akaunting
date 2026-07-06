@@ -85,6 +85,8 @@ return [
         'default'                       => 'Default',
         'classic'                       => 'Classic',
         'modern'                        => 'Modern',
+        'logo_size_width'               => 'Logo Width',
+        'logo_size_height'              => 'Logo Height',
         'hide' => [
             'item_name'                 => 'Hide Item Name',
             'item_description'          => 'Hide Item Description',
