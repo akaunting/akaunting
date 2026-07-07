@@ -1,5 +1,4 @@
 @php
-dd($amount, $currency, $convert);
     $normalized_amount = $amount;
 
     if (is_null($normalized_amount) || (is_string($normalized_amount) && trim($normalized_amount) === '')) {
