@@ -373,7 +373,7 @@ class Document extends Model
     public function getPaidAttribute()
     {
         if (empty($this->amount)) {
-            return false;
+            return 0;
         }
 
         if ($this->status == 'paid' ) {

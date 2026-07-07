@@ -325,6 +325,7 @@ class Transaction extends Model
         $this->number       = $this->getNextTransactionNumber($this->type, $suffix);
         $this->document_id  = null;
         $this->split_id     = null;
+
         unset($this->reconciled);
     }
 
@@ -482,7 +483,7 @@ class Transaction extends Model
     public function getAmountBeforeTaxAttribute()
     {
         if (empty($this->amount)) {
-            return false;
+            return 0;
         }
 
         $precision = currency($this->currency_code)->getPrecision();
