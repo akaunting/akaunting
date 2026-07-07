@@ -26,22 +26,11 @@ class AuthenticateOnceWithDynamicApi
 
     public function handle(Request $request, Closure $next): mixed
     {
-        // Skip if OAuth module is disabled to avoid unnecessary processing; delegate to Basic Auth directly since it's simpler and more likely to be used without OAuth.
-        if (! config('oauth.enabled', false)) {
-            return $this->basicMiddleware->handle($request, function (Request $req) use ($next) {
-                $req->attributes->set('auth_method', 'basic');
-
-                return $next($req);
-            });
-        }
-
         $authorization = (string) $request->header('Authorization', '');
 
-        // ── Bearer token → delegate to OAuth middleware ───────────────────────
+        // ── Bearer token → delegate to token middleware ───────────────────────
         if (preg_match('/^\s*Bearer\s+/i', $authorization) === 1) {
             return $this->oauthMiddleware->handle($request, function (Request $req) use ($next) {
-                $req->attributes->set('auth_method', 'oauth');
-
                 return $next($req);
             });
         }

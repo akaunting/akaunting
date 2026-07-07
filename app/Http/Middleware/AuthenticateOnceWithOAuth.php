@@ -2,8 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthenticateOnceWithOAuth
 {
@@ -16,9 +18,18 @@ class AuthenticateOnceWithOAuth
      */
     public function handle($request, $next)
     {
-        // Skip if OAuth module is disabled to avoid unnecessary processing
-        if (! config('oauth.enabled', false)) {
+        if ($this->authenticateWithSanctumToken($request)) {
+            $request->attributes->set('auth_method', 'sanctum');
+
             return $next($request);
+        }
+
+        if (! config('oauth.enabled', false)) {
+            return response()->json([
+                'message' => 'Invalid credentials.',
+                'error' => 'invalid_token',
+                'error_description' => 'The access token provided is expired, revoked, malformed, or invalid.',
+            ], 401);
         }
 
         $guard = config('oauth.guards.api', 'passport');
@@ -66,5 +77,32 @@ class AuthenticateOnceWithOAuth
         }
 
         return $next($request);
+    }
+
+    private function authenticateWithSanctumToken($request): bool
+    {
+        $plainTextToken = $request->bearerToken();
+
+        if (empty($plainTextToken)) {
+            return false;
+        }
+
+        $accessToken = PersonalAccessToken::findToken($plainTextToken);
+
+        if (! $accessToken || ! $accessToken->tokenable) {
+            return false;
+        }
+
+        if ($accessToken->expires_at && Carbon::parse($accessToken->expires_at)->isPast()) {
+            return false;
+        }
+
+        $user = $accessToken->tokenable;
+
+        $user->withAccessToken($accessToken);
+        Auth::setUser($user);
+        $accessToken->forceFill(['last_used_at' => now()])->save();
+
+        return true;
     }
 }
