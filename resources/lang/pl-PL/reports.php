@@ -2,44 +2,44 @@
 
 return [
 
-    'years'                         => 'Year|Years',
-    'date_range'                    => 'Date Range',
-    'preferences'                   => 'Preference|Preferences',
-    'profit_loss'                   => 'Profit & Loss',
-    'income_summary'                => 'Income Summary',
-    'expense_summary'               => 'Expense Summary',
-    'income_expense_summary'        => 'Income vs Expense',
-    'tax_summary'                   => 'Tax Summary',
-    'discount_summary'              => 'Discount Summary',
-    'gross_profit'                  => 'Gross Profit',
-    'net_profit'                    => 'Net Profit',
-    'net_profit_loss'               => 'Net Profit (Loss)',
-    'total_income'                  => 'Total Income',
-    'total_direct_cost'             => 'Total Cost of Sales',
-    'total_expense'                 => 'Total Expenses',
-    'net'                           => 'NET',
-    'income_expense'                => 'Income & Expense',
-    'pin'                           => 'Pin your report',
+    'years'                         => 'Rok|Lata',
+    'date_range'                    => 'Zakres dat',
+    'preferences'                   => 'Preferencja|Preferencje',
+    'profit_loss'                   => 'Zysk i strata',
+    'income_summary'                => 'Podsumowanie dochodów',
+    'expense_summary'               => 'Podsumowanie wydatków',
+    'income_expense_summary'        => 'Dochód vs Wydatek',
+    'tax_summary'                   => 'Podsumowanie podatków',
+    'discount_summary'              => 'Podsumowanie rabatów',
+    'gross_profit'                  => 'Zysk brutto',
+    'net_profit'                    => 'Zysk netto',
+    'net_profit_loss'               => 'Zysk netto (strata)',
+    'total_income'                  => 'Łączny dochód',
+    'total_direct_cost'             => 'Łączny koszt sprzedaży',
+    'total_expense'                 => 'Łączne wydatki',
+    'net'                           => 'NETTO',
+    'income_expense'                => 'Dochód i wydatek',
+    'pin'                           => 'Przypnij swój raport',
 
-    'income_expense_description'    => 'Get an overview of your income and expenses.',
-    'accounting_description'        => 'Get a clear picture of how your business is doing.',
+    'income_expense_description'    => 'Uzyskaj przegląd swoich dochodów i wydatków.',
+    'accounting_description'        => 'Uzyskaj jasny obraz tego, jak radzi sobie Twój biznes.',
 
     'form_description' => [
-        'general'                   => 'Here you can enter the general information of report such as name, type, description, etc.',
-        'preferences'               => 'Preferences helps you to customize your reports.'
+        'general'                   => 'Tutaj możesz wprowadzić ogólne informacje o raporcie, takie jak nazwa, typ, opis itp.',
+        'preferences'               => 'Preferencje pomagają Ci dostosować raporty.'
     ],
 
     'charts' => [
-        'line'                      => 'Line',
-        'bar'                       => 'Bar',
-        'pie'                       => 'Pie',
+        'line'                      => 'Liniowy',
+        'bar'                       => 'Słupkowy',
+        'pie'                       => 'Kołowy',
     ],
 
     'pin_text' => [
-        'unpin_report'              => 'Unpin your report',
-        'pin_report'                => 'Pin your report',
+        'unpin_report'              => 'Odepnij swój raport',
+        'pin_report'                => 'Przypnij swój raport',
     ],
 
-    'percentage_of_income'          => 'Show % of Income',
+    'percentage_of_income'          => 'Pokaż % dochodu',
 
 ];

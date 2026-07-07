@@ -32,7 +32,7 @@ return [
         'change_type'       => 'Error: Can not change the type because it has :text related!',
         'invalid_apikey'    => 'Error: The API Key entered is invalid!',
         'empty_apikey'      => 'Error: You have not entered your API Key! <a href=":url" class="font-bold underline underline-offset-4">Click here</a> to enter your API Key.',
-        'import_column'     => 'Error: :message Sheet name: :sheet. Line number: :line.',
+        'import_column'     => 'Error: :message Column name: :column. Line number: :line.',
         'import_sheet'      => 'Error: Sheet name is not valid. Please, check the sample file.',
         'same_amount'       => 'Error: The total amount of split must be exactly the same as the :transaction total: :amount',
         'over_match'        => 'Error: :type not connected! The amount you entered can not exceed the payment total: :amount',

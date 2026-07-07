@@ -3,16 +3,16 @@
 return [
 
     'import'                    => 'Import',
-    'title'                     => 'Import :type',
-    'limitations'               => 'Allowed file types: :extensions<br>Allowed max rows: :row_limit',
-    'sample_file'               => 'You can <a target="_blank" href=":download_link"><strong>download</strong></a> the sample file and fill it with your data.',
-    'sample_file_and_document'  => 'You can <a target="_blank" href=":download_link" class="text-blue-500 underline font-bold">download</a> the sample file and review the <a target="_blank" href=":document_link"class="text-blue-500 underline font-bold">documents</a> for detailed information',
-    'drop_file'                 => '<span style="color: #006EA6;">Upload a file</span> or drag and drop',
-    'file_type_and_limitations' => ':extensions up to :row_limit rows',
+    'title'                     => 'Importuj :type',
+    'limitations'               => 'Dozwolone typy plików: :extensions<br>Maksymalna liczba wierszy: :row_limit',
+    'sample_file'               => 'Możesz <a target="_blank" href=":download_link"><strong>pobrać</strong></a> plik przykładowy i wypełnić go swoimi danymi.',
+    'sample_file_and_document'  => 'Możesz <a target="_blank" href=":download_link" class="text-blue-500 underline font-bold">pobrać</a> plik przykładowy i przejrzeć <a target="_blank" href=":document_link"class="text-blue-500 underline font-bold">dokumentację</a> w celu uzyskania szczegółowych informacji',
+    'drop_file'                 => '<span style="color: #006EA6;">Prześlij plik</span> lub przeciągnij i upuść',
+    'file_type_and_limitations' => ':extensions do :row_limit wierszy',
 
-    'bank_feeds'    => 'Import transactions securely to automate bookkeeping by connecting bank accounts',
-    'receipts'      => 'Save time by uploading receipts, recording expenses, and eliminating manual work effortlessly!',
-    'ofx'           => 'Effortlessly import your bank transactions with the OFX App and automate your financial management!',
-    'mt940'         => 'Seamlessly upload your bank statements in MT940 format and take control of your finances with ease!',
+    'bank_feeds'    => 'Bezpiecznie importuj transakcje, aby zautomatyzować księgowanie, łącząc konta bankowe',
+    'receipts'      => 'Oszczędzaj czas, przesyłając paragony, rejestrując wydatki i eliminując pracę ręczną bez wysiłku!',
+    'ofx'           => 'Bez wysiłku importuj swoje transakcje bankowe z aplikacją OFX i zautomatyzuj zarządzanie finansami!',
+    'mt940'         => 'Płynnie prześlij wyciągi bankowe w formacie MT940 i przejmij kontrolę nad swoimi finansami z łatwością!',
 
 ];

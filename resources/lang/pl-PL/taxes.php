@@ -2,19 +2,19 @@
 
 return [
 
-    'rate'                  => 'Rate',
-    'rate_percent'          => 'Rate (%)',
-    'normal'                => 'Normal',
-    'inclusive'             => 'Inclusive',
-    'compound'              => 'Compound',
-    'fixed'                 => 'Fixed',
-    'withholding'           => 'Withholding',
-    'no_taxes'              => 'No Taxes',
-    'create_task'           => 'Create a new tax and edit anytime from settings.',
-    'new_tax'               => 'New Tax',
+    'rate'                  => 'Stawka',
+    'rate_percent'          => 'Stawka (%)',
+    'normal'                => 'Zwykły',
+    'inclusive'             => 'Wliczony',
+    'compound'              => 'Złożony',
+    'fixed'                 => 'Stały',
+    'withholding'           => 'Potrącenie',
+    'no_taxes'              => 'Brak podatków',
+    'create_task'           => 'Utwórz nowy podatek i edytuj w dowolnym momencie w ustawieniach.',
+    'new_tax'               => 'Nowy podatek',
 
     'form_description' => [
-        'general'           => 'Inclusive tax is calculated into the price of the item. Compound tax is calculated on top of the other taxes. Fixed tax is applied as an amount, not a percentage.',
+        'general'           => 'Podatek wliczony jest obliczany w cenie pozycji. Podatek złożony jest obliczany na podstawie innych podatków. Podatek stały jest stosowany jako kwota, a nie procent.',
     ],
 
 ];

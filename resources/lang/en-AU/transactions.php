@@ -28,7 +28,7 @@ return [
         'schedule'          => 'Repeat every :interval :frequency since :date',
         'children'          => ':count transactions were created automatically',
         'connect'           => 'This transaction is connected to :count transactions',
-        'transfer_headline' => 'From :from_account to :to_account',
+        'transfer_headline' => '<div> <span class="font-bold"> From: </span> :from_account </div> <div> <span class="font-bold"> to: </span> :to_account </div>',
         'transfer_desc'     => 'Transfer created on :date.',
     ],
 

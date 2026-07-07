@@ -2,23 +2,23 @@
 
 return [
 
-    'change_language'       => 'Change Language',
-    'last_login'            => 'Last login :time',
+    'change_language'       => 'Zmień język',
+    'last_login'            => 'Ostatnie logowanie :time',
 
     'notifications' => [
-        'counter'           => '{0} You have no new notifications|{1} You have :count new notification|[2,*] You have :count new notifications',
-        'new_apps'          => '{1} :count new app is published|[2,*] :count new apps published',
-        'overdue_invoices'  => '{1} :count overdue invoice|[2,*] :count overdue invoices',
-        'upcoming_bills'    => '{1} :count upcoming bill|[2,*] :count upcoming bills',
-        'view_all'          => 'View All',
+        'counter'           => '{0} Nie masz nowych powiadomień|{1} Masz :count nowe powiadomienie|[2,*] Masz :count nowych powiadomień',
+        'new_apps'          => '{1} Opublikowano :count nową aplikację|[2,*] Opublikowano :count nowych aplikacji',
+        'overdue_invoices'  => '{1} :count przeterminowana faktura|[2,*] :count przeterminowanych faktur',
+        'upcoming_bills'    => '{1} :count nadchodzący rachunek|[2,*] :count nadchodzących rachunków',
+        'view_all'          => 'Zobacz wszystkie',
 
         'exports' => [
-            'completed' => '{1} :count finished export|[2,*] :count finished exports',
-            'failed' => '{1} :count failed export|[2,*] :count failed exports',
+            'completed' => '{1} :count zakończony eksport|[2,*] :count zakończonych eksportów',
+            'failed' => '{1} :count nieudany eksport|[2,*] :count nieudanych eksportów',
         ],
         'imports' => [
-            'completed' => '{1} :count finished import|[2,*] :count finished imports',
-            'failed' => '{1} :count failed import|[2,*] :count failed imports',
+            'completed' => '{1} :count zakończony import|[2,*] :count zakończonych importów',
+            'failed' => '{1} :count nieudany import|[2,*] :count nieudanych importów',
         ],
     ],
 
@@ -26,8 +26,8 @@ return [
     'support_link'          => 'https://akaunting.com/support',
 
     'favorite' => [
-        'added_favorite'    => 'Added to favorites',
-        'add_favorite'      => 'Add to favorites',
+        'added_favorite'    => 'Dodano do ulubionych',
+        'add_favorite'      => 'Dodaj do ulubionych',
     ],
 
 ];

@@ -8,7 +8,7 @@ return [
     'recurring_invoices'    => 'Recurring Invoice|Recurring Invoices',
     'customers'             => 'Customer|Customers',
     'incomes'               => 'Income|Incomes',
-    'recurring_incomes'     => 'Bank|Banks',
+    'recurring_incomes'     => 'Recurring Income|Recurring Incomes',
     'expenses'              => 'Expense|Expenses',
     'recurring_expenses'    => 'Recurring Expense|Recurring Expenses',
     'direct_costs'          => 'Direct Cost|Direct Costs',

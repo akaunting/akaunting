@@ -2,33 +2,33 @@
 
 return [
 
-    'details'               => 'Detail|Details',
+    'details'               => 'Szczegół|Szczegóły',
 
-    'from_account'          => 'From Account',
-    'to_account'            => 'To Account',
-    'from_rate'             => 'From Rate',
-    'to_rate'               => 'To Rate',
-    'from_account_rate'     => 'From Account Rate',
-    'to_account_rate'       => 'To Account Rate',
-    'from_amount'           => 'From Amount',
-    'to_amount'             => 'To Amount',
-    'issued_at'             => 'Issue Date',
-    'rate'                  => 'Rate',
+    'from_account'          => 'Z konta',
+    'to_account'            => 'Na konto',
+    'from_rate'             => 'Kurs źródłowy',
+    'to_rate'               => 'Kurs docelowy',
+    'from_account_rate'     => 'Kurs konta źródłowego',
+    'to_account_rate'       => 'Kurs konta docelowego',
+    'from_amount'           => 'Kwota źródłowa',
+    'to_amount'             => 'Kwota docelowa',
+    'issued_at'             => 'Data wystawienia',
+    'rate'                  => 'Kurs',
 
     'form_description' => [
-        'general'           => 'Transfer money between accounts with different currencies and peg the currency to whichever rate you may like.',
-        'other'             => 'Select the transfer method as the payment method to make your reports more detailed.',
+        'general'           => 'Przesyłaj pieniądze między kontami o różnych walutach i powiąż walutę z dowolnym kursem, jaki Ci odpowiada.',
+        'other'             => 'Wybierz metodę transferu jako metodę płatności, aby Twoje raporty były bardziej szczegółowe.',
     ],
 
     'messages' => [
-        'delete'            => ':from to :to (:amount)',
+        'delete'            => ':from do :to (:amount)',
     ],
 
     'slider' => [
-        'create'            => ':user created this transfer on :date',
-        'transactions'      => 'List of transactions related to this transfer',
-        'transactions_desc' => ':number transaction for :account',
-        'attachments'       => 'Download the files attached to this transfer',
+        'create'            => ':user utworzył ten transfer w dniu :date',
+        'transactions'      => 'Lista transakcji powiązanych z tym transferem',
+        'transactions_desc' => ':number transakcja dla :account',
+        'attachments'       => 'Pobierz pliki załączone do tego transferu',
     ],
 
 ];

@@ -2,10 +2,10 @@
 
 return [
 
-    'title' => 'Under Maintenance',
+    'title' => 'Prace konserwacyjne',
 
-    'message' => 'Sorry, we\'re down for maintenance. Please, try again later!',
+    'message' => 'Przepraszamy, jesteśmy niedostępni z powodu konserwacji. Spróbuj ponownie później!',
 
-    'read_only' => 'Read-only mode is enabled. You are allowed to view but not change anything!',
+    'read_only' => 'Tryb tylko do odczytu jest włączony. Możesz przeglądać, ale nie zmieniać niczego!',
 
 ];
