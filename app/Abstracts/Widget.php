@@ -28,6 +28,14 @@ abstract class Widget
         'header' => 'components.widgets.header',
     ];
 
+    /**
+     * Methods that may be invoked via the Widgets@getData endpoint.
+     * Subclasses can append additional safe, read-only methods.
+     *
+     * @var array
+     */
+    public array $allowed_methods = ['show'];
+
     public array $data = [];
 
     public function __construct($model = null)

@@ -162,16 +162,38 @@ class Widgets extends Controller
 
     public function getData(Request $request)
     {
-        // Check is module
-        $module = module($request->get('widget'));
+        $widget_name = $request->get('widget');
+        $method = $request->get('method', 'show');
 
-        if ($module instanceof \Akaunting\Module\Module) {
-            $widget = app('Modules\\' . $module->getStudlyName() . '\Widgets\\' . ucfirst($request->get('widget')));
-        } else {
-            $widget = app('App\Widgets\\' .  ucfirst($request->get('widget')));
+        // Security: validate the widget name contains only alphanumeric
+        // characters to prevent namespace traversal.
+        if (empty($widget_name) || ! preg_match('/^[a-zA-Z0-9]+$/', $widget_name)) {
+            abort(404);
         }
 
-        $response = $widget->{$request->get('method')}($request);
+        // Check is module
+        $module = module($widget_name);
+
+        if ($module instanceof \Akaunting\Module\Module) {
+            $widget = app('Modules\\' . $module->getStudlyName() . '\\Widgets\\' . ucfirst($widget_name));
+        } else {
+            $widget = app('App\Widgets\\' .  ucfirst($widget_name));
+        }
+
+        // Security: ensure the resolved instance is a Widget subclass.
+        if (! ($widget instanceof \App\Abstracts\Widget)) {
+            abort(404);
+        }
+
+        // Security: only allow methods declared in the widget's $allowed_methods
+        // array. This prevents calling arbitrary internal methods (applyFilters,
+        // calculateDocumentTotals, setData, etc.) that could be abused.
+        // Subclasses can extend $allowed_methods for their own safe, read-only methods.
+        if (! in_array($method, $widget->allowed_methods)) {
+            abort(403);
+        }
+
+        $response = $widget->{$method}($request);
 
         return response()->json($response);
     }
