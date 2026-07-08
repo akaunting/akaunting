@@ -47,9 +47,50 @@ class BulkActions extends Controller
             $bulk_actions = app('App\BulkActions\\' .  ucfirst($group) . '\\' . ucfirst($type));
         }
 
+        // Security: resolve the handle to a declared action and enforce its permission.
+        //
+        // Handles come in two flavors:
+        //  1. Direct action keys in $actions (e.g. "delete", "enable", "export").
+        //  2. Modal submit handles declared via the 'handle' field of a modal-type
+        //     action (e.g. "update" declared by 'edit' => ['handle' => 'update']).
+        //
+        // Without validating against this allowlist, an attacker can bypass the
+        // permission check by calling inherited methods directly — e.g. handle=destroy
+        // instead of handle=delete, since destroy() exists on the abstract base but is
+        // not keyed in $actions. We also inherit the permission from the parent action
+        // for modal submit handles so that handle=update is gated by update-* just like
+        // handle=edit.
+
+        $action_key = $handle;
+
+        if (! array_key_exists($action_key, $bulk_actions->actions)) {
+            // The handle is not a direct action; check if it's a modal submit handle.
+            $found = false;
+
+            foreach ($bulk_actions->actions as $key => $action) {
+                if (isset($action['handle']) && $action['handle'] === $handle) {
+                    $action_key = $key;
+                    $found = true;
+                    break;
+                }
+            }
+
+            if (! $found) {
+                flash(trans('errors.message.403'))->error()->important();
+
+                return response()->json([
+                    'success' => false,
+                    'redirect' => true,
+                    'error' => true,
+                    'data' => [],
+                    'message' => trans('errors.message.403')
+                ]);
+            }
+        }
+
         if (
-            isset($bulk_actions->actions[$handle]['permission'])
-            && ! user()->can($bulk_actions->actions[$handle]['permission'])
+            isset($bulk_actions->actions[$action_key]['permission'])
+            && ! user()->can($bulk_actions->actions[$action_key]['permission'])
         ) {
             flash(trans('errors.message.403'))->error()->important();
 
@@ -83,10 +124,10 @@ class BulkActions extends Controller
 
         if (
             (
-                isset($bulk_actions->actions[$handle]['type'])
-                && $bulk_actions->actions[$handle]['type'] != 'modal'
+                isset($bulk_actions->actions[$action_key]['type'])
+                && $bulk_actions->actions[$action_key]['type'] != 'modal'
             )
-            || ! isset($bulk_actions->actions[$handle]['type'])
+            || ! isset($bulk_actions->actions[$action_key]['type'])
             || $not_passed > 0
         ) {
             flash($message)->{$level}();
