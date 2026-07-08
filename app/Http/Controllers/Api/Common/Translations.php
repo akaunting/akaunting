@@ -19,6 +19,18 @@ class Translations extends ApiController
      */
     public function file($locale, $file)
     {
+        // Security: validate locale format (e.g. en-US, tr-TR) to prevent path traversal.
+        if (! preg_match('/^[a-z]{2}-[A-Z]{2}$/', $locale)) {
+            abort(404);
+        }
+
+        // Security: validate file name format — only alphanumeric, underscores,
+        // hyphens, and optional module namespace (e.g. "my-blog::general").
+        // This prevents path traversal via trans('../../../config/app').
+        if (! preg_match('/^([a-z0-9_-]+)(::[a-z0-9_-]+)?$/', $file)) {
+            abort(404);
+        }
+
         App::setLocale($locale);
 
         return response()->json([
@@ -37,6 +49,12 @@ class Translations extends ApiController
      */
     public function all($locale)
     {
+        // Security: validate locale format (e.g. en-US, tr-TR) to prevent
+        // path traversal in the filesystem glob below.
+        if (! preg_match('/^[a-z]{2}-[A-Z]{2}$/', $locale)) {
+            abort(404);
+        }
+
         App::setLocale($locale);
 
         $translations = [];
