@@ -607,15 +607,23 @@ abstract class Report
     {
         $url = company_id() . '/common/reports/' . $this->model->id . '/' . $action;
 
-        $request = request()->all();
-        $parameters = '';
+        $parameters = array_filter(
+            request()->all(),
+            static function ($value, $key) {
+                // Skip Laravel internal params
+                if (in_array($key, ['_token', '_method'])) {
+                    return false;
+                }
 
-        foreach ($request as $key => $value) {
-            $parameters .= empty($parameters) ? ('?' . $key . '=' . $value) : ('&' . $key . '=' . $value);
-        }
+                return is_null($value) || is_scalar($value) || is_array($value);
+            },
+            ARRAY_FILTER_USE_BOTH
+        );
 
-        if (!empty($parameters)) {
-            $url .= $parameters;
+        $query = http_build_query($parameters, '', '&', PHP_QUERY_RFC3986);
+
+        if (!empty($query)) {
+            $url .= '?' . $query;
         }
 
         return $url;

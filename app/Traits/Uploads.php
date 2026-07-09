@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\Common\Media as MediaModel;
 use App\Utilities\Date;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
 use MediaUploader;
 
@@ -16,6 +17,8 @@ trait Uploads
         if (! $file || ! $file->isValid()) {
             return $path;
         }
+
+        $this->validateUploadedFile($file);
 
         $path = $this->getMediaFolder($folder, $company_id);
 
@@ -40,6 +43,8 @@ trait Uploads
         if (! $disk) {
             $disk = config('mediable.default_disk');
         }
+
+        $this->validateImportedFilePath($file);
 
         $path = $this->getMediaFolder($folder, $company_id) . '/' . basename($file);
 
@@ -173,5 +178,39 @@ trait Uploads
         }
 
         return (string)$file->guessExtension();
+    }
+
+    protected function validateUploadedFile($file): void
+    {
+        $mimes = (string) config('filesystems.mimes');
+        $maxSize = (int) config('filesystems.max_size') * 1024;
+
+        $validator = validator(
+            ['file' => $file],
+            ['file' => 'file|mimes:' . $mimes . '|max:' . $maxSize]
+        );
+
+        if ($validator->fails()) {
+            throw ValidationException::withMessages([
+                'file' => $validator->errors()->first('file'),
+            ]);
+        }
+    }
+
+    protected function validateImportedFilePath($file): void
+    {
+        $extension = Str::lower(pathinfo((string) $file, PATHINFO_EXTENSION));
+
+        $allowed = collect(explode(',', (string) config('filesystems.mimes')))
+            ->map(fn ($mime) => Str::lower(trim($mime)))
+            ->filter()
+            ->values()
+            ->all();
+
+        if (empty($extension) || ! in_array($extension, $allowed, true)) {
+            throw ValidationException::withMessages([
+                'file' => trans('validation.mimes', ['values' => implode(', ', $allowed)]),
+            ]);
+        }
     }
 }

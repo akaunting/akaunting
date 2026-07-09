@@ -48,7 +48,7 @@
                     @if (! $hideCompanyAddress)
                         <p>
                             <x-nl2br :value="setting('company.address')" />
-                            {!! $document->company->location !!}
+                            <x-nl2br :value="$document->company->location" />
                         </p>
                     @endif
                     @stack('company_address_input_end')
@@ -156,7 +156,7 @@
                             <x-nl2br :value="$document->contact_address" />
                             @if ($document->contact_location)
                                 <br>
-                                {!! $document->contact_location !!}
+                                <x-nl2br :value="$document->contact_location" />
                             @endif
                         </p>
                     @endif

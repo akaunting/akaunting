@@ -25,7 +25,7 @@ trait Recurring
         $limit_date = !empty($request['recurring_limit_date']) ? $request['recurring_limit_date'] : null;
         $auto_send = !empty($request['recurring_send_email']) ? $request['recurring_send_email'] : 0;
         $source = !empty($request['created_from']) ? $request['created_from'] : source_name();
-        $owner = !empty($request['created_by']) ? $request['created_by'] : user_id();
+        $owner = !empty($request['created_by']) ? (int) $request['created_by'] : user_id();
 
         $this->recurring()->create([
             'company_id'    => $this->company_id,
@@ -80,7 +80,7 @@ trait Recurring
             $recurring->update($data);
         } else {
             $source = !empty($request['created_from']) ? $request['created_from'] : source_name();
-            $owner = !empty($request['created_by']) ? $request['created_by'] : user_id();
+            $owner = !empty($request['created_by']) ? (int) $request['created_by'] : user_id();
 
             $recurring->create(array_merge($data, [
                 'status'        => Model::ACTIVE_STATUS,
