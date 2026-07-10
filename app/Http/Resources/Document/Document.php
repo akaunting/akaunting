@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Document;
 
+use App\Http\Resources\Auth\Owner;
 use App\Events\Document\DocumentResourceShowing;
 use App\Http\Resources\Banking\Transaction;
 use App\Http\Resources\Common\Contact;
@@ -49,10 +50,10 @@ class Document extends JsonResource
             'contact_country' => $this->contact_country,
             'notes' => $this->notes,
             'attachment' => $this->attachment,
-            'created_from' => $this->created_from,
-            'created_by' => $this->created_by,
             'created_at' => $this->created_at ? $this->created_at->toIso8601String() : '',
             'updated_at' => $this->updated_at ? $this->updated_at->toIso8601String() : '',
+            'created_from' => $this->created_from,
+            'owner' => Owner::from($this->owner),
             'category' => new Category($this->category),
             'currency' => new Currency($this->currency),
             'contact' => new Contact($this->contact),

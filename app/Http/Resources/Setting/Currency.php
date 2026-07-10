@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Setting;
 
+use App\Http\Resources\Auth\Owner;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Currency extends JsonResource
@@ -26,10 +27,10 @@ class Currency extends JsonResource
             'symbol_first' => $this->symbol_first,
             'decimal_mark' => $this->decimal_mark,
             'thousands_separator' => $this->thousands_separator,
-            'created_from' => $this->created_from,
-            'created_by' => $this->created_by,
             'created_at' => $this->created_at ? $this->created_at->toIso8601String() : '',
             'updated_at' => $this->updated_at ? $this->updated_at->toIso8601String() : '',
+            'created_from' => $this->created_from,
+            'owner' => Owner::from($this->owner),
         ];
     }
 }

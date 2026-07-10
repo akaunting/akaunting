@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Common;
 
+use App\Http\Resources\Auth\Owner;
 use App\Http\Resources\Common\ItemTax;
 use App\Http\Resources\Setting\Category;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -29,10 +30,10 @@ class Item extends JsonResource
             'category_id' => $this->category_id,
             'picture' => $this->picture,
             'enabled' => $this->enabled,
-            'created_from' => $this->created_from,
-            'created_by' => $this->created_by,
             'created_at' => $this->created_at ? $this->created_at->toIso8601String() : '',
             'updated_at' => $this->updated_at ? $this->updated_at->toIso8601String() : '',
+            'created_from' => $this->created_from,
+            'owner' => Owner::from($this->owner),
             'taxes' => [static::$wrap => ItemTax::collection($this->taxes)],
             'category' => new Category($this->category),
         ];

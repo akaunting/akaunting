@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Banking;
 
+use App\Http\Resources\Auth\Owner;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Transfer extends JsonResource
@@ -28,10 +29,10 @@ class Transfer extends JsonResource
             'amount_formatted' => money($expense_transaction->amount, $expense_transaction->currency_code)->format(),
             'currency_code' => $expense_transaction->currency_code,
             'paid_at' => $expense_transaction->paid_at ? $expense_transaction->paid_at->toIso8601String() : '',
-            'created_from' => $this->created_from,
-            'created_by' => $this->created_by,
             'created_at' => $this->created_at ? $this->created_at->toIso8601String() : '',
             'updated_at' => $this->updated_at ? $this->updated_at->toIso8601String() : '',
+            'created_from' => $this->created_from,
+            'owner' => Owner::from($this->owner),
         ];
     }
 }

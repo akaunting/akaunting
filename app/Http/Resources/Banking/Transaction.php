@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Banking;
 
+use App\Http\Resources\Auth\Owner;
 use App\Http\Resources\Banking\Account;
 use App\Http\Resources\Common\Contact;
 use App\Http\Resources\Setting\Category;
@@ -39,10 +40,10 @@ class Transaction extends JsonResource
             'parent_id' => $this->parent_id,
             'split_id' => $this->split_id,
             'attachment' => $this->attachment,
-            'created_from' => $this->created_from,
-            'created_by' => $this->created_by,
             'created_at' => $this->created_at->toIso8601String(),
             'updated_at' => $this->updated_at->toIso8601String(),
+            'created_from' => $this->created_from,
+            'owner' => Owner::from($this->owner),
             'account' => new Account($this->account),
             'category' => new Category($this->category),
             'currency' => new Currency($this->currency),

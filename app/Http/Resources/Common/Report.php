@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Common;
 
+use App\Http\Resources\Auth\Owner;
 use App\Utilities\Reports as Utility;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -23,10 +24,10 @@ class Report extends JsonResource
             'description' => $this->description,
             'settings' => $this->settings,
             'data' => $this->getReportData(),
-            'created_from' => $this->created_from,
-            'created_by' => $this->created_by,
             'created_at' => $this->created_at ? $this->created_at->toIso8601String() : '',
             'updated_at' => $this->updated_at ? $this->updated_at->toIso8601String() : '',
+            'created_from' => $this->created_from,
+            'owner' => Owner::from($this->owner),
         ];
     }
 

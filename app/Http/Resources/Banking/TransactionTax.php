@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Banking;
 
+use App\Http\Resources\Auth\Owner;
 use App\Http\Resources\Setting\Tax;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -23,10 +24,10 @@ class TransactionTax extends JsonResource
             'name' => $this->name,
             'amount' => $this->amount,
             'amount_formatted' => money($this->amount, $this->currency_code)->format(),
-            'created_from' => $this->created_from,
-            'created_by' => $this->created_by,
             'created_at' => $this->created_at ? $this->created_at->toIso8601String() : '',
             'updated_at' => $this->updated_at ? $this->updated_at->toIso8601String() : '',
+            'created_from' => $this->created_from,
+            'owner' => Owner::from($this->owner),
             'tax' => new Tax($this->tax),
         ];
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Auth;
 
+use App\Http\Resources\Auth\Owner;
 use App\Http\Resources\Auth\Role;
 use App\Http\Resources\Common\Company;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -23,11 +24,11 @@ class User extends JsonResource
             'locale' => $this->locale,
             'landing_page' => $this->landing_page,
             'enabled' => $this->enabled,
-            'created_from' => $this->created_from,
-            'created_by' => $this->created_by,
             'last_logged_in_at' => $this->last_logged_in_at ? $this->last_logged_in_at->toIso8601String() : '',
             'created_at' => $this->created_at ? $this->created_at->toIso8601String() : '',
             'updated_at' => $this->updated_at ? $this->updated_at->toIso8601String() : '',
+            'created_from' => $this->created_from,
+            'owner' => Owner::from($this->owner),
             'companies' => [static::$wrap => Company::collection($this->companies)],
             'roles' => [static::$wrap => Role::collection($this->roles)],
         ];

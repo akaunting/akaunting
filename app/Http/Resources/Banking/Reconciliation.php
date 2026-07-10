@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Banking;
 
+use App\Http\Resources\Auth\Owner;
 use App\Http\Resources\Banking\Account;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -24,10 +25,10 @@ class Reconciliation extends JsonResource
             'closing_balance' => $this->closing_balance,
             'closing_balance_formatted' => money($this->closing_balance)->format(),
             'reconciled' => $this->reconciled,
-            'created_from' => $this->created_from,
-            'created_by' => $this->created_by,
             'created_at' => $this->created_at->toIso8601String(),
             'updated_at' => $this->updated_at->toIso8601String(),
+            'created_from' => $this->created_from,
+            'owner' => Owner::from($this->owner),
             'account' => new Account($this->account),
         ];
     }

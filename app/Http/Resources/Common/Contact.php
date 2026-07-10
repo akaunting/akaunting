@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Common;
 
+use App\Http\Resources\Auth\Owner;
 use App\Http\Resources\Common\ContactPerson;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -29,10 +30,10 @@ class Contact extends JsonResource
             'currency_code' => $this->currency_code,
             'enabled' => $this->enabled,
             'reference' => $this->reference,
-            'created_from' => $this->created_from,
-            'created_by' => $this->created_by,
             'created_at' => $this->created_at ? $this->created_at->toIso8601String() : '',
             'updated_at' => $this->updated_at ? $this->updated_at->toIso8601String() : '',
+            'created_from' => $this->created_from,
+            'owner' => Owner::from($this->owner),
             'contact_persons' => [static::$wrap => ContactPerson::collection($this->contact_persons)],
         ];
     }

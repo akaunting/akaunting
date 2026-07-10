@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Document;
 
+use App\Http\Resources\Auth\Owner;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class DocumentTotal extends JsonResource
@@ -24,10 +25,10 @@ class DocumentTotal extends JsonResource
             'amount' => $this->amount,
             'amount_formatted' => money($this->amount, $this->document->currency_code)->format(),
             'sort_order' => $this->sort_order,
-            'created_from' => $this->created_from,
-            'created_by' => $this->created_by,
             'created_at' => $this->created_at ? $this->created_at->toIso8601String() : '',
             'updated_at' => $this->updated_at ? $this->updated_at->toIso8601String() : '',
+            'created_from' => $this->created_from,
+            'owner' => Owner::from($this->owner),
         ];
     }
 }
