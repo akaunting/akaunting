@@ -32,7 +32,7 @@
         <x-form.input.editor
             name="{{ $name }}"
             id="{{ $id }}"
-            value="{{ $value }}"
+            :value="$value"
             placeholder="{{ $placeholder }}"
             v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : (!empty($attributes['data-field']) ? 'form.' . $attributes['data-field'] . '.' . $name : 'form.' . $name) }}"
             {{ $attributes->merge($custom_attributes) }}
