@@ -2,6 +2,7 @@
 
 namespace App\Abstracts;
 
+use App\Models\Setting\EmailTemplate;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -80,7 +81,9 @@ abstract class Notification extends BaseNotification implements ShouldQueue
 
     public function getBody()
     {
-        $body = !empty($this->custom_mail['body']) ? $this->custom_mail['body'] : $this->replaceTags($this->template->body);
+        $body = !empty($this->custom_mail['body'])
+            ? EmailTemplate::sanitizeBody($this->custom_mail['body'])
+            : $this->replaceTags($this->template->body);
 
         return $body . $this->getFooter();
     }
@@ -135,7 +138,16 @@ abstract class Notification extends BaseNotification implements ShouldQueue
         foreach ($tags as $index => $tag) {
             $key = Str::replace($wrappers, '', $tag);
 
-            $bindings[$key] = $replacements[$index];
+            $value = $replacements[$index] ?? '';
+
+            // HTML-encode string replacement values to prevent stored XSS (CWE-79).
+            // Notification description templates contain intentional HTML markup
+            // (<strong>, <a>) which must be preserved. This encodes only the
+            // user-supplied values (e.g. customer_name, vendor_name, email)
+            // while leaving the template's own markup untouched. Non-string
+            // values (Money, Carbon dates, numeric amounts) pass through
+            // unchanged since they do not carry attacker-controlled HTML.
+            $bindings[$key] = is_string($value) ? e($value) : $value;
         }
 
         return $bindings;

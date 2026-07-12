@@ -65,7 +65,10 @@ class Settings extends ApiController
      */
     public function store(Request $request)
     {
-        $setting = Setting::create($request->all());
+        $data = $request->all();
+        $data['company_id'] = company_id();
+
+        $setting = Setting::create($data);
 
         return $this->created(route('api.settings.show', $setting->id), new Resource($setting));
     }
@@ -79,7 +82,10 @@ class Settings extends ApiController
      */
     public function update(Setting $setting, Request $request)
     {
-        $setting->update($request->all());
+        $data = $request->all();
+        $data['company_id'] = company_id();
+
+        $setting->update($data);
 
         return new Resource($setting->fresh());
     }

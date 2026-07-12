@@ -7,6 +7,8 @@ use Illuminate\Support\Str;
 
 class EmailTemplate extends Model
 {
+    protected static ?\HTMLPurifier $bodyPurifier = null;
+
     protected $table = 'email_templates';
 
     /**
@@ -22,6 +24,47 @@ class EmailTemplate extends Model
      * @var array
      */
     protected $fillable = ['company_id', 'alias', 'class', 'name', 'subject', 'body', 'params', 'created_from', 'created_by'];
+
+    public function getBodyAttribute($value): string
+    {
+        return static::sanitizeBody($value);
+    }
+
+    public function setBodyAttribute($value): void
+    {
+        $this->attributes['body'] = static::sanitizeBody($value);
+    }
+
+    public static function sanitizeBody($value): string
+    {
+        $body = (string) ($value ?? '');
+
+        if ($body === '') {
+            return '';
+        }
+
+        try {
+            return trim(static::getBodyPurifier()->purify($body));
+        } catch (\Throwable $e) {
+            return trim(strip_tags($body, '<p><br><strong><b><em><i><u><a><ul><ol><li><blockquote><h1><h2><h3><h4><h5><h6><table><thead><tbody><tfoot><tr><th><td><span><div><img>'));
+        }
+    }
+
+    protected static function getBodyPurifier(): \HTMLPurifier
+    {
+        if (static::$bodyPurifier instanceof \HTMLPurifier) {
+            return static::$bodyPurifier;
+        }
+
+        $config = \HTMLPurifier_Config::createDefault();
+        $config->set('Cache.DefinitionImpl', null);
+        $config->set('URI.DisableJavaScript', true);
+        $config->set('HTML.ForbiddenElements', ['script', 'iframe', 'object', 'embed', 'form', 'input', 'button', 'textarea', 'select', 'option', 'meta', 'link']);
+
+        static::$bodyPurifier = new \HTMLPurifier($config);
+
+        return static::$bodyPurifier;
+    }
 
     public function getTitleAttribute()
     {
