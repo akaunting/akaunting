@@ -38,10 +38,10 @@ class CopyFiles extends Job
         $source = storage_path('app/temp/' . $this->path);
 
         // Prevent path traversal: ensure source is strictly within the temp directory
-        $temp_base   = realpath(storage_path('app/temp'));
+        $temp_base = realpath(storage_path('app/temp'));
         $real_source = realpath($source);
 
-        if ($real_source === false || $temp_base === false || ! str_starts_with($real_source, $temp_base . DIRECTORY_SEPARATOR)) {
+        if (! $this->isPathWithinTempBase($real_source, $temp_base)) {
             throw new \Exception(trans('modules.errors.file_copy', ['module' => $this->alias]));
         }
 
@@ -54,6 +54,23 @@ class CopyFiles extends Job
 
         // Delete temp directory
         File::deleteDirectory($source);
+    }
+
+    protected function isPathWithinTempBase($real_source, $temp_base)
+    {
+        if (($real_source === false) || ($temp_base === false)) {
+            return false;
+        }
+
+        $normalized_source = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $real_source);
+        $normalized_base = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $temp_base);
+
+        if (DIRECTORY_SEPARATOR === '\\') {
+            $normalized_source = mb_strtolower($normalized_source);
+            $normalized_base = mb_strtolower($normalized_base);
+        }
+
+        return str_starts_with(rtrim($normalized_source, DIRECTORY_SEPARATOR), rtrim($normalized_base, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR);
     }
 
     protected function getDestination($source)

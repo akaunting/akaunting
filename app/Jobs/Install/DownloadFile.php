@@ -53,7 +53,7 @@ class DownloadFile extends Job
 
         // Create tmp directory
         if (!File::isDirectory($temp_path)) {
-            File::makeDirectory($temp_path);
+            File::makeDirectory($temp_path, 0755, true);
         }
 
         // Add content to the Zip file
