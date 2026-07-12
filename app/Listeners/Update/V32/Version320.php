@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners\Update\V31;
+namespace App\Listeners\Update\V32;
 
 use App\Abstracts\Listeners\Update as Listener;
 use App\Events\Install\UpdateFinished as Event;
@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class Version3122 extends Listener
+class Version320 extends Listener
 {
     const ALIAS = 'core';
 
-    const VERSION = '3.1.22';
+    const VERSION = '3.2.0';
 
     /**
      * Handle the event.
@@ -26,7 +26,7 @@ class Version3122 extends Listener
             return;
         }
 
-        Log::channel('stdout')->info('Updating to 3.1.22 version...');
+        Log::channel('stdout')->info('Updating to 3.2.0 version...');
 
         $this->updateDatabase();
 
