@@ -23,4 +23,4 @@
     readonly="readonly"
     @endif
     {{ $attributes->except(['rows', 'placeholder', 'disabled', 'required', 'readonly']) }}
->{!! $value !!}</textarea>
+>{{ $value }}</textarea>

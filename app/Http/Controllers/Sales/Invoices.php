@@ -23,6 +23,21 @@ class Invoices extends Controller
     public string $type = Document::INVOICE_TYPE;
 
     /**
+     * Instantiate a new controller instance.
+     *
+     * Security: explicitly gate document state-change methods behind
+     * update-sales-invoices permission. These methods are not in the
+     * canonical CRUD lists of assignPermissionsToController() and would
+     * otherwise run without any permission check.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('permission:update-sales-invoices')->only('markSent', 'markCancelled', 'restoreInvoice');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response

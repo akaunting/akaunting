@@ -206,7 +206,7 @@ class DeleteButton extends Component
                 if (! is_array($this->route)) {
                     $string = $this->route;
                 }
-                
+
                 if (is_array($this->route)) {
                     $string = $this->route[0];
                 }
@@ -217,7 +217,8 @@ class DeleteButton extends Component
             }
 
             $text = $this->text ? $this->text : $page;
-            $name = addslashes($this->model->{$this->modelName});
+            $name = e($this->model->{$this->modelName});
+            $name = addslashes($name);
             $name = Str::replace(['\"', '"'], '&quot;', $name);
 
             $type = mb_strtolower($this->getModelTitle());

@@ -13,6 +13,15 @@ class UpdateItem extends Job implements ShouldUpdate
 {
     public function handle(): Item
     {
+        // Security: strip HTML tags from name to prevent stored XSS in delete
+        // confirmation modal (CVE-2026-11942). Defense-in-depth alongside e()
+        // output encoding in DeleteLink/DeleteButton getMessage().
+        if ($this->request->has('name')) {
+            $this->request->merge([
+                'name' => strip_tags($this->request->get('name')),
+            ]);
+        }
+
         event(new ItemUpdating($this->model, $this->request));
 
         \DB::transaction(function () {

@@ -32,7 +32,7 @@ class RecurringInvoices extends Controller
         // Add CRUD permission check
         $this->middleware('permission:create-sales-invoices')->only('create', 'store', 'duplicate', 'import');
         $this->middleware('permission:read-sales-invoices')->only('index', 'show', 'edit', 'export');
-        $this->middleware('permission:update-sales-invoices')->only('update', 'enable', 'disable');
+        $this->middleware('permission:update-sales-invoices')->only('update', 'enable', 'disable', 'end');
         $this->middleware('permission:delete-sales-invoices')->only('destroy');
     }
 

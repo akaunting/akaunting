@@ -221,7 +221,8 @@ class DeleteLink extends Component
             }
 
             $text = $this->text ? $this->text : $page;
-            $name = addslashes($this->model->{$this->modelName});
+            $name = e($this->model->{$this->modelName});
+            $name = addslashes($name);
             $name = Str::replace(['\"', '"'], '&quot;', $name);
 
             $type = mb_strtolower($this->getModelTitle());

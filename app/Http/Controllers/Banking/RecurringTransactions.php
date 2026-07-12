@@ -31,7 +31,7 @@ class RecurringTransactions extends Controller
         // Add CRUD permission check
         $this->middleware('permission:create-banking-transactions')->only('create', 'store', 'duplicate', 'import');
         $this->middleware('permission:read-banking-transactions')->only('index', 'show', 'edit', 'export');
-        $this->middleware('permission:update-banking-transactions')->only('update', 'enable', 'disable');
+        $this->middleware('permission:update-banking-transactions')->only('update', 'enable', 'disable', 'end');
         $this->middleware('permission:delete-banking-transactions')->only('destroy');
     }
 

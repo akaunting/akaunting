@@ -21,6 +21,21 @@ class Bills extends Controller
     public string $type = Document::BILL_TYPE;
 
     /**
+     * Instantiate a new controller instance.
+     *
+     * Security: explicitly gate document state-change methods behind
+     * update-purchases-bills permission. These methods are not in the
+     * canonical CRUD lists of assignPermissionsToController() and would
+     * otherwise run without any permission check.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('permission:update-purchases-bills')->only('markReceived', 'markCancelled', 'restoreBill');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response

@@ -45,7 +45,7 @@
         <x-form.input.textarea
             name="{{ $name }}"
             id="{{ $id }}"
-            value="{!! $value !!}"
+            value="{{ $value }}"
             placeholder="{{ $placeholder }}"
             rows="{{ $rows }}"
             :disabled="$disabled"

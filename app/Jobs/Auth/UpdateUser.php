@@ -86,6 +86,21 @@ class UpdateUser extends Job implements ShouldUpdate
      */
     public function authorize(): void
     {
+        // Security: Defense-in-depth — only users with 'update-auth-users'
+        // permission may change role assignments. The profile edit form
+        // includes a roles field even for self-edits (visible to managers),
+        // so instead of throwing 403 we silently strip 'roles' from the
+        // request when the current user lacks permission. This preserves
+        // legitimate profile updates while preventing privilege escalation.
+        if (
+            $this->request->has('roles')
+            && ! app()->runningInConsole()
+            && ! request()->isInstall()
+            && ! user()->can('update-auth-users')
+        ) {
+            $this->request->request->remove('roles');
+        }
+
         // Can't disable yourself
         if (($this->request->get('enabled', 1) == 0) && ($this->model->id == user()->id)) {
             $message = trans('auth.error.self_disable');

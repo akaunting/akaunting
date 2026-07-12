@@ -48,7 +48,7 @@
                                         </h2>
 
                                         <span class="text-black-400 text-sm">
-                                            {!! $report->description !!}
+                                            {{ $report->description }}
                                         </span>
                                     </div>
                                 </x-link>

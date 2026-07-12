@@ -15,6 +15,16 @@ class CreateItem extends Job implements HasOwner, HasSource, ShouldCreate
 {
     public function handle(): Item
     {
+        // Security: strip HTML tags from name to prevent stored XSS in delete
+        // confirmation modal (CVE-2026-11942). The delete modal renders model
+        // name via v-html; e() in getMessage() provides output encoding, but
+        // this strips HTML at the source as defense-in-depth.
+        if ($this->request->has('name')) {
+            $this->request->merge([
+                'name' => strip_tags($this->request->get('name')),
+            ]);
+        }
+
         event(new ItemCreating($this->request));
 
         \DB::transaction(function () {

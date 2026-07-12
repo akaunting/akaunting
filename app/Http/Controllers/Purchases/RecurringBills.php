@@ -32,7 +32,7 @@ class RecurringBills extends Controller
         // Add CRUD permission check
         $this->middleware('permission:create-purchases-bills')->only('create', 'store', 'duplicate', 'import');
         $this->middleware('permission:read-purchases-bills')->only('index', 'show', 'edit', 'export');
-        $this->middleware('permission:update-purchases-bills')->only('update', 'enable', 'disable');
+        $this->middleware('permission:update-purchases-bills')->only('update', 'enable', 'disable', 'end');
         $this->middleware('permission:delete-purchases-bills')->only('destroy');
     }
 
