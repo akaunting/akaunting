@@ -12,6 +12,7 @@ return [
         'import_queued'     => ':type Import ist geplant! Sie erhalten eine E-Mail, sobald dieser fertiggestellt ist.',
         'exported'          => ':type exportiert!',
         'export_queued'     => ':type Export ist geplant! Sie erhalten eine E-Mail, sobald dieser fertiggestellt ist.',
+        'download_queued'   => ':type Download der aktuellen Seite wurde geplant! Sie erhalten eine E-Mail, sobald dieser zum Download bereit ist.',
         'enabled'           => ':type aktiviert!',
         'disabled'          => ':type deaktiviert!',
         'connected'         => ':type verbunden!',
@@ -31,7 +32,7 @@ return [
         'change_type'       => 'Fehler: Der Typ kann nicht geändert werden, da :text verwandt ist!',
         'invalid_apikey'    => 'Fehler: Der eingegebene API-Schlüssel ist ungültig!',
         'empty_apikey'      => 'Fehler: Sie haben den API Key nicht hinterlegt!  <a href=":url" class="font-bold underline underline-offset-4">Klicken Sie hier</a> um den API Key einzugeben.',
-        'import_column'     => 'Fehler: :message. Name des Blattes: :sheet. Zeilennummer: :line.',
+        'import_column'     => 'Fehler: :message. Name der Spalte: :column. Zeilennummer: :line.',
         'import_sheet'      => 'Fehler: Name des Blattes ist nicht gültig. Bitte die Beispieldatei überprüfen.',
         'same_amount'       => 'Fehler: Der Gesamtbetrag der Aufteilung muss genau der gleiche sein wie :transaction total: :amount',
         'over_match'        => 'Fehler: :type nicht verbunden! Der eingegebene Betrag darf die Summe der Zahlung nicht überschreiten: :amount',
@@ -45,6 +46,8 @@ return [
         'disable_code'      => 'Warnung: Sie dürfen die Währung von <b>:name</b> nicht deaktivieren oder verändern, da :text dazu in Bezug steht.',
         'payment_cancel'    => 'Warnung: Sie haben Ihre letzte Zahlung :method abgebrochen!',
         'missing_transfer'  => 'Warnung: Die Überweisung, die mit dieser Transaktion zusammenhängt, fehlt. Sie sollten erwägen, diese Transaktion zu löschen.',
+        'connect_tax'       => 'Warnung: Diese :type hat einen Steuerbetrag. Steuern, die zur :type hinzugefügt wurden, können nicht verbunden werden, daher wird die Steuer zur Gesamtsumme hinzugefügt und entsprechend berechnet.',
+        'contact_change'    => 'Warnung: Sie dürfen den Kontakt nicht ändern, wenn die :type bereits gesendet, empfangen oder bezahlt wurde!',
     ],
 
 ];

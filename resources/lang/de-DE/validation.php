@@ -66,6 +66,7 @@ return [
     'image' => ':attribute muss ein <strong>Bild</strong> sein.',
     'in' => 'Das ausgewählte :attribute ist ungültig.',
     'in_array' => ':attribute Feld existiert nicht in :other.',
+    'in_detailed' => 'Der :attribute Wert ":value" ist ungültig. Erwartet wurde einer von: :values',
     'integer' => ':attribute muss eine <strong>Ganzzahl</strong> sein.',
     'ip' => ':attribute muss eine gültige IP Adresse sein.',
     'ipv4' => ':attribute muss eine gültige IPv4 Adresse sein.',
@@ -81,8 +82,7 @@ return [
         'array' => ':attribute darf nicht mehr als :value-Elemente haben.',
         'file' => ':attribute muss kleiner oder gleich :value Kilobytes sein.',
         'numeric' => ':attribute muss kleiner oder gleich :value sein.',
-        'string' => ':attribute muss kleiner oder gleich :value Zeichen sein.
-',
+        'string' => ':attribute muss kleiner oder gleich :value Zeichen sein.',
     ],
     'mac_address' => ':attribute muss eine gültige MAC-Adresse sein.',
     'max' => [
@@ -156,6 +156,7 @@ return [
         ],
         'invalid_currency'      => 'Das :attribute Kürzel ist ungültig.',
         'invalid_amount'        => 'Die Menge von :attribute ist ungültig.',
+        'invalid_quantity'      => ':attribute ist kein gültiger mathematischer Ausdruck.',
         'invalid_extension'     => 'Die Dateiendung ist ungültig.',
         'invalid_dimension'     => ':attribute Dimensionen dürfen maximal :width x :height px sein.',
         'invalid_colour'        => 'Die Farbe von :attribute ist ungültig.',

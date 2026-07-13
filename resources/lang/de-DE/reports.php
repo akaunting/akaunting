@@ -10,9 +10,13 @@ return [
     'expense_summary'               => 'Ausgabenübersicht',
     'income_expense_summary'        => 'Einnahmen / Ausgaben',
     'tax_summary'                   => 'Steuerzusammenfassung',
+    'discount_summary'              => 'Rabattübersicht',
     'gross_profit'                  => 'Bruttoertrag',
     'net_profit'                    => 'Reingewinn',
-    'total_expenses'                => 'Gesamtausgaben',
+    'net_profit_loss'               => 'Reingewinn (Verlust)',
+    'total_income'                  => 'Gesamteinnahmen',
+    'total_direct_cost'             => 'Gesamte Verkaufskosten',
+    'total_expense'                 => 'Gesamtausgaben',
     'net'                           => 'Netto',
     'income_expense'                => 'Einnahmen & Ausgaben',
     'pin'                           => 'Bericht anheften',
@@ -34,6 +38,8 @@ return [
     'pin_text' => [
         'unpin_report'              => 'Bericht lösen',
         'pin_report'                => 'Bericht anheften',
-    ]
+    ],
+
+    'percentage_of_income'          => '% der Einnahmen anzeigen',
 
 ];

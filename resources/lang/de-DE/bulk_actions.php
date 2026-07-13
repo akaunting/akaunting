@@ -10,6 +10,7 @@ return [
         'duplicate'     => 'Sind Sie sicher, dass Sie die ausgewählten Datensätze <b>duplizieren</b> möchten?',
         'delete'        => 'Sind Sie sicher, dass Sie den ausgewählten Datensatz <b>löschen</b> möchten?|Sind Sie sicher, dass Sie die ausgewählten Datensätze <b>löschen</b> möchten?',
         'export'        => 'Sind Sie sicher, dass Sie den ausgewählten Datensatz <b>exportieren</b> möchten?|Sind Sie sicher, dass Sie die ausgewählten Datensätze <b>exportieren</b> möchten?',
+        'download'      => 'Sind Sie sicher, dass Sie den ausgewählten Datensatz <b>herunterladen</b> möchten?|Sind Sie sicher, dass Sie die ausgewählten Datensätze <b>herunterladen</b> möchten?',
         'enable'        => 'Sind Sie sicher, daas Sie den ausgewählten Datensatz <b>aktivieren</b> möchten?|Sind Sie sicher, dass Sie die ausgewählten Datensätze <b>aktivieren</b> möchten?',
         'disable'       => 'Sind Sie sicher, dass Sie den ausgewählten Datensatz <b>deaktivieren</b> möchten?|Sind Sie sicher, dass Sie die ausgewählten Datensätze <b>deaktivieren</b> möchten?',
         'paid'          => 'Sind Sie sicher, dass Sie die ausgewählte Rechnung als <b>bezahlt</b> markieren möchten?|Sind Sie sicher, dass Sie die ausgewählten Rechnungen als <b>bezahlt</b> markieren möchten?',

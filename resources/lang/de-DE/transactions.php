@@ -12,6 +12,7 @@ return [
     'recurring_expense'     => 'Wiederkehrende Ausgaben',
     'included_tax'          => 'Enthaltener Steuerbetrag',
     'connected'             => 'Verbunden',
+    'connect_message'       => 'Steuern für diese :type wurden während des Verbindungsprozesses nicht berechnet. Steuern können nicht verbunden werden.',
 
     'form_description' => [
         'general'           => 'Hier können Sie die allgemeinen Transaktionsinformationen wie Datum, Betrag, Konto, Beschreibung usw. eingeben.',
@@ -27,7 +28,7 @@ return [
         'schedule'          => 'Wiederhole alle :interval :frequency seit :date',
         'children'          => ':count Transaktionen wurden automatisch erstellt',
         'connect'           => 'Diese Transaktion ist mit :count Transaktionen verbunden',
-        'transfer_headline' => 'Von :from_account an :to_account',
+        'transfer_headline' => '<div> <span class="font-bold"> Von: </span> :from_account </div> <div> <span class="font-bold"> an: </span> :to_account </div>',
         'transfer_desc'     => 'Am :date erstellte Überweisung',
     ],
 
@@ -46,5 +47,12 @@ return [
     'sticky' => [
         'description'       => 'Sie zeigen eine Vorschau an, wie Ihr Kunde die Webversion Ihrer Zahlung sehen wird.',
     ],
+
+    'messages' => [
+        'update_document_transaction' => 'Sie können diese Transaktion aktualisieren. Sie sollten zum Dokument gehen und es dort bearbeiten.',
+        'create_document_transaction_error' => 'Dieser Endpunkt kann nicht zu einem Dokument hinzugefügt werden. Verwenden Sie {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions',
+        'update_document_transaction_error' => 'Dieser Endpunkt kann nicht für ein Dokument aktualisiert werden. Verwenden Sie {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions/{akaunting_transaction_id}',
+        'delete_document_transaction_error' => 'Dieser Endpunkt kann nicht für ein Dokument gelöscht werden. Verwenden Sie {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions/{akaunting_transaction_id}',
+    ]
 
 ];
