@@ -79,7 +79,19 @@ trait Companies
 
         // Priority 3: First company of the user (fallback)
         if (! $company_id) {
-            $user = auth()->guard('passport')->user();
+            $user = null;
+
+            try {
+                $user = auth()->guard('passport')->user();
+            } catch (\Throwable $e) {
+                logger()->debug('OAuth: Passport guard unavailable during MCP company resolution', [
+                    'error' => $e->getMessage(),
+                ]);
+            }
+
+            if (! $user) {
+                $user = auth()->user();
+            }
 
             if (! $user) {
                 logger()->debug('OAuth: No authenticated user found when trying to get first company');

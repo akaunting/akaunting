@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 /**
  * AuthenticateOnceWithDynamicApi — Dispatcher
@@ -26,8 +27,17 @@ class AuthenticateOnceWithDynamicApi
 
     public function handle(Request $request, Closure $next): mixed
     {
+        $shouldLog = (bool) config('oauth.verbose_log', false) || ! app()->environment('production');
+
         // Skip if OAuth module is disabled to avoid unnecessary processing; delegate to Basic Auth directly since it's simpler and more likely to be used without OAuth.
         if (! config('oauth.enabled', false)) {
+            if ($shouldLog) {
+                Log::debug('OAuth Dispatcher: OAuth disabled, using basic auth', [
+                    'path' => $request->path(),
+                    'method' => $request->method(),
+                ]);
+            }
+
             return $this->basicMiddleware->handle($request, function (Request $req) use ($next) {
                 $req->attributes->set('auth_method', 'basic');
 
@@ -36,6 +46,15 @@ class AuthenticateOnceWithDynamicApi
         }
 
         $authorization = (string) $request->header('Authorization', '');
+
+        if ($shouldLog) {
+            Log::debug('OAuth Dispatcher: Authorization header detected', [
+                'path' => $request->path(),
+                'method' => $request->method(),
+                'authorization_type' => preg_match('/^\s*(\w+)\s+/i', $authorization, $m) === 1 ? strtolower($m[1]) : 'none',
+                'has_header' => $authorization !== '' ? 'yes' : 'no',
+            ]);
+        }
 
         // ── Bearer token → delegate to OAuth middleware ───────────────────────
         if (preg_match('/^\s*Bearer\s+/i', $authorization) === 1) {

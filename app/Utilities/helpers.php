@@ -400,7 +400,7 @@ if (! function_exists('request_is_mcp')) {
     {
         $r = $request ?: request();
 
-        return $r->is('/mcp') || $r->is('/mcp/*');
+        return $r->is('mcp') || $r->is('mcp/*');
     }
 }
 

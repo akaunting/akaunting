@@ -18,6 +18,9 @@ return [
     'except' => [
         'telescope*',
         'horizon*',
+        'mcp',
+        'mcp/*',
+        '.well-known/*',
     ],
 
     /*

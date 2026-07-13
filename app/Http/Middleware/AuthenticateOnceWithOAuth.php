@@ -21,8 +21,10 @@ class AuthenticateOnceWithOAuth
             return $next($request);
         }
 
+        $this->restoreAuthorizationHeaderIfMissing($request);
+
         $guard = config('oauth.guards.api', 'passport');
-        $shouldLog = ! app()->environment('production');
+        $shouldLog = (bool) config('oauth.verbose_log', false) || ! app()->environment('production');
 
         if ($shouldLog) {
             // Keep verbose diagnostics outside production only.
@@ -30,6 +32,7 @@ class AuthenticateOnceWithOAuth
                 'method' => $request->method(),
                 'path' => $request->path(),
                 'has_bearer' => $request->bearerToken() ? 'yes' : 'no',
+                'has_authorization_header' => $request->headers->has('Authorization') ? 'yes' : 'no',
                 'guard' => $guard,
             ]);
         }
@@ -66,5 +69,39 @@ class AuthenticateOnceWithOAuth
         }
 
         return $next($request);
+    }
+
+    /**
+     * Restore Authorization header from common proxy server variables.
+     *
+     * Some reverse proxies do not pass the Authorization header directly,
+     * but expose it via alternate server variables.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     */
+    protected function restoreAuthorizationHeaderIfMissing($request): void
+    {
+        if (! empty($request->header('Authorization'))) {
+            return;
+        }
+
+        $candidates = [
+            $request->server('HTTP_AUTHORIZATION'),
+            $request->server('REDIRECT_HTTP_AUTHORIZATION'),
+            $request->server('HTTP_X_FORWARDED_AUTHORIZATION'),
+            $request->header('X-Forwarded-Authorization'),
+            $request->header('X-Original-Authorization'),
+        ];
+
+        foreach ($candidates as $candidate) {
+            if (! is_string($candidate) || trim($candidate) === '') {
+                continue;
+            }
+
+            $request->headers->set('Authorization', $candidate);
+
+            return;
+        }
     }
 }
