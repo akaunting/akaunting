@@ -27,9 +27,14 @@ return [
         'body'          => 'Gentile,<br /><br /> Basato sul cerchio ricorrente di {customer_name}, <strong>{invoice_number}</strong> la fattura è stata creata automaticamente.<br /><br />Puoi vedere i dettagli della fattura dal seguente link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Cordiali saluti,<br />{company_name}',
     ],
 
+    'invoice_view_admin' => [
+        'subject'       => '{invoice_number} fattura visualizzata',
+        'body'          => 'Ciao,<br /><br />{customer_name} ha visualizzato la fattura <strong>{invoice_number}</strong>.<br /><br />Puoi visualizzare i dettagli della fattura da quanto segue link: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />I migliori saluti,<br />{company_name}',
+    ],
+
     'invoice_payment_customer' => [
         'subject'       => 'Pagamento ricevuto per la fattura {invoice_number}',
-        'body'          => 'Gentile {customer_name},<br /><br />Grazie per il pagamento. Troverà qui sotto i dettagli del pagamento:<br /><br />-----------------------------------------<br /><br />Importo: <strong>{transaction_total}<br /></strong>Data: <strong>{transaction_paid_date}</strong><br />Numero Fattura: <strong>{invoice_number}<br /><br /></strong>-------------------------------------------------<br /><br />Potrà sempre vedere i dettagli della fattura dal seguente link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Sentitevi liberi di contattarci per qualsiasi domanda.<br /><br />Cordiali saluti,<br />{company_name}',
+        'body'          => 'Caro {customer_name},<br /><br />Grazie per il pagamento. Di seguito sono riportati i dettagli del pagamento:<br /><br />-------------------------------------------------<br />Importo: <strong>{transaction_total}</strong><br />Data: <strong>{transaction_paid_date}</strong><br />Numero fattura: <strong>{invoice_number}</strong><br />-------------------------------------------------<br /><br />Puoi sempre visualizzare i dettagli della fattura dal seguente link: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Non esitate a contattarci per qualsiasi domanda.<br /><br />I migliori saluti, <br />{company_name}',
     ],
 
     'invoice_payment_admin' => [
@@ -47,4 +52,13 @@ return [
         'body'          => 'Gentile,<br /><br /> Basato sul cerchio ricorrente di {vendor_name}, <strong>{bill_number}</strong> la fattura è stata creata automaticamente.<br /><br />Puoi vedere i dettagli della bolletta dal seguente link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Cordiali saluti,<br />{company_name}',
     ],
 
+    'payment_received_customer' => [
+        'subject'       => 'La tua ricevuta da {company_name}',
+        'body'          => 'Caro {contact_name},<br /><br />Grazie per il pagamento. <br /><br />Puoi vedere i dettagli del pagamento dal seguente link: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Non esitate a contattarci per qualsiasi domande.<br /><br />I migliori saluti,<br />{company_name}',
+    ],
+
+    'payment_made_vendor' => [
+        'subject'       => 'Pagamento effettuato tramite {company_name}',
+        'body'          => 'Caro {contact_name},<br /><br />Abbiamo effettuato il seguente pagamento. <br /><br />Puoi vedere i dettagli del pagamento dal seguente link: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Non esitate a contattarci per qualsiasi domande.<br /><br />I migliori saluti,<br />{company_name}',
+    ],
 ];

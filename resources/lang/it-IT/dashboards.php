@@ -8,4 +8,8 @@ return [
         'disable_last'          => 'Errore: Non è possibile disattivare l\'ultima dashboard. Si prega di crearne una nuova!',
     ],
 
+    'form_description' => [
+        'general'               => 'Seleziona gli utenti che desideri abbiano accesso alla nuova dashboard.',
+    ],
+
 ];
