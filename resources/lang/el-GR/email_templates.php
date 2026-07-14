@@ -4,7 +4,7 @@ return [
 
     'invoice_new_customer' => [
         'subject'       => 'Το τιμολόγιο {invoice_number} δημιουργήθηκε',
-        'body'          => 'Αγαπητοί{customer_name},<br /><br />Έχουμε δημιουργήσει το παρακάτω τιμολόγιο για εσάς: <strong>{invoice_number}</strong>.<br /><br />Μπορείτε να δείτε τις λεπτομέρειες και να προχωρήσετε στην πληρωμή από τον παρακάτω σύνδεσμο: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Μην διστάσετε να επικοινωνήσετε μαζί μας για οποιαδήποτε απορία.<br /><br />Μετα τιμής,<br />{company_name}',
+        'body'          => 'Αγαπητέ/ή {customer_name},<br /><br />Έχουμε ετοιμάσει το ακόλουθο τιμολόγιο για εσάς: <strong>{invoice_number}</strong>.<br /><br />Μπορείτε να δείτε τις λεπτομέρειες του τιμολογίου και να προχωρήσετε στην πληρωμή από τον ακόλουθο σύνδεσμο: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Μη διστάσετε να επικοινωνήσετε μαζί μας για τυχόν ερωτήσεις.<br /><br />Με εκτίμηση,<br />{company_name}',
     ],
 
     'invoice_remind_customer' => [
@@ -34,7 +34,7 @@ return [
 
     'invoice_payment_customer' => [
         'subject'       => 'Ελήφθη πληρωμή για το τιμολόγιο {invoice_number}',
-        'body'          => 'Αγαπητοί {customer_name},<br /><br />Ευχαριστούμε για την πληρωμή. Ακολουθούν οι λεπτομέρειες της πληρωμής:<br /><br />-------------------------------------------------<br /><br />Ποσό: <strong>{transaction_total}<br /></strong>Ημερμηνία: <strong>{transaction_paid_date}</strong><br />Αριθμός Τιμολογίου: <strong>{invoice_number}<br /><br /></strong>-------------------------------------------------<br /><br />Μπορείτε να δείτε τις λεπτομέρειες του τιμολογίου στον παρακάτω σύνδεσμο:: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Μην διστάσετε να επικοινωνήσετε μαζί μας για οποιαδήποτε απορία.<br /><br />Μετα Τιμής,<br />{company_name}',
+        'body'          => 'Αγαπητέ/ή {customer_name},<br /><br />Ευχαριστούμε για την πληρωμή. Ακολουθούν οι λεπτομέρειες της πληρωμής:<br /><br />-------------------------------------------------<br />Ποσό: <strong>{transaction_total}</strong><br />Ημερομηνία: <strong>{transaction_paid_date}</strong><br />Αριθμός τιμολογίου: <strong>{invoice_number}</strong><br />-------------------------------------------------<br /><br />Μπορείτε πάντα να δείτε τις λεπτομέρειες του τιμολογίου από τον ακόλουθο σύνδεσμο: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Μη διστάσετε να επικοινωνήσετε μαζί μας για τυχόν ερωτήσεις.<br /><br />Με εκτίμηση,<br />{company_name}',
     ],
 
     'invoice_payment_admin' => [
@@ -54,11 +54,11 @@ return [
 
     'payment_received_customer' => [
         'subject'       => 'Απόδειξη από το {company_name}',
-        'body'          => 'Αγαπητοί{customer_name},<br /><br />Έχουμε δημιουργήσει το παρακάτω τιμολόγιο για εσάς: <strong>{invoice_number}</strong>.<br /><br />Μπορείτε να δείτε τις λεπτομέρειες και να προχωρήσετε στην πληρωμή από τον παρακάτω σύνδεσμο: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Μην διστάσετε να επικοινωνήσετε μαζί μας για οποιαδήποτε απορία.<br /><br />Μετα τιμής,<br />{company_name}',
+        'body'          => 'Αγαπητέ/ή {contact_name},<br /><br />Ευχαριστούμε για την πληρωμή. <br /><br />Μπορείτε να δείτε τις λεπτομέρειες της πληρωμής από τον ακόλουθο σύνδεσμο: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Μη διστάσετε να επικοινωνήσετε μαζί μας για τυχόν ερωτήσεις.<br /><br />Με εκτίμηση,<br />{company_name}',
     ],
 
     'payment_made_vendor' => [
         'subject'       => 'Πληρωμή από {company_name}',
-        'body'          => 'Αγαπητοί{customer_name},<br /><br />Έχουμε δημιουργήσει το παρακάτω τιμολόγιο για εσάς: <strong>{invoice_number}</strong>.<br /><br />Μπορείτε να δείτε τις λεπτομέρειες και να προχωρήσετε στην πληρωμή από τον παρακάτω σύνδεσμο: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Μην διστάσετε να επικοινωνήσετε μαζί μας για οποιαδήποτε απορία.<br /><br />Μετα τιμής,<br />{company_name}',
+        'body'          => 'Αγαπητέ/ή {contact_name},<br /><br />Πραγματοποιήσαμε την ακόλουθη πληρωμή. <br /><br />Μπορείτε να δείτε τις λεπτομέρειες της πληρωμής από τον ακόλουθο σύνδεσμο: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Μη διστάσετε να επικοινωνήσετε μαζί μας για τυχόν ερωτήσεις.<br /><br />Με εκτίμηση,<br />{company_name}',
     ],
 ];
