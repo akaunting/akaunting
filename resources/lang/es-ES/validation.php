@@ -2,11 +2,11 @@
 
 return [
 
-    /*
+/*
 |--------------------------------------------------------------------------
 |Validation Language Lines
 |--------------------------------------------------------------------------
-    */
+*/
 
     'accepted' => ':attribute debe ser aceptado.',
     'accepted_if' => ':attribute debe ser aceptado cuando :other es :value.',
