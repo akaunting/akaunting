@@ -2,27 +2,27 @@
 
 return [
 
-    'receivables'               => 'Piutang',
-    'payables'                  => 'Hutang',
-    'cash_flow'                 => 'Arus Kas',
-    'profit_loss'               => 'Laba & Rugi',
-    'expenses_by_category'      => 'Perbelanjaan Berdasarkan Kategori',
-    'account_balance'           => 'Saldo Rekening',
-    'bank_feeds'                => 'Hubungkan Rekening Bank',
-    'currencies'                => 'Mata Uang',
+    'receivables'               => 'Belum Terima',
+    'payables'                  => 'Belum Bayar',
+    'cash_flow'                 => 'Aliran Tunai',
+    'profit_loss'               => 'Untung & Rugi',
+    'expenses_by_category'      => 'Perbelanjaan Mengikut Kategori',
+    'account_balance'           => 'Baki Akaun',
+    'bank_feeds'                => 'Sambung Akaun Bank',
+    'currencies'                => 'Mata Wang',
 
     'view_report'               => 'Lihat Laporan',
-    'total_unpaid_invoices'     => 'Total faktur belum dibayar',
-    'total_unpaid_bills'        => 'Total Bil belum dibayar',
+    'total_unpaid_invoices'     => 'Jumlah invois belum dibayar',
+    'total_unpaid_bills'        => 'Jumlah bil belum dibayar',
 
     'description' => [
-        'receivables'           => 'Jumlah yang diterima dari pelanggan',
-        'payables'              => 'Jumlah yang belum dibayarkan ke penyedia',
-        'cash_flow'             => 'Uang masuk dan keluar dari bisnis Anda',
-        'profit_loss'           => 'Pendapatan dan perbelanjaan termasuk faktur dan Bil belum dibayar',
-        'expenses_by_category'  => 'Perbelanjaan terbesar di berbagai kategori',
-        'account_balance'       => 'Saldo rekening bank Anda',
-        'bank_feeds'            => 'Impor transaksi Anda ke Akaunting secara otomatis</br>dengan menghubungkan rekening bank Anda',
+        'receivables'           => 'Jumlah yang belum anda terima daripada pelanggan',
+        'payables'              => 'Jumlah yang belum anda bayar kepada pembekal',
+        'cash_flow'             => 'Wang masuk dan keluar dari perniagaan anda',
+        'profit_loss'           => 'Pendapatan dan perbelanjaan termasuk invois dan bil belum dibayar',
+        'expenses_by_category'  => 'Perbelanjaan tertinggi dalam pelbagai kategori',
+        'account_balance'       => 'Baki semasa akaun bank anda',
+        'bank_feeds'            => 'Import transaksi anda ke Akaunting secara automatik </br>dengan menyambungkan akaun bank anda',
     ],
 
     'periods' => [

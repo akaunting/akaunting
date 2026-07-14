@@ -3,27 +3,27 @@
 return [
 
     'payment_received'      => 'Pembayaran Diterima',
-    'payment_made'          => 'Pembayaran Dibuat',
+    'payment_made'          => 'Pembayaran Dilakukan',
     'paid_by'               => 'Dibayar Oleh',
     'paid_to'               => 'Dibayarkan Ke',
     'related_invoice'       => 'Faktur Terkait',
     'related_bill'          => 'Tagihan Terkait',
     'recurring_income'      => 'Penghasilan Berulang',
     'recurring_expense'     => 'Biaya Berulang',
-    'included_tax'          => 'Jumlah pajak termasuk',
+    'included_tax'          => 'Jumlah pajak yang termasuk',
     'connected'             => 'Terhubung',
     'connect_message'       => 'Pajak untuk :type ini tidak dihitung selama proses koneksi. Pajak tidak dapat dihubungkan.',
 
     'form_description' => [
         'general'           => 'Di sini Anda dapat memasukkan informasi umum transaksi seperti tanggal, jumlah, akun, deskripsi, dll.',
         'assign_income'     => 'Pilih kategori dan pelanggan untuk membuat laporan Anda lebih detail.',
-        'assign_expense'    => 'Pilih kategori dan vendor untuk membuat laporan Anda lebih detail.',
+        'assign_expense'    => 'Pilih kategori dan pemasok untuk membuat laporan Anda lebih detail.',
         'other'             => 'Masukkan nomor dan referensi untuk menyimpan transaksi yang ditautkan ke catatan Anda.',
     ],
 
     'slider' => [
         'create'            => ':user membuat transaksi ini pada :date',
-        'attachments'       => 'Unduh file yang dilampirkan pada transaksi ini',
+        'attachments'       => 'Unduh berkas yang dilampirkan pada transaksi ini',
         'create_recurring'  => ':user membuat template berulang ini pada :date',
         'schedule'          => 'Ulangi setiap :interval :frequency sejak :date',
         'children'          => ':count transaksi dibuat secara otomatis',
@@ -39,8 +39,8 @@ return [
         ],
 
         'expense' => [
-            'show_link'     => 'Penyedia Anda dapat melihat transaksi pada tautan ini',
-            'copy_link'     => 'Salin tautan dan bagikan dengan penyedia.',
+            'show_link'     => 'Pemasok Anda dapat melihat transaksi pada tautan ini',
+            'copy_link'     => 'Salin tautan dan bagikan dengan pemasok.',
         ],
     ],
 

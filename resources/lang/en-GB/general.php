@@ -78,7 +78,6 @@ return [
     'employees'             => 'Employee|Employees',
     'contact_persons'       => 'Contact Person|Contact Persons',
     'bank_feeds'            => 'Bank Feed|Bank Feeds',
-    'receipts'              => 'Receipt|Receipts',
     'discounts'             => 'Discount|Discounts',
     'tokens'                => 'Token|Tokens',
     'clients'               => 'Client|Clients',

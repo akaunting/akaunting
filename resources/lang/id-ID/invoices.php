@@ -67,7 +67,7 @@ return [
             ],
         ],
 
-        'name_or_description_required' => 'Faktur Anda harus menunjukkan setidaknya <b>:name</b> atau <b>:decription</b>',
+        'name_or_description_required' => 'Faktur Anda harus menunjukkan setidaknya <b>:name</b> atau <b>:description</b>.',
     ],
 
     'share' => [

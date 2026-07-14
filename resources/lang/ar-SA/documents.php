@@ -18,7 +18,7 @@ return [
     ],
 
     'invoice_detail' => [
-        'marked'                => '<b>أنت</b> قمت بتمييز هذه الفاتورة كـ',
+        'marked'                => 'عيّنت <b>أنت</b> حالة هذه الفاتورة إلى',
         'services'              => 'الخدمات',
         'another_item'          => 'عنصر آخر',
         'another_description'   => 'ووصف آخر',
@@ -66,9 +66,9 @@ return [
 
     'form_description' => [
         'companies'             => 'قم بتغيير العنوان والشعار والمعلومات الأخرى لشركتك.',
-        'billing'               => 'تظهر تفاصيل الفوترة في المستند الخاص بك.',
+        'billing'               => 'تظهر تفاصيل الفوترة في المستند.',
         'advanced'              => 'حدد الفئة، وأضف أو حرر التذييل، وأضف مرفقات إلى :type الخاص بك.',
-        'attachment'            => 'تنزيل الملفات المرفقة بهذا :type',
+        'attachment'            => 'نزّل الملفات المرفقة بهذا :type',
     ],
 
     'slider' => [
@@ -81,18 +81,18 @@ return [
     ],
 
     'messages' => [
-        'email_sent'            => 'تم إرسال بريد :type!',
+        'email_sent'            => 'تم إرسال البريد الإلكتروني الخاص بـ :type!',
         'restored'              => 'تمت استعادة :type!',
-        'marked_as'             => 'تم تمييز :type كـ :status!',
-        'marked_sent'           => 'تم تمييز :type كمُرسلة!',
-        'marked_paid'           => 'تم تمييز :type كمدفوعة!',
-        'marked_viewed'         => 'تم تمييز :type كمُشاهدة!',
-        'marked_cancelled'      => 'تم تمييز :type كملغاة!',
-        'marked_received'       => 'تم تمييز :type كمُستلمة!',
+        'marked_as'             => 'تم تغيير حالة :type إلى :status!',
+        'marked_sent'           => 'تم تغيير حالة :type إلى «مُرسل»!',
+        'marked_paid'           => 'تم تغيير حالة :type إلى «مدفوع»!',
+        'marked_viewed'         => 'تم تغيير حالة :type إلى «مُشاهد»!',
+        'marked_cancelled'      => 'تم تغيير حالة :type إلى «ملغى»!',
+        'marked_received'       => 'تم تغيير حالة :type إلى «مُستلم»!',
     ],
 
     'recurring' => [
-        'auto_generated'        => 'توليد تلقائي',
+        'auto_generated'        => 'مُنشأ تلقائياً',
 
         'tooltip' => [
             'document_date'     => 'سيتم تعيين تاريخ :type تلقائياً بناءً على جدول :type والتكرار.',

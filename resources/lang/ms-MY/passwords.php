@@ -13,10 +13,10 @@ return [
     |
     */
 
-    'reset' => 'Kata sandi Anda sudah direset!',
-    'sent' => 'Kami sudah mengirim email yang berisi tautan untuk mereset kata sandi Anda!',
-    'throttled' => 'Silahkan tunggu sebelum mencoba lagi.',
-    'token' => 'Kata sandi token tetapan ulang tidak sah.',
-    'user' => "Kami tidak dapat menemukan pengguna dengan alamat surel tersebut.",
+    'reset' => 'Kata laluan anda telah ditetapkan semula!',
+    'sent' => 'Kami telah menghantar e-mel yang mengandungi pautan untuk menetapkan semula kata laluan anda!',
+    'throttled' => 'Sila tunggu sebelum mencuba semula.',
+    'token' => 'Token tetapan semula kata laluan tidak sah.',
+    'user' => "Kami tidak dapat menemui pengguna dengan alamat e-mel tersebut.",
 
 ];

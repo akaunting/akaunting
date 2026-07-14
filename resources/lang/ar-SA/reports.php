@@ -2,8 +2,8 @@
 
 return [
 
-    'years'                         => 'سنة/سنوات',
-    'date_range'                    => 'فترة التاريخ',
+    'years'                         => 'سنة|سنوات',
+    'date_range'                    => 'النطاق الزمني',
     'preferences'                   => 'التفضيل|التفضيلات',
     'profit_loss'                   => 'الربح والخسارة',
     'income_summary'                => 'ملخص الإيرادات',
@@ -17,9 +17,8 @@ return [
     'total_income'                  => 'إجمالي الإيرادات',
     'total_direct_cost'             => 'إجمالي تكلفة المبيعات',
     'total_expense'                 => 'إجمالي المصروفات',
-    'total_expenses'                => 'إجمالي المصروفات',
-    'net'                           => 'صافي الدخل',
-    'income_expense'                => 'الإيرادات و المصروفات',
+    'net'                           => 'الصافي',
+    'income_expense'                => 'الإيرادات والمصروفات',
     'pin'                           => 'ثبّت تقريرك',
 
     'income_expense_description'    => 'احصل على لمحة عامة عن إيراداتك ومصروفاتك.',
@@ -31,8 +30,8 @@ return [
     ],
 
     'charts' => [
-        'line'                      => 'خط رسم',
-        'bar'                       => 'شريط',
+        'line'                      => 'خطي',
+        'bar'                       => 'شريطي',
         'pie'                       => 'دائري',
     ],
 
@@ -41,6 +40,6 @@ return [
         'pin_report'                => 'ثبّت تقريرك',
     ],
 
-    'percentage_of_income'          => 'إظهار % من الإيرادات',
+    'percentage_of_income'          => 'إظهار النسبة المئوية من الإيرادات',
 
 ];

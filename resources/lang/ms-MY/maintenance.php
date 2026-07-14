@@ -2,10 +2,10 @@
 
 return [
 
-    'title' => 'Dalam perbaikan',
+    'title' => 'Dalam Penyelenggaraan',
 
-    'message' => 'Maaf, kami sedang dalam perbaikan. Silakan coba lagi nanti!',
+    'message' => 'Maaf, kami sedang dalam penyelenggaraan. Sila cuba semula kemudian!',
 
-    'read_only' => 'Mode hanya baca diaktifkan. Anda diizinkan untuk melihat tetapi tidak mengubah apa pun!',
+    'read_only' => 'Mod baca sahaja diaktifkan. Anda dibenarkan untuk melihat tetapi tidak menukar apa-apa!',
 
 ];

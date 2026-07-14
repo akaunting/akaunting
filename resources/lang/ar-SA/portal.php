@@ -15,9 +15,9 @@ return [
     'redirect_description'  => 'سيتم إعادة توجيهك إلى موقع :name لإجراء الدفع.',
 
     'last_payment'          => [
-        'title'             => 'آخر دفع تم',
-        'description'       => 'لقد قمت بدفع هذه الدفعة في :date',
-        'not_payment'       => 'لم تقم بدفع أي دفعة حتى الآن.',
+        'title'             => 'آخر دفعة',
+        'description'       => 'أجريت هذه الدفعة في :date',
+        'not_payment'       => 'لم تُجرِ أي دفعة بعد.',
     ],
 
     'outstanding_balance'   => [
@@ -28,13 +28,13 @@ return [
 
     'latest_invoices'       => [
         'title'             => 'أحدث الفواتير',
-        'description'       => ':date - لقد فوترت برقم الفاتورة :invoice_number.',
+        'description'       => ':date - صُدرت لك الفاتورة رقم :invoice_number.',
         'no_data'           => 'ليس لديك أي فواتير، حتى الآن.',
     ],
 
     'invoice_history'       => [
-        'title'             => 'تاريخ الفاتورة',
-        'description'       => ':date - لقد فوترت برقم الفاتورة :invoice_number.',
+        'title'             => 'سجل الفواتير',
+        'description'       => ':date - صُدرت لك الفاتورة رقم :invoice_number.',
         'no_data'           => 'ليس لديك سجل فواتير، حتى الآن.',
     ],
 
@@ -47,7 +47,7 @@ return [
     ],
 
     'payment_detail'        => [
-        'description'       => 'لقد قمت بدفع :amount في :date لهذه الفاتورة.'
+        'description'       => 'دفعت مبلغ :amount في :date لهذه الفاتورة.'
     ],
 
 ];

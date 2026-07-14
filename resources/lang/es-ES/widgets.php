@@ -2,33 +2,33 @@
 
 return [
 
-    'receivables'               => 'Cuentas por cobrar',
-    'payables'                  => 'Cuentas por pagar',
-    'cash_flow'                 => 'Flujo de Efectivo',
-    'profit_loss'               => 'Ganancias y Pérdidas',
-    'expenses_by_category'      => 'Gastos por Categoría',
+    'receivables'               => 'Cuentas a cobrar',
+    'payables'                  => 'Cuentas a pagar',
+    'cash_flow'                 => 'Flujo de caja',
+    'profit_loss'               => 'Pérdidas y ganancias',
+    'expenses_by_category'      => 'Gastos por categoría',
     'account_balance'           => 'Saldo de la cuenta',
     'bank_feeds'                => 'Conectar cuentas bancarias',
-    'currencies'                => 'Divisas',
+    'currencies'                => 'Monedas',
 
     'view_report'               => 'Ver informe',
     'total_unpaid_invoices'     => 'Total de facturas no pagadas',
-    'total_unpaid_bills'        => 'Total de facturas no pagadas',
+    'total_unpaid_bills'        => 'Total de facturas de compra pendientes',
 
     'description' => [
-        'receivables'           => 'Cantidad que aún no has recibido de tus clientes',
-        'payables'              => 'Cantidad que aún tienes que pagar a tus proveedores',
-        'cash_flow'             => 'Dinero entrando y saliendo de su negocio',
-        'profit_loss'           => 'Ingresos y gastos, incluyendo facturas no pagadas y facturas',
-        'expenses_by_category'  => 'Gastos más altos en varias categorías',
+        'receivables'           => 'Importe pendiente de cobro de sus clientes',
+        'payables'              => 'Importe pendiente de pago a sus proveedores',
+        'cash_flow'             => 'Entradas y salidas de efectivo de su negocio',
+        'profit_loss'           => 'Ingresos y gastos, incluidas las facturas de venta y de compra pendientes',
+        'expenses_by_category'  => 'Principales gastos de las distintas categorías',
         'account_balance'       => 'Saldo actual de sus cuentas bancarias',
-        'bank_feeds'            => 'Importar tus transacciones a Akaunting automáticamente </br>conectando tus cuentas bancarias',
+        'bank_feeds'            => 'Importe automáticamente sus transacciones a Akaunting </br>conectando sus cuentas bancarias',
     ],
 
     'periods' => [
-        'overdue_1_30'          => '1-30 días atrasados',
-        'overdue_30_60'         => '30-60 días atrasados',
-        'overdue_60_90'         => '60-90 días atrasados',
-        'overdue_90_un'         => '> 90 días atrasados',
+        'overdue_1_30'          => 'Vencido hace 1-30 días',
+        'overdue_30_60'         => 'Vencido hace 30-60 días',
+        'overdue_60_90'         => 'Vencido hace 60-90 días',
+        'overdue_90_un'         => 'Vencido hace más de 90 días',
     ],
 ];

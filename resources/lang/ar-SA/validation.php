@@ -27,7 +27,7 @@ return [
     'date_format' => 'لا يتطابق :attribute مع التنسيق :format.',
     'declined' => 'يجب رفض :attribute.',
     'declined_if' => 'يجب رفض :attribute عندما يكون :other هو :value.',
-    'different' => 'يجب أن يكون :attribute و :different مختلفين.',
+    'different' => 'يجب أن يكون :attribute و :other مختلفين.',
     'digits' => 'يجب أن يكون :attribute :digits رقماً.',
     'digits_between' => 'يجب أن يكون :attribute بين :min و :max رقماً.',
     'dimensions' => ':attribute له أبعاد صورة غير صالحة.',

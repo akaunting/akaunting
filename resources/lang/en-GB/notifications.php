@@ -167,14 +167,14 @@ return [
         'invoice_recur_customer' => [
 
             'title'         => 'New Recurring Invoice',
-            'description'   => '<strong>:invoice_number</strong> invoice is created based on your recurring circle. You can <a href=":invoice_portal_link">click here</a> to see the details and proceed with the payment.',
+            'description'   => '<strong>:invoice_number</strong> invoice is created based on your recurring cycle. You can <a href=":invoice_portal_link">click here</a> to see the details and proceed with the payment.',
 
         ],
 
         'invoice_recur_admin' => [
 
             'title'         => 'New Recurring Invoice',
-            'description'   => '<strong>:invoice_number</strong> invoice is created based on <strong>:customer_name</strong> recurring circle. You can <a href=":invoice_admin_link">click here</a> to see the details.',
+            'description'   => '<strong>:invoice_number</strong> invoice is created based on <strong>:customer_name</strong>\'s recurring cycle. You can <a href=":invoice_admin_link">click here</a> to see the details.',
 
         ],
 
@@ -216,7 +216,7 @@ return [
         'bill_recur_admin' => [
 
             'title'         => 'New Recurring Bill',
-            'description'   => '<strong>:bill_number</strong> bill is created based on <strong>:vendor_name</strong> recurring circle. You can <a href=":bill_admin_link">click here</a> to see the details.',
+            'description'   => '<strong>:bill_number</strong> bill is created based on <strong>:vendor_name</strong>\'s recurring cycle. You can <a href=":bill_admin_link">click here</a> to see the details.',
 
         ],
 

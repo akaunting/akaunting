@@ -6,10 +6,10 @@ return [
     'refresh'               => 'Perbarui',
 
     'steps' => [
-        'requirements'      => 'Silakan meminta ke penyedia hosting Anda untuk memperbaiki kesalahan!',
-        'language'          => 'Langkah 1/3 : Seleksi Bahasa',
-        'database'          => 'Langkah 2/3 : Atur Database',
-        'settings'          => 'Langkah 3/3 : Detail Perusahaan dan Admin',
+        'requirements'      => 'Sila minta penyedia hosting anda membetulkan ralat!',
+        'language'          => 'Langkah 1/3 : Pemilihan Bahasa',
+        'database'          => 'Langkah 2/3 : Persediaan Pangkalan Data',
+        'settings'          => 'Langkah 3/3 : Butiran Syarikat dan Pentadbir',
     ],
 
     'language' => [
@@ -21,8 +21,8 @@ return [
         'disabled'          => ':feature perlu dinonaktifkan!',
         'extension'         => ':extension ekstensi perlu diinstal dan dimuat!',
         'directory'         => ':directory direktori perlu ditulis!',
-        'executable'        => 'Berkas PHP CLI belum didefinisikan/bekerja atau bukan versi :php_version ke atas. Mohon tanyakan ke penyedia hosting untuk mengatur variabel PHP_BINARY atau PHP_PATH dengan benar.',
-        'npm'               => '<b>File JavaScript tidak ada !</b> <br><br><span>Anda harus menjalankan <em class="underline">npm install</em> dan <em class="underline">npm run dev< /em> perintah.</span>', 
+        'executable'        => 'Fail PHP CLI tidak ditakrifkan/berfungsi atau bukan versi :php_version atau lebih tinggi! Sila minta penyedia hosting anda menetapkan pembolehubah persekitaran PHP_BINARY atau PHP_PATH dengan betul.',
+        'npm'               => '<b>Fail JavaScript tiada!</b> <br><br><span>Anda patut menjalankan arahan <em class="underline">npm install</em> dan <em class="underline">npm run dev</em>.</span>',
     ],
 
     'database' => [
@@ -34,18 +34,18 @@ return [
 
     'settings' => [
         'company_name'      => 'Nama Perusahaan',
-        'company_email'     => 'Email Perusahaan',
-        'admin_email'       => 'Email Admin',
+        'company_email'     => 'E-mel Syarikat',
+        'admin_email'       => 'E-mel Pentadbir',
         'admin_password'    => 'Kata Sandi Admin',
     ],
 
     'error' => [
-        'php_version'       => 'Terjadi Kesalahan: Minta ke penyedia hosting Anda untuk menggunakan PHP :php_version atau lebih tinggi untuk HTTP dan CLI.',
-        'connection'        => 'Kesalahan: Tidak dapat terhubung ke database! Silahkan, pastikan bahwa rinciannya benar.',
+        'php_version'       => 'Ralat: Minta penyedia hosting anda menggunakan PHP :php_version atau lebih tinggi untuk HTTP dan CLI.',
+        'connection'        => 'Ralat: Tidak dapat menyambung ke pangkalan data! Sila pastikan butirannya adalah betul.',
     ],
 
     'update' => [
-        'core'              => 'Versi baru akaunting tersedia! Harap perbarui <a href=":url">pemasangan Anda.</a>',
-        'module'            => ':module versi baru tersedia! Harap perbarui <a href=":url">pemasangan Anda.</a>',
+        'core'              => 'Versi baharu Akaunting tersedia! Sila kemas kini <a href=":url">pemasangan anda.</a>',
+        'module'            => ':module versi baharu tersedia! Sila kemas kini <a href=":url">pemasangan anda.</a>',
     ],
 ];

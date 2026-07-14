@@ -12,20 +12,20 @@ return [
     ],
 
     'currencies' => [
-        'usd'               => 'Dólar EEUU',
+        'usd'               => 'Dólar estadounidense',
     ],
 
     'offline_payments' => [
         'cash'              => 'Efectivo',
-        'bank'              => 'Transferencia Bancaria',
+        'bank'              => 'Transferencia bancaria',
     ],
 
     'reports' => [
         'income'            => 'Resumen mensual de ingresos por categoría.',
         'expense'           => 'Resumen mensual de gastos por categoría.',
-        'income_expense'    => 'Ingresos mensuales vs gastos por categoría.',
+        'income_expense'    => 'Resumen mensual de ingresos frente a gastos por categoría.',
         'tax'               => 'Resumen trimestral de impuestos.',
-        'profit_loss'       => 'Ganancias y pérdidas trimestrales por categoría.',
+        'profit_loss'       => 'Resumen trimestral de pérdidas y ganancias por categoría.',
     ],
 
 ];

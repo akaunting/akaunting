@@ -4,6 +4,6 @@ return [
 
     'previous'              => 'السابق',
     'next'                  => 'التالي',
-    'showing'               => 'السجلات:first-:last of :total .',
-    'page'                  => 'لكل صفحة.',
+    'showing'               => ':first-:last من أصل :total سجل.',
+    'page'                  => 'في الصفحة.',
 ];

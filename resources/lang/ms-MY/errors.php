@@ -11,15 +11,15 @@ return [
     'header' => [
         '403'       => '403 Dilarang',
         '404'       => '404 Tidak ditemukan',
-        '500'       => '500 Kesalahan server internal',
+        '500'       => '500 Ralat Pelayan Dalaman',
     ],
 
     'message' => [
-        '403'       => 'Anda tidak dapat mengakses halaman ini.',
-        '404'       => 'Kami tidak dapat menemukan halaman yang Anda cari.',
-        '500'       => 'Kami akan segera memperbaikinya.',
-        'record'    => 'Kami tidak dapat menemukan catatan yang Anda cari.',
-        'amount'    => 'Halaman ini berisi jumlah yang tidak sah! Silakan hubungi administrator sistem.',
+        '403'       => 'Anda tidak boleh mengakses halaman ini.',
+        '404'       => 'Kami tidak dapat menemui halaman yang anda cari.',
+        '500'       => 'Kami akan mengusahakan pembetulan serta-merta.',
+        'record'    => 'Kami tidak dapat menemui rekod yang anda cari.',
+        'amount'    => 'Halaman ini mengandungi jumlah yang tidak sah! Sila hubungi pentadbir sistem.',
     ],
 
 ];

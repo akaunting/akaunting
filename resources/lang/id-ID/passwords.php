@@ -15,7 +15,7 @@ return [
 
     'reset' => 'Kata sandi Anda sudah direset!',
     'sent' => 'Kami sudah mengirim email yang berisi tautan untuk mereset kata sandi Anda!',
-    'throttled' => 'Silahkan tunggu sebelum mencoba lagi.',
+    'throttled' => 'Silakan tunggu sebelum mencoba lagi.',
     'token' => 'Kata sandi token pengaturan ulang tidak sah.',
     'user' => "Kami tidak dapat menemukan pengguna dengan alamat surel tersebut.",
 

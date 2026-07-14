@@ -3,13 +3,13 @@
 return [
 
     'error' => [
-        'not_user_dashboard'    => 'Error: No tiene permiso para cambiar este tablero!',
-        'delete_last'           => 'Error: No se puede eliminar el último tablero. ¡Por favor, cree uno nuevo primero!',
-        'disable_last'          => 'Error: No se puede desactivar el último tablero. ¡Por favor, cree uno nuevo primero!',
+        'not_user_dashboard'    => 'Error: no tiene permiso para cambiar este panel.',
+        'delete_last'           => 'Error: no se puede eliminar el último panel. Cree uno nuevo antes.',
+        'disable_last'          => 'Error: no se puede desactivar el último panel. Cree uno nuevo antes.',
     ],
 
     'form_description' => [
-        'general'               => 'Seleccione los usuarios que desea que tengan acceso al nuevo tablero.',
+        'general'               => 'Seleccione los usuarios que desea que tengan acceso al nuevo panel.',
     ],
 
 ];

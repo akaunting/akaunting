@@ -3,14 +3,14 @@
 return [
 
     'form_description' => [
-        'general'           => 'Informasi kontak penyedia Anda akan muncul di Bil dan profil mereka. Anda dapat menambahkan informasi kontak dan logo mereka untuk digunakan dalam Bil.',
-        'billing'           => 'Nomor pajak muncul di setiap Bil yang diterbitkan untuk Anda. Mata uang yang dipilih menjadi mata uang bawaan untuk penyedia ini.',
-        'address'           => 'Alamat diperlukan untuk Bil, jadi Anda perlu menambahkan detail alamat penagihan untuk penyedia Anda.',
+        'general'           => 'Maklumat kontak pembekal anda akan muncul dalam bil dan profil mereka. Anda boleh menambah maklumat kontak dan logo mereka untuk digunakan dalam bil.',
+        'billing'           => 'Nombor cukai muncul dalam setiap bil yang dikeluarkan kepada anda. Mata wang yang dipilih menjadi mata wang lalai untuk pembekal ini.',
+        'address'           => 'Alamat diperlukan untuk bil, jadi anda perlu menambah butiran alamat pengebilan untuk pembekal anda.',
     ],
 
     'no_records' => [
-        'bills'             => 'Belum ada Bil untuk penyedia ini. Buat yang baru sekarang.',
-        'transactions'      => 'Belum ada transaksi untuk penyedia ini. Buat yang baru sekarang.',
+        'bills'             => 'Belum ada bil untuk pembekal ini. Cipta yang baharu sekarang.',
+        'transactions'      => 'Belum ada transaksi untuk pembekal ini. Cipta yang baharu sekarang.',
     ],
 
 ];

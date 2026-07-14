@@ -6,22 +6,22 @@ return [
 
     'from_account'          => 'Dari Akaun',
     'to_account'            => 'Ke Akaun',
-    'from_rate'             => 'Kurs Asal',
-    'to_rate'               => 'Kurs Tujuan',
-    'from_account_rate'     => 'Dari Tarif Akaun',
-    'to_account_rate'       => 'Ke Tarif Akaun',
-    'from_amount'           => 'Jumlah Asal',
+    'from_rate'             => 'Kadar Sumber',
+    'to_rate'               => 'Kadar Tujuan',
+    'from_account_rate'     => 'Kadar Akaun Sumber',
+    'to_account_rate'       => 'Kadar Akaun Tujuan',
+    'from_amount'           => 'Jumlah Sumber',
     'to_amount'             => 'Jumlah Tujuan',
-    'issued_at'             => 'Tanggal Dibuat',
-    'rate'                  => 'Kurs',
+    'issued_at'             => 'Tarikh Dikeluarkan',
+    'rate'                  => 'Kadar',
 
     'form_description' => [
-        'general'           => 'Pemindahan uang antar akaun dengan mata uang yang berbeda dan patok mata uang ke nilai tukar mana pun yang Anda inginkan.',
-        'other'             => 'Pilih metode transfer sebagai metode bayaran agar laporan Anda lebih detail.',
+        'general'           => 'Pindahkan wang antara akaun dengan mata wang berbeza dan patok mata wang kepada kadar yang anda inginkan.',
+        'other'             => 'Pilih kaedah pemindahan sebagai kaedah bayaran untuk menjadikan laporan anda lebih terperinci.',
     ],
 
     'messages' => [
-        'delete'            => ':from sampai :to (:amount)',
+        'delete'            => ':from ke :to (:amount)',
     ],
 
     'slider' => [

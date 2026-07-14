@@ -2,20 +2,20 @@
 
 return [
 
-    'from_account'          => 'Desde',
-    'to_account'            => 'A Cuenta',
-    'from_rate'             => 'Tasa origen',
-    'from_account_rate'     => 'Desde tasa de cuenta',
-    'to_rate'               => 'Tasa destino',
-    'to_account_rate'       => 'Tasa de cuenta',
-    'from_amount'           => 'Desde',
-    'to_amount'             => 'Monto',
     'details'               => 'Detalle|Detalles',
+    'from_account'          => 'Cuenta de origen',
+    'to_account'            => 'Cuenta de destino',
+    'from_rate'             => 'Tipo de cambio de origen',
+    'to_rate'               => 'Tipo de cambio de destino',
+    'from_account_rate'     => 'Tipo de cambio de la cuenta de origen',
+    'to_account_rate'       => 'Tipo de cambio de la cuenta de destino',
+    'from_amount'           => 'Importe de origen',
+    'to_amount'             => 'Importe de destino',
     'issued_at'             => 'Fecha de emisión',
-    'rate'                  => 'Tasa',
+    'rate'                  => 'Tipo de cambio',
 
     'form_description' => [
-        'general'           => 'Transfiera dinero entre cuentas con diferentes monedas y vincule la moneda a la tasa que desee.',
+        'general'           => 'Transfiera dinero entre cuentas con monedas diferentes y aplique el tipo de cambio que prefiera.',
         'other'             => 'Seleccione el método de transferencia como método de pago para que sus informes sean más detallados.',
     ],
 
@@ -25,11 +25,9 @@ return [
 
     'slider' => [
         'create'            => ':user creó esta transferencia el :date',
-        'transactions'      => 'Esta lista es de las transacciones que se crearon automáticamente.',
-        'transactions_desc' => ':number transacción para :account',
-        'attachments'       => 'Descargar los archivos adjuntos a esta transferencia',
-        'from_desc'         => 'transacción :number desde :account',
-        'to_desc'           => 'transacción :number a :account',
+        'transactions'      => 'Lista de transacciones relacionadas con esta transferencia',
+        'transactions_desc' => ':number transacción de :account',
+        'attachments'       => 'Descargue los archivos adjuntos a esta transferencia',
     ],
 
 ];

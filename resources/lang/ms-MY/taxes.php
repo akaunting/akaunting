@@ -10,11 +10,11 @@ return [
     'fixed'                 => 'Tetap',
     'withholding'           => 'Pemotongan',
     'no_taxes'              => 'Tanpa Pajak',
-    'create_task'           => 'Buat pajak baru dan sesuaikan kapan saja dari tetapan.',
+    'create_task'           => 'Cipta cukai baharu dan sunting bila-bila masa dari tetapan.',
     'new_tax'               => 'Pajak Baru',
 
     'form_description' => [
-        'general'           => 'Inklusi pajak dihitung ke dalam harga barang. Pajak majemuk dihitung di atas pajak lainnya. Pajak tetap diterapkan sebagai jumlah, bukan persentase.',
+        'general'           => 'Cukai inklusif dikira ke dalam harga item. Cukai kompaun dikira di atas cukai lain. Cukai tetap diterapkan sebagai jumlah, bukan peratusan.',
     ],
 
 ];

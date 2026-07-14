@@ -2,13 +2,13 @@
 
 return [
 
-    'can_login'                 => 'Undang ke Portal Klien',
-    'can_login_description'     => 'Kirim undangan ke pengguna ini untuk masuk ke Portal Klien.',
-    'user_created'              => 'Pengguna berhasil dibuat',
-    'client_portal_description' => 'Portal Pelanggan adalah lingkungan di mana Anda dapat berbagi transaksi dan faktur dengan pelanggan Anda, di mana mereka melacak hubungan mereka dengan bisnis Anda dan membayar, dan masuk kapan pun mereka mau; dengan kata sandi mereka',
+    'can_login'                 => 'Jemput ke Portal Klien',
+    'can_login_description'     => 'Hantar jemputan kepada pengguna ini untuk log masuk ke Portal Klien.',
+    'user_created'              => 'Pengguna dicipta',
+    'client_portal_description' => 'Portal Klien ialah persekitaran di mana anda boleh berkongsi transaksi dan invois dengan pelanggan anda, di mana mereka menjejak hubungan mereka dengan perniagaan anda dan membuat bayaran, serta log masuk pada bila-bila masa yang mereka mahu; dengan kata laluan mereka',
 
     'error' => [
-        'email'                 => 'Email ini sudah dipakai.',
+        'email'                 => 'E-mel ini telah digunakan.',
     ],
 
     'client_portal_text' => [
@@ -17,15 +17,15 @@ return [
     ],
 
     'form_description' => [
-        'general'               => 'Informasi kontak klien Anda akan muncul di faktur dan profil mereka. Anda juga dapat mengizinkan klien Anda untuk masuk untuk melacak faktur yang Anda kirimkan kepada mereka dengan mencentang kotak di bawah.',
-        'billing'               => 'Nomor pajak muncul di setiap faktur yang diterbitkan kepada pelanggan. Mata uang yang dipilih menjadi mata uang default untuk pelanggan ini.',
-        'address'               => 'Alamat diperlukan untuk faktur, jadi Anda perlu menambahkan detail alamat penagihan untuk pelanggan Anda.',
-        'contact_persons'       => 'Anda dapat menambahkan orang kontak untuk pelanggan ini.',
+        'general'               => 'Maklumat kontak klien anda akan muncul dalam invois dan profil mereka. Anda juga boleh membenarkan klien anda log masuk untuk menjejak invois yang anda hantar kepada mereka dengan menanda kotak di bawah.',
+        'billing'               => 'Nombor cukai muncul dalam setiap invois yang dikeluarkan kepada pelanggan. Mata wang yang dipilih menjadi mata wang lalai untuk pelanggan ini.',
+        'address'               => 'Alamat diperlukan untuk invois, jadi anda perlu menambah butiran alamat pengebilan untuk pelanggan anda.',
+        'contact_persons'       => 'Untuk menyertakan penerima tambahan dalam e-mel sebagai CC, tambah mereka sebagai orang kontak.',
     ],
 
     'no_records' => [
-        'invoices'              => 'Belum ada faktur untuk pelanggan ini. Buat yang baru sekarang.',
-        'transactions'          => 'Belum ada transaksi untuk pelanggan ini. Buat yang baru sekarang.',
+        'invoices'              => 'Belum ada invois untuk pelanggan ini. Cipta yang baharu sekarang.',
+        'transactions'          => 'Belum ada transaksi untuk pelanggan ini. Cipta yang baharu sekarang.',
     ],
 
 ];

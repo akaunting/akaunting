@@ -23,9 +23,9 @@ return [
     'reports' => [
         'income'            => 'Ringkasan penghasilan bulanan berdasarkan kategori.',
         'expense'           => 'Ringkasan pengeluaran bulanan berdasarkan kategori.',
-        'income_expense'    => 'Penghasilan bulanan vs biaya berdasarkan kategori.',
+        'income_expense'    => 'Penghasilan bulanan vs pengeluaran berdasarkan kategori.',
         'tax'               => 'Ringkasan pajak triwulanan.',
-        'profit_loss'       => 'Laba & rugi triwulan menurut kategori.',
+        'profit_loss'       => 'Laba & rugi triwulanan berdasarkan kategori.',
     ],
 
 ];

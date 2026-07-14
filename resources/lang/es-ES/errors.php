@@ -5,7 +5,7 @@ return [
     'title' => [
         '403'       => '¡Ups! Acceso prohibido',
         '404'       => '¡Ups! Página no encontrada',
-        '500'       => '¡Ups! Algo fue mal',
+        '500'       => '¡Vaya! Algo ha salido mal',
     ],
 
     'header' => [
@@ -19,6 +19,6 @@ return [
         '404'       => 'No pudimos encontrar la página que estaba buscando.',
         '500'       => 'Trabajaremos para arreglarlo de inmediato.',
         'record'    => 'No pudimos encontrar el registro que estaba buscando.',
-        'amount'    => 'No pudimos encontrar el importe que estaba buscando.',
+        'amount'    => 'Esta página contiene importes no válidos. Póngase en contacto con el administrador del sistema.',
     ],
 ];

@@ -2,16 +2,16 @@
 
 return [
 
-    'edit_columns'              => 'Edit Kolom',
+    'edit_columns'              => 'Sunting Kolom',
     'empty_items'               => 'Anda belum menambahkan item apa pun',
     'grand_total'               => 'Total Keseluruhan',
     'accept_payment_online'     => 'Menerima Pembayaran Daring',
     'transaction'               => 'Pembayaran untuk :amount telah dilakukan menggunakan :account',
     'portal_transaction'        => 'Pembayaran untuk :amount telah dilakukan menggunakan :payment_method',
     'billing'                   => 'Tagihan',
-    'advanced'                  => 'Opsi Lanjutan',
+    'advanced'                  => 'Lanjutan',
 
-    'item_price_hidden'         => 'Kolom ini disembunyikan untuk tipe :type.',
+    'item_price_hidden'         => 'Kolom ini disembunyikan pada :type Anda.',
 
     'actions' => [
         'cancel'                => 'Batal',
@@ -22,7 +22,7 @@ return [
         'services'              => 'Layanan',
         'another_item'          => 'Item Lain',
         'another_description'   => 'dan deskripsi lainnya',
-        'more_item'             => '+:count lebih item',
+        'more_item'             => '+:count item lagi',
     ],
 
     'statuses' => [
@@ -65,9 +65,9 @@ return [
     ],
 
     'form_description' => [
-        'companies'             => 'Ubah alamat, logo, dan informasi lain perusahaanmu.',
+        'companies'             => 'Ubah alamat, logo, dan informasi lain perusahaan Anda.',
         'billing'               => 'Detail tagihan muncul di dokumen Anda.',
-        'advanced'              => 'Pilih kategori, tambahkan, atau edit footer, dan tambahkan lampiran ke :type.',
+        'advanced'              => 'Pilih kategori, tambahkan, atau sunting footer, dan tambahkan lampiran ke :type.',
         'attachment'            => 'Unduh berkas terlampir ke :type',
     ],
 
@@ -86,7 +86,7 @@ return [
         'marked_as'             => ':type ditandai sebagai :status!',
         'marked_sent'           => ':type ditandai terkirim!',
         'marked_paid'           => ':type ditandai telah terbayar!',
-        'marked_viewed'         => ':type ditandai telah terbaca!',
+        'marked_viewed'         => ':type ditandai telah dilihat!',
         'marked_cancelled'      => ':type ditandai telah dibatalkan!',
         'marked_received'       => ':type ditandai telah diterima!',
     ],
@@ -100,5 +100,5 @@ return [
         ],
     ],
 
-    'empty_attachments'         => 'Tidak ada dokumen yang dilampirkan pada tipe :type ini.',
+    'empty_attachments'         => 'Tidak ada berkas yang dilampirkan pada :type ini.',
 ];

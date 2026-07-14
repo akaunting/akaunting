@@ -11,7 +11,6 @@ return [
     'tiles'                 => 'List',
     'item'                  => 'App Details',
     'pre_sale'              => 'Pre-Sale',
-    'no_apps'               => 'Check the most professional apps for your business and get them at the best price.',
     'learn_more'            => 'Learn More',
     'see_apps'              => 'See Apps',
     'no_apps_marketing'     => 'Get your business done professionally',
@@ -60,7 +59,6 @@ return [
     'added'                 => 'Added',
     'updated'               => 'Updated',
     'compatibility'         => 'Compatibility',
-    'documentation'         => 'Documentation',
     'view'                  => 'View',
     'back'                  => 'Back',
 
@@ -73,7 +71,6 @@ return [
     'updated_2'             => ':module updated',
     'enabled'               => ':module enabled',
     'disabled'              => ':module disabled',
-    'per_month'             => 'per month',
     'pre_sale_uninstall'    => 'Don t miss the discounted price for the pre-sale!',
     'pre_sale_install'      => 'You will have the app with the end of pre-sale.',
 

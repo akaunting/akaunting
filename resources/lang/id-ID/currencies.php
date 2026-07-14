@@ -8,7 +8,7 @@ return [
     'decimal_mark'          => 'Pemisah Desimal',
     'thousands_separator'   => 'Pemisah Ribuan',
     'precision'             => 'Presisi',
-    'conversion'            => 'Konversi mata uang: :price (:currency_code) di :currency_rate',
+    'conversion'            => 'Konversi mata uang: :price (:currency_code) pada :currency_rate',
     'symbol' => [
         'symbol'            => 'Simbol',
         'position'          => 'Posisi Simbol',
@@ -21,7 +21,7 @@ return [
     ],
 
     'no_currency'           => 'Tanpa Mata Uang',
-    'create_currency'       => 'Buat mata uang baru dan edit kapan saja melalui pengaturan.',
+    'create_currency'       => 'Buat mata uang baru dan sunting kapan saja melalui pengaturan.',
     'new_currency'          => 'Mata Uang Baru',
 
 ];

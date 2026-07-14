@@ -21,27 +21,27 @@ return [
     ],
 
     'outstanding_balance'   => [
-        'title'             => 'Saldo luar biasa',
+        'title'             => 'Saldo terutang',
         'description'       => 'Saldo terutang Anda adalah:',
         'not_payment'       => 'Anda belum memiliki saldo terutang.',
     ],
 
     'latest_invoices'       => [
         'title'             => 'Faktur Terbaru',
-        'description'       => ':date - Anda ditagih dengan nomor invoice :invoice_number.',
+        'description'       => ':date - Anda ditagih dengan nomor faktur :invoice_number.',
         'no_data'           => 'Anda belum membuat faktur.',
     ],
 
     'invoice_history'       => [
         'title'             => 'Riwayat Faktur',
-        'description'       => ':date - Anda ditagih dengan nomor invoice :invoice_number.',
+        'description'       => ':date - Anda ditagih dengan nomor faktur :invoice_number.',
         'no_data'           => 'Anda belum memiliki riwayat faktur.',
     ],
 
     'payment_history'       => [
         'title'             => 'Riwayat Pembayaran',
-        'description'       => ':date- Anda melakukan pembayaran sebesar :amount.',
-        'invoice_description'=> ':date - Anda melakukan pembayaran sebesar :amount untuk nomor invoice :nomor_invoice.',
+        'description'       => ':date - Anda melakukan pembayaran sebesar :amount.',
+        'invoice_description'=> ':date - Anda melakukan pembayaran sebesar :amount untuk nomor faktur :invoice_number.',
 
         'no_data'           => 'Anda belum memiliki riwayat pembayaran.',
     ],

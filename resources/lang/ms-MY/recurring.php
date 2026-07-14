@@ -17,7 +17,7 @@ return [
     'years'                 => 'Tahun',
     'frequency'             => 'Frekuensi',
     'duration'              => 'Durasi',
-    'last_issued'           => 'Isu Terakhir',
+    'last_issued'           => 'Dikeluarkan Terakhir',
     'after'                 => 'Setelah',
     'on'                    => 'pada',
     'never'                 => 'Tidak pernah',
@@ -29,15 +29,15 @@ return [
     'child'                 => ':url secara otomatis dibuat pada :date',
     'message'               => 'Ini adalah :type berulang dan :type selanjutnya akan dibuat otomatis pada tanggal :date',
     'message_parent'        => ':type ini dihasilkan otomatis dari :link',
-    'send_email_auto'       => 'Kirim email secara otomatis',
+    'send_email_auto'       => 'Hantar e-mel secara automatik',
 
     'frequency_type'        => 'Ulangi :type ini',
     'custom_frequency_desc' => 'Ulangi setiap :interval :frequency',
-    'limit_date'            => 'Buat :type pertama aktif',
-    'limit_middle'          => 'dan akhir',
+    'limit_date'            => 'Cipta :type pertama pada',
+    'limit_middle'          => 'dan tamat',
 
     'form_description' => [
-        'schedule'          => 'Pilih persyaratan dan waktu mulai/berakhir untuk memastikan bahwa pelanggan menerima :type Anda pada hari yang tepat.',
+        'schedule'          => 'Pilih terma dan masa mula/tamat untuk memastikan pelanggan anda menerima :type pada hari yang betul.',
     ],
 
 ];
