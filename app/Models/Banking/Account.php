@@ -126,10 +126,10 @@ class Account extends Model
         $total = $this->opening_balance;
 
         // Sum Incomes
-        $total += $this->income_transactions->sum('amount');
+        $total += $this->income_transactions()->sum('amount');
 
         // Subtract Expenses
-        $total -= $this->expense_transactions->sum('amount');
+        $total -= $this->expense_transactions()->sum('amount');
 
         return $total;
     }
@@ -146,7 +146,7 @@ class Account extends Model
         $total = 0;
 
         // Sum Incomes
-        $total += $this->income_transactions->sum('amount');
+        $total += $this->income_transactions()->sum('amount');
 
         return $total;
     }
@@ -163,7 +163,7 @@ class Account extends Model
         $total = 0;
 
         // Subtract Expenses
-        $total += $this->expense_transactions->sum('amount');
+        $total += $this->expense_transactions()->sum('amount');
 
         return $total;
     }
