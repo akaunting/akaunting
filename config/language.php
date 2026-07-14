@@ -136,7 +136,27 @@ return [
     | This options indicates the language allowed languages.
     |
     */
-    'allowed'       => ['ar-SA', 'az-AZ', 'bg-BG', 'bn-BD', 'bs-BA', 'ca-ES', 'cs-CZ', 'da-DK', 'de-DE', 'el-GR', 'en-AU', 'en-GB', 'en-US', 'es-AR', 'es-ES', 'es-MX', 'et-EE', 'fa-IR', 'fr-FR', 'he-IL', 'hi-IN', 'hr-HR', 'hu-HU', 'id-ID', 'is-IS', 'it-IT', 'ja-JP', 'ka-GE', 'ko-KR', 'lt-LT', 'lv-LV', 'mk-MK', 'ms-MY', 'nb-NO', 'ne-NP', 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ro-RO', 'ru-RU', 'sk-SK', 'sl-SI', 'sr-RS', 'sq-AL', 'sv-SE', 'th-TH', 'tr-TR', 'uk-UA', 'ur-PK', 'uz-UZ',  'vi-VN', 'zh-CN', 'zh-TW'],
+    'allowed' => [
+        'ar-SA',
+        'de-DE',
+        'el-GR',
+        'en-AU',
+        'en-GB',
+        'en-US',
+        'es-ES',
+        'es-MX',
+        'fr-FR',
+        'hi-IN',
+        'id-ID',
+        'it-IT',
+        'ms-MY',
+        'nl-NL',
+        'pl-PL',
+        'pt-BR',
+        'ru-RU',
+        'tr-TR',
+        'zh-CN',
+    ],
 
     /*
     |--------------------------------------------------------------------------
