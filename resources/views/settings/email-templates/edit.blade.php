@@ -57,7 +57,7 @@
                                 </div>
 
                                 <div class="sm:col-span-6 required" v-if='form.body == null'>
-                                    <x-form.group.editor name="body" label="{{ trans('settings.email.templates.body') }}" value="{{ $template->body }}" v-model='form.body' rows="5" />
+                                    <x-form.group.editor name="body" label="{{ trans('settings.email.templates.body') }}" value="{!! $template->body !!}" v-model='form.body' rows="5" />
                                 </div>
 
                                 <div class="sm:col-span-6">
