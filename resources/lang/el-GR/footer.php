@@ -3,7 +3,7 @@
 return [
 
     'version'               => 'Έκδοση',
-    'powered'               => 'Powered By Akaunting',
+    'powered'               => 'Με την υποστήριξη του Akaunting',
     'link'                  => 'https://akaunting.com',
     'software'              => 'Δωρεάν λογισμικό λογιστικής',
     'powered_by'            => 'Με την υποστήριξη του',

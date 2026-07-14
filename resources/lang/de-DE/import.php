@@ -10,4 +10,9 @@ return [
     'drop_file'                 => '<span style="color: #006EA6;">Datei</span> hochladen oder hier herziehen',
     'file_type_and_limitations' => ':extensions bis zu :row_limit Zeilen',
 
+    'bank_feeds'    => 'Importieren Sie Transaktionen sicher und automatisieren Sie die Buchhaltung, indem Sie Bankkonten verbinden',
+    'receipts'      => 'Sparen Sie Zeit, indem Sie Belege hochladen, Ausgaben erfassen und manuelle Arbeit mühelos eliminieren!',
+    'ofx'           => 'Importieren Sie Ihre Banktransaktionen mühelos mit der OFX-App und automatisieren Sie Ihr Finanzmanagement!',
+    'mt940'         => 'Laden Sie Ihre Kontoauszüge im MT940-Format nahtlos hoch und verwalten Sie Ihre Finanzen mit Leichtigkeit!',
+
 ];

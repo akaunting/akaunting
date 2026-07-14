@@ -11,6 +11,8 @@ return [
     'recurring_incomes'     => 'Wiederkehrende Einnahme|Wiederkehrende Einnahmen',
     'expenses'              => 'Ausgabe|Ausgaben',
     'recurring_expenses'    => 'Wiederkehrende Ausgabe|Wiederkehrende Ausgaben',
+    'direct_costs'          => 'Direkte Kosten|Direkte Kosten',
+    'cogs'                  => 'Verkaufskosten|Verkaufskosten',
     'bills'                 => 'Rechnung|Rechnungen',
     'recurring_bills'       => 'Wiederkehrende Rechnung|Wiederkehrende Rechnungen',
     'vendors'               => 'Kreditor|Kreditoren',
@@ -75,6 +77,12 @@ return [
     'your_notifications'    => 'Benachrichtigung|Benachrichtigungen',
     'employees'             => 'Mitarbeiter|Mitarbeiter',
     'contact_persons'       => 'Kontaktperson|Kontaktpersonen',
+    'bank_feeds'            => 'Bank-Feed|Bank-Feeds',
+    'discounts'             => 'Rabatt|Rabatte',
+    'tokens'                => 'Token|Token',
+    'clients'               => 'Klient|Klienten',
+    'ofx'                   => 'OFX',
+    'mt940'                 => 'MT940',
 
     'welcome'               => 'Willkommen',
     'banking'               => 'Bankwesen',
@@ -233,6 +241,7 @@ return [
     'last_received'         => 'Zuletzt erhalten am :date',
     'preview_in_window'     => 'Vorschau in neuem Fenster',
     'copied'                => 'Kopiert',
+    'done'                  => 'Fertig',
     'preview_mode'          => 'Vorschaumodus',
     'go_back'               => 'Zurück zu :type',
     'validation_error'      => 'Validierungsfehler',
@@ -314,6 +323,11 @@ return [
         'previous_quarter'  => 'Vorheriges Quartal',
         'previous_year'     => 'Vorheriges Jahr',
         'custom'            => 'Benutzerdefiniert',
+    ],
+
+    'pin_text' => [
+        'pin_tab' => 'Standard-Tab anheften',
+        'unpin_tab' => 'Standard-Tab lösen',
     ],
 
     'empty' => [

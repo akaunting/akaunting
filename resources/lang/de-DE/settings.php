@@ -79,10 +79,14 @@ return [
         'subheading'                    => 'Unterüberschrift',
         'due_receipt'                   => 'Fälligkeit: sofort',
         'due_days'                      => 'Fällig innerhalb von :days Tagen',
+        'due_custom'                    => 'Benutzerdefinierte(r) Tag(e)',
+        'due_custom_day'                => 'nach Tag',
         'choose_template'               => 'Wählen Sie eine Vorlage aus',
         'default'                       => 'Standard',
         'classic'                       => 'Klassisch',
         'modern'                        => 'Modern',
+        'logo_size_width'               => 'Logo-Breite',
+        'logo_size_height'              => 'Logo-Höhe',
         'hide' => [
             'item_name'                 => 'Artikelname ausblenden',
             'item_description'          => 'Artikelbeschreibung ausblenden',
@@ -113,6 +117,8 @@ return [
         'use_gravatar'                  => 'Gravatar verwenden',
         'income_category'               => 'Kategorie für Einnahmen',
         'expense_category'              => 'Kategorie für Ausgaben',
+        'address_format'                => 'Adressformat',
+        'address_tags'                  => '<strong>Verfügbare Tags:</strong> :tags',
 
         'form_description' => [
             'general'                   => 'Wählen Sie das Standard-Konto, Steuern und Zahlungsmethode aus, um Datensätze schnell zu erstellen. Ihr Dashboard und ihre Berichte werden mit der Standardwährung angezeigt.',
