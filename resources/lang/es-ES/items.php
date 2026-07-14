@@ -4,7 +4,7 @@ return [
 
     'sale_price'                => 'Precio de venta',
     'purchase_price'            => 'Precio de compra',
-    'enter_item_description'    => 'Indique una descripción',
+    'enter_item_description'    => 'Introduzca la descripción del artículo',
     'billing'                   => 'Facturación',
     'sale_information'          => 'Información de venta',
     'purchase_information'      => 'Información de compra',

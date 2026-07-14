@@ -13,7 +13,7 @@ return [
 
     'view_report'               => 'Ver informe',
     'total_unpaid_invoices'     => 'Total de facturas no pagadas',
-    'total_unpaid_bills'        => 'Total de facturas de compra pendientes',
+    'total_unpaid_bills'        => 'Total de facturas de compra no pagadas',
 
     'description' => [
         'receivables'           => 'Importe pendiente de cobro de sus clientes',

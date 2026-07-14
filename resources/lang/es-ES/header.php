@@ -6,7 +6,7 @@ return [
     'last_login'            => 'Último acceso: :time',
 
     'notifications' => [
-        'counter'           => '{0} No tiene notificaciones|{1} Tiene :count notificación|[2,*] Tiene :count notificaciones',
+        'counter'           => '{0} No tiene notificaciones nuevas|{1} Tiene :count notificación nueva|[2,*] Tiene :count notificaciones nuevas',
         'new_apps'          => '{1} :count nueva aplicación fue publicada|[2,*] :count nuevas aplicaciones publicadas',
         'overdue_invoices'  => '{1} :count factura vencida|[2,*] :count facturas vencidas',
         'upcoming_bills'    => '{1} :count factura de compra próxima|[2,*] :count facturas de compra próximas',

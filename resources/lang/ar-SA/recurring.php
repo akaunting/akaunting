@@ -17,7 +17,7 @@ return [
     'years'                 => 'سنة/سنوات',
     'frequency'             => 'التكرار',
     'duration'              => 'المدة',
-    'last_issued'           => 'آخر تاريخ إصدار',
+    'last_issued'           => 'آخر إصدار',
     'after'                 => 'بعد',
     'on'                    => 'في',
     'never'                 => 'أبداً',

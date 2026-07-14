@@ -28,7 +28,7 @@ return [
 
     'latest_invoices'       => [
         'title'             => 'Últimas facturas',
-        'description'       => ':date - Se ha generado la factura con el número de factura :invoice_number.',
+        'description'       => ':date - Se le facturó mediante la factura número :invoice_number.',
         'no_data'           => 'Todavía no tiene ninguna factura.',
     ],
 

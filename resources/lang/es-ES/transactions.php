@@ -15,7 +15,7 @@ return [
     'connect_message'       => 'Los impuestos para este :type no se calcularon durante el proceso de conexión. Los impuestos no se pueden conectar.',
 
     'form_description' => [
-        'general'           => 'Aquí puede introducir los datos generales de la transacción, como la fecha, el importe, la cuenta y la descripción.',
+        'general'           => 'Aquí puede introducir los datos generales de la transacción, como la fecha, el importe, la cuenta, la descripción, etc.',
         'assign_income'     => 'Seleccione una categoría y cliente para que sus informes sean más detallados.',
         'assign_expense'    => 'Seleccione una categoría y proveedor para que sus informes sean más detallados.',
         'other'             => 'Introduzca un número y una referencia para mantener la transacción vinculada a sus registros.',

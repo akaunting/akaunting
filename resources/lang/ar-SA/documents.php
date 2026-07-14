@@ -81,14 +81,14 @@ return [
     ],
 
     'messages' => [
-        'email_sent'            => 'تم إرسال البريد الإلكتروني الخاص بـ :type!',
+        'email_sent'            => 'تم إرسال بريد :type الإلكتروني!',
         'restored'              => 'تمت استعادة :type!',
         'marked_as'             => 'تم تغيير حالة :type إلى :status!',
-        'marked_sent'           => 'تم تغيير حالة :type إلى «مُرسل»!',
-        'marked_paid'           => 'تم تغيير حالة :type إلى «مدفوع»!',
-        'marked_viewed'         => 'تم تغيير حالة :type إلى «مُشاهد»!',
-        'marked_cancelled'      => 'تم تغيير حالة :type إلى «ملغى»!',
-        'marked_received'       => 'تم تغيير حالة :type إلى «مُستلم»!',
+        'marked_sent'           => 'تم تعيين :type كمُرسلة!',
+        'marked_paid'           => 'تم تعيين :type كمدفوعة!',
+        'marked_viewed'         => 'تم تعيين :type كمُشاهدة!',
+        'marked_cancelled'      => 'تم تعيين :type كملغاة!',
+        'marked_received'       => 'تم تعيين :type كمُستلمة!',
     ],
 
     'recurring' => [

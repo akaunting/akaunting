@@ -11,12 +11,12 @@ return [
     'transactions'          => 'Transacciones',
     'start_date'            => 'Fecha de inicio',
     'end_date'              => 'Fecha de finalización',
-    'cleared_amount'        => 'Importe compensado',
+    'cleared_amount'        => 'Importe conciliado',
     'deposit'               => 'Depósito',
     'withdrawal'            => 'Retirada',
-    'reconciled_amount'     => 'Reconciliado',
+    'reconciled_amount'     => 'Conciliado',
     'in_progress'           => 'En progreso',
     'save_draft'            => 'Guardar como borrador',
-    'irreconcilable'        => 'Irreconciliable',
+    'irreconcilable'        => 'No conciliable',
 
 ];

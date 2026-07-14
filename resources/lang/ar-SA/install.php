@@ -21,12 +21,12 @@ return [
         'disabled'          => 'يجب تعطيل :feature!',
         'extension'         => 'يجب تثبيت وتشغيل ملحق :extension!',
         'directory'         => 'يجب منح صلاحية الكتابة على مجلد :directory!',
-        'executable'        => 'ملف PHP CLI التنفيذي غير معرّف أو لا يعمل، أو أن إصداره أقدم من :php_version! اطلب من شركة الاستضافة ضبط متغير البيئة PHP_BINARY أو PHP_PATH بصورة صحيحة.',
+        'executable'        => 'ملف PHP CLI التنفيذي غير معرّف أو لا يعمل، أو أن إصداره ليس :php_version أو أحدث! اطلب من شركة الاستضافة ضبط متغير البيئة PHP_BINARY أو PHP_PATH بصورة صحيحة.',
         'npm'               => '<b>ملفات JavaScript مفقودة!</b> <br><br><span>يجب عليك تشغيل أوامر <em class="underline">npm install</em> و <em class="underline">npm run dev</em>.</span>',
     ],
 
     'database' => [
-        'hostname'          => 'اسم المستضيف',
+        'hostname'          => 'اسم المضيف',
         'username'          => 'اسم المستخدم',
         'password'          => 'كلمة المرور',
         'name'              => 'قاعدة البيانات',

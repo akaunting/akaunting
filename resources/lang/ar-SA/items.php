@@ -4,7 +4,7 @@ return [
 
     'sale_price'           => 'سعر البيع',
     'purchase_price'        => 'سعر الشراء',
-    'enter_item_description'    => 'أدخل وصف العنصر',
+    'enter_item_description'    => 'أدخل وصف الصنف',
     'billing'                   => 'الفوترة',
     'sale_information'          => 'معلومات البيع',
     'purchase_information'      => 'معلومات الشراء',

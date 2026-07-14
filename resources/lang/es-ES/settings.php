@@ -59,7 +59,7 @@ return [
 
     'invoice' => [
         'description'                   => 'Personalizar el prefijo, la numeración, las condiciones y el pie de página de las facturas, entre otros datos',
-        'search_keywords'               => 'personalizar, factura, número, prefijo, dígito, siguiente, logotipo, nombre, precio, cantidad, plantilla, título, subtítulo, pie de página, nota, ocultar, vencimiento, color, pago, términos, columna',
+        'search_keywords'               => 'personalizar, factura, número, prefijo, dígito, siguiente, logotipo, nombre, precio, cantidad, plantilla, título, subtítulo, pie de página, nota, ocultar, vencimiento, color, pago, condiciones, columna',
         'prefix'                        => 'Prefijo de número',
         'digit'                         => 'Número de dígitos',
         'next'                          => 'Siguiente número',
@@ -193,7 +193,7 @@ return [
 
     'categories' => [
         'description'                   => 'Categorías ilimitadas para ingresos, gastos y artículos',
-        'search_keywords'               => 'categoría, ingreso, gasto, elemento',
+        'search_keywords'               => 'categoría, ingreso, gasto, artículo',
     ],
 
     'currencies' => [

@@ -19,7 +19,7 @@ return [
     'tax_total'             => 'Taxe totale',
     'total'                 => 'Total',
 
-    'item_name'             => 'Nom de marchandise|Noms des marchandises',
+    'item_name'             => 'Nom de l\'article|Noms des articles',
     'recurring_invoices'    => 'Facture récurrente|Factures récurrentes',
 
     'show_discount'         => ':discount % de remise',
@@ -33,10 +33,10 @@ return [
     'add_payment'           => 'Ajouter un paiement',
     'mark_paid'             => 'Marquer comme payée',
     'mark_sent'             => 'Marquer comme envoyée',
-    'mark_viewed'           => 'Marquer comme vu',
-    'mark_cancelled'        => 'Marquer comme annulé',
+    'mark_viewed'           => 'Marquer comme vue',
+    'mark_cancelled'        => 'Marquer comme annulée',
     'download_pdf'          => 'Télécharger en PDF',
-    'send_mail'             => 'Envoyer un Email',
+    'send_mail'             => 'Envoyer un e-mail',
     'all_invoices'          => 'Connectez-vous pour voir toutes les factures',
     'create_invoice'        => 'Créer une facture',
     'send_invoice'          => 'Envoyer une facture',
@@ -46,18 +46,18 @@ return [
     'over_payment'          => 'Le montant saisi dépasse le montant total: :amount',
 
     'form_description' => [
-        'billing'           => 'Les détails de facturation apparaissent sur votre facture émise. La date de facturation est utilisée dans le tableau de bord et les rapports. Sélectionnez la date à laquelle vous souhaitez être payé comme Date d\'Échéance.',
+        'billing'           => 'Les détails de facturation apparaissent sur votre facture émise. La date de facturation est utilisée dans le tableau de bord et les rapports. Sélectionnez la date à laquelle vous souhaitez être payé comme date d\'échéance.',
     ],
 
     'messages' => [
         'email_required'    => 'Ce client ne possède pas d\'email !',
         'totals_required'   => 'Les totaux de la facture sont requis Veuillez modifier le :type et l\'enregistrer à nouveau.',
 
-        'draft'             => 'Ceci est une facture <b>BROUILLON</b> et sera comptabilisé dans les graphiques après reception.',
+        'draft'             => 'Ceci est une facture <b>BROUILLON</b> et sera comptabilisée dans les graphiques après réception.',
 
         'status' => [
             'created'       => 'Créée le :date',
-            'viewed'        => 'Vu',
+            'viewed'        => 'Vue',
             'send' => [
                 'draft'     => 'Pas envoyée',
                 'sent'      => 'Envoyée le :date',

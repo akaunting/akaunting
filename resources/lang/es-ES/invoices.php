@@ -17,7 +17,7 @@ return [
     'discount'              => 'Descuento',
     'item_discount'         => 'Descuento de línea',
     'tax_total'             => 'Total de impuestos',
-    'total'                 => 'Total ',
+    'total'                 => 'Total',
 
     'item_name'             => 'Nombre del artículo|Nombres de los artículos',
     'recurring_invoices'    => 'Factura recurrente|Facturas recurrentes',

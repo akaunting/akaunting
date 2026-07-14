@@ -11,8 +11,8 @@ return [
     'file_type_and_limitations' => ':extensions hasta :row_limit filas',
 
     'bank_feeds'    => 'Importe transacciones de forma segura y automatice la contabilidad conectando sus cuentas bancarias',
-    'receipts'      => 'Ahorre tiempo: suba justificantes, registre gastos y elimine tareas manuales con facilidad.',
-    'ofx'           => 'Importe fácilmente sus transacciones bancarias con la aplicación OFX y automatice su gestión financiera.',
-    'mt940'         => 'Suba sus extractos bancarios en formato MT940 y gestione sus finanzas con facilidad.',
+    'receipts'      => '¡Ahorre tiempo: suba justificantes, registre gastos y elimine tareas manuales con facilidad!',
+    'ofx'           => '¡Importe fácilmente sus transacciones bancarias con la aplicación OFX y automatice su gestión financiera!',
+    'mt940'         => '¡Suba sus extractos bancarios en formato MT940 y gestione sus finanzas con facilidad.',
 
 ];

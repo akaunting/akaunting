@@ -2,13 +2,13 @@
 
 return [
 
-    'bill_number'           => 'N.º de factura',
-    'bill_date'             => 'Fecha de la factura',
-    'bill_amount'           => 'Importe de la factura',
+    'bill_number'           => 'N.º de factura de compra',
+    'bill_date'             => 'Fecha de la factura de compra',
+    'bill_amount'           => 'Importe de la factura de compra',
     'total_price'           => 'Precio total',
     'due_date'              => 'Fecha de vencimiento',
     'order_number'          => 'Número de pedido',
-    'bill_from'             => 'Factura de',
+    'bill_from'             => 'Factura de compra de',
 
     'quantity'              => 'Cantidad',
     'price'                 => 'Precio',

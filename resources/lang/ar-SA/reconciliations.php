@@ -7,7 +7,7 @@ return [
     'reconciled'            => 'تمت التسوية',
     'opening_balance'       => 'الرصيد الافتتاحي',
     'closing_balance'       => 'الرصيد الختامي',
-    'unreconciled'          => 'لم تتم التسوية',
+    'unreconciled'          => 'لم تتم تسويتها',
     'transactions'          => 'المعاملات',
     'reconciled_amount'     => 'المبلغ المسوّى',
     'in_progress'           => 'قيد التنفيذ',
@@ -15,7 +15,7 @@ return [
     'irreconcilable'        => 'لا يمكن تسويتها',
     'start_date'            => 'تاريخ البدء',
     'end_date'              => 'تاريخ الانتهاء',
-    'cleared_amount'        => 'المبلغ المسوّى',
+    'cleared_amount'        => 'المبلغ المصفّى',
     'deposit'               => 'إيداع',
     'withdrawal'            => 'سحب',
 

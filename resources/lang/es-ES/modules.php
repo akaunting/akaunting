@@ -57,12 +57,12 @@ return [
     'about'                 => 'Acerca de',
 
     'added'                 => 'Añadida',
-    'updated'               => 'Actualizado',
+    'updated'               => 'Actualizada',
     'compatibility'         => 'Compatibilidad',
     'view'                  => 'Ver',
     'back'                  => 'Atrás',
 
-    'use_app'               => 'Empieza a usar la aplicación ahora',
+    'use_app'               => 'Empiece a usar la aplicación ahora',
 
     'see_more'              => 'Ver más',
 

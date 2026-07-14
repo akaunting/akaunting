@@ -5,12 +5,12 @@ return [
     'title' => [
         '403'       => '¡Ups! Acceso prohibido',
         '404'       => '¡Ups! Página no encontrada',
-        '500'       => '¡Vaya! Algo ha salido mal',
+        '500'       => '¡Ups! Algo ha salido mal',
     ],
 
     'header' => [
         '403'       => '403 Prohibido',
-        '404'       => '404 Página no encontrada',
+        '404'       => '404 No encontrado',
         '500'       => '500 Error interno del servidor',
     ],
 

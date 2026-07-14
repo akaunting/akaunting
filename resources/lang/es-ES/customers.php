@@ -12,8 +12,8 @@ return [
     ],
 
     'client_portal_text' => [
-        'can'                   => 'Este cliente puede acceder al portal del cliente.',
-        'cant'                  => 'Este cliente no puede acceder al portal del cliente.',
+        'can'                   => 'Este cliente puede iniciar sesión en el portal del cliente.',
+        'cant'                  => 'Este cliente no puede iniciar sesión en el portal del cliente.',
     ],
 
     'form_description' => [

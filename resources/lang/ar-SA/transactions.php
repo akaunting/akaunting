@@ -8,7 +8,7 @@ return [
     'paid_to'               => 'مدفوع إلى',
     'related_invoice'       => 'الفاتورة ذات الصلة',
     'related_bill'          => 'فاتورة الشراء ذات الصلة',
-    'recurring_income'      => 'دخل متكرر',
+    'recurring_income'      => 'إيراد متكرر',
     'recurring_expense'     => 'مصروف متكرر',
     'included_tax'          => 'مبلغ الضريبة المضمن',
     'connected'             => 'مرتبط',

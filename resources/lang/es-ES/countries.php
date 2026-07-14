@@ -163,7 +163,7 @@ return [
     'NI' => 'Nicaragua',
     'NE' => 'Níger',
     'NG' => 'Nigeria',
-    'NU' => 'Isla Niue',
+    'NU' => 'Niue',
     'NF' => 'Isla Norfolk',
     'KP' => 'Corea del Norte',
     'MK' => 'Macedonia del Norte',

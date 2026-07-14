@@ -34,7 +34,7 @@ return [
         'empty_apikey'      => 'Error: no ha introducido su clave de API. <a href=":url" class="font-bold underline underline-offset-4">Haga clic aquí</a> para introducirla.',
         'import_column'     => 'Error: :message Nombre de la columna: :column. Número de línea: :line.',
         'import_sheet'      => 'Error: el nombre de la hoja no es válido. Compruebe el archivo de ejemplo.',
-        'same_amount'       => 'Error: el importe total de la división debe coincidir exactamente con el total de :transaction: :amount',
+        'same_amount'       => 'Error: el importe total del reparto debe coincidir exactamente con el total de :transaction: :amount',
         'over_match'        => 'Error: no se ha conectado :type. El importe introducido no puede superar el total del pago: :amount',
     ],
 
@@ -45,8 +45,8 @@ return [
         'reconciled_doc'    => 'Advertencia: no puede modificar ni eliminar :type porque tiene transacciones conciliadas.',
         'disable_code'      => 'Advertencia: no puede deshabilitar <b>:name</b> ni cambiar su moneda porque tiene :text asociados.',
         'payment_cancel'    => 'Advertencia: ha cancelado su pago reciente mediante :method.',
-        'missing_transfer'  => 'Advertencia: Falta la transferencia relacionada con esta transacción. Debería considerar eliminar esta transacción.',
-        'connect_tax'       => 'Advertencia: Este :type tiene un importe de impuesto. Los impuestos añadidos al :type no se pueden conectar, por lo que el impuesto se añadirá al total y se calculará en consecuencia.',
+        'missing_transfer'  => 'Advertencia: falta la transferencia relacionada con esta transacción. Debería considerar eliminar esta transacción.',
+        'connect_tax'       => 'Advertencia: este :type tiene un importe de impuesto. Los impuestos añadidos al :type no se pueden conectar, por lo que el impuesto se añadirá al total y se calculará en consecuencia.',
         'contact_change'    => 'Advertencia: no puede cambiar el contacto de :type si ya se ha enviado, recibido o pagado.',
     ],
 

@@ -8,8 +8,8 @@ return [
     'subcopy'             => 'Si tiene problemas para hacer clic en el botón «:text», copie y pegue la siguiente URL en su navegador: [:url](:url)',
     'mark_read'           => 'Marcar como leído',
     'mark_read_all'       => 'Marcar todos como leídos',
-    'empty'               => 'Sin notificaciones',
-    'new_apps'            => ':app ya está disponible. <a href=":url">Consúltela ahora</a>.',
+    'empty'               => '¡Vaya, cero notificaciones!',
+    'new_apps'            => ':app ya está disponible. <a href=":url">¡Consúltela ahora!</a>',
 
     'update' => [
 

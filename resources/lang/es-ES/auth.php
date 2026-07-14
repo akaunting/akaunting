@@ -7,7 +7,7 @@ return [
     'logout'                => 'Salir',
     'login'                 => 'Iniciar sesión',
     'forgot'                => 'Olvidado',
-    'login_to'              => 'Inicie sesión para comenzar',
+    'login_to'              => 'Inicie sesión para comenzar su sesión',
     'remember_me'           => 'Recordarme',
     'forgot_password'       => 'Olvidé mi contraseña',
     'reset_password'        => 'Restablecer contraseña',
@@ -23,7 +23,7 @@ return [
 
     'form_description' => [
         'personal'          => 'El enlace de invitación se enviará al nuevo usuario, así que asegúrese de que la dirección de correo electrónico es correcta. Podrán introducir su contraseña.',
-        'assign'            => 'El usuario tendrá acceso a las empresas seleccionadas. Puede restringir los permisos usando <a href=":url" class="border-b border-black">roles</a>.',
+        'assign'            => 'El usuario tendrá acceso a las empresas seleccionadas. Puede restringir los permisos desde la página de <a href=":url" class="border-b border-black">roles</a>.',
         'preferences'       => 'Seleccione el idioma predeterminado del usuario. También puede establecer la página de inicio que se mostrará cuando inicie sesión.',
     ],
 
@@ -49,7 +49,7 @@ return [
     'disabled'              => 'Esta cuenta está deshabilitada. Póngase en contacto con el administrador del sistema.',
 
     'notification' => [
-        'message_1'         => 'Ha recibido este correo porque hemos recibido una solicitud de recuperación de contraseña para su cuenta.',
+        'message_1'         => 'Ha recibido este correo porque hemos recibido una solicitud de restablecimiento de contraseña para su cuenta.',
         'message_2'         => 'Si no solicitó un restablecimiento de contraseña, no es necesaria ninguna acción de su parte.',
         'button'            => 'Restablecer contraseña',
     ],
