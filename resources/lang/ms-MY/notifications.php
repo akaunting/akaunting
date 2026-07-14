@@ -6,23 +6,23 @@ return [
     'hello'               => 'Halo!',
     'salutation'          => 'Hormat Kami,<br> :company_name',
     'subcopy'             => 'Jika anda menghadapi masalah apabila menekan butang ":text", salin dan tampal URL di bawah ke dalam pelayar web anda: [:url](:url)',
-    'mark_read'           => 'Tandai Dibaca',
-    'mark_read_all'       => 'Tandai Dibaca Semua',
-    'empty'               => 'Cihuuy, gak ada notifikasi!',
+    'mark_read'           => 'Tanda Dibaca',
+    'mark_read_all'       => 'Tanda Semua Dibaca',
+    'empty'               => 'Woohoo, tiada pemberitahuan!',
     'new_apps'            => ':app tersedia. <a href=":url">Lihat sekarang</a>!',
 
     'update' => [
 
         'mail' => [
 
-            'title'         => '⚠️ Update gagal di :domain',
-            'description'   => 'Pembaruan :alias dari :current_version ke :new_version gagal dalam <strong>:step</strong> langkah dengan pesan berikut: :error_message',
+            'title'         => '⚠️ Kemas kini gagal di :domain',
+            'description'   => 'Kemas kini :alias dari :current_version ke :new_version gagal dalam langkah <strong>:step</strong> dengan mesej berikut: :error_message',
 
         ],
 
         'slack' => [
 
-            'description'   => 'Update gagal untuk :domain',
+            'description'   => 'Kemas kini gagal untuk :domain',
 
         ],
 
@@ -125,7 +125,7 @@ return [
         'import_completed' => [
 
             'title'         => 'Import selesai',
-            'description'   => 'Data <strong>:type</strong> anda sebanyak <strong>:count</strong> baris telah berjaya diimport.',
+            'description'   => 'Data <strong>:type</strong> anda dengan <strong>:count</strong> data telah berjaya diimport.',
 
         ],
 
@@ -231,8 +231,8 @@ return [
 
     'messages' => [
 
-        'mark_read'             => ':type membaca notifikasi ini!',
-        'mark_read_all'         => ':type telah membaca semua notifikasi!',
+        'mark_read'             => ':type telah membaca pemberitahuan ini!',
+        'mark_read_all'         => ':type telah membaca semua pemberitahuan!',
 
     ],
 

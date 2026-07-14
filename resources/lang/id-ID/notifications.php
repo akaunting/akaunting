@@ -124,7 +124,7 @@ return [
         'import_completed' => [
 
             'title'         => 'Impor telah selesai',
-            'description'   => '<strong>:type</strong> baris <strong>:count</strong> data Anda berhasil diimpor.',
+            'description'   => '<strong>:type</strong> dengan <strong>:count</strong> data Anda berhasil diimpor.',
 
         ],
 
@@ -230,7 +230,7 @@ return [
 
     'messages' => [
 
-        'mark_read'             => ':type membaca notifikasi ini!',
+        'mark_read'             => ':type telah membaca notifikasi ini!',
         'mark_read_all'         => ':type telah membaca semua notifikasi!',
 
     ],
@@ -240,7 +240,7 @@ return [
         'firefox' => [
 
             'title' => 'Konfigurasi Ikon Firefox',
-            'description'  => '<span class="font-medium">Jika ikon Anda tidak muncul, harap;</span> <br /> <span class="font-medium">Harap Izinkan halaman untuk memilih font mereka sendiri, bukan pilihan Anda di atas</span> <br /><br /> <span class="font-bold"> Pengaturan (Preferensi) > Font > Lanjutan </span>',
+            'description'  => '<span class="font-medium">Jika ikon Anda tidak muncul, harap:</span> <br /> <span class="font-medium">Izinkan halaman untuk memilih font mereka sendiri, bukan pilihan Anda di atas</span> <br /><br /> <span class="font-bold"> Pengaturan (Preferensi) > Font > Lanjutan </span>',
 
         ],
 

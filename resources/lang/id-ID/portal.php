@@ -10,7 +10,7 @@ return [
     'get_started'           => 'Mulai gratis',
     'billing_address'       => 'Alamat Tagihan',
     'see_all_details'       => 'Lihat semua detail rekening',
-    'all_payments'          => 'Login untuk melihat semua pembayaran',
+    'all_payments'          => 'Masuk untuk melihat semua pembayaran',
     'received_date'         => 'Tanggal Diterima',
     'redirect_description'  => 'Anda akan diarahkan ke situs :name untuk melakukan pembayaran.',
 
@@ -29,7 +29,7 @@ return [
     'latest_invoices'       => [
         'title'             => 'Faktur Terbaru',
         'description'       => ':date - Anda ditagih dengan nomor faktur :invoice_number.',
-        'no_data'           => 'Anda belum membuat faktur.',
+        'no_data'           => 'Anda belum memiliki faktur.',
     ],
 
     'invoice_history'       => [

@@ -71,8 +71,8 @@ return [
     'updated_2'             => ':module updated',
     'enabled'               => ':module enabled',
     'disabled'              => ':module disabled',
-    'pre_sale_uninstall'    => 'Don t miss the discounted price for the pre-sale!',
-    'pre_sale_install'      => 'You will have the app with the end of pre-sale.',
+    'pre_sale_uninstall'    => 'Don\'t miss the discounted price for the pre-sale!',
+    'pre_sale_install'      => 'You will receive the app at the end of the pre-sale.',
 
     'tab' => [
         'features'          => 'Features',

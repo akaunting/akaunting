@@ -241,7 +241,7 @@ return [
         'firefox' => [
 
             'title' => 'Configuración de iconos de Firefox',
-            'description'  => '<span class="font-medium">Si los iconos no aparecen:</span> <br /> <span class="font-medium">Permita que las páginas elijan sus propias fuentes en lugar de las seleccionadas arriba.</span> <br /><br /> <span class="font-bold"> Ajustes (Preferencias) > Fuentes > Avanzado </span>',
+            'description'  => '<span class="font-medium">Si los iconos no aparecen, por favor:</span> <br /> <span class="font-medium">Permita que las páginas elijan sus propias fuentes en lugar de las seleccionadas arriba.</span> <br /><br /> <span class="font-bold"> Ajustes (Preferencias) > Fuentes > Avanzado </span>',
 
         ],
 

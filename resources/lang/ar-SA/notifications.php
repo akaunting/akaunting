@@ -241,7 +241,7 @@ return [
         'firefox' => [
 
             'title' => 'تكوين أيقونات Firefox',
-            'description'  => '<span class="font-medium">إذا لم تظهر أيقوناتك يرجى؛</span> <br /> <span class="font-medium">السماح للصفحات باختيار خطوطها الخاصة، بدلاً من اختياراتك أعلاه</span> <br /><br /> <span class="font-bold"> الإعدادات (تفضيلات) > الخطوط > متقدم </span>',
+            'description'  => '<span class="font-medium">إذا لم تظهر أيقوناتك، يرجى:</span> <br /> <span class="font-medium">السماح للصفحات باختيار خطوطها الخاصة، بدلاً من اختياراتك أعلاه</span> <br /><br /> <span class="font-bold"> الإعدادات (تفضيلات) > الخطوط > متقدم </span>',
 
         ],
 

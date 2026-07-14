@@ -22,7 +22,7 @@ return [
         'profit_loss'           => 'Revenus et dépenses, y compris les factures et les factures d\'achat encore impayées',
         'expenses_by_category'  => 'Principales dépenses par catégorie',
         'account_balance'       => 'Solde actuel de vos comptes bancaires',
-        'bank_feeds'            => 'Importez automatiquement vos transactions vers Akaunting </br>en connectant vos comptes bancaires',
+        'bank_feeds'            => 'Importez automatiquement vos transactions vers Akaunting <br />en connectant vos comptes bancaires',
     ],
 
     'periods' => [

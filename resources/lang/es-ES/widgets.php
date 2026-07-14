@@ -22,7 +22,7 @@ return [
         'profit_loss'           => 'Ingresos y gastos, incluidas las facturas de venta y de compra pendientes',
         'expenses_by_category'  => 'Principales gastos de las distintas categorías',
         'account_balance'       => 'Saldo actual de sus cuentas bancarias',
-        'bank_feeds'            => 'Importe automáticamente sus transacciones a Akaunting </br>conectando sus cuentas bancarias',
+        'bank_feeds'            => 'Importe automáticamente sus transacciones a Akaunting <br />conectando sus cuentas bancarias',
     ],
 
     'periods' => [

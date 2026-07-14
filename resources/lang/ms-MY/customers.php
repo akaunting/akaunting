@@ -5,15 +5,15 @@ return [
     'can_login'                 => 'Jemput ke Portal Klien',
     'can_login_description'     => 'Hantar jemputan kepada pengguna ini untuk log masuk ke Portal Klien.',
     'user_created'              => 'Pengguna dicipta',
-    'client_portal_description' => 'Portal Klien ialah persekitaran di mana anda boleh berkongsi transaksi dan invois dengan pelanggan anda, di mana mereka menjejak hubungan mereka dengan perniagaan anda dan membuat bayaran, serta log masuk pada bila-bila masa yang mereka mahu; dengan kata laluan mereka',
+    'client_portal_description' => 'Portal Pelanggan ialah persekitaran di mana anda boleh berkongsi transaksi dan invois dengan pelanggan anda, di mana mereka menjejak hubungan mereka dengan perniagaan anda, membayar dalam talian, dan log masuk pada bila-bila masa yang mereka mahu dengan kata laluan mereka',
 
     'error' => [
         'email'                 => 'E-mel ini telah digunakan.',
     ],
 
     'client_portal_text' => [
-        'can'                   => 'Pelanggan ini dapat masuk ke portal klien.',
-        'cant'                  => 'Pelanggan ini tidak dapat masuk ke portal klien.',
+        'can'                   => 'Pelanggan ini boleh log masuk ke portal klien.',
+        'cant'                  => 'Pelanggan ini tidak boleh log masuk ke portal klien.',
     ],
 
     'form_description' => [

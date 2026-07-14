@@ -72,7 +72,7 @@ return [
     'enabled'               => 'تم تفعيل :module',
     'disabled'              => 'تم تعطيل :module',
     'pre_sale_uninstall'    => 'لا تفوت السعر المخفض للبيع المسبق!',
-    'pre_sale_install'      => 'سيكون لديك التطبيق مع نهاية البيع المسبق.',
+    'pre_sale_install'      => 'ستستلم التطبيق عند نهاية البيع المسبق.',
 
     'tab' => [
         'features'          => 'الميزات',

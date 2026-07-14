@@ -8,7 +8,7 @@ return [
     'subcopy'             => 'If you’re having trouble clicking the ":text" button, copy and paste the URL below into your web browser: [:url](:url)',
     'mark_read'           => 'Mark as Read',
     'mark_read_all'       => 'Mark as All Read',
-    'empty'               => 'Woohoo, notification zero!',
+    'empty'               => 'Woohoo, zero notifications!',
     'new_apps'            => ':app is available. <a href=":url">Check it out now</a>!',
 
     'update' => [
@@ -125,7 +125,7 @@ return [
         'import_completed' => [
 
             'title'         => 'Import completed',
-            'description'   => 'Your <strong>:type</strong> lined <strong>:count</strong> data is imported successfully.',
+            'description'   => 'Your <strong>:type</strong> with <strong>:count</strong> data is imported successfully.',
 
         ],
 
@@ -231,8 +231,8 @@ return [
 
     'messages' => [
 
-        'mark_read'             => ':type is read this notification!',
-        'mark_read_all'         => ':type is read all notifications!',
+        'mark_read'             => ':type has read this notification!',
+        'mark_read_all'         => ':type has read all notifications!',
 
     ],
 
@@ -241,7 +241,7 @@ return [
         'firefox' => [
 
             'title' => 'Firefox Icon Configuration',
-            'description'  => '<span class="font-medium">If your icons not appear please;</span> <br /> <span class="font-medium">Please Allow pages to choose their own fonts, instead of your selections above</span> <br /><br /> <span class="font-bold"> Settings (Preferences) > Fonts > Advanced </span>',
+            'description'  => '<span class="font-medium">If your icons do not appear, please:</span> <br /> <span class="font-medium">Allow pages to choose their own fonts, instead of your selections above</span> <br /><br /> <span class="font-bold"> Settings (Preferences) > Fonts > Advanced </span>',
 
         ],
 

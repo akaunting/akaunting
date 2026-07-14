@@ -30,8 +30,8 @@ return [
     'password' => [
         'pass'              => 'Password',
         'pass_confirm'      => 'Password Confirmation',
-        'current'           => 'Password',
-        'current_confirm'   => 'Password Confirmation',
+        'current'           => 'Current Password',
+        'current_confirm'   => 'Current Password Confirmation',
         'new'               => 'New Password',
         'new_confirm'       => 'New Password Confirmation',
     ],

@@ -5,7 +5,7 @@ return [
     'can_login'                 => 'Invitar al portal del cliente',
     'can_login_description'     => 'Envíe una invitación a este usuario para que inicie sesión en el portal del cliente.',
     'user_created'              => 'Usuario creado',
-    'client_portal_description' => 'El portal del cliente es un entorno en el que puede compartir transacciones y facturas con sus clientes. Estos pueden consultar su relación con su empresa, realizar pagos e iniciar sesión con su contraseña cuando lo deseen.',
+    'client_portal_description' => 'El portal del cliente es un entorno en el que puede compartir transacciones y facturas con sus clientes. Estos pueden consultar su relación con su empresa, realizar pagos en línea e iniciar sesión con su contraseña cuando lo deseen.',
 
     'error' => [
         'email'                 => 'Esta dirección de correo electrónico ya está en uso.',

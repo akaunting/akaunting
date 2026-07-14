@@ -5,7 +5,7 @@ return [
     'can_login'                 => 'Inviter sur le portail client',
     'can_login_description'     => 'Envoyez une invitation à cet utilisateur pour se connecter au portail client.',
     'user_created'              => 'Utilisateur créé',
-    'client_portal_description' => 'Le portail client est un environnement où vous pouvez partager des transactions et des factures avec vos clients, où ils suivent leurs relations avec votre entreprise et font leur règlement. Ils peuvent se connecter quand ils le veulent avec leur mot de passe.',
+    'client_portal_description' => 'Le portail client est un environnement où vous pouvez partager des transactions et des factures avec vos clients, où ils suivent leur relation avec votre entreprise et paient en ligne. Ils peuvent se connecter quand ils le veulent avec leur mot de passe.',
 
     'error' => [
         'email'                 => 'Cet email est déjà pris.',

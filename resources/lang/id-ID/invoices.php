@@ -51,7 +51,7 @@ return [
 
     'messages' => [
         'email_required'    => 'Tidak ada alamat email untuk pelanggan ini!',
-        'totals_required'   => 'Total faktur diperlukan, mohon edit :type dan coba simpan kembali.',
+        'totals_required'   => 'Total faktur diperlukan. Mohon edit :type dan coba simpan kembali.',
 
         'draft'             => 'Faktur ini merupakan <b>DRAFT</b> dan akan terlihat pada grafik ketika sudah dibayarkan',
 

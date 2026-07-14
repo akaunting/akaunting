@@ -22,7 +22,7 @@ return [
         'extension'         => ':extension ekstensi perlu diinstal dan dimuat!',
         'directory'         => ':directory direktori perlu dapat ditulis!',
         'executable'        => 'Berkas PHP CLI belum didefinisikan/bekerja atau bukan versi :php_version ke atas. Mohon tanyakan ke penyedia hosting untuk mengatur variabel PHP_BINARY atau PHP_PATH dengan benar.',
-        'npm'               => '<b>File JavaScript tidak ada !</b> <br><br><span>Anda harus menjalankan perintah <em class="underline">npm install</em> dan <em class="underline">npm run dev</em>.</span>',
+        'npm'               => '<b>File JavaScript tidak ada!</b> <br><br><span>Anda harus menjalankan perintah <em class="underline">npm install</em> dan <em class="underline">npm run dev</em>.</span>',
     ],
 
     'database' => [
@@ -46,6 +46,6 @@ return [
 
     'update' => [
         'core'              => 'Versi baru Akaunting tersedia! Harap perbarui <a href=":url">pemasangan Anda.</a>',
-        'module'            => ':module versi baru tersedia! Harap perbarui <a href=":url">pemasangan Anda.</a>',
+        'module'            => 'Versi baru :module tersedia! Harap perbarui <a href=":url">pemasangan Anda.</a>',
     ],
 ];

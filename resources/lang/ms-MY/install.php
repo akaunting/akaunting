@@ -46,6 +46,6 @@ return [
 
     'update' => [
         'core'              => 'Versi baharu Akaunting tersedia! Sila kemas kini <a href=":url">pemasangan anda.</a>',
-        'module'            => ':module versi baharu tersedia! Sila kemas kini <a href=":url">pemasangan anda.</a>',
+        'module'            => 'Versi baharu :module tersedia! Sila kemas kini <a href=":url">pemasangan anda.</a>',
     ],
 ];

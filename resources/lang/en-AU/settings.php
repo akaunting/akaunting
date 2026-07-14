@@ -19,7 +19,7 @@ return [
     ],
 
     'localisation' => [
-        'description'                   => 'Set fiscal year, time zone, date format and more locals',
+        'description'                   => 'Set fiscal year, time zone, date format and more localisations',
         'search_keywords'               => 'financial, year, start, denote, time, zone, date, format, separator, discount, percent',
         'financial_start'               => 'Financial Year Start',
         'timezone'                      => 'Time Zone',
@@ -53,7 +53,7 @@ return [
         'form_description' => [
             'fiscal'                    => 'Set the financial year period that your company uses for taxing and reporting.',
             'date'                      => 'Select the date format that you want to see everywhere in the interface.',
-            'other'                     => 'Select the where the percentage sign is displayed for taxes. You can enable discounts on line items and at the total for invoices and bills.',
+            'other'                     => 'Select where the percentage sign is displayed for taxes. You can enable discounts on line items and at the total for invoices and bills.',
         ],
     ],
 
@@ -123,12 +123,12 @@ return [
         'form_description' => [
             'general'                   => 'Select the default account, tax, and payment method to create records swiftly. Dashboard and Reports are shown under the default currency.',
             'category'                  => 'Select the default categories to expedite the record creation.',
-            'other'                     => 'Customise the default settings of the company language and how pagination works. ',
+            'other'                     => 'Customise the default settings of the company language and how pagination works.',
         ],
     ],
 
     'email' => [
-        'description'                   => 'Change the sending protocol and email templates',
+        'description'                   => 'Change the sending protocol',
         'search_keywords'               => 'email, send, protocol, smtp, host, password',
         'protocol'                      => 'Protocol',
         'php'                           => 'PHP Mail',
@@ -163,8 +163,8 @@ return [
             'invoice_recur_customer'    => 'Invoice Recurring Template (sent to customer)',
             'invoice_recur_admin'       => 'Invoice Recurring Template (sent to admin)',
             'invoice_view_admin'        => 'Invoice View Template (sent to admin)',
-            'invoice_payment_customer'  => 'Payment Received Template (sent to customer)',
-            'invoice_payment_admin'     => 'Payment Received Template (sent to admin)',
+            'invoice_payment_customer'  => 'Invoice Payment Receipt Template (sent to customer)',
+            'invoice_payment_admin'     => 'Invoice Payment Received Template (sent to admin)',
             'bill_remind_admin'         => 'Bill Reminder Template (sent to admin)',
             'bill_recur_admin'          => 'Bill Recurring Template (sent to admin)',
             'payment_received_customer' => 'Payment Receipt Template (sent to customer)',

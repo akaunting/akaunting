@@ -34,7 +34,7 @@ return [
     'add_payment'           => 'Add Payment',
     'mark_paid'             => 'Mark Paid',
     'mark_received'         => 'Mark Received',
-    'mark_cancelled'        => 'Mark Cancelled',
+    'mark_cancelled'        => 'Mark Canceled',
     'download_pdf'          => 'Download PDF',
     'send_mail'             => 'Send Email',
     'create_bill'           => 'Create Bill',
@@ -51,7 +51,7 @@ return [
         'status' => [
             'created'       => 'Created on :date',
             'receive' => [
-                'draft'     => 'Not sent',
+                'draft'     => 'Not received',
                 'received'  => 'Received on :date',
             ],
             'paid' => [

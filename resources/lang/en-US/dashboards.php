@@ -9,7 +9,7 @@ return [
     ],
 
     'form_description' => [
-        'general'               => 'Select the users you want have access to the new dashboard.',
+        'general'               => 'Select the users you want to have access to the new dashboard.',
     ],
 
 ];

@@ -6,7 +6,7 @@ return [
     'title'                 => 'Importar :type',
     'limitations'           => 'Tipos de archivo permitidos: :extensions<br>Máximo de filas permitido: :row_limit',
     'sample_file'           => 'Puede <a target="_blank" href=":download_link"><strong>descargar</strong></a> el archivo de ejemplo y rellenarlo con sus datos.',
-    'sample_file_and_document'  => 'Puede <a target="_blank" href=":download_link" class="text-blue-500 underline font-bold">descargar</a> el archivo de ejemplo y consultar la <a target="_blank" href=":document_link"class="text-blue-500 underline font-bold">documentación</a> para obtener información detallada',
+    'sample_file_and_document'  => 'Puede <a target="_blank" href=":download_link" class="text-blue-500 underline font-bold">descargar</a> el archivo de ejemplo y consultar la <a target="_blank" href=":document_link" class="text-blue-500 underline font-bold">documentación</a> para obtener información detallada',
     'drop_file'                 => '<span style="color: #006EA6;">Subir un archivo</span> o arrastrar y soltar',
     'file_type_and_limitations' => ':extensions hasta :row_limit filas',
 

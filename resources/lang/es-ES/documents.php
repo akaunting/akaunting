@@ -67,8 +67,8 @@ return [
     'form_description' => [
         'companies'             => 'Cambie la dirección, el logotipo y otra información para su empresa.',
         'billing'               => 'Los detalles de facturación aparecen en su documento.',
-        'advanced'              => 'Seleccione la categoría, añada o edite el pie de página y adjunte archivos a :type.',
-        'attachment'            => 'Descargue los archivos adjuntos a :type.',
+        'advanced'              => 'Seleccione la categoría, añada o edite el pie de página y adjunte archivos a su :type.',
+        'attachment'            => 'Descargue los archivos adjuntos a este :type.',
     ],
 
     'slider' => [
@@ -81,14 +81,14 @@ return [
     ],
 
     'messages' => [
-        'email_sent'            => 'Se ha enviado el correo de :type.',
-        'restored'              => 'Se ha restaurado :type.',
-        'marked_as'             => 'Se ha marcado :type como :status.',
-        'marked_sent'           => 'Se ha marcado :type como enviado.',
-        'marked_paid'           => 'Se ha marcado :type como pagado.',
-        'marked_viewed'         => 'Se ha marcado :type como visto.',
-        'marked_cancelled'      => 'Se ha marcado :type como cancelado.',
-        'marked_received'       => 'Se ha marcado :type como recibido.',
+        'email_sent'            => '¡Se ha enviado el correo de :type!',
+        'restored'              => '¡Se ha restaurado :type!',
+        'marked_as'             => '¡Se ha marcado :type como :status!',
+        'marked_sent'           => '¡Se ha marcado :type como enviado!',
+        'marked_paid'           => '¡Se ha marcado :type como pagado!',
+        'marked_viewed'         => '¡Se ha marcado :type como visto!',
+        'marked_cancelled'      => '¡Se ha marcado :type como cancelado!',
+        'marked_received'       => '¡Se ha marcado :type como recibido!',
     ],
 
     'recurring' => [

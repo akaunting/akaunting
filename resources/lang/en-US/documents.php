@@ -66,7 +66,7 @@ return [
 
     'form_description' => [
         'companies'             => 'Change the address, logo, and other information for your company.',
-        'billing'               => 'Billing details appears in your document.',
+        'billing'               => 'Billing details appear in your document.',
         'advanced'              => 'Select the category, add or edit the footer, and add attachments to your :type.',
         'attachment'            => 'Download the files attached to this :type',
     ],

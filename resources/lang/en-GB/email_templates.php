@@ -43,13 +43,13 @@ return [
     ],
 
     'bill_remind_admin' => [
-        'subject'       => '{bill_number} bill reminding notice',
-        'body'          => 'Hello,<br /><br />This is a reminding notice for <strong>{bill_number}</strong> bill to {vendor_name}.<br /><br />The bill total is {bill_total} and is due <strong>{bill_due_date}</strong>.<br /><br />You can see the bill details from the following link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Best Regards,<br />{company_name}',
+        'subject'       => '{bill_number} bill reminder notice',
+        'body'          => 'Hello,<br /><br />This is a reminder notice for <strong>{bill_number}</strong> bill to {vendor_name}.<br /><br />The bill total is {bill_total} and is due <strong>{bill_due_date}</strong>.<br /><br />You can see the bill details from the following link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Best Regards,<br />{company_name}',
     ],
 
     'bill_recur_admin' => [
         'subject'       => '{bill_number} recurring bill created',
-        'body'          => 'Hello,<br /><br />Based on {vendor_name}\'s recurring cycle, <strong>{bill_number}</strong> bill has been automatically created.<br /><br />You can see the bill details from the following link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Best regards,<br />{company_name}',
+        'body'          => 'Hello,<br /><br />Based on {vendor_name}\'s recurring cycle, <strong>{bill_number}</strong> bill has been automatically created.<br /><br />You can see the bill details from the following link: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Best Regards,<br />{company_name}',
     ],
 
     'payment_received_customer' => [

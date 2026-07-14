@@ -51,7 +51,7 @@ return [
 
     'messages' => [
         'email_required'    => 'Ce client ne possède pas d\'email !',
-        'totals_required'   => 'Les totaux de la facture sont requis Veuillez modifier le :type et l\'enregistrer à nouveau.',
+        'totals_required'   => 'Les totaux de la facture sont requis. Veuillez modifier le :type et l\'enregistrer à nouveau.',
 
         'draft'             => 'Ceci est une facture <b>BROUILLON</b> et sera comptabilisée dans les graphiques après réception.',
 

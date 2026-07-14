@@ -72,7 +72,7 @@ return [
     'enabled'               => ':module activé',
     'disabled'              => ':module désactivé',
     'pre_sale_uninstall'    => 'Ne manquez pas le prix réduit de la pré-vente !',
-    'pre_sale_install'      => 'Vous aurez l\'application à la fin de la pré-vente.',
+    'pre_sale_install'      => 'Vous recevrez l\'application à la fin de la pré-vente.',
 
     'tab' => [
         'features'          => 'Fonctionnalités',

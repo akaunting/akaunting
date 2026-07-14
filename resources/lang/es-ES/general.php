@@ -211,7 +211,6 @@ return [
     'due_on'                => 'Vence el',
     'amount_due'            => 'Importe pendiente',
     'financial_year'        => 'Año fiscal',
-    'created'               => 'Creado',
     'state'                 => 'Provincia / Estado',
     'zip_code'              => 'Código postal',
     'parent'                => 'Principal',

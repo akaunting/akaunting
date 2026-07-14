@@ -3,7 +3,7 @@
 return [
 
     'title' => [
-        '403'       => 'Oops! Access Forbidden',
+        '403'       => 'Oops! Forbidden Access',
         '404'       => 'Oops! Page not found',
         '500'       => 'Oops! Something went wrong',
     ],
@@ -17,7 +17,7 @@ return [
     'message' => [
         '403'       => 'You can not access this page.',
         '404'       => 'We could not find the page you were looking for.',
-        '500'       => 'We\'ll work on fixing this right away.',
+        '500'       => 'We will work on fixing that right away.',
         'record'    => 'We could not find the record you were looking for.',
         'amount'    => 'This page contains invalid amounts! Please, contact the system administrator.',
     ],

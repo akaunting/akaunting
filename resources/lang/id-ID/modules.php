@@ -72,7 +72,7 @@ return [
     'enabled'               => ':module diaktifkan',
     'disabled'              => ':module dinonaktifkan',
     'pre_sale_uninstall'    => 'Jangan lewatkan harga diskon untuk pra-penjualan!',
-    'pre_sale_install'      => 'Anda akan memiliki aplikasi dengan akhir pra-penjualan.',
+    'pre_sale_install'      => 'Anda akan menerima aplikasi pada akhir pra-penjualan.',
 
     'tab' => [
         'features'          => 'Fitur',

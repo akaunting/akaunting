@@ -153,7 +153,7 @@ return [
     'customize'             => 'Sesuaikan',
     'search'                => 'Cari',
     'search_text'           => 'Cari teks ini',
-    'search_placeholder'    => 'Taip untuk mencari..',
+    'search_placeholder'    => 'Taip untuk mencari...',
     'filter'                => 'Tapis',
     'help'                  => 'Bantuan',
     'all'                   => 'Semua',
@@ -205,7 +205,7 @@ return [
     'create_first_invoice'  => 'Cipta invois pertama anda',
     'is'                    => 'ialah',
     'isnot'                 => 'bukan',
-    'recurring_and_more'    => 'Berulang dan lagi..',
+    'recurring_and_more'    => 'Berulang dan lagi...',
     'due'                   => 'Tertunggak',
     'due_on'                => 'Jatuh tempo pada',
     'amount_due'            => 'Jumlah tertunggak',
@@ -296,8 +296,8 @@ return [
     ],
 
     'placeholder' => [
-        'search'            => 'Taip untuk mencari..',
-        'search_and_filter' => 'Cari atau tapis hasil..',
+        'search'            => 'Taip untuk mencari...',
+        'search_and_filter' => 'Cari atau tapis hasil...',
         'select_and_filter' => 'Pilih salah satu pilihan di bawah',
         'enter_and_filter'  => 'Tekan enter untuk menapis hasil, atau tetapkan tapisan baharu',
         'contact_search'    => 'Taip nama :type',

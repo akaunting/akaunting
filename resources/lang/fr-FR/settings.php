@@ -19,7 +19,7 @@ return [
     ],
 
     'localisation' => [
-        'description'                   => 'Définir l\'année fiscale, le fuseau horaire, le format de la date et autres paramètres locaux',
+        'description'                   => 'Définir l\'année fiscale, le fuseau horaire, le format de la date et d\'autres localisations',
         'search_keywords'               => 'financier, année, début, désigne, heure, fuseau horaire, date, format, séparateur, réduction, pourcent',
         'financial_start'               => 'Date de début d\'exercice financier',
         'timezone'                      => 'Fuseau horaire',
@@ -123,7 +123,7 @@ return [
         'form_description' => [
             'general'                   => 'Sélectionnez le compte par défaut, la taxe et la méthode de paiement pour créer des enregistrements rapidement. Le tableau de bord et les rapports sont affichés dans la devise par défaut.',
             'category'                  => 'Sélectionnez les catégories par défaut pour accélérer la création de l\'enregistrement.',
-            'other'                     => 'Personnalisez les paramètres par défaut de la langue de l\'entreprise et le fonctionnement de la pagination. ',
+            'other'                     => 'Personnalisez les paramètres par défaut de la langue de l\'entreprise et le fonctionnement de la pagination.',
         ],
     ],
 

@@ -39,7 +39,7 @@ return [
     'error' => [
         'self_delete'       => 'Error: Can not delete yourself!',
         'self_disable'      => 'Error: Can not disable yourself!',
-        'unassigned'        => 'Error: Can not unassigned company! The :company company must be assigned at least one user.',
+        'unassigned'        => 'Error: Can not unassign company! The :company company must be assigned at least one user.',
         'no_company'        => 'Error: No company assigned to your account. Please, contact the system administrator.',
     ],
 
@@ -64,7 +64,7 @@ return [
         'invoice'           => 'Create invoices easily',
         'reports'           => 'Get detailed reports',
         'expense'           => 'Track any expense',
-        'customize'         => 'Customize your Akaunting',
+        'customize'         => 'Customise your Akaunting',
     ],
 
     'roles' => [

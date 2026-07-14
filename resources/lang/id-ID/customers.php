@@ -5,7 +5,7 @@ return [
     'can_login'                 => 'Undang ke Portal Klien',
     'can_login_description'     => 'Kirim undangan ke pengguna ini untuk masuk ke Portal Klien.',
     'user_created'              => 'Pengguna berhasil dibuat',
-    'client_portal_description' => 'Portal Pelanggan adalah lingkungan di mana Anda dapat berbagi transaksi dan faktur dengan pelanggan Anda, di mana mereka melacak hubungan mereka dengan bisnis Anda dan membayar, dan masuk kapan pun mereka mau; dengan kata sandi mereka',
+    'client_portal_description' => 'Portal Pelanggan adalah lingkungan di mana Anda dapat berbagi transaksi dan faktur dengan pelanggan Anda, di mana mereka melacak hubungan mereka dengan bisnis Anda, membayar secara online, dan masuk kapan pun mereka mau dengan kata sandi mereka',
 
     'error' => [
         'email'                 => 'Email ini sudah dipakai.',

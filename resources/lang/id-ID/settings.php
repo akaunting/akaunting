@@ -19,7 +19,7 @@ return [
     ],
 
     'localisation' => [
-        'description'                   => 'Tetapkan tahun fiskal, zona waktu, format tanggal dan lebih banyak bahasa lokal',
+        'description'                   => 'Tetapkan tahun fiskal, zona waktu, format tanggal dan pelokalan lainnya',
         'search_keywords'               => 'keuangan, tahun, mulai, menunjukkan, waktu, zona, tanggal, format, pemisah, diskon, persen',
         'financial_start'               => 'Awal Tahun Keuangan',
         'timezone'                      => 'Zona Waktu',

@@ -125,7 +125,7 @@ return [
         'import_completed' => [
 
             'title'         => 'Importation terminée',
-            'description'   => 'Vos données <strong>:type</strong> lignées <strong>:count</strong> ont été importées avec succès.',
+            'description'   => 'Vos données <strong>:type</strong> avec <strong>:count</strong> entrées ont été importées avec succès.',
 
         ],
 
@@ -241,7 +241,7 @@ return [
         'firefox' => [
 
             'title' => 'Configuration des icônes dans Firefox',
-            'description'  => '<span class="font-medium">Si vos icônes n\'apparaissent pas, merci d\'activer;</span> <br /> <span class="font-medium">Autoriser les pages web à utiliser leurs propres polices au lieu de celles choisies ci-dessus</span> <br /><br /> <span class="font-bold">dans Paramètres > Général > Polices > Avancé </span>',
+            'description'  => '<span class="font-medium">Si vos icônes n\'apparaissent pas, veuillez activer :</span> <br /> <span class="font-medium">Autoriser les pages web à utiliser leurs propres polices au lieu de celles choisies ci-dessus</span> <br /><br /> <span class="font-bold">dans Paramètres > Général > Polices > Avancé </span>',
 
         ],
 
