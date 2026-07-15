@@ -11,7 +11,7 @@ return [
     'tiles'                 => 'सूची',
     'item'                  => 'ऐप विवरण',
     'pre_sale'              => 'पूर्व बिक्री',
-    'no_apps'               => 'अपने व्यवसाय के लिए सबसे अधिक पेशेवर ऐप्स देखें और उन्हें सर्वोत्तम मूल्य पर प्राप्त करें।',
+    'no_apps'               => 'इस श्रेणी में अभी तक कोई ऐप नहीं है।',
     'learn_more'            => 'और अधिक जानें',
     'see_apps'              => 'ऐप्स देखें',
     'no_apps_marketing'     => 'अपना व्यवसाय पेशेवर रूप से करें',
@@ -36,11 +36,11 @@ return [
     'if_paid_year'          => 'या <strong>:price/mo</strong> अगर सालाना भुगतान किया जाता है',
     'install'               => 'इंस्टॉल करें',
     'buy_now'               => 'अभी खरीदें',
-    'get_api_key'           => 'अपनी एपीआई कुंजी प्राप्त करने के लिए यहां <a href=":url" target="_blank">क्लिक</a> करें।',
+    'get_api_key'           => 'अपनी API कुंजी प्राप्त करने के लिए यहां <a href=":url" target="_blank" class="text-green">क्लिक करें</a>।',
     'no_apps'               => 'अपने व्यवसाय के लिए सबसे अधिक पेशेवर ऐप्स देखें और उन्हें सर्वोत्तम मूल्य पर प्राप्त करें।',
     'become_developer'      => 'क्या आप एक डेवलपर हैं? <a href=":url" target="_blank">यहां</a> आप सीख सकते हैं कि ऐप कैसे बनाएं और आज बेचना शुरू करें!',
     'recommended_apps'      => 'अनुशंसित ऐप्स',
-    'can_not_install'       => 'मासिक सदस्यता केवल क्लाउड सेवा पर उपलब्ध है। <a href="https://akaunting.com/upgrad-to-yearly" target="_blank">और जानें।</a>',
+    'can_not_install'       => 'मासिक सदस्यता केवल क्लाउड सेवा पर उपलब्ध है। <a href="https://akaunting.com/upgrade-to-yearly" target="_blank">और जानें।</a>',
     'apps_managing'         => 'सबसे ट्रेंडिंग ऐप्स देखें और आज ही पेशेवर रूप से अपने वित्त का प्रबंधन शुरू करें।',
     'ready'                 => 'तैयार',
     'popular_this_week'     => 'इस सप्ताह में लोकप्रिय',
@@ -49,9 +49,9 @@ return [
     'get_premium_cloud'     => 'प्रीमियम क्लाउड प्राप्त करें',
     'switch_to_cloud'       => 'क्लाउड पर स्विच करें',
     'hosted_on_akaunting'   => 'akaunting.com पर होस्ट किया गया',
-    'information_on_preme'  => ':period विकल्प केवल  <a href=":url" target="_blank" class="to-black-400 hover:bg-full-2 bg-no-repeat bg-0-2 bg-0-full bg-gradient-to-b from-transparent transition-backgroundSize"><strong>क्लाउड</strong></a> पर उपलब्ध है।',
-    'information_monthly'   => 'यह विकल्प केवल <strong>क्लाउड सेवा</strong> के लिए मान्य है',
-    'only_works_cloud'      => 'यह ऐप केवल <strong>क्लाउड सेवा</strong> पर काम करता है।',
+    'information_on_preme'  => ':period विकल्प केवल <a href=":url" target="_blank" class="to-black-400 hover:bg-full-2 bg-no-repeat bg-0-2 bg-0-full bg-gradient-to-b from-transparent transition-backgroundSize"><strong>क्लाउड</strong></a> पर उपलब्ध है।',
+    'information_monthly'   => 'यह विकल्प केवल <a href=":url" target="_blank" class="to-black-400 hover:bg-full-2 bg-no-repeat bg-0-2 bg-0-full bg-gradient-to-b from-transparent transition-backgroundSize"><strong>क्लाउड सेवा</strong></a> के लिए मान्य है।',
+    'only_works_cloud'      => 'यह ऐप केवल <strong>क्लाउड</strong> पर काम करता है।',
     'only_premium_plan'     => 'यह ऐप केवल <strong>क्लाउड प्रीमियम सेवा</strong> पर काम करता है।',
     'not_found'             => 'कोई ऐप नहीं मिला',
 
@@ -110,19 +110,19 @@ return [
     ],
 
     'badge' => [
-        'installed'         => 'इंस्टॉलेंड',
+        'installed'         => 'इंस्टॉल्ड',
         'pre_sale'          => 'पूर्व-बिक्री',
     ],
 
     'button' => [
         'uninstall'         => 'अनइंस्टॉल',
-        'disable'           => 'निष्क्रिय',
-        'enable'            => 'सक्रिय',
+        'disable'           => 'निष्क्रिय करें',
+        'enable'            => 'सक्रिय करें',
     ],
 
     'my' => [
-        'purchased'         => 'खरीद',
-        'installed'         => 'इंस्टॉलेंड',
+        'purchased'         => 'खरीदा',
+        'installed'         => 'इंस्टॉल्ड',
     ],
 
     'reviews' => [

@@ -2,9 +2,9 @@
 
 return [
 
-    'title' => 'En Mantenimiento',
+    'title' => 'En mantenimiento',
 
-    'message' => 'Lo sentimos, estamos en mantenimiento. Por favor, inténtalo de nuevo más tarde!',
+    'message' => 'Lo sentimos, estamos en mantenimiento. Por favor, inténtelo de nuevo más tarde!',
 
     'read_only' => 'El modo de solo lectura está activo. Puede ver pero no hacer cambios.',
 

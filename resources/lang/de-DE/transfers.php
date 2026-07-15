@@ -6,14 +6,14 @@ return [
 
     'from_account'          => 'Von Konto',
     'to_account'            => 'Auf Konto',
-    'from_rate'             => 'Von Rabatt',
-    'to_rate'               => 'Nach Rabatt',
-    'from_account_rate'     => 'Von Konto',
-    'to_account_rate'       => 'Nach Konto',
+    'from_rate'             => 'Von Kurs',
+    'to_rate'               => 'Nach Kurs',
+    'from_account_rate'     => 'Von Kontokurs',
+    'to_account_rate'       => 'Nach Kontokurs',
     'from_amount'           => 'Von Betrag',
     'to_amount'             => 'Nach Betrag',
     'issued_at'             => 'Ausstellungsdatum',
-    'rate'                  => 'Rate',
+    'rate'                  => 'Kurs',
 
     'form_description' => [
         'general'           => 'Überweisen Sie Geld zwischen Konten mit verschiedenen Währungen und binden Sie die Währung an die Kurse, die Sie wünschen.',

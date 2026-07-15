@@ -6,11 +6,11 @@ return [
     'profile'               => 'Profilo',
     'logout'                => 'Esci',
     'login'                 => 'Accedi',
-    'forgot'                => 'Dimenticato',
+    'forgot'                => 'Dimenticata',
     'login_to'              => 'Accedi per iniziare la sessione',
     'remember_me'           => 'Ricordami',
     'forgot_password'       => 'Password dimenticata',
-    'reset_password'        => 'Reimposta la Password',
+    'reset_password'        => 'Reimposta password',
     'change_password'       => 'Cambia password',
     'enter_email'           => 'Inserisci il tuo indirizzo email',
     'current_email'         => 'Email attuale',
@@ -23,23 +23,23 @@ return [
 
     'form_description' => [
         'personal'          => 'Il collegamento di invito verrà inviato al nuovo utente, quindi assicurati che l\'indirizzo email sia corretto. Potranno inserire la propria password.',
-        'assign'            => 'L\'utente avrà accesso alle aziende selezionate. È possibile limitare le autorizzazioni dalla pagina <a href=":url" class="border-b border-black">ruoli</a>.',
-        'preferences'       => 'Selezionare la lingua predefinita dell\'utente. Puoi anche impostare la pagina di destinazione dopo che l\'utente ha effettuato l\'accesso.',
+        'assign'            => 'L\'utente avrà accesso alle aziende selezionate. Puoi limitare le autorizzazioni dalla pagina <a href=":url" class="border-b border-black">ruoli</a>.',
+        'preferences'       => 'Seleziona la lingua predefinita dell\'utente. Puoi anche impostare la pagina di destinazione dopo che l\'utente ha effettuato l\'accesso.',
     ],
 
     'password' => [
         'pass'              => 'Password',
         'pass_confirm'      => 'Conferma password',
-        'current'           => 'Password',
-        'current_confirm'   => 'Conferma Password',
-        'new'               => 'Nuova Password',
-        'new_confirm'       => 'Conferma Nuova Password',
+        'current'           => 'Password attuale',
+        'current_confirm'   => 'Conferma password attuale',
+        'new'               => 'Nuova password',
+        'new_confirm'       => 'Conferma nuova password',
     ],
 
     'error' => [
-        'self_delete'       => 'Errore: Non puoi eliminarlo!',
-        'self_disable'      => 'Errore: Non puoi disabilitarlo!',
-        'unassigned'        => ': impossibile annullare l\'assegnazione della società! Alla società :company deve essere assegnato almeno un utente.',
+        'self_delete'       => 'Errore: Non puoi eliminare te stesso!',
+        'self_disable'      => 'Errore: Non puoi disabilitare te stesso!',
+        'unassigned'        => 'Errore: Impossibile annullare l\'assegnazione della società! Alla società :company deve essere assegnato almeno un utente.',
         'no_company'        => 'Errore: Nessuna società assegnata al tuo account. Per favore, contatta l\'amministratore di sistema.',
     ],
 
@@ -51,7 +51,7 @@ return [
     'notification' => [
         'message_1'         => 'Hai ricevuto questa email perché abbiamo ricevuto una richiesta di reimpostazione della password per il tuo account.',
         'message_2'         => 'Se non hai richiesto la reimpostazione della password, non sono necessarie ulteriori azioni.',
-        'button'            => 'Resetta la Password',
+        'button'            => 'Reimposta password',
     ],
 
     'invitation' => [
@@ -63,26 +63,26 @@ return [
     'information' => [
         'invoice'           => 'Crea facilmente fatture',
         'reports'           => 'Ottieni report dettagliati',
-        'expense'           => 'Tieni traccia di tutte le spese',
+        'expense'           => 'Tieni traccia di ogni uscita',
         'customize'         => 'Personalizza il tuo Akaunting',
     ],
 
     'roles' => [
         'admin' => [
-            'name'          => 'Ammin',
-            'description'   => 'Ottengono pieno accesso al tuo Akaunting inclusi clienti, fatture, report, impostazioni e app.',
+            'name'          => 'Amministratore',
+            'description'   => 'Hanno pieno accesso al tuo Akaunting inclusi clienti, fatture, report, impostazioni e app.',
         ],
         'manager' => [
-            'name'          => 'Gestore',
+            'name'          => 'Manager',
             'description'   => 'Hanno accesso completo al tuo Akaunting, ma non possono gestire utenti e app.',
         ],
         'customer' => [
             'name'          => 'Cliente',
-            'description'   => 'Possono accedere al Portale Clienti e pagare le fatture online tramite i metodi di pagamento impostati.',
+            'description'   => 'Possono accedere al portale clienti e pagare le fatture online tramite i metodi di pagamento impostati.',
         ],
         'accountant' => [
             'name'          => 'Ragioniere',
-            'description'   => 'Possono accedere a fatture, transazioni, report e creare voci di giornale.',
+            'description'   => 'Possono accedere a fatture, transazioni, report e creare registrazioni contabili.',
         ],
         'employee' => [
             'name'          => 'Dipendente',

@@ -4,7 +4,7 @@ return [
 
     'years'                         => 'Jahr|Jahre',
     'date_range'                    => 'Zeitraum',
-    'preferences'                   => 'Einstellungen',
+    'preferences'                   => 'Einstellung|Einstellungen',
     'profit_loss'                   => 'Gewinn & Verlust',
     'income_summary'                => 'Einnahmenübersicht',
     'expense_summary'               => 'Ausgabenübersicht',

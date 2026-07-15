@@ -11,7 +11,6 @@ return [
     'tiles'                 => '列表',
     'item'                  => '应用详情',
     'pre_sale'              => '预售',
-    'no_apps'               => '查看最适合您业务的专业应用，并以最优惠的价格获取它们。',
     'learn_more'            => '了解更多',
     'see_apps'              => '查看应用',
     'no_apps_marketing'     => '让您的业务更专业',
@@ -37,6 +36,7 @@ return [
     'install'               => '安装',
     'buy_now'               => '立即购买',
     'get_api_key'           => '<a href=":url" target="_blank" class="text-green">点击此处</a>获取您的 API 密钥。',
+    'no_apps'               => '此类别下暂无应用。',
     'become_developer'      => '您是开发者吗？<a href=":url" target="_blank">在这里</a>您可以了解如何创建应用并立即开始销售！',
     'recommended_apps'      => '推荐应用',
     'can_not_install'       => '按月订阅仅适用于云服务。<a href="https://akaunting.com/upgrade-to-yearly" target="_blank">了解更多。</a>',
@@ -59,7 +59,6 @@ return [
     'added'                 => '已添加',
     'updated'               => '已更新',
     'compatibility'         => '兼容性',
-    'documentation'         => '文档',
     'view'                  => '查看',
     'back'                  => '返回',
 

@@ -241,7 +241,7 @@ return [
         'firefox' => [
 
             'title'         => 'Настройка значков в Firefox',
-            'description'   => '<span class="font-medium">Если значки не отображаются;</span> <br /> <span class="font-medium">Разрешите страницам использовать свои шрифты вместо выбранных вами выше</span> <br /><br /> <span class="font-bold"> Настройки (Предпочтения) > Шрифты > Дополнительно </span>',
+            'description'   => '<span class="font-medium">Если значки не отображаются, пожалуйста:</span> <br /> <span class="font-medium">Разрешите страницам использовать свои шрифты вместо выбранных вами выше</span> <br /><br /> <span class="font-bold"> Настройки (Предпочтения) > Шрифты > Дополнительно </span>',
 
         ],
 

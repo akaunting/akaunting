@@ -4,12 +4,12 @@ return [
 
     'installed_version'     => '已安装版本',
     'latest_version'        => '最新版本',
-    'update'                => '更新 Akaunting 至 :version 版',
-    'changelog'             => '更新日誌',
-    'check'                 => '檢查',
-    'new_core'              => '新版 Akaunting 已準備好。',
-    'latest_core'           => '太好了！你已經使用最新版 Akaunting，未來將會自動套用安全性更新。',
-    'success'               => '更新程序已完成。',
-    'error'                 => '更新程序失敗，請重試。',
+    'update'                => '更新 Akaunting 至 :version 版本',
+    'changelog'             => '更新日志',
+    'check'                 => '检查',
+    'new_core'              => 'Akaunting 有新版本可用。',
+    'latest_core'           => '恭喜！您已使用最新版本的 Akaunting。未来的安全更新将自动应用。',
+    'success'               => '更新过程已成功完成。',
+    'error'                 => '更新过程失败，请重试。',
 
 ];

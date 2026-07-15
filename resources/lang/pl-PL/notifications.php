@@ -96,11 +96,11 @@ return [
         ],
         'invoice_remind_customer' => [
             'title'         => 'Przeterminowana faktura',
-            'description'   => 'Faktura <strong>:invoice_number</strong> była payable do <strong>:invoice_due_date</strong>. Możesz <a href=":invoice_portal_link">kliknąć tutaj</a>, aby zobaczyć szczegóły i dokonać płatności.',
+            'description'   => 'Faktura <strong>:invoice_number</strong> była płatna do <strong>:invoice_due_date</strong>. Możesz <a href=":invoice_portal_link">kliknąć tutaj</a>, aby zobaczyć szczegóły i dokonać płatności.',
         ],
         'invoice_remind_admin' => [
             'title'         => 'Przeterminowana faktura',
-            'description'   => 'Faktura <strong>:invoice_number</strong> była payable do <strong>:invoice_due_date</strong>. Możesz <a href=":invoice_admin_link">kliknąć tutaj</a>, aby zobaczyć szczegóły.',
+            'description'   => 'Faktura <strong>:invoice_number</strong> była płatna do <strong>:invoice_due_date</strong>. Możesz <a href=":invoice_admin_link">kliknąć tutaj</a>, aby zobaczyć szczegóły.',
         ],
         'invoice_recur_customer' => [
             'title'         => 'Nowa faktura cykliczna',
@@ -128,7 +128,7 @@ return [
         ],
         'bill_remind_admin' => [
             'title'         => 'Przeterminowany rachunek',
-            'description'   => 'Rachunek <strong>:bill_number</strong> był payable do <strong>:bill_due_date</strong>. Możesz <a href=":bill_admin_link">kliknąć tutaj</a>, aby zobaczyć szczegóły.',
+            'description'   => 'Rachunek <strong>:bill_number</strong> był płatny do <strong>:bill_due_date</strong>. Możesz <a href=":bill_admin_link">kliknąć tutaj</a>, aby zobaczyć szczegóły.',
         ],
         'bill_recur_admin' => [
             'title'         => 'Nowy rachunek cykliczny',
@@ -148,7 +148,7 @@ return [
     'browser' => [
         'firefox' => [
             'title' => 'Konfiguracja ikon Firefox',
-            'description'  => '<span class="font-medium">Jeśli Twoje ikony się nie wyświetlają;</span> <br /> <span class="font-medium">Zezwól stronom na wybór własnych czcionek, zamiast Twoich powyższych wyborów</span> <br /><br /> <span class="font-bold"> Ustawienia (Preferencje) > Czcionki > Zaawansowane </span>',
+            'description'  => '<span class="font-medium">Jeśli Twoje ikony się nie wyświetlają:</span> <br /> <span class="font-medium">Zezwól stronom na wybór własnych czcionek, zamiast Twoich powyższych wyborów</span> <br /><br /> <span class="font-bold"> Ustawienia (Preferencje) > Czcionki > Zaawansowane </span>',
         ],
     ],
 

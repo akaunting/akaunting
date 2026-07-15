@@ -2,10 +2,10 @@
 
 return [
 
-    'years'                         => '年',
+    'years'                         => '年|年',
     'date_range'                    => '日期范围',
-    'preferences'                   => '偏好设置',
-    'profit_loss'                   => '损益',
+    'preferences'                   => '偏好设置|偏好设置',
+    'profit_loss'                   => '利润与损失',
     'income_summary'                => '收入汇总',
     'expense_summary'               => '支出汇总',
     'income_expense_summary'        => '收入与支出',

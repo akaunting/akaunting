@@ -4,8 +4,8 @@ return [
 
     'sale_price'                => 'Cena sprzedaży',
     'purchase_price'            => 'Cena zakupu',
-    'enter_item_description'    => 'Wprowadź opis produktu',
-    'billing'                   => 'Płatności',
+    'enter_item_description'    => 'Wprowadź opis pozycji',
+    'billing'                   => 'Rozliczenia',
     'sale_information'          => 'Informacje o sprzedaży',
     'purchase_information'      => 'Informacje o zakupie',
 

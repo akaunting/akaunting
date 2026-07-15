@@ -2,8 +2,8 @@
 
 return [
 
-    'previous'              => '&laquo; Предыдущее',
-    'next'                  => 'Следующее &raquo;',
-    'showing'               => ':first :last из :total записей.',
+    'previous'              => 'Предыдущее',
+    'next'                  => 'Следующее',
+    'showing'               => ':first-:last из :total записей.',
     'page'                  => 'на странице.',
 ];

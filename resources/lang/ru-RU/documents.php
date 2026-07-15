@@ -34,7 +34,7 @@ return [
         'received'              => 'Получено',
         'refused'               => 'Отклонено',
         'restored'              => 'Восстановлено',
-        'reversed'              => 'Отменено',
+        'reversed'              => 'Сторнировано',
         'partial'               => 'Частично',
         'paid'                  => 'Оплачено',
         'pending'               => 'В ожидании',
@@ -45,7 +45,7 @@ return [
         'voided'                => 'Аннулировано',
         'completed'             => 'Завершено',
         'shipped'               => 'Отгружено',
-        'refunded'              => 'Возврат',
+        'refunded'              => 'Возвращено',
         'failed'                => 'Ошибка',
         'denied'                => 'Отказано',
         'processed'             => 'Обработано',
@@ -61,7 +61,7 @@ return [
         'confirmed'             => 'Подтверждено',
         'not_confirmed'         => 'Не подтверждено',
         'active'                => 'Активно',
-        'ended'                 => 'Завершено',
+        'ended'                 => 'Окончено',
     ],
 
     'form_description' => [

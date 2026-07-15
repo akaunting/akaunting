@@ -6,12 +6,12 @@ return [
     'purchase_price'            => 'Einkaufspreis',
     'enter_item_description'    => 'Artikelbeschreibung eingeben',
     'billing'                   => 'Abrechnung',
-    'sale_information'          => 'Verkaufsinformation',
-    'purchase_information'      => 'Kaufinformationen',
+    'sale_information'          => 'Verkaufsinformationen',
+    'purchase_information'      => 'Einkaufsinformationen',
 
     'form_description' => [
-        'general'               => 'Wählen Sie eine Kategorie aus, um Ihre Berichte detaillierter zu gestalten. Die Beschreibung wird bei Auswahl des Artikels in der Rechnung angezeigt.',
-        'billing'               => 'Die Kauf- und Verkaufsinformationen sowie Steuern werden innerhalb der Rechnungen verwendet.',
+        'general'               => 'Wählen Sie eine Kategorie aus, um Ihre Berichte detaillierter zu gestalten. Die Beschreibung wird beim Auswählen des Artikels in einer Rechnung oder Eingangsrechnung automatisch ausgefüllt.',
+        'billing'               => 'Die Verkaufsinformationen werden in Rechnungen und die Einkaufsinformationen in Eingangsrechnungen verwendet. Steuern werden sowohl auf Rechnungen als auch auf Eingangsrechnungen angewendet.',
     ],
 
 ];

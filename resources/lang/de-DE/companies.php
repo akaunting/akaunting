@@ -13,8 +13,8 @@ return [
 
     'form_description' => [
         'general'           => 'Diese Informationen sind in den Datensätzen sichtbar, die Sie erstellen.',
-        'billing'           => 'Die Steuernummer erscheint in jeder Rechnung/Rechnung. Dashboard und Berichte werden unter der Standardwährung angezeigt.',
-        'address'           => 'Die Adresse wird in Rechnungen, Quittungen und anderen Datensätzen verwendet, die Sie ausstellen.',
+        'billing'           => 'Die Steuernummer erscheint in jeder Rechnung/Eingangsrechnung. Dashboard und Berichte werden unter der Standardwährung angezeigt.',
+        'address'           => 'Die Adresse wird in Rechnungen, Eingangsrechnungen und anderen Datensätzen verwendet, die Sie ausstellen.',
     ],
 
     'skip_step'             => 'Diesen Schritt überspringen',

@@ -24,7 +24,7 @@ return [
     'ends_after'            => 'Eindigt na :times',
     'ends_never'            => 'Eindigt nooit',
     'ends_date'             => 'Eindigt op :date',
-    'next_date'             => 'Volgende op',
+    'next_date'             => 'Volgende op :date',
     'end'                   => 'Beëindig Terugkerend',
     'child'                 => ':url werd automatisch aangemaakt op :date',
     'message'               => 'Dit is een terugkerende :type en de volgende :type zal automatisch worden gegenereerd op :date',
@@ -32,7 +32,7 @@ return [
     'send_email_auto'       => 'E-mail automatisch verzenden',
 
     'frequency_type'        => 'Herhaal dit :type',
-    'custom_frequency_desc' => 'Herhaal elke :interval :frequentie',
+    'custom_frequency_desc' => 'Herhaal elke :interval :frequency',
     'limit_date'            => 'Maak eerst :type op',
     'limit_middle'          => 'en eindigt',
 

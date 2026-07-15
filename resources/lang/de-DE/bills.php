@@ -2,27 +2,27 @@
 
 return [
 
-    'bill_number'           => 'Rechnungsnummer',
-    'bill_date'             => 'Rechnungsdatum',
-    'bill_amount'           => 'Rechnungsbetrag',
+    'bill_number'           => 'Eingangsrechnungsnummer',
+    'bill_date'             => 'Eingangsrechnungsdatum',
+    'bill_amount'           => 'Eingangsrechnungsbetrag',
     'total_price'           => 'Gesamtpreis',
     'due_date'              => 'Fälligkeitsdatum',
     'order_number'          => 'Bestellnummer',
-    'bill_from'             => 'Rechnung vom',
+    'bill_from'             => 'Eingangsrechnung von',
 
     'quantity'              => 'Menge',
     'price'                 => 'Preis',
     'sub_total'             => 'Zwischensumme',
     'discount'              => 'Rabatt',
-    'item_discount'         => 'Positions-Rabatt',
-    'tax_total'             => 'Steuern Gesamt',
+    'item_discount'         => 'Positionsrabatt',
+    'tax_total'             => 'Steuern gesamt',
     'total'                 => 'Gesamt',
 
-    'item_name'             => 'Artikel-Name|Artikel-Namen',
-    'recurring_bills'       => 'Wiederkehrende Rechnung(-en)',
+    'item_name'             => 'Artikelname|Artikelnamen',
+    'recurring_bills'       => 'Wiederkehrende Eingangsrechnung|Wiederkehrende Eingangsrechnungen',
 
     'show_discount'         => ':discount% Rabatt',
-    'add_discount'          => 'füge Rabatt hinzu',
+    'add_discount'          => 'Rabatt hinzufügen',
     'discount_desc'         => 'der Zwischensumme',
 
     'payment_made'          => 'Zahlung erfolgt',
@@ -37,26 +37,25 @@ return [
     'mark_cancelled'        => 'Als storniert markieren',
     'download_pdf'          => 'Als PDF herunterladen',
     'send_mail'             => 'E-Mail senden',
-    'create_bill'           => 'Rechnung erstellen',
-    'receive_bill'          => 'Rechnung erhalten',
+    'create_bill'           => 'Eingangsrechnung erstellen',
+    'receive_bill'          => 'Eingangsrechnung erhalten',
     'make_payment'          => 'Zahlung vornehmen',
 
     'form_description' => [
-        'billing'           => 'Rechnungsdetails erscheinen in Ihrer Rechnung. Rechnungsdatum wird im Dashboard und in Berichten verwendet. Wählen Sie das voraussichtliche Zahlungsdatum als Fälligkeitsdatum aus.
-',
+        'billing'           => 'Rechnungsdetails erscheinen in Ihrer Eingangsrechnung. Das Eingangsrechnungsdatum wird im Dashboard und in Berichten verwendet. Wählen Sie das voraussichtliche Zahlungsdatum als Fälligkeitsdatum aus.',
     ],
 
     'messages' => [
-        'draft'             => 'Dies ist eine Rechnungs-<b>Vorschau</b>. Die Rechnung erscheint in den Diagrammen nachdem sie als erhalten markiert wurde.',
+        'draft'             => 'Dies ist eine <b>ENTWURFS</b>-Eingangsrechnung. Sie erscheint in den Diagrammen, nachdem sie als erhalten markiert wurde.',
 
         'status' => [
             'created'       => 'Erstellt am :date',
             'receive' => [
                 'draft'     => 'Nicht erhalten',
-                'received'  => 'Empfangen am :date',
+                'received'  => 'Erhalten am :date',
             ],
             'paid' => [
-                'await'     => 'Bezahlung erwartet',
+                'await'     => 'Zahlung ausstehend',
             ],
         ],
     ],

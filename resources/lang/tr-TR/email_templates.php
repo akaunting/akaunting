@@ -34,17 +34,17 @@ return [
 
     'invoice_payment_customer' => [
         'subject'       => '{invoice_number} faturasının ödemesi alındı',
-        'body'          => 'Sayın {customer_name},<br /><br />Ödeme için teşekkür ederiz. Yaptığınız ödemenin detayları:<br /><br />-------------------------------------------------<br /><br />Tutar: <strong>{transaction_total}<br /></strong>Tarih: <strong>{transaction_paid_date}</strong><br />Fatura Numarası: <strong>{invoice_number}<br /><br /></strong>-------------------------------------------------<br /><br />Aşağıdaki bağlantıdan faturanın detaylarına ulaşabilirsiniz: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Herhangi bir sorunuz olursa lütfen bize yazın.<br /><br />Kolay gelsin,<br />{company_name}',
+        'body'          => 'Sayın {customer_name},<br /><br />Ödeme için teşekkür ederiz. Ödeme detayları aşağıdadır:<br /><br />-------------------------------------------------<br />Tutar: <strong>{transaction_total}</strong><br />Tarih: <strong>{transaction_paid_date}</strong><br />Fatura Numarası: <strong>{invoice_number}</strong><br />-------------------------------------------------<br /><br />Faturanın detaylarına her zaman aşağıdaki bağlantıdan ulaşabilirsiniz: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Herhangi bir sorunuz olursa lütfen bize yazın.<br /><br />Kolay gelsin,<br />{company_name}',
     ],
 
     'invoice_payment_admin' => [
-        'subject'       => '{invoice_number} faturasının ödemesi yapıldı',
+        'subject'       => '{invoice_number} faturasının ödemesi alındı',
         'body'          => 'Merhaba,<br /><br />{customer_name} müşteriniz <strong>{invoice_number}</strong> numaralı fatura için ödeme yaptı.<br /><br />Aşağıdaki bağlantıdan faturanın detaylarına ulaşabilirsiniz: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Kolay gelsin,<br />{company_name}',
     ],
 
     'bill_remind_admin' => [
         'subject'       => '{bill_number} gider faturası için ödeme hatırlatması',
-        'body'          => 'Merhaba,<br /><br /><strong>{vendor_name}</strong> tedarikçinize <strong>{bill_number}</strong> numaralı gider faturası için ödeme hatırlatmasıdır.<br /><br />Faturanın tutarı {bill_total} ve son ödemesi <strong>{bill_due_date}</strong> tarhinde yapılması gerekir.<br /><br />Aşağıdaki bağlantıdan faturanın detaylarına ulaşabilirsiniz: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Kolay gelsin,<br />{company_name}',
+        'body'          => 'Merhaba,<br /><br /><strong>{vendor_name}</strong> tedarikçinize <strong>{bill_number}</strong> numaralı gider faturası için ödeme hatırlatmasıdır.<br /><br />Faturanın tutarı {bill_total} ve son ödemesi <strong>{bill_due_date}</strong> tarihinde yapılması gerekir.<br /><br />Aşağıdaki bağlantıdan faturanın detaylarına ulaşabilirsiniz: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Kolay gelsin,<br />{company_name}',
     ],
 
     'bill_recur_admin' => [

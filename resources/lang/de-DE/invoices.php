@@ -9,14 +9,14 @@ return [
     'due_date'              => 'Fälligkeitsdatum',
     'order_number'          => 'Bestellnummer',
     'bill_to'               => 'Rechnung an',
-    'cancel_date'           => 'Storniert am',
+    'cancel_date'           => 'Stornodatum',
 
     'quantity'              => 'Menge',
     'price'                 => 'Preis',
     'sub_total'             => 'Zwischensumme',
     'discount'              => 'Rabatt',
-    'item_discount'         => 'Positions-Rabatt',
-    'tax_total'             => 'Steuern Gesamt',
+    'item_discount'         => 'Positionsrabatt',
+    'tax_total'             => 'Steuern gesamt',
     'total'                 => 'Gesamt',
 
     'item_name'             => 'Artikelname|Artikelnamen',
@@ -35,7 +35,7 @@ return [
     'mark_sent'             => 'Als gesendet markieren',
     'mark_viewed'           => 'Als gelesen markieren',
     'mark_cancelled'        => 'Als storniert markieren',
-    'download_pdf'          => 'PDF herunterladen',
+    'download_pdf'          => 'Als PDF herunterladen',
     'send_mail'             => 'E-Mail senden',
     'all_invoices'          => 'Melden Sie sich an, um alle Rechnungen anzuzeigen',
     'create_invoice'        => 'Rechnung erstellen',
@@ -43,18 +43,17 @@ return [
     'get_paid'              => 'Zahlung erhalten',
     'accept_payments'       => 'Onlinezahlungen akzeptieren',
     'payments_received'     => 'Erhaltene Zahlungen',
-    'over_payment'          => 'Der eingegebene Betrag überschreitet den Gesamtbetrag',
+    'over_payment'          => 'Der eingegebene Betrag überschreitet den Gesamtbetrag: :amount',
 
     'form_description' => [
-        'billing'           => 'Rechnungsdetails erscheinen in Ihrer Rechnung. Rechnungsdatum wird im Dashboard und in Berichten verwendet. Wählen Sie das voraussichtliche Zahlungsdatum als Fälligkeitsdatum aus.
-',
+        'billing'           => 'Rechnungsdetails erscheinen in Ihrer Rechnung. Das Rechnungsdatum wird im Dashboard und in Berichten verwendet. Wählen Sie das voraussichtliche Zahlungsdatum als Fälligkeitsdatum aus.',
     ],
 
     'messages' => [
-        'email_required'    => 'Es existiert keine E-Mailadresse zu diesem Kunden!',
-        'totals_required'   => 'Gesamtbetrag ist erforderlich. Bitte bearbeiten Sie :type und speichern Sie erneut',
+        'email_required'    => 'Es existiert keine E-Mail-Adresse zu diesem Kunden!',
+        'totals_required'   => 'Rechnungssummen sind erforderlich. Bitte bearbeiten Sie :type und speichern Sie erneut.',
 
-        'draft'             => 'Dies ist eine <b>Vorschau</b>-Rechnung und wird nach dem Versand in den Charts ersichtlich.',
+        'draft'             => 'Dies ist eine <b>ENTWURFS</b>-Rechnung und wird nach dem Versand in den Diagrammen sichtbar.',
 
         'status' => [
             'created'       => 'Erstellt am :date',
@@ -64,11 +63,11 @@ return [
                 'sent'      => 'Gesendet am :date',
             ],
             'paid' => [
-                'await'     => 'Zahlung erwartet',
+                'await'     => 'Zahlung ausstehend',
             ],
         ],
 
-        'name_or_description_required' => 'Ihre Rechnung muss einen Wert für entweder <b>:name</b> oder <b>:description</b> enthalten.',
+        'name_or_description_required' => 'Ihre Rechnung muss mindestens einen der Werte <b>:name</b> oder <b>:description</b> enthalten.',
     ],
 
     'share' => [
@@ -78,7 +77,7 @@ return [
     ],
 
     'sticky' => [
-        'description'       => 'Sie sehen wie Ihr Kunde die Web-Version Ihrer Rechnung sehen wird.',
+        'description'       => 'Sie sehen eine Vorschau, wie Ihr Kunde die Web-Version Ihrer Rechnung sehen wird.',
     ],
 
 ];

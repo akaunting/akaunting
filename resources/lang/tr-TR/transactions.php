@@ -6,8 +6,8 @@ return [
     'payment_made'          => 'Yapılan Ödeme',
     'paid_by'               => 'Ödeyen',
     'paid_to'               => 'Ödenen',
-    'related_invoice'       => 'İlgili Fatura',
-    'related_bill'          => 'İlgili Fatura',
+    'related_invoice'       => 'İlgili Satış Faturası',
+    'related_bill'          => 'İlgili Satın Alma Faturası',
     'recurring_income'      => 'Yinelenen Gelir',
     'recurring_expense'     => 'Yinelenen Gider',
     'included_tax'          => 'Dahil edilen vergi tutarı',
@@ -39,13 +39,13 @@ return [
         ],
 
         'expense' => [
-            'show_link'     => 'Satıcınız işlemi bu bağlantıdan görüntüleyebilir',
-            'copy_link'     => 'Bağlantıyı kopyalayın ve satıcınızla paylaşın.',
+            'show_link'     => 'Tedarikçiniz işlemi bu bağlantıdan görüntüleyebilir',
+            'copy_link'     => 'Bağlantıyı kopyalayın ve tedarikçinizle paylaşın.',
         ],
     ],
 
     'sticky' => [
-        'description'       => 'Müşterinizin ödemenizin web sürümünü nasıl göreceğini önizleyebilirsiniz.',
+        'description'       => 'Tedarikçinizin ödemenizin web sürümünü nasıl göreceğini önizliyorsunuz.',
     ],
 
     'messages' => [

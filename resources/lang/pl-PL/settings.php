@@ -79,7 +79,7 @@ return [
         'subheading'                    => 'Podtytuł',
         'due_receipt'                   => 'Termin po otrzymaniu',
         'due_days'                      => 'Termin w ciągu :days dni',
-        'due_custom'                    => 'Niestandardowe dzień/dni',
+        'due_custom'                    => 'Niestandardowy dzień/dni',
         'due_custom_day'                => 'po dniu',
         'choose_template'               => 'Wybierz szablon faktury',
         'default'                       => 'Domyślny',
@@ -186,7 +186,7 @@ return [
 
         'form_description' => [
             'invoice'                   => 'Włącz lub wyłącz i ustaw przypomnienia dla faktur, gdy są przeterminowane.',
-            'bill'                      => 'Włącz lub wyłącz i ustaw przypomnienia dla rachunków, zanim станут przeterminowane.',
+            'bill'                      => 'Włącz lub wyłącz i ustaw przypomnienia dla rachunków, zanim staną się przeterminowane.',
             'cron'                      => 'Skopiuj polecenie cron, które powinien uruchomić Twój serwer. Ustaw czas wyzwolenia zdarzenia.',
         ]
     ],

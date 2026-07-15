@@ -12,8 +12,8 @@ return [
     'forgot_password'       => 'Şifremi unuttum',
     'reset_password'        => 'Şifremi Sıfırla',
     'change_password'       => 'Şifre Değiştir',
-    'enter_email'           => 'Email Adresinizi Giriniz',
-    'current_email'         => 'Geçerli Email',
+    'enter_email'           => 'E-posta Adresinizi Giriniz',
+    'current_email'         => 'Geçerli E-posta',
     'reset'                 => 'Sıfırla',
     'never'                 => 'hiçbir zaman',
     'landing_page'          => 'Açılış Sayfası',
@@ -50,7 +50,7 @@ return [
 
     'notification' => [
         'message_1'         => 'Şifre sıfırlama talebiniz doğrultusunda bu e-postayı alıyorsunuz.',
-        'message_2'         => 'Şifre sıfırlama talebinde bulunmadısyanız herhangi bir şey yapmayın.',
+        'message_2'         => 'Şifre sıfırlama talebinde bulunmadıysanız herhangi bir şey yapmanıza gerek yoktur.',
         'button'            => 'Şifre Sıfırlama',
     ],
 
@@ -73,7 +73,7 @@ return [
             'description'   => 'Müşteriler, faturalar, raporlar, ayarlar ve uygulamalar dahil olmak üzere Akaunting\'inize tam erişim elde ederler.',
         ],
         'manager' => [
-            'name'          => 'Yetkili',
+            'name'          => 'Müdür',
             'description'   => 'Akaunting\'inize tam erişime sahip olurlar, ancak kullanıcıları ve uygulamaları yönetemezler.',
         ],
         'customer' => [

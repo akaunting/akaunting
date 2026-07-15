@@ -3,26 +3,26 @@
 return [
 
     'receivables'               => 'Crediti',
-    'payables'                  => 'Pagamenti',
+    'payables'                  => 'Debiti',
     'cash_flow'                 => 'Flusso di cassa',
-    'profit_loss'               => 'Profitti e perdite',
-    'expenses_by_category'      => 'Spese per categoria',
+    'profit_loss'               => 'Conto economico',
+    'expenses_by_category'      => 'Uscite per categoria',
     'account_balance'           => 'Saldo del conto',
     'bank_feeds'                => 'Collega conti bancari',
     'currencies'                => 'Valute',
 
-    'view_report'               => 'Visualizza rapporto',
+    'view_report'               => 'Visualizza report',
     'total_unpaid_invoices'     => 'Totale fatture non pagate',
-    'total_unpaid_bills'        => 'Totale fatture non pagate',
+    'total_unpaid_bills'        => 'Totale fatture di acquisto non pagate',
 
     'description' => [
         'receivables'           => 'Importo che devi ancora ricevere dai tuoi clienti',
         'payables'              => 'Importo che devi ancora pagare ai tuoi fornitori',
         'cash_flow'             => 'Contanti in entrata e in uscita dalla tua attività',
-        'profit_loss'           => 'Entrate e spese comprese fatture e fatture non pagate',
-        'expenses_by_category'  => 'Spese principali in varie categorie',
+        'profit_loss'           => 'Entrate e uscite incluse fatture e fatture di acquisto non pagate',
+        'expenses_by_category'  => 'Uscite principali in varie categorie',
         'account_balance'       => 'Saldo corrente dei tuoi conti bancari',
-        'bank_feeds'            => 'Importa automaticamente le tue transazioni su Akaunting </br>collegando i tuoi conti bancari',
+        'bank_feeds'            => 'Importa automaticamente le tue transazioni su Akaunting <br />collegando i tuoi conti bancari',
     ],
 
     'periods' => [

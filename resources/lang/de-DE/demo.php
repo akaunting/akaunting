@@ -8,7 +8,7 @@ return [
 
     'categories' => [
         'deposit'           => 'Einzahlung',
-        'sales'             => 'Vertrieb',
+        'sales'             => 'Verkäufe',
     ],
 
     'currencies' => [

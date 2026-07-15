@@ -10,7 +10,7 @@ return [
         'billed_at'         => 'बिल तारीख',
         'due_at'            => 'नियत तारीख',
         'invoiced_at'       => 'चालान तारीख',
-        'issued_at'         => 'जारी करने की नियत तारीख',
+        'issued_at'         => 'जारी करने की तारीख',
         'symbol_first'      => 'चिह्न की स्थिति',
         'reconciled'        => 'मेल मिलाप',
         'expense_account'   => 'खाते से',

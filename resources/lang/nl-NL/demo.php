@@ -21,10 +21,10 @@ return [
     ],
 
     'reports' => [
-        'income'            => 'Maandelijkse  inkomsten per categorie',
-        'expense'           => 'Maandelijkse  uitgaven per categorie',
+        'income'            => 'Maandelijkse inkomsten per categorie',
+        'expense'           => 'Maandelijkse uitgaven per categorie',
         'income_expense'    => 'Maandelijkse inkomsten/uitgaven per categorie',
-        'tax'               => 'Kwartaal - BTW overzicht',
+        'tax'               => 'Kwartaal - BTW-overzicht',
         'profit_loss'       => 'Kwartaal - Winst/Verlies per categorie',
     ],
 

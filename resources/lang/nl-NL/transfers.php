@@ -4,31 +4,31 @@ return [
 
     'details'               => 'Detail|Details',
 
-    'from_account'          => 'Van Account',
-    'to_account'            => 'Naar Account',
-    'from_rate'             => 'Van Tarief',
-    'to_rate'               => 'Tot Tarief',
-    'from_account_rate'     => 'Van accounttarief',
-    'to_account_rate'       => 'Naar accounttarief',
-    'from_amount'           => 'Van Bedrag',
-    'to_amount'             => 'Naar Bedrag',
+    'from_account'          => 'Van rekening',
+    'to_account'            => 'Naar rekening',
+    'from_rate'             => 'Van koers',
+    'to_rate'               => 'Naar koers',
+    'from_account_rate'     => 'Van rekeningkoers',
+    'to_account_rate'       => 'Naar rekeningkoers',
+    'from_amount'           => 'Van bedrag',
+    'to_amount'             => 'Naar bedrag',
     'issued_at'             => 'Uitgiftedatum',
-    'rate'                  => 'Tarief',
+    'rate'                  => 'Koers',
 
     'form_description' => [
-        'general'           => 'Maak geld over tussen rekeningen met verschillende valuta en koppel de valuta aan de koers die u wenst.',
-        'other'             => 'Selecteer de overschrijvingsmethode als betalingsmethode om uw rapporten gedetailleerder te maken.',
+        'general'           => 'Boek geld over tussen rekeningen met verschillende valuta en koppel de valuta aan de koers die u wenst.',
+        'other'             => 'Selecteer de overboekingsmethode als betalingsmethode om uw rapporten gedetailleerder te maken.',
     ],
 
     'messages' => [
-        'delete'            => ':from tot :to (:amount)',
+        'delete'            => ':from naar :to (:amount)',
     ],
 
     'slider' => [
-        'create'            => ':user maakte deze overdracht op :date',
-        'transactions'      => 'Lijst van transacties in verband met deze overdracht',
+        'create'            => ':user maakte deze overboeking op :date',
+        'transactions'      => 'Lijst van transacties in verband met deze overboeking',
         'transactions_desc' => ':number transactie(s) voor :account',
-        'attachments'       => 'Download de bij deze overdracht gevoegde bestanden',
+        'attachments'       => 'Download de bij deze overboeking gevoegde bestanden',
     ],
 
 ];

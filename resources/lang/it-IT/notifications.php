@@ -4,12 +4,12 @@ return [
 
     'whoops'              => 'Ops!',
     'hello'               => 'Ciao!',
-    'salutation'          => 'Saluti,<br> :company_name',
+    'salutation'          => 'Cordiali saluti,<br> :company_name',
     'subcopy'             => 'Se hai problemi a fare clic sul pulsante ":text", copia e incolla l\'URL seguente nel tuo browser web: [:url](:url)',
     'mark_read'           => 'Contrassegna come letto',
-    'mark_read_all'       => 'Contrassegna come tutti letti',
-    'empty'               => 'Woohoo, notifica zero!',
-    'new_apps'            => ':app è disponibile. <a href=":url">Dai un\'occhiata adesso</a>!',
+    'mark_read_all'       => 'Contrassegna tutti come letti',
+    'empty'               => 'Evviva, zero notifiche!',
+    'new_apps'            => ':app è disponibile. <a href=":url">Controllala subito</a>!',
 
     'update' => [
 
@@ -68,7 +68,7 @@ return [
         'completed' => [
 
             'title'         => 'L\'esportazione è pronta',
-            'description'   => 'Il file di esportazione è pronto per essere scaricato dal seguente collegamento:',
+            'description'   => 'Il file di esportazione è pronto per il download dal seguente link:',
 
         ],
 
@@ -97,7 +97,7 @@ return [
         'download_completed' => [
 
             'title'         => 'Il download è pronto',
-            'description'   => 'Il tuo file <strong>:type</strong> è pronto per essere scaricato <a href=":url" target="_blank"><strong></strong></a>.',
+            'description'   => 'Il tuo file <strong>:type</strong> è pronto per il <a href=":url" target="_blank"><strong>download</strong></a>.',
 
         ],
 
@@ -111,7 +111,7 @@ return [
         'export_completed' => [
 
             'title'         => 'L\'esportazione è pronta',
-            'description'   => 'Il tuo file di esportazione <strong>:type</strong> è pronto per essere scaricato <a href=":url" target="_blank"><strong></strong></a>.',
+            'description'   => 'Il tuo file di esportazione <strong>:type</strong> è pronto per il <a href=":url" target="_blank"><strong>download</strong></a>.',
 
         ],
 
@@ -125,7 +125,7 @@ return [
         'import_completed' => [
 
             'title'         => 'Importazione completata',
-            'description'   => 'I tuoi dati <strong>:type</strong> allineati <strong>:count</strong> sono stati importati correttamente.',
+            'description'   => 'I tuoi dati <strong>:type</strong> con <strong>:count</strong> elementi sono stati importati correttamente.',
 
         ],
 
@@ -138,51 +138,50 @@ return [
 
         'new_apps' => [
 
-            'title'         => 'Nuova app
-L\'app',
-            'description'   => '<strong>:name</strong> è disponibile. Puoi <a href=":url">cliccare qui</a> per vedere i dettagli.',
+            'title'         => 'Nuova app',
+            'description'   => 'L\'app <strong>:name</strong> è disponibile. Puoi <a href=":url">cliccare qui</a> per vedere i dettagli.',
 
         ],
 
         'invoice_new_customer' => [
 
             'title'         => 'Nuova fattura',
-            'description'   => '<strong>:invoice_number</strong> viene creata la fattura. Puoi <a href=":invoice_portal_link">cliccare qui</a> per vedere i dettagli e procedere con il pagamento.',
+            'description'   => 'La fattura <strong>:invoice_number</strong> è stata creata. Puoi <a href=":invoice_portal_link">cliccare qui</a> per vedere i dettagli e procedere con il pagamento.',
 
         ],
 
         'invoice_remind_customer' => [
 
             'title'         => 'Fattura scaduta',
-            'description'   => '<strong>:invoice_number</strong> la fattura era in scadenza <strong>:invoice_due_date</strong>. Puoi <a href=":invoice_portal_link">cliccare qui</a> per vedere i dettagli e procedere con il pagamento.',
+            'description'   => 'La fattura <strong>:invoice_number</strong> aveva scadenza <strong>:invoice_due_date</strong>. Puoi <a href=":invoice_portal_link">cliccare qui</a> per vedere i dettagli e procedere con il pagamento.',
 
         ],
 
         'invoice_remind_admin' => [
 
             'title'         => 'Fattura scaduta',
-            'description'   => '<strong>:invoice_number</strong> la fattura era in scadenza <strong>:invoice_due_date</strong>. Puoi <a href=":invoice_admin_link">cliccare qui</a> per vedere i dettagli.',
+            'description'   => 'La fattura <strong>:invoice_number</strong> aveva scadenza <strong>:invoice_due_date</strong>. Puoi <a href=":invoice_admin_link">cliccare qui</a> per vedere i dettagli.',
 
         ],
 
         'invoice_recur_customer' => [
 
             'title'         => 'Nuova fattura ricorrente',
-            'description'   => '<strong>:invoice_number</strong> la fattura viene creata in base alla tua cerchia ricorrente. Puoi <a href=":invoice_portal_link">cliccare qui</a> per vedere i dettagli e procedere con il pagamento.',
+            'description'   => 'La fattura <strong>:invoice_number</strong> è stata creata in base al tuo ciclo ricorrente. Puoi <a href=":invoice_portal_link">cliccare qui</a> per vedere i dettagli e procedere con il pagamento.',
 
         ],
 
         'invoice_recur_admin' => [
 
             'title'         => 'Nuova fattura ricorrente',
-            'description'   => '<strong>:invoice_number</strong> la fattura viene creata in base al cerchio ricorrente <strong>:customer_name</strong>. Puoi <a href=":invoice_admin_link">cliccare qui</a> per vedere i dettagli.',
+            'description'   => 'La fattura <strong>:invoice_number</strong> è stata creata in base al ciclo ricorrente di <strong>:customer_name</strong>. Puoi <a href=":invoice_admin_link">cliccare qui</a> per vedere i dettagli.',
 
         ],
 
         'invoice_view_admin' => [
 
             'title'         => 'Fattura visualizzata',
-            'description'   => '<strong>:customer_name</strong> ha visionato la fattura <strong>:invoice_number</strong>. Puoi <a href=":invoice_admin_link">cliccare qui</a> per vedere i dettagli.',
+            'description'   => '<strong>:customer_name</strong> ha visualizzato la fattura <strong>:invoice_number</strong>. Puoi <a href=":invoice_admin_link">cliccare qui</a> per vedere i dettagli.',
 
         ],
 
@@ -209,16 +208,15 @@ L\'app',
 
         'bill_remind_admin' => [
 
-            'title'         => 'Fattura scaduta',
-            'description'   => '<strong>:bill_number</strong> la fattura era dovuta <strong>:bill_due_date</strong>. Puoi <a href=":bill_admin_link">cliccare qui</a> per vedere i dettagli.',
+            'title'         => 'Fattura di acquisto scaduta',
+            'description'   => 'La fattura di acquisto <strong>:bill_number</strong> aveva scadenza <strong>:bill_due_date</strong>. Puoi <a href=":bill_admin_link">cliccare qui</a> per vedere i dettagli.',
 
         ],
 
         'bill_recur_admin' => [
 
-            'title'         => 'Nuova fattura ricorrente
-La fattura',
-            'description'   => '<strong>:bill_number</strong> viene creata in base alla cerchia ricorrente <strong>:vendor_name</strong>. Puoi <a href=":bill_admin_link">cliccare qui</a> per vedere i dettagli.',
+            'title'         => 'Nuova fattura di acquisto ricorrente',
+            'description'   => 'La fattura di acquisto <strong>:bill_number</strong> è stata creata in base al ciclo ricorrente di <strong>:vendor_name</strong>. Puoi <a href=":bill_admin_link">cliccare qui</a> per vedere i dettagli.',
 
         ],
 
@@ -233,8 +231,8 @@ La fattura',
 
     'messages' => [
 
-        'mark_read'             => ':type è letta questa notifica!',
-        'mark_read_all'         => ':type leggi tutte le notifiche!',
+        'mark_read'             => ':type ha letto questa notifica!',
+        'mark_read_all'         => ':type ha letto tutte le notifiche!',
 
     ],
 
@@ -243,7 +241,7 @@ La fattura',
         'firefox' => [
 
             'title' => 'Configurazione dell\'icona di Firefox',
-            'description'  => '<span class="font-medium">Se le icone non vengono visualizzate, </span> <br /> <span class="font-medium">Consenti alle pagine di scegliere i propri caratteri, invece delle selezioni sopra</span> <br /><br /> <span class="font-bold"> Impostazioni (Preferenze) > Caratteri > Avanzate </span>',
+            'description'  => '<span class="font-medium">Se le icone non vengono visualizzate:</span> <br /> <span class="font-medium">Consenti alle pagine di scegliere i propri caratteri, invece delle selezioni sopra</span> <br /><br /> <span class="font-bold"> Impostazioni (Preferenze) > Caratteri > Avanzate </span>',
 
         ],
 

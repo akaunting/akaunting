@@ -44,7 +44,7 @@ return [
         'cancelled'             => 'Anulowane',
         'voided'                => 'Unieważnione',
         'completed'             => 'Zakończone',
-        'shipped'               => 'Wysłane',
+        'shipped'               => 'Ekspediowane',
         'refunded'              => 'Zwrócone',
         'failed'                => 'Nieudane',
         'denied'                => 'Odmówione',
@@ -100,5 +100,5 @@ return [
         ],
     ],
 
-    'empty_attachments'         => 'Brak plików załączonych do tego :type.',
+    'empty_attachments'         => 'Brak plików załączone do tego :type.',
 ];

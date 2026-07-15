@@ -6,7 +6,7 @@ return [
     'title'                     => 'Importuj :type',
     'limitations'               => 'Dozwolone typy plików: :extensions<br>Maksymalna liczba wierszy: :row_limit',
     'sample_file'               => 'Możesz <a target="_blank" href=":download_link"><strong>pobrać</strong></a> plik przykładowy i wypełnić go swoimi danymi.',
-    'sample_file_and_document'  => 'Możesz <a target="_blank" href=":download_link" class="text-blue-500 underline font-bold">pobrać</a> plik przykładowy i przejrzeć <a target="_blank" href=":document_link"class="text-blue-500 underline font-bold">dokumentację</a> w celu uzyskania szczegółowych informacji',
+    'sample_file_and_document'  => 'Możesz <a target="_blank" href=":download_link" class="text-blue-500 underline font-bold">pobrać</a> plik przykładowy i przejrzeć <a target="_blank" href=":document_link" class="text-blue-500 underline font-bold">dokumentację</a> w celu uzyskania szczegółowych informacji',
     'drop_file'                 => '<span style="color: #006EA6;">Prześlij plik</span> lub przeciągnij i upuść',
     'file_type_and_limitations' => ':extensions do :row_limit wierszy',
 

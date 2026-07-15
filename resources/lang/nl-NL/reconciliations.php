@@ -14,9 +14,9 @@ return [
     'cleared_amount'        => 'Vrijgemaakt bedrag',
     'deposit'               => 'Storting',
     'withdrawal'            => 'Opname',
-    'reconciled_amount'     => 'Aangepast',
-    'in_progress'           => 'In Uitvoering',
-    'save_draft'            => 'Opslaan als Concept',
-    'irreconcilable'        => 'Onverenigbaar',
+    'reconciled_amount'     => 'Afgestemd',
+    'in_progress'           => 'In uitvoering',
+    'save_draft'            => 'Opslaan als concept',
+    'irreconcilable'        => 'Niet af te stemmen',
 
 ];

@@ -3,7 +3,7 @@
 return [
 
     'AF' => 'Afeganistão',
-    'AX' => 'Ilhas Aland',
+    'AX' => 'Ilhas de Aland',
     'AL' => 'Albânia',
     'DZ' => 'Argélia',
     'AS' => 'Samoa Americana',
@@ -19,8 +19,8 @@ return [
     'AT' => 'Áustria',
     'AZ' => 'Azerbaijão',
     'BS' => 'Bahamas',
-    'BH' => 'Barein',
-    'BD' => 'Banglasdesh',
+    'BH' => 'Bahrein',
+    'BD' => 'Bangladesh',
     'BB' => 'Barbados',
     'BY' => 'Bielorrússia',
     'BE' => 'Bélgica',

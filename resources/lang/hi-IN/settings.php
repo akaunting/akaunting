@@ -24,7 +24,7 @@ return [
         'financial_start'               => 'वित्तीय वर्ष प्रारंभ',
         'timezone'                      => 'समय क्षेत्र',
         'financial_denote' => [
-            'title'                     => 'वित्तीय वर्ष की देन',
+            'title'                     => 'वित्तीय वर्ष निरूपण',
             'begins'                    => 'जिस वर्ष से यह शुरू होता है',
             'ends'                      => 'जिस वर्ष तक यह समाप्त हो जाता है',
         ],
@@ -79,7 +79,7 @@ return [
         'subheading'                    => 'उपशीर्षक',
         'due_receipt'                   => 'प्राप्ति पर देय',
         'due_days'                      => ':days दिनों के भीतर देय',
-        'due_custom'                    => 'कस्टम दिन',
+        'due_custom'                    => 'कस्टम दिन(s)',
         'due_custom_day'                => 'दिन के बाद',
         'choose_template'               => 'चालान टेम्पलेट चुनें',
         'default'                       => 'पूर्व निर्धारित',
@@ -128,7 +128,7 @@ return [
     ],
 
     'email' => [
-        'description'                   => 'प्रेषण प्रोटोकॉल और ईमेल टेम्प्लेट बदलें',
+        'description'                   => 'प्रेषण प्रोटोकॉल बदलें',
         'search_keywords'               => 'ईमेल, भेजें, प्रोटोकॉल, एसएमटीपी, होस्ट, पासवर्ड',
         'protocol'                      => 'प्रोटोकॉल',
         'php'                           => 'PHP मेल',
@@ -153,34 +153,34 @@ return [
 
         'templates' => [
             'description'               => 'ईमेल टेम्प्लेट बदलें',
-            'search_keywords'           => 'ईमेल, टेम्पलेट, विषय, मुख्य भाग, टैग',
+            'search_keywords'           => 'ईमेल, टेम्प्लेट, विषय, मुख्य भाग, टैग',
             'subject'                   => 'विषय',
             'body'                      => 'बॉडी',
             'tags'                      => '<strong> उपलब्ध टैग:</strong> :tag_list',
             'invoice_new_customer'      => 'नया चालान टेम्प्लेट (ग्राहक को भेजा गया)',
-            'invoice_remind_customer'   => 'चालान स्मरणपत्र टेम्पलेट (ग्राहक को भेजा गया)',
-            'invoice_remind_admin'      => 'चालान स्मरणपत्र टेम्पलेट (व्यवस्थापक को भेजा गया)',
-            'invoice_recur_customer'    => 'चालान आवर्ती टेम्पलेट (ग्राहक को भेजा गया)',
-            'invoice_recur_admin'       => 'चालान आवर्ती टेम्पलेट (व्यवस्थापक को भेजा गया)',
-            'invoice_view_admin'        => 'चालान दृश्य टेम्पलेट (व्यवस्थापक को भेजा गया)',
+            'invoice_remind_customer'   => 'चालान स्मरणपत्र टेम्प्लेट (ग्राहक को भेजा गया)',
+            'invoice_remind_admin'      => 'चालान स्मरणपत्र टेम्प्लेट (व्यवस्थापक को भेजा गया)',
+            'invoice_recur_customer'    => 'चालान आवर्ती टेम्प्लेट (ग्राहक को भेजा गया)',
+            'invoice_recur_admin'       => 'चालान आवर्ती टेम्प्लेट (व्यवस्थापक को भेजा गया)',
+            'invoice_view_admin'        => 'चालान दृश्य टेम्प्लेट (व्यवस्थापक को भेजा गया)',
             'invoice_payment_customer'  => 'भुगतान प्राप्त टेम्प्लेट (ग्राहक को भेजा गया)',
             'invoice_payment_admin'     => 'भुगतान प्राप्त टेम्प्लेट (व्यवस्थापक को भेजा गया)',
-            'bill_remind_admin'         => 'बिल स्मरणपत्र टेम्पलेट (व्यवस्थापक को भेजा गया)',
-            'bill_recur_admin'          => 'बिल आवर्ती टेम्पलेट (व्यवस्थापक को भेजा गया)',
-            'payment_received_customer' => 'भुगतान रसीद टेम्पलेट (ग्राहक को भेजा गया)',
+            'bill_remind_admin'         => 'बिल स्मरणपत्र टेम्प्लेट (व्यवस्थापक को भेजा गया)',
+            'bill_recur_admin'          => 'बिल आवर्ती टेम्प्लेट (व्यवस्थापक को भेजा गया)',
+            'payment_received_customer' => 'भुगतान रसीद टेम्प्लेट (ग्राहक को भेजा गया)',
             'payment_made_vendor'       => 'भुगतान किया गया टेम्प्लेट (विक्रेता को भेजा गया)',
         ],
     ],
 
     'scheduling' => [
-        'name'                          => 'सिडुलिंग',
+        'name'                          => 'शिड्यूलिंग',
         'description'                   => 'आवर्ती के लिए स्वचालित कमांड और आदेश',
         'search_keywords'               => 'स्वचालित, अनुस्मारक, आवर्ती, क्रॉन(cron), कमांड(command)',
         'send_invoice'                  => 'चालान स्मरणपत्र भेजें',
         'invoice_days'                  => 'नियत दिनों के बाद भेजें',
         'send_bill'                     => 'बिल स्मरणपत्र भेजें',
         'bill_days'                     => 'नियत दिनों से पहले भेजें',
-        'cron_command'                  => 'क्रोंन कमांड',
+        'cron_command'                  => 'क्रॉन कमांड',
         'command'                       => 'कमांड(Command)',
         'schedule_time'                 => 'चलने का समय',
 
@@ -206,4 +206,5 @@ return [
         'search_keywords'               => 'कर, दर, प्रकार, निश्चित, समावेशी, यौगिक, रोक',
     ],
 
+    'information_monthly'   => 'यह विकल्प केवल <a href=":url" target="_blank" class="to-black-400 hover:bg-full-2 bg-no-repeat bg-0-2 bg-0-full bg-gradient-to-b from-transparent transition-backgroundSize"><strong>क्लाउड सेवा</strong></a> के लिए मान्य है',
 ];

@@ -13,8 +13,8 @@ return [
 
     'form_description' => [
         'general'           => 'Deze informatie is zichtbaar in de records die u aanmaakt.',
-        'billing'           => 'BTW nummer wordt weergegeven in elke factuur/factuur. Dashboard en rapporten worden weergegeven onder de standaard valuta.',
-        'address'           => 'Het adres wordt gebruikt in de facturen, rekeningen en andere documenten die u uitgeeft.',
+        'billing'           => 'Het BTW-nummer wordt weergegeven in elke factuur/inkoopfactuur. Dashboard en rapporten worden weergegeven in de standaardvaluta.',
+        'address'           => 'Het adres wordt gebruikt in de facturen, inkoopfacturen en andere documenten die u uitgeeft.',
     ],
 
     'skip_step'             => 'Deze stap overslaan',

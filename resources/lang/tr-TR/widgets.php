@@ -12,8 +12,8 @@ return [
     'currencies'                => 'Para Birimleri',
 
     'view_report'               => 'Raporu Görüntüle',
-    'total_unpaid_invoices'     => 'Toplam ödenmemiş faturalar',
-    'total_unpaid_bills'        => 'Toplam ödenmemiş faturalar',
+    'total_unpaid_invoices'     => 'Toplam ödenmemiş satış faturaları',
+    'total_unpaid_bills'        => 'Toplam ödenmemiş satın alma faturaları',
 
     'description' => [
         'receivables'           => 'Henüz müşterilerinizden almadığınız tutar',
@@ -22,7 +22,7 @@ return [
         'profit_loss'           => 'Ödenmemiş faturalar dahil gelir ve giderler',
         'expenses_by_category'  => 'Çeşitli kategorilerdeki en yüksek giderler',
         'account_balance'       => 'Banka hesaplarınızın mevcut bakiyesi',
-        'bank_feeds'            => 'Banka hesaplarınızı bağlayarak </br>işlemlerinizi Akaunting\'e otomatik olarak aktarın',
+        'bank_feeds'            => 'Banka hesaplarınızı bağlayarak işlemlerinizi Akaunting\'e otomatik olarak aktarın <br />',
     ],
 
     'periods' => [

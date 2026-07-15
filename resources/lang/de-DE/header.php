@@ -9,7 +9,7 @@ return [
         'counter'           => '{0} Sie haben keine Benachrichtigungen|{1} Sie haben :count Benachrichtigung|[2,*] Sie haben :count Benachrichtigungen',
         'new_apps'          => '{1} :count neue App wurde veröffentlicht|[2,*] :count neue Apps veröffentlicht',
         'overdue_invoices'  => '{1} :count überfällige Rechnung|[2,*] :count überfällige Rechnungen',
-        'upcoming_bills'    => '{1} :count bevorstehende Rechnung|[2,*] :count bevorstehende Rechnungen',
+        'upcoming_bills'    => '{1} :count bevorstehende Eingangsrechnung|[2,*] :count bevorstehende Eingangsrechnungen',
         'view_all'          => 'Alle anzeigen',
 
         'exports' => [

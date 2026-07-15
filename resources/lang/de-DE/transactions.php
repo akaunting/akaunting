@@ -5,7 +5,7 @@ return [
     'payment_received'      => 'Zahlung erhalten',
     'payment_made'          => 'Zahlung erfolgt',
     'paid_by'               => 'Bezahlt von',
-    'paid_to'               => 'Bezahlt am',
+    'paid_to'               => 'Bezahlt an',
     'related_invoice'       => 'Zugehörige Rechnung',
     'related_bill'          => 'Zugehörige Rechnung (Ausgabe)',
     'recurring_income'      => 'Wiederkehrende Einnahmen',
@@ -18,7 +18,7 @@ return [
         'general'           => 'Hier können Sie die allgemeinen Transaktionsinformationen wie Datum, Betrag, Konto, Beschreibung usw. eingeben.',
         'assign_income'     => 'Wählen Sie eine Kategorie und einen Kunden aus, um Ihre Berichte detaillierter zu gestalten.',
         'assign_expense'    => 'Wählen Sie eine Kategorie und einen Lieferanten, um Ihre Berichte detaillierter zu gestalten.',
-        'other'             => 'Geben Sie eine Referenz ein, um die Transaktion mit Ihren Datensätzen zu verknüpfen.',
+        'other'             => 'Geben Sie eine Nummer und Referenz ein, um die Transaktion mit Ihren Datensätzen zu verknüpfen.',
     ],
 
     'slider' => [

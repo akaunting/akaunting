@@ -6,10 +6,10 @@ return [
     'invoices'              => 'Fatture',
     'payments'              => 'Pagamenti',
     'payment_received'      => 'Pagamento ricevuto, grazie!',
-    'create_your_invoice'   => 'Ora crea la tua fattura: è gratis',
+    'create_your_invoice'   => 'Ora crea la tua fattura — è gratis',
     'get_started'           => 'Inizia gratuitamente',
     'billing_address'       => 'Indirizzo di fatturazione',
-    'see_all_details'       => 'Visualizza tutti i dettagli dell\'account',
+    'see_all_details'       => 'Visualizza tutti i dettagli del conto',
     'all_payments'          => 'Accedi per visualizzare tutti i pagamenti',
     'received_date'         => 'Data di ricezione',
     'redirect_description'  => 'Verrai reindirizzato al sito :name per effettuare il pagamento.',
@@ -21,20 +21,20 @@ return [
     ],
 
     'outstanding_balance'   => [
-        'title'             => 'Equilibrio eccezionale',
+        'title'             => 'Saldo dovuto',
         'description'       => 'Il tuo saldo dovuto è:',
-        'not_payment'       => 'Non hai ancora saldo dovuto.',
+        'not_payment'       => 'Non hai alcun saldo dovuto.',
     ],
 
     'latest_invoices'       => [
         'title'             => 'Ultime fatture',
-        'description'       => ':date - Ti è stato addebitato il numero di fattura :invoice_number.',
-        'no_data'           => 'Non hai ancora ricevuto la fattura.',
+        'description'       => ':date - Ti è stata emessa la fattura numero :invoice_number.',
+        'no_data'           => 'Non hai ancora fatture.',
     ],
 
     'invoice_history'       => [
         'title'             => 'Storico fatture',
-        'description'       => ':date - Ti è stato addebitato il numero di fattura :invoice_number.',
+        'description'       => ':date - Ti è stata emessa la fattura numero :invoice_number.',
         'no_data'           => 'Non hai ancora lo storico delle fatture.',
     ],
 
@@ -47,7 +47,7 @@ return [
     ],
 
     'payment_detail'        => [
-        'description'       => 'Hai effettuato un pagamento :amount in data :date per questa fattura.'
+        'description'       => 'Hai effettuato un pagamento di :amount il :date per questa fattura.',
     ],
 
 ];

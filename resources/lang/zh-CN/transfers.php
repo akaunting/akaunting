@@ -2,9 +2,9 @@
 
 return [
 
-    'details'               => '详情',
+    'details'               => '详情|详情',
 
-    'from_account'          => '来自账户',
+    'from_account'          => '来源账户',
     'to_account'            => '目标账户',
     'from_rate'             => '来源汇率',
     'to_rate'               => '目标汇率',
@@ -27,7 +27,7 @@ return [
     'slider' => [
         'create'            => ':user 于 :date 创建了此转账',
         'transactions'      => '与此转账相关的交易列表',
-        'transactions_desc' => ':number 笔交易（:account）',
+        'transactions_desc' => ':account 的 :number 笔交易',
         'attachments'       => '下载附加到此转账的文件',
     ],
 

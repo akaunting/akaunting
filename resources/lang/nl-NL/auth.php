@@ -22,9 +22,8 @@ return [
     'register'              => 'Registreren',
 
     'form_description' => [
-        'personal'          => 'De uitnodigingslink wordt naar de nieuwe gebruiker gestuurd, dus zorg ervoor dat het e-mailadres correct is. 
-Zij zullen dan hun wachtwoord kunnen invoeren.',
-        'assign'            => 'De gebruiker krijgt toegang tot de geselecteerde bedrijven. Je kunt de rechten beperken vanaf de <a href=":url" class="border-b border-black" >rollen</a> pagina.',
+        'personal'          => 'De uitnodigingslink wordt naar de nieuwe gebruiker gestuurd, dus zorg ervoor dat het e-mailadres correct is. Zij zullen dan hun wachtwoord kunnen invoeren.',
+        'assign'            => 'De gebruiker krijgt toegang tot de geselecteerde bedrijven. U kunt de rechten beperken vanaf de <a href=":url" class="border-b border-black">rollen</a> pagina.',
         'preferences'       => 'Selecteer de standaardtaal van de gebruiker. U kunt ook de landingspagina instellen nadat de gebruiker inlogt.',
     ],
 

@@ -4,7 +4,7 @@ return [
 
     'receivables'               => 'Forderungen',
     'payables'                  => 'Verbindlichkeiten',
-    'cash_flow'                 => 'Umlaufvermögen',
+    'cash_flow'                 => 'Cashflow',
     'profit_loss'               => 'Gewinn & Verlust',
     'expenses_by_category'      => 'Ausgaben nach Kategorie',
     'account_balance'           => 'Kontostand',
@@ -22,7 +22,7 @@ return [
         'profit_loss'           => 'Einnahmen und Ausgaben, einschließlich unbezahlter Rechnungen.',
         'expenses_by_category'  => 'Höchste Ausgaben in verschiedenen Kategorien.',
         'account_balance'       => 'Aktueller Kontostand Ihrer Bankkonten.',
-        'bank_feeds'            => 'Importieren Sie Ihre Transaktionen automatisch in Akaunting, </br>indem Sie Ihre Bankkonten verbinden',
+        'bank_feeds'            => 'Importieren Sie Ihre Transaktionen automatisch in Akaunting, <br />indem Sie Ihre Bankkonten verbinden',
     ],
 
     'periods' => [

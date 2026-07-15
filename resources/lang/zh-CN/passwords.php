@@ -3,21 +3,19 @@
 return [
 
     /*
-|--------------------------------------------------------------------------
-|Password Reset Language Lines
-|--------------------------------------------------------------------------
-|
-|The following language lines are the default lines which match reasons
-|that are given by the password broker for a password update attempt
-|has failed, such as for an invalid token or invalid new password.
-|
+    |--------------------------------------------------------------------------
+    | 密码重置语言行
+    |--------------------------------------------------------------------------
+    |
+    | 以下语言行是密码重置代理在密码更新尝试失败时
+    | 给出的默认提示，例如令牌无效或新密码不符合要求。
+    |
     */
 
-    'password' => '密码至少是六位字符并且匹配。',
-    'reset' => '密码重置成功！',
-    'sent' => '密码重置邮件已发送！',
-    'token' => '密码重置令牌无效。',
-    'user' => "找不到该邮箱对应的用户。",
+    'reset' => '您的密码已重置！',
+    'sent' => '密码重置链接已通过邮件发送给您！',
     'throttled' => '请稍候再重试。',
+    'token' => '密码重置令牌无效。',
+    'user' => "找不到使用该邮箱地址的用户。",
 
 ];

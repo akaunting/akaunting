@@ -22,7 +22,7 @@ return [
         'profit_loss'           => 'Dochody i wydatki, w tym niezapłacone faktury i rachunki',
         'expenses_by_category'  => 'Największe wydatki w różnych kategoriach',
         'account_balance'       => 'Bieżące saldo Twoich kont bankowych',
-        'bank_feeds'            => 'Automatycznie importuj swoje transakcje do Akaunting </br>łącząc swoje konta bankowe',
+        'bank_feeds'            => 'Automatycznie importuj swoje transakcje do Akaunting <br />łącząc swoje konta bankowe',
     ],
 
     'periods' => [

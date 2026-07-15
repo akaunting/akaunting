@@ -11,7 +11,7 @@ return [
     'header' => [
         '403'       => '403 Zabronione',
         '404'       => '404 Nie znaleziono',
-        '500'       => 'Błąd 500 - wewnętrzny błąd serwera.',
+        '500'       => '500 Wewnętrzny błąd serwera',
     ],
 
     'message' => [

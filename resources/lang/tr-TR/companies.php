@@ -13,8 +13,8 @@ return [
 
     'form_description' => [
         'general'           => 'Bu bilgiler oluşturduğunuz kayıtlarda görünür.',
-        'billing'           => 'Vergi numarası faturalarda görünür. Kontrol Paneli ve Raporlar varsayılan para birimini kullanır.',
-        'address'           => 'Girdiğiniz adres, kestiğiniz faturalarda ve diğer kayıtlarda kullanılacaktır.',
+        'billing'           => 'Vergi numarası her satış faturasında ve satın alma faturasında görünür. Kontrol Paneli ve Raporlar varsayılan para birimini kullanır.',
+        'address'           => 'Girdiğiniz adres, kestiğiniz satış faturalarında, satın alma faturalarında ve diğer kayıtlarda kullanılacaktır.',
     ],
 
     'skip_step'             => 'Bu adımı atla',

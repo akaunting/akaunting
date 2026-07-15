@@ -3,7 +3,7 @@
 return [
 
     'version'               => 'Version',
-    'powered'               => 'Powered By Akaunting',
+    'powered'               => 'Powered by Akaunting',
     'link'                  => 'https://akaunting.com',
     'software'              => 'Kostenlose Buchhaltungssoftware',
     'powered_by'            => 'Zur Verfügung gestellt von',

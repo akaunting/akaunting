@@ -3,36 +3,30 @@
 return [
 
     'years'                         => 'Ano|Anos',
-    'date_range'                    => 'Intervalo de Datas',
+    'date_range'                    => 'Intervalo de datas',
     'preferences'                   => 'Preferência|Preferências',
-    'this_year'                     => 'Este Ano',
-    'previous_year'                 => 'Ano Anterior',
-    'this_quarter'                  => 'Este trimestre',
-    'previous_quarter'              => 'Trimestre anterior',
-    'last_12_months'                => 'Últimos 12 meses',
-    'profit_loss'                   => 'Receitas & Despesas',
-    'income_summary'                => 'Resumo de Venda',
-    'expense_summary'               => 'Resumo de Despesas',
+    'profit_loss'                   => 'Lucros e perdas',
+    'income_summary'                => 'Resumo de receitas',
+    'expense_summary'               => 'Resumo de despesas',
     'income_expense_summary'        => 'Receita vs Despesa',
-    'tax_summary'                   => 'Resumo financeiro',
+    'tax_summary'                   => 'Resumo de impostos',
     'discount_summary'              => 'Resumo de descontos',
-    'gross_profit'                  => 'Lucro Bruto',
+    'gross_profit'                  => 'Lucro bruto',
     'net_profit'                    => 'Lucro líquido',
     'net_profit_loss'               => 'Lucro líquido (prejuízo)',
     'total_income'                  => 'Receita total',
     'total_direct_cost'             => 'Custo total das vendas',
-    'total_expense'                 => 'Despesas Totais',
-    'total_expenses'                => 'Despesas Totais',
+    'total_expense'                 => 'Despesas totais',
     'net'                           => 'Líquido',
-    'income_expense'                => 'Receita vs Despesa',
+    'income_expense'                => 'Receita e despesa',
     'pin'                           => 'Fixar seu relatório',
 
-    'income_expense_description'    => 'Descrição para relatórios de receitas e despesas',
-    'accounting_description'        => 'Descrição de relatórios contábeis',
+    'income_expense_description'    => 'Obtenha uma visão geral de suas receitas e despesas.',
+    'accounting_description'        => 'Obtenha uma visão clara de como está o seu negócio.',
 
     'form_description' => [
-        'general'                   => 'Aqui é possível digitar informações gerais do relatório como nome, tipo, descrição, etc.',
-        'preferences'               => 'As preferências o ajudam a personalizar seus relatórios.  '
+        'general'                   => 'Aqui você pode inserir as informações gerais do relatório, como nome, tipo, descrição, etc.',
+        'preferences'               => 'As preferências ajudam você a personalizar seus relatórios.'
     ],
 
     'charts' => [
@@ -46,6 +40,6 @@ return [
         'pin_report'                => 'Fixar seu relatório',
     ],
 
-    'percentage_of_income'          => 'Mostrar % da Receita',
+    'percentage_of_income'          => 'Mostrar % da receita',
 
 ];

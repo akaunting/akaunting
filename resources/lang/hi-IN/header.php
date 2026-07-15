@@ -8,7 +8,7 @@ return [
     'notifications' => [
         'counter'           => '{0} आपके पास कोई सूचना नहीं है|{1} आपके पास :count सूचना है|[2,*] आपके पास :count सूचनाएं हैं',
         'new_apps'          => '{1} :count नया ऐप प्रकाशित हुआ है|[2,*] :count नए ऐप्स प्रकाशित हुए है',
-        'overdue_invoices'  => '{1} :count भुगतान नहीं किये हुए चालान|[2,*] :count भुगतान नहीं किये हुए चालान',
+        'overdue_invoices'  => '{1} :count अतिदेय चालान|[2,*] :count अतिदेय चालान',
         'upcoming_bills'    => '{1} :count आगामी बिल|[2,*] :count आगामी बिल',
         'view_all'          => 'सभी देखें',
 

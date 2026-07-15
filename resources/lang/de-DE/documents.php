@@ -57,7 +57,7 @@ return [
         'drawn'                 => 'Gezeichnet',
         'not_billed'            => 'Nicht abgerechnet',
         'issued'                => 'Ausgestellt',
-        'not_invoiced'          => 'Nicht abgerechnet',
+        'not_invoiced'          => 'Nicht in Rechnung gestellt',
         'confirmed'             => 'Bestätigt',
         'not_confirmed'         => 'Nicht bestätigt',
         'active'                => 'Aktiv',
