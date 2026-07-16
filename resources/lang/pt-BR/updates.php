@@ -2,14 +2,14 @@
 
 return [
 
-    'installed_version'     => 'Versão instalada',
-    'latest_version'        => 'Última versão',
-    'update'                => 'Atualizar o Akaunting para a versão :version',
-    'changelog'             => 'Registro de alterações',
+    'installed_version'     => 'Versão Instalada',
+    'latest_version'        => 'Última Versão',
+    'update'                => 'Atualiza o Akaunting para a versão :version',
+    'changelog'             => 'Changelog',
     'check'                 => 'Verificar',
-    'new_core'              => 'Uma versão atualizada do Akaunting está disponível.',
+    'new_core'              => 'Está disponível uma versão atualizada do Sistema Akaunting.',
     'latest_core'           => 'Parabéns! Você tem a versão mais recente do Akaunting. Futuras atualizações de segurança serão aplicadas automaticamente.',
-    'success'               => 'O processo de atualização foi concluído com sucesso.',
-    'error'                 => 'O processo de atualização falhou. Por favor, tente novamente.',
+    'success'               => 'A instalação foi completada com êxito.',
+    'error'                 => 'Houve um erro na atualização! Por favor tente novamente.',
 
 ];
