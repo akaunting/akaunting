@@ -5,7 +5,7 @@ return [
     'account_name'          => 'Nom du compte',
     'account_balance'       => 'Solde du compte',
     'number'                => 'Numéro',
-    'opening_balance'       => 'Solde à l\'ouverture',
+    'opening_balance'       => 'Solde d\'ouverture',
     'current_balance'       => 'Solde actuel',
     'bank_name'             => 'Nom de la Banque',
     'bank_phone'            => 'Téléphone de votre Banque',
@@ -19,7 +19,7 @@ return [
     'credit_cards'          => 'Carte de Crédit|Cartes de Crédit',
 
     'form_description' => [
-        'general'           => 'Le type "carte de crédit" doit être utilisé avec un solde d\'ouverture négatif. Le numéro de compte est essentiel pour permettre la réconciliation des comptes. Le compte par défaut enregistrera toutes les transactions, à moins qu\'un choix différent ne soit fait lors de l\'enregistrement d\'une transaction.',
+        'general'           => 'Le type "carte de crédit" doit être utilisé avec un solde d\'ouverture négatif. Le numéro de compte est essentiel pour permettre le rapprochement des comptes. Le compte par défaut enregistrera toutes les transactions, à moins qu\'un choix différent ne soit fait lors de l\'enregistrement d\'une transaction.',
         'bank'              => 'Il est possible que vous ayez plusieurs comptes bancaires dans différentes banques. L\'enregistrement des informations sur votre banque facilitera le rapprochement des transactions avec celle-ci.',
     ],
 

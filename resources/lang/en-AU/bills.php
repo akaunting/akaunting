@@ -46,12 +46,12 @@ return [
     ],
 
     'messages' => [
-        'draft'             => 'This is a <b>DRAFT</b> bill and will be reflected in charts after it is received.',
+        'draft'             => 'This is a <b>DRAFT</b> bill and will be reflected to charts after it gets received.',
 
         'status' => [
             'created'       => 'Created on :date',
             'receive' => [
-                'draft'     => 'Not sent',
+                'draft'     => 'Not received',
                 'received'  => 'Received on :date',
             ],
             'paid' => [

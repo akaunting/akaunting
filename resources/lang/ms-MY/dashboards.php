@@ -3,9 +3,9 @@
 return [
 
     'error' => [
-        'not_user_dashboard'    => 'Error: Anda tidak diperbolehkan mengubah dasbor ini!',
-        'delete_last'           => 'Kesalahan: Tidak dapat menghapus dasbor terakhir. Silakan, buat yang baru dulu!',
-        'disable_last'          => 'Kesalahan: Tidak dapat menonaktifkan dasbor terakhir. Silakan, buat yang baru dulu!',
+        'not_user_dashboard'    => 'Ralat: Anda tidak dibenarkan menukar papan pemuka ini!',
+        'delete_last'           => 'Ralat: Tidak boleh memadam papan pemuka terakhir. Sila cipta yang baharu dahulu!',
+        'disable_last'          => 'Ralat: Tidak boleh menonaktifkan papan pemuka terakhir. Sila cipta yang baharu dahulu!',
     ],
 
     'form_description' => [

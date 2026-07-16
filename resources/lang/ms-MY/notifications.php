@@ -5,24 +5,24 @@ return [
     'whoops'              => 'Ups!',
     'hello'               => 'Halo!',
     'salutation'          => 'Hormat Kami,<br> :company_name',
-    'subcopy'             => 'Jika terdapat masalah ketika menekan tombol ":text", copy dan paste URL tersebut pada web browser Anda: [:url](:url)',
-    'mark_read'           => 'Tandai Dibaca',
-    'mark_read_all'       => 'Tandai Dibaca Semua',
-    'empty'               => 'Cihuuy, gak ada notifikasi!',
-    'new_apps'            => ':app tersedia <a href=":url">Lihat sekarang</a>!',
+    'subcopy'             => 'Jika anda menghadapi masalah apabila menekan butang ":text", salin dan tampal URL di bawah ke dalam pelayar web anda: [:url](:url)',
+    'mark_read'           => 'Tanda Dibaca',
+    'mark_read_all'       => 'Tanda Semua Dibaca',
+    'empty'               => 'Woohoo, tiada pemberitahuan!',
+    'new_apps'            => ':app tersedia. <a href=":url">Lihat sekarang</a>!',
 
     'update' => [
 
         'mail' => [
 
-            'title'         => '⚠️ Update gagal di :domain',
-            'description'   => 'Pembaruan :alias dari :current_version ke :new_version gagal dalam <strong>:step</strong> langkah dengan pesan berikut: :error_message',
+            'title'         => '⚠️ Kemas kini gagal di :domain',
+            'description'   => 'Kemas kini :alias dari :current_version ke :new_version gagal dalam langkah <strong>:step</strong> dengan mesej berikut: :error_message',
 
         ],
 
         'slack' => [
 
-            'description'   => 'Update gagal untuk :domain',
+            'description'   => 'Kemas kini gagal untuk :domain',
 
         ],
 
@@ -39,8 +39,8 @@ return [
 
         'failed' => [
 
-            'title'         => 'Unduhan gagal',
-            'description'   => 'Tidak dapat membuat berkas dikarenakan beberapa masalah. Periksa email Anda untuk detailnya.',
+            'title'         => 'Muat turun gagal',
+            'description'   => 'Tidak dapat mencipta fail kerana isu berikut:',
 
         ],
 
@@ -57,8 +57,8 @@ return [
 
         'failed' => [
 
-            'title'         => 'Impor gagal',
-            'description'   => 'Tidak dapat mengimpor berkas dikarenakan masalah berikut:',
+            'title'         => 'Import gagal',
+            'description'   => 'Tidak dapat mengimport fail kerana isu berikut. Sila semak e-mel anda untuk butiran.',
 
         ],
     ],
@@ -74,8 +74,8 @@ return [
 
         'failed' => [
 
-            'title'         => 'Ekspor gagal',
-            'description'   => 'Tidak dapat membuat berkas ekspor dikarenakan masalah berikut:',
+            'title'         => 'Eksport gagal',
+            'description'   => 'Tidak dapat mencipta fail eksport kerana isu berikut. Sila semak e-mel anda untuk butiran.',
 
         ],
 
@@ -85,8 +85,8 @@ return [
 
         'invalid' => [
 
-            'title'         => 'Email :type tidak valid',
-            'description'   => 'Alamat email :email telah dilaporkan tidak valid, dan orang tersebut telah dinonaktifkan. Silakan periksa pesan galat berikut dan perbaiki alamat email:',
+            'title'         => 'E-mel :type tidak sah',
+            'description'   => 'Alamat e-mel :email telah dilaporkan tidak sah, dan orang tersebut telah dinonaktifkan. Sila semak mesej ralat berikut dan betulkan alamat e-mel:',
 
         ],
 
@@ -110,120 +110,120 @@ return [
 
         'export_completed' => [
 
-            'title'         => 'Ekspor siap',
-            'description'   => 'File ekspor <strong>:type</strong> Anda siap untuk <a href=":url" target="_blank"><strong>mengunduh</strong></a>',
+            'title'         => 'Ekspor sedia',
+            'description'   => 'Fail eksspor <strong>:type</strong> anda sedia untuk <a href=":url" target="_blank"><strong>dimuat turun</strong></a>',
 
         ],
 
         'export_failed' => [
 
-            'title'         => 'Ekspor gagal',
-            'description'   => 'Tidak dapat membuat file ekspor karena beberapa masalah. Periksa email Anda untuk detailnya.',
+            'title'         => 'Eksport gagal',
+            'description'   => 'Tidak dapat mencipta fail eksport kerana isu berikut. Sila semak e-mel anda untuk butiran.',
 
         ],
 
         'import_completed' => [
 
-            'title'         => 'Impor telah selesai',
-            'description'   => '<strong>:type</strong> baris <strong>:count</strong> data Anda berhasil diimpor.',
+            'title'         => 'Import selesai',
+            'description'   => 'Data <strong>:type</strong> anda dengan <strong>:count</strong> data telah berjaya diimport.',
 
         ],
 
         'import_failed' => [
 
-            'title'         => 'Impor gagal',
-            'description'   => 'Tidak dapat mengimpor file karena beberapa masalah. Periksa email Anda untuk detailnya.',
+            'title'         => 'Import gagal',
+            'description'   => 'Tidak dapat mengimport fail kerana isu berikut. Sila semak e-mel anda untuk butiran.',
 
         ],
 
         'new_apps' => [
 
             'title'         => 'Aplikasi Baru',
-            'description'   => '<strong>:name</strong> aplikasi keluar. Anda dapat <a href=":url">klik di sini</a> untuk melihat detailnya.',
+            'description'   => 'Aplikasi <strong>:name</strong> telah dikeluarkan. Anda boleh <a href=":url">klik di sini</a> untuk melihat butiran.',
 
         ],
 
         'invoice_new_customer' => [
 
             'title'         => 'Invois Baru',
-            'description'   => 'Invois <strong>:invoice_number</strong> dibuat. Anda dapat <a href=":invoice_portal_link">klik di sini</a> untuk melihat detailnya dan melanjutkan bayaran.',
+            'description'   => 'Invois <strong>:invoice_number</strong> dicipta. Anda boleh <a href=":invoice_portal_link">klik di sini</a> untuk melihat butiran dan meneruskan bayaran.',
 
         ],
 
         'invoice_remind_customer' => [
 
-            'title'         => 'Invois Terlambat',
-            'description'   => '<strong>:invoice_number</strong> faktur jatuh tempo <strong>:invoice_due_date</strong>. Anda dapat <a href=":invoice_portal_link">klik di sini</a> untuk melihat detailnya dan melanjutkan bayaran.',
+            'title'         => 'Invois Tertunggak',
+            'description'   => 'Invois <strong>:invoice_number</strong> telah jatuh tempo pada <strong>:invoice_due_date</strong>. Anda boleh <a href=":invoice_portal_link">klik di sini</a> untuk melihat butiran dan meneruskan bayaran.',
 
         ],
 
         'invoice_remind_admin' => [
 
-            'title'         => 'Invois Terlambat',
-            'description'   => '<strong>:invoice_number</strong> faktur jatuh tempo <strong>:invoice_due_date</strong>. Anda dapat <a href=":invoice_admin_link">klik di sini</a> untuk melihat detailnya.',
+            'title'         => 'Invois Tertunggak',
+            'description'   => 'Invois <strong>:invoice_number</strong> telah jatuh tempo pada <strong>:invoice_due_date</strong>. Anda boleh <a href=":invoice_admin_link">klik di sini</a> untuk melihat butiran.',
 
         ],
 
         'invoice_recur_customer' => [
 
-            'title'         => 'Invois Berulang Baru',
-            'description'   => 'Invois <strong>:invoice_number</strong> dibuat berdasarkan lingkaran berulang Anda. Anda dapat <a href=":invoice_portal_link">klik di sini</a> untuk melihat detailnya dan melanjutkan bayaran.',
+            'title'         => 'Invois Berulang Baharu',
+            'description'   => 'Invois <strong>:invoice_number</strong> dicipta berdasarkan kitaran berulang anda. Anda boleh <a href=":invoice_portal_link">klik di sini</a> untuk melihat butiran dan meneruskan bayaran.',
 
         ],
 
         'invoice_recur_admin' => [
 
-            'title'         => 'Invois Berulang Baru',
-            'description'   => 'Invois <strong>:invoice_number</strong> dibuat berdasarkan <strong>:customer_name</strong> lingkaran berulang. Anda dapat <a href=":invoice_admin_link">klik di sini</a> untuk melihat detailnya.',
+            'title'         => 'Invois Berulang Baharu',
+            'description'   => 'Invois <strong>:invoice_number</strong> dicipta berdasarkan kitaran berulang <strong>:customer_name</strong>. Anda boleh <a href=":invoice_admin_link">klik di sini</a> untuk melihat butiran.',
 
         ],
 
         'invoice_view_admin' => [
 
             'title'         => 'Invois Dilihat',
-            'description'   => '<strong>:customer_name</strong> telah melihat faktur <strong>:invoice_number</strong>. Anda dapat <a href=":invoice_admin_link">klik di sini</a> untuk melihat detailnya.',
+            'description'   => '<strong>:customer_name</strong> telah melihat invois <strong>:invoice_number</strong>. Anda boleh <a href=":invoice_admin_link">klik di sini</a> untuk melihat butiran.',
 
         ],
 
         'revenue_new_customer' => [
 
             'title'         => 'Bayaran Diterima',
-            'description'   => 'Terima kasih atas bayaran untuk <strong>:invoice_number</strong> invoice. Anda dapat <a href=":invoice_portal_link">klik di sini</a> untuk melihat detailnya.',
+            'description'   => 'Terima kasih atas bayaran untuk invois <strong>:invoice_number</strong>. Anda boleh <a href=":invoice_portal_link">klik di sini</a> untuk melihat butiran.',
 
         ],
 
         'invoice_payment_customer' => [
 
             'title'         => 'Bayaran Diterima',
-            'description'   => 'Terima kasih atas bayaran untuk <strong>:invoice_number</strong> invoice. Anda dapat <a href=":invoice_portal_link">klik di sini</a> untuk melihat detailnya.',
+            'description'   => 'Terima kasih atas bayaran untuk invois <strong>:invoice_number</strong>. Anda boleh <a href=":invoice_portal_link">klik di sini</a> untuk melihat butiran.',
 
         ],
 
         'invoice_payment_admin' => [
 
             'title'         => 'Bayaran Diterima',
-            'description'   => ':customer_name mencatat bayaran untuk faktur <strong>:invoice_number</strong>. Anda dapat <a href=":invoice_admin_link">klik di sini</a> untuk melihat detailnya.',
+            'description'   => ':customer_name merekodkan bayaran untuk invois <strong>:invoice_number</strong>. Anda boleh <a href=":invoice_admin_link">klik di sini</a> untuk melihat butiran.',
 
         ],
 
         'bill_remind_admin' => [
 
-            'title'         => 'Bil Terlambat',
-            'description'   => 'Bil <strong>:bill_number</strong> telah jatuh tempo <strong>:bill_due_date</strong>. Anda dapat <a href=":bill_admin_link">klik di sini</a> untuk melihat detailnya.',
+            'title'         => 'Bil Tertunggak',
+            'description'   => 'Bil <strong>:bill_number</strong> telah jatuh tempo pada <strong>:bill_due_date</strong>. Anda boleh <a href=":bill_admin_link">klik di sini</a> untuk melihat butiran.',
 
         ],
 
         'bill_recur_admin' => [
 
-            'title'         => 'Bil Berulang Baru',
-            'description'   => 'Bil <strong>:bill_number</strong> dibuat berdasarkan <strong>:vendor_name</strong> lingkaran berulang. Anda dapat <a href=":bill_admin_link">klik di sini</a> untuk melihat detailnya.',
+            'title'         => 'Bil Berulang Baharu',
+            'description'   => 'Bil <strong>:bill_number</strong> dicipta berdasarkan kitaran berulang <strong>:vendor_name</strong>. Anda boleh <a href=":bill_admin_link">klik di sini</a> untuk melihat butiran.',
 
         ],
 
         'invalid_email' => [
 
-            'title'         => 'Email :type tidak valid',
-            'description'   => 'Alamat email <strong>:email</strong> telah dilaporkan tidak valid, dan orang tersebut telah dinonaktifkan. Silakan periksa dan perbaiki alamat email.',
+            'title'         => 'E-mel :type tidak sah',
+            'description'   => 'Alamat e-mel <strong>:email</strong> telah dilaporkan tidak sah, dan orang tersebut telah dinonaktifkan. Sila semak dan betulkan alamat e-mel.',
 
         ],
 
@@ -231,8 +231,8 @@ return [
 
     'messages' => [
 
-        'mark_read'             => ':type membaca notifikasi ini!',
-        'mark_read_all'         => ':type telah membaca semua notifikasi!',
+        'mark_read'             => ':type telah membaca pemberitahuan ini!',
+        'mark_read_all'         => ':type telah membaca semua pemberitahuan!',
 
     ],
 
@@ -241,7 +241,7 @@ return [
         'firefox' => [
 
             'title' => 'Konfigurasi Ikon Firefox',
-            'description'  => '<span class="font-medium">Jika ikon Anda tidak muncul, harap;</span> <br /> <span class="font-medium">Harap Izinkan halaman untuk memilih font mereka sendiri, bukan pilihan Anda di atas< /span> <br /><br /> <span class="font-bold"> Tetapan (Preferensi) > Font > Lanjutan </span>',
+            'description'  => '<span class="font-medium">Jika ikon anda tidak muncul, sila;</span> <br /> <span class="font-medium">Sila Benarkan halaman memilih fon mereka sendiri, dan bukan pilihan anda di atas</span> <br /><br /> <span class="font-bold">Tetapan (Keutamaan) > Fon > Lanjutan</span>',
 
         ],
 

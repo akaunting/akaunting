@@ -2,23 +2,23 @@
 
 return [
 
-    'edit_columns'              => 'Editer les colonnes',
+    'edit_columns'              => 'Éditer les colonnes',
     'empty_items'               => 'Vous n\'avez ajouté aucun élément.',
     'grand_total'               => 'Total global',
     'accept_payment_online'     => 'Accepter les paiements en ligne',
     'transaction'               => 'Un paiement de :amount a été effectué en utilisant :account.',
     'portal_transaction'        => 'Un paiement de :amount a été effectué en utilisant :payment_method.',
-    'billing'                   => 'Facturation des achats',
+    'billing'                   => 'Facturation',
     'advanced'                  => 'Avancé',
 
-    'item_price_hidden'         => 'Cette colonne est cachée sur vos :type.',
+    'item_price_hidden'         => 'Cette colonne est masquée sur votre :type.',
 
     'actions' => [
         'cancel'                => 'Annuler',
     ],
 
     'invoice_detail' => [
-        'marked'                => '<b> Vous </b> avez marqué cette facture comme',
+        'marked'                => '<b>Vous</b> avez marqué cette facture comme',
         'services'              => 'Services',
         'another_item'          => 'Un autre élément',
         'another_description'   => 'et une autre description',
@@ -42,11 +42,11 @@ return [
         'overdue'               => 'En retard',
         'unpaid'                => 'Impayé',
         'cancelled'             => 'Annulé',
-        'voided'                => 'Annulé',
+        'voided'                => 'Invalidé',
         'completed'             => 'Terminé',
-        'shipped'               => 'Envoyé',
+        'shipped'               => 'Expédié',
         'refunded'              => 'Remboursé',
-        'failed'                => 'Echoué',
+        'failed'                => 'Échoué',
         'denied'                => 'Refusé',
         'processed'             => 'Traité',
         'open'                  => 'Ouvert',
@@ -54,14 +54,14 @@ return [
         'billed'                => 'Facturé',
         'delivered'             => 'Livré',
         'returned'              => 'Retourné',
-        'drawn'                 => 'Dessiné',
+        'drawn'                 => 'Tiré',
         'not_billed'            => 'Non facturé',
-        'issued'                => 'Résolu',
+        'issued'                => 'Émis',
         'not_invoiced'          => 'Non facturé',
         'confirmed'             => 'Confirmé',
         'not_confirmed'         => 'Non confirmé',
         'active'                => 'Actif',
-        'ended'                 => 'Terminé',
+        'ended'                 => 'Clôturé',
     ],
 
     'form_description' => [
@@ -81,14 +81,14 @@ return [
     ],
 
     'messages' => [
-        'email_sent'            => ':type L\'email vous a été envoyé.',
+        'email_sent'            => 'L\'e-mail :type a été envoyé !',
         'restored'              => ':type a été restauré !',
-        'marked_as'             => ':type marqué comme :status!',
-        'marked_sent'           => ':type marqué comme envoyé!',
+        'marked_as'             => ':type marqué comme :status !',
+        'marked_sent'           => ':type marqué comme envoyé !',
         'marked_paid'           => ':type marqué comme payé !',
         'marked_viewed'         => ':type marqué comme vu !',
         'marked_cancelled'      => ':type marqué comme annulé !',
-        'marked_received'       => ':type marqué comme reçu!',
+        'marked_received'       => ':type marqué comme reçu !',
     ],
 
     'recurring' => [

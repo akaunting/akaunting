@@ -6,48 +6,48 @@ return [
     'invoices'              => 'Invois',
     'payments'              => 'Bayaran',
     'payment_received'      => 'Bayaran diterima, terima kasih!',
-    'create_your_invoice'   => 'Sekarang buat faktur Anda sendiri — gratis',
-    'get_started'           => 'Mulai gratis',
-    'billing_address'       => 'Alamat Bil',
-    'see_all_details'       => 'Lihat semua detail rekening',
-    'all_payments'          => 'Login untuk melihat semua bayaran',
-    'received_date'         => 'Tanggal Diterima',
-    'redirect_description'  => 'Anda akan diarahkan ke situs :name untuk melakukan bayaran.',
+    'create_your_invoice'   => 'Sekarang cipta invois anda sendiri — percuma',
+    'get_started'           => 'Mula secara percuma',
+    'billing_address'       => 'Alamat Pengebilan',
+    'see_all_details'       => 'Lihat semua butiran akaun',
+    'all_payments'          => 'Log masuk untuk melihat semua bayaran',
+    'received_date'         => 'Tarikh Diterima',
+    'redirect_description'  => 'Anda akan dihalakan ke laman web :name untuk membuat bayaran.',
 
     'last_payment'          => [
-        'title'             => 'Bayaran Terakhir Dilakukan',
-        'description'       => 'Anda telah melakukan bayaran ini pada :date',
-        'not_payment'       => 'Anda belum melakukan bayaran apa pun.',
+        'title'             => 'Bayaran Terakhir Dibuat',
+        'description'       => 'Anda telah membuat bayaran ini pada :date',
+        'not_payment'       => 'Anda belum membuat sebarang bayaran.',
     ],
 
     'outstanding_balance'   => [
-        'title'             => 'Saldo luar biasa',
-        'description'       => 'Saldo terutang Anda adalah:',
-        'not_payment'       => 'Anda belum memiliki saldo terutang.',
+        'title'             => 'Baki Tertunggak',
+        'description'       => 'Baki tertunggak anda ialah:',
+        'not_payment'       => 'Anda belum mempunyai baki tertunggak.',
     ],
 
     'latest_invoices'       => [
-        'title'             => 'Invois Terbaru',
-        'description'       => ':date - Anda ditagih dengan nomor invoice :invoice_number.',
-        'no_data'           => 'Anda belum membuat faktur.',
+        'title'             => 'Invois Terkini',
+        'description'       => ':date - Anda telah dibilkan dengan nombor invois :invoice_number.',
+        'no_data'           => 'Anda belum mempunyai invois.',
     ],
 
     'invoice_history'       => [
-        'title'             => 'Riwayat Invois',
-        'description'       => ':date - Anda ditagih dengan nomor invoice :invoice_number.',
-        'no_data'           => 'Anda belum memiliki riwayat faktur.',
+        'title'             => 'Sejarah Invois',
+        'description'       => ':date - Anda telah dibilkan dengan nombor invois :invoice_number.',
+        'no_data'           => 'Anda belum mempunyai sejarah invois.',
     ],
 
     'payment_history'       => [
-        'title'             => 'Riwayat Bayaran',
-        'description'       => ':date- Anda melakukan bayaran sebesar :amount.',
-        'invoice_description'=> ':date - Anda melakukan bayaran sebesar :amount untuk nomor invoice :nomor_invoice.',
+        'title'             => 'Sejarah Bayaran',
+        'description'       => ':date - Anda membuat bayaran sebanyak :amount.',
+        'invoice_description'=> ':date - Anda membuat bayaran sebanyak :amount untuk nombor invois :invoice_number.',
 
-        'no_data'           => 'Anda belum memiliki riwayat bayaran.',
+        'no_data'           => 'Anda belum mempunyai sejarah bayaran.',
     ],
 
     'payment_detail'        => [
-        'description'       => 'Anda melakukan bayaran :amount pada :date untuk faktur ini.'
+        'description'       => 'Anda membuat bayaran :amount pada :date untuk invois ini.'
     ],
 
 ];

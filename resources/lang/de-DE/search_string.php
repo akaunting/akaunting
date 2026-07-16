@@ -7,7 +7,7 @@ return [
         'paid_at'           => 'Zahlungseingang am',
         'started_at'        => 'Startdatum',
         'ended_at'          => 'Enddatum',
-        'billed_at'         => 'Rechnungsdatum',
+        'billed_at'         => 'Eingangsrechnungsdatum',
         'due_at'            => 'Fälligkeitsdatum',
         'invoiced_at'       => 'Rechnungsdatum',
         'issued_at'         => 'Ausstellungsdatum',

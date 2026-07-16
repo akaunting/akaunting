@@ -16,13 +16,13 @@ return [
     'total_unpaid_bills'        => 'Total tagihan belum dibayar',
 
     'description' => [
-        'receivables'           => 'Jumlah yang diterima dari pelanggan',
-        'payables'              => 'Jumlah yang belum dibayarkan ke penyedia',
+        'receivables'           => 'Jumlah yang belum Anda terima dari pelanggan',
+        'payables'              => 'Jumlah yang belum Anda bayarkan ke pemasok',
         'cash_flow'             => 'Uang masuk dan keluar dari bisnis Anda',
         'profit_loss'           => 'Pendapatan dan pengeluaran termasuk faktur dan tagihan belum dibayar',
         'expenses_by_category'  => 'Pengeluaran terbesar di berbagai kategori',
-        'account_balance'       => 'Saldo rekening bank Anda',
-        'bank_feeds'            => 'Impor transaksi Anda ke Akaunting secara otomatis</br>dengan menghubungkan rekening bank Anda',
+        'account_balance'       => 'Saldo rekening bank Anda saat ini',
+        'bank_feeds'            => 'Impor transaksi Anda ke Akaunting secara otomatis<br />dengan menghubungkan rekening bank Anda',
     ],
 
     'periods' => [

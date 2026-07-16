@@ -8,8 +8,8 @@ return [
     'subcopy'             => '":text" butonuna tıklayamıyorsanız, aşağıdaki bağlantıyı kopyalayıp tarayıcıya yapıştırın: [:url](:url)',
     'mark_read'           => 'Okundu İşaretle',
     'mark_read_all'       => 'Hepsini Okundu İşaretle',
-    'empty'               => 'Woohoo, hiç bildirim yok!',
-    'new_apps'            => 'Yeni Uygulama|Yeni Uygulamalar',
+    'empty'               => 'Harika, hiç bildirim yok!',
+    'new_apps'            => ':app kullanıma hazır. <a href=":url">Hemen inceleyin</a>!',
 
     'update' => [
 
@@ -208,15 +208,15 @@ return [
 
         'bill_remind_admin' => [
 
-            'title'         => 'Gecikmiş Gider Faturası',
-            'description'   => '<strong>:bill_number</strong> faturasının son ödeme tarihi <strong>:bill_due_date</strong> idi. Detayları görmek için <a href=":bill_admin_link">buraya tıklayabilirsiniz</a>.',
+            'title'         => 'Gecikmiş Satın Alma Faturası',
+            'description'   => '<strong>:bill_number</strong> satın alma faturasının son ödeme tarihi <strong>:bill_due_date</strong> idi. Detayları görmek için <a href=":bill_admin_link">buraya tıklayabilirsiniz</a>.',
 
         ],
 
         'bill_recur_admin' => [
 
-            'title'         => 'Yeni Tekrarlanan Gider Faturası',
-            'description'   => '<strong>:vendor_name</strong> tekrarlanan döngüsüne göre <strong>:bill_number</strong> fatura oluşturuldu. Detayları görmek için <a href=":bill_admin_link">buraya tıklayabilirsiniz</a>.',
+            'title'         => 'Yeni Tekrarlanan Satın Alma Faturası',
+            'description'   => '<strong>:vendor_name</strong> tekrarlanan döngüsüne göre <strong>:bill_number</strong> satın alma faturası oluşturuldu. Detayları görmek için <a href=":bill_admin_link">buraya tıklayabilirsiniz</a>.',
 
         ],
 
@@ -231,8 +231,8 @@ return [
 
     'messages' => [
 
-        'mark_read'             => ':type bu bildirimi okuyun!',
-        'mark_read_all'         => ':type tüm bildirimleri oku!',
+        'mark_read'             => ':type bu bildirimi okudu!',
+        'mark_read_all'         => ':type tüm bildirimleri okudu!',
 
     ],
 
@@ -240,8 +240,8 @@ return [
 
         'firefox' => [
 
-            'title' => 'Firefox İkon Yapılandırması',
-            'description'  => '<span class="font-medium">Eğer ikonlarınız görünmüyorsa lütfen;</span> <br /> <span class="font-medium">Sayfaların kendi yazı tiplerini seçmesine izin verin, yukarıdaki seçimleriniz yerine</span> <br /><br /> <span class="font-bold">Ayarlar (Tercihler) > Yazı Tipleri > Gelişmiş</span>',
+            'title' => 'Firefox Simge Yapılandırması',
+            'description'  => '<span class="font-medium">İkonlarınız görünmüyorsa lütfen:</span> <br /> <span class="font-medium">Sayfaların kendi yazı tiplerini seçmesine izin verin, yukarıdaki seçimleriniz yerine</span> <br /><br /> <span class="font-bold">Ayarlar (Tercihler) > Yazı Tipleri > Gelişmiş</span>',
 
         ],
 

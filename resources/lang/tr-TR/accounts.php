@@ -19,7 +19,7 @@ return [
     'credit_cards'          => 'Kredi Kartı|Kredi Kartları',
 
     'form_description' => [
-        'general'           => 'Negatif açılış bakiyesi için kredi kartı türünü kullanın. Hesapları doğru bir şekilde uzlaştırmak için numara önemlidir. Varsayılan hesap, aksi seçilmediği takdirde tüm işlemleri kaydeder.',
+        'general'           => 'Negatif açılış bakiyesi için kredi kartı türünü kullanın. Hesapları doğru bir şekilde mutabakat yapmak için numara önemlidir. Varsayılan hesap, aksi seçilmediği takdirde tüm işlemleri kaydeder.',
         'bank'              => 'Birden fazla bankada birden fazla banka hesabınız olabilir. Bankanız ile ilgili bilgilerin kayıt altına alınması, bankanız içerisindeki işlemlerin eşleştirilmesini kolaylaştıracaktır.',
     ],
 

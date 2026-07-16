@@ -10,7 +10,7 @@ return [
     'get_started'           => 'Mulai gratis',
     'billing_address'       => 'Alamat Tagihan',
     'see_all_details'       => 'Lihat semua detail rekening',
-    'all_payments'          => 'Login untuk melihat semua pembayaran',
+    'all_payments'          => 'Masuk untuk melihat semua pembayaran',
     'received_date'         => 'Tanggal Diterima',
     'redirect_description'  => 'Anda akan diarahkan ke situs :name untuk melakukan pembayaran.',
 
@@ -21,27 +21,27 @@ return [
     ],
 
     'outstanding_balance'   => [
-        'title'             => 'Saldo luar biasa',
+        'title'             => 'Saldo terutang',
         'description'       => 'Saldo terutang Anda adalah:',
         'not_payment'       => 'Anda belum memiliki saldo terutang.',
     ],
 
     'latest_invoices'       => [
         'title'             => 'Faktur Terbaru',
-        'description'       => ':date - Anda ditagih dengan nomor invoice :invoice_number.',
-        'no_data'           => 'Anda belum membuat faktur.',
+        'description'       => ':date - Anda ditagih dengan nomor faktur :invoice_number.',
+        'no_data'           => 'Anda belum memiliki faktur.',
     ],
 
     'invoice_history'       => [
         'title'             => 'Riwayat Faktur',
-        'description'       => ':date - Anda ditagih dengan nomor invoice :invoice_number.',
+        'description'       => ':date - Anda ditagih dengan nomor faktur :invoice_number.',
         'no_data'           => 'Anda belum memiliki riwayat faktur.',
     ],
 
     'payment_history'       => [
         'title'             => 'Riwayat Pembayaran',
-        'description'       => ':date- Anda melakukan pembayaran sebesar :amount.',
-        'invoice_description'=> ':date - Anda melakukan pembayaran sebesar :amount untuk nomor invoice :nomor_invoice.',
+        'description'       => ':date - Anda melakukan pembayaran sebesar :amount.',
+        'invoice_description'=> ':date - Anda melakukan pembayaran sebesar :amount untuk nomor faktur :invoice_number.',
 
         'no_data'           => 'Anda belum memiliki riwayat pembayaran.',
     ],

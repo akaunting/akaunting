@@ -3,26 +3,26 @@
 return [
 
     'invoice_number'        => 'Factuurnummer',
-    'invoice_date'          => 'Factuur datum',
-    'invoice_amount'        => 'Factuur bedrag',
+    'invoice_date'          => 'Factuurdatum',
+    'invoice_amount'        => 'Factuurbedrag',
     'total_price'           => 'Totaalprijs',
     'due_date'              => 'Vervaldatum',
     'order_number'          => 'Bestelnummer',
-    'bill_to'               => 'Factuur voor',
-    'cancel_date'           => 'Annuleer Datum',
+    'bill_to'               => 'Factureren aan',
+    'cancel_date'           => 'Annuleringsdatum',
 
     'quantity'              => 'Aantal',
     'price'                 => 'Prijs',
     'sub_total'             => 'Subtotaal',
     'discount'              => 'Korting',
-    'item_discount'         => 'Lijn korting',
+    'item_discount'         => 'Regelkorting',
     'tax_total'             => 'Totaal BTW',
     'total'                 => 'Totaal',
 
     'item_name'             => 'Artikelnaam|Artikelnamen',
     'recurring_invoices'    => 'Terugkerende Factuur|Terugkerende Facturen',
 
-    'show_discount'         => ':discount% Korting',
+    'show_discount'         => ':discount% korting',
     'add_discount'          => 'Korting toevoegen',
     'discount_desc'         => 'van subtotaal',
 
@@ -30,36 +30,36 @@ return [
     'paid'                  => 'Betaald',
     'histories'             => 'Geschiedenis',
     'payments'              => 'Betalingen',
-    'add_payment'           => 'Een betaling toevoegen',
+    'add_payment'           => 'Betaling toevoegen',
     'mark_paid'             => 'Als betaald markeren',
-    'mark_sent'             => 'Als verstuurd markeren',
-    'mark_viewed'           => 'Markeren als bekeken',
-    'mark_cancelled'        => 'Markeren als geannuleerd',
+    'mark_sent'             => 'Als verzonden markeren',
+    'mark_viewed'           => 'Als bekeken markeren',
+    'mark_cancelled'        => 'Als geannuleerd markeren',
     'download_pdf'          => 'PDF downloaden',
     'send_mail'             => 'E-mail versturen',
     'all_invoices'          => 'Log in om alle facturen te bekijken',
-    'create_invoice'        => 'Factuur maken',
-    'send_invoice'          => 'Factuur sturen',
-    'get_paid'              => 'Betaling afstemmen',
+    'create_invoice'        => 'Factuur aanmaken',
+    'send_invoice'          => 'Factuur versturen',
+    'get_paid'              => 'Betaling ontvangen',
     'accept_payments'       => 'Online betalingen accepteren',
     'payments_received'     => 'Ontvangen betalingen',
-    'over_payment'          => 'Het bedrag dat je hebt ingevoerd, komt voorbij het totaal:',
+    'over_payment'          => 'Het ingevoerde bedrag overschrijdt het totaal: :amount',
 
     'form_description' => [
-        'billing'           => 'Factuurgegevens verschijnen op uw factuur. Factuurdatum wordt gebruikt in het dashboard en in rapporten. Selecteer de datum waarop u verwacht betaald te worden als vervaldatum.',
+        'billing'           => 'De factureringsgegevens verschijnen op uw factuur. De factuurdatum wordt gebruikt in het dashboard en in rapporten. Selecteer de datum waarop u verwacht betaald te worden als vervaldatum.',
     ],
 
     'messages' => [
         'email_required'    => 'Er is geen e-mailadres bekend van deze klant!',
-        'totals_required'   => 'Factuurtotalen zijn vereist Bewerk het :type en sla het opnieuw op.',
+        'totals_required'   => 'Factuurtotalen zijn vereist. Bewerk het :type en sla het opnieuw op.',
 
-        'draft'             => 'Dit is een <b>CONCEPT</b> factuur en zal terugkomen in de statistieken wanneer het verzonden is.',
+        'draft'             => 'Dit is een <b>CONCEPT</b> factuur en zal worden meegenomen in de statistieken zodra deze is verzonden.',
 
         'status' => [
-            'created'       => 'Gemaakt op :date',
+            'created'       => 'Aangemaakt op :date',
             'viewed'        => 'Bekeken',
             'send' => [
-                'draft'     => 'Niet verstuurd',
+                'draft'     => 'Niet verzonden',
                 'sent'      => 'Verzonden op :date',
             ],
             'paid' => [
@@ -67,7 +67,7 @@ return [
             ],
         ],
 
-        'name_or_description_required' => 'Je factuur moet ten minste één van de volgende punten bevatten <b>:name</b> of <b>:description</b>.',
+        'name_or_description_required' => 'Uw factuur moet ten minste één van de volgende bevatten: <b>:name</b> of <b>:description</b>.',
     ],
 
     'share' => [
@@ -77,7 +77,7 @@ return [
     ],
 
     'sticky' => [
-        'description'       => 'Je bekijkt hoe je klant de webversie van je factuur zal zien.',
+        'description'       => 'U bekijkt hoe uw klant de webversie van uw factuur zal zien.',
     ],
 
 ];

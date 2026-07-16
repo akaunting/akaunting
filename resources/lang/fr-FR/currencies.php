@@ -5,7 +5,7 @@ return [
     'code'                  => 'Code',
     'rate'                  => 'Taux',
     'default'               => 'Devise par défaut',
-    'decimal_mark'          => 'Séparateur de décimale',
+    'decimal_mark'          => 'Séparateur décimal',
     'thousands_separator'   => 'Séparateur de milliers',
     'precision'             => 'Nombre de décimales',
     'conversion'            => 'Conversion de devise : :price (:currency_code) à :currency_rate',

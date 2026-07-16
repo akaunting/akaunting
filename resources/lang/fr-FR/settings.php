@@ -19,7 +19,7 @@ return [
     ],
 
     'localisation' => [
-        'description'                   => 'Définir l\'année fiscale, le fuseau horaire, le format de la date et autres paramètres locaux',
+        'description'                   => 'Définir l\'année fiscale, le fuseau horaire, le format de la date et d\'autres localisations',
         'search_keywords'               => 'financier, année, début, désigne, heure, fuseau horaire, date, format, séparateur, réduction, pourcent',
         'financial_start'               => 'Date de début d\'exercice financier',
         'timezone'                      => 'Fuseau horaire',
@@ -45,7 +45,7 @@ return [
         ],
         'discount_location' => [
             'name'                      => 'Emplacement de remise',
-            'item'                      => 'A la ligne',
+            'item'                      => 'À la ligne',
             'total'                     => 'Au total',
             'both'                      => 'Ligne et total',
         ],
@@ -77,7 +77,7 @@ return [
         'payment_terms'                 => 'Conditions de paiement',
         'title'                         => 'Titre',
         'subheading'                    => 'Sous-titre',
-        'due_receipt'                   => 'Échéance après réception',
+        'due_receipt'                   => 'Échéance à réception',
         'due_days'                      => 'Échéance dans :days jours',
         'due_custom'                    => 'Jour(s) personnalisé(s)',
         'due_custom_day'                => 'après le jour',
@@ -99,7 +99,7 @@ return [
         'form_description' => [
             'general'                   => 'Définissez les paramètres par défaut pour la mise en forme de vos numéros de facture et de vos conditions de paiement.',
             'template'                  => 'Sélectionnez l\'un des modèles ci-dessous pour vos factures.',
-            'default'                   => 'La sélection des valeurs par défaut pour les factures qui préremplira les titres, sous-titres, notes et pieds de page. Vous n\'avez donc pas besoin de modifier les factures à chaque fois pour avoir un look plus professionnel.',
+            'default'                   => 'La sélection des valeurs par défaut pour les factures qui préremplira les titres, sous-titres, notes et pieds de page. Vous n\'avez donc pas besoin de modifier les factures à chaque fois pour avoir une apparence plus professionnelle.',
             'column'                    => 'Personnalisez la façon dont les colonnes de la facture sont nommées. Si vous souhaitez masquer les descriptions et les montants des articles en ligne, vous pouvez le modifier ici.',
         ]
     ],
@@ -115,7 +115,7 @@ return [
         'search_keywords'               => 'compte, devise, langue, taxe, paiement, méthode, pagination',
         'list_limit'                    => 'Résultats par page',
         'use_gravatar'                  => 'Utiliser Gravatar',
-        'income_category'               => 'Catégorie de factures',
+        'income_category'               => 'Catégorie de revenu',
         'expense_category'              => 'Catégorie de dépenses',
         'address_format'                => 'Format d\'adresse',
         'address_tags'                  => '<strong>Balises disponibles :</strong> :tags',
@@ -123,12 +123,12 @@ return [
         'form_description' => [
             'general'                   => 'Sélectionnez le compte par défaut, la taxe et la méthode de paiement pour créer des enregistrements rapidement. Le tableau de bord et les rapports sont affichés dans la devise par défaut.',
             'category'                  => 'Sélectionnez les catégories par défaut pour accélérer la création de l\'enregistrement.',
-            'other'                     => 'Personnalisez les paramètres par défaut de la langue de l\'entreprise et le fonctionnement de la pagination. ',
+            'other'                     => 'Personnalisez les paramètres par défaut de la langue de l\'entreprise et le fonctionnement de la pagination.',
         ],
     ],
 
     'email' => [
-        'description'                   => 'Modifier le protocole d\'envoi et les modèles d\'e-mail',
+        'description'                   => 'Modifier le protocole d\'envoi',
         'search_keywords'               => 'email, envoyer, protocole, smtp, hôte, mot de passe',
         'protocol'                      => 'Protocole',
         'php'                           => 'PHP Mail',
@@ -163,10 +163,10 @@ return [
             'invoice_recur_customer'    => 'Modèle de facture récurrente (envoyé au client)',
             'invoice_recur_admin'       => 'Modèle de facture récurrente (envoyé à l\'administrateur)',
             'invoice_view_admin'        => 'Modèle de vue de la facture (envoyé à l\'administrateur)',
-            'invoice_payment_customer'  => 'Modèle de paiement reçu (envoyé au client)',
+            'invoice_payment_customer'  => 'Modèle de reçu de paiement de facture (envoyé au client)',
             'invoice_payment_admin'     => 'Modèle de paiement reçu (envoyé à l\'administrateur)',
-            'bill_remind_admin'         => 'Modèle de rappel de facture reçue (envoyé à l\'administrateur)',
-            'bill_recur_admin'          => 'Modèle de facture reçue récurrente (envoyé à l\'administrateur)',
+            'bill_remind_admin'         => 'Modèle de rappel de facture d\'achat (envoyé à l\'administrateur)',
+            'bill_recur_admin'          => 'Modèle de facture d\'achat récurrente (envoyé à l\'administrateur)',
             'payment_received_customer' => 'Modèle de reçu de paiement (envoyé au client)',
             'payment_made_vendor'       => 'Modèle de paiement effectué (envoyé au fournisseur)',
         ],
@@ -178,7 +178,7 @@ return [
         'search_keywords'               => 'automatique, rappel, récurrent, cron, commande',
         'send_invoice'                  => 'Envoyer un rappel de facture',
         'invoice_days'                  => 'Envoyer après les jours d\'échéance',
-        'send_bill'                     => 'Envoyer rappel de facture à régler',
+        'send_bill'                     => 'Envoyer un rappel de facture d\'achat',
         'bill_days'                     => 'Envoyer avant les jours d\'échéance',
         'cron_command'                  => 'Commande Cron',
         'command'                       => 'Commande',
@@ -186,19 +186,19 @@ return [
 
         'form_description' => [
             'invoice'                   => 'Activez ou désactivez, et définissez des rappels pour vos factures quand elles sont en retard.',
-            'bill'                      => 'Activez, désactivez et définissez les rappels de vos factures à régler avant qu\'elles ne soient en retard de paiement.',
+            'bill'                      => 'Activez, désactivez et définissez les rappels de vos factures d\'achat avant qu\'elles ne soient en retard de paiement.',
             'cron'                      => 'Copiez la commande cron que votre serveur devrait exécuter. Définissez le temps pour déclencher l\'événement.',
         ]
     ],
 
     'categories' => [
-        'description'                   => 'Catégories illimitées pour les revenus, charges et articles',
+        'description'                   => 'Catégories illimitées pour les revenus, dépenses et articles',
         'search_keywords'               => 'catégorie, revenu, dépense, article',
     ],
 
     'currencies' => [
         'description'                   => 'Créez et gérez les devises et définissez leurs taux',
-        'search_keywords'               => 'par défaut, devise, devises, code, débit, symbole, précision, position, décimal, milliers, marque, séparateur',
+        'search_keywords'               => 'par défaut, devise, devises, code, taux, symbole, précision, position, décimal, milliers, marque, séparateur',
     ],
 
     'taxes' => [

@@ -12,7 +12,7 @@ return [
     ],
 
     'currencies' => [
-        'usd'               => 'Dólar Americano',
+        'usd'               => 'Dólar americano',
     ],
 
     'offline_payments' => [
@@ -23,9 +23,9 @@ return [
     'reports' => [
         'income'            => 'Resumo mensal de receitas por categoria.',
         'expense'           => 'Resumo mensal de despesas por categoria.',
-        'income_expense'    => 'Receita mensal vs despesa por categoria.',
-        'tax'               => 'Resumo fiscal trimestral.',
-        'profit_loss'       => 'Lucro trimestral & perda por categoria.',
+        'income_expense'    => 'Receita vs despesa mensal por categoria.',
+        'tax'               => 'Resumo trimestral de impostos.',
+        'profit_loss'       => 'Lucro e perda trimestral por categoria.',
     ],
 
 ];

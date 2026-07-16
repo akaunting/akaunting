@@ -22,7 +22,7 @@ return [
         'services'              => '服务',
         'another_item'          => '另一个项目',
         'another_description'   => '和另一个描述',
-        'more_item'             => '还有 :count 个项目',
+        'more_item'             => '+:count 个更多项目',
     ],
 
     'statuses' => [
@@ -47,9 +47,9 @@ return [
         'shipped'               => '已发货',
         'refunded'              => '已退款',
         'failed'                => '失败',
-        'denied'                => '已拒绝',
+        'denied'                => '已驳回',
         'processed'             => '已处理',
-        'open'                  => '待处理',
+        'open'                  => '进行中',
         'closed'                => '已关闭',
         'billed'                => '已开单',
         'delivered'             => '已交付',

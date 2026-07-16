@@ -11,7 +11,7 @@ return [
 
     'form_description' => [
         'general'               => 'Raporlarınızı daha ayrıntılı hale getirmek için bir kategori seçin. Açıklama, kalem bir fatura veya faturada seçildiğinde doldurulacaktır.',
-        'billing'               => 'Satış bilgileri faturalarda, Satın Alma Bilgileri ise faturalarda kullanılır. Vergi hem faturalara hem de faturalara uygulanacaktır.',
+        'billing'               => 'Satış bilgileri satış faturalarında, satın alma bilgileri ise satın alma faturalarında kullanılır. Vergi hem satış faturalarına hem de satın alma faturalarına uygulanacaktır.',
     ],
 
 ];

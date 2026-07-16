@@ -5,20 +5,20 @@ return [
     'title' => [
         '403'       => '¡Ups! Acceso prohibido',
         '404'       => '¡Ups! Página no encontrada',
-        '500'       => '¡Ups! Algo fue mal',
+        '500'       => '¡Ups! Algo salió mal',
     ],
 
     'header' => [
         '403'       => '403 Prohibido',
-        '404'       => '404 Página no encontrada',
+        '404'       => '404 No encontrado',
         '500'       => '500 Error interno del servidor',
     ],
 
     'message' => [
         '403'       => 'No puede acceder a esta página.',
         '404'       => 'No pudimos encontrar la página que estaba buscando.',
-        '500'       => 'Trabajaremos para arreglarlo de inmediato.',
+        '500'       => 'Trabajaremos para solucionarlo de inmediato.',
         'record'    => 'No pudimos encontrar el registro que estaba buscando.',
-        'amount'    => 'No pudimos encontrar el importe que estaba buscando.',
+        'amount'    => '¡Esta página contiene montos no válidos! Por favor, contacte al administrador del sistema.',
     ],
 ];

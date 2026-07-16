@@ -4,11 +4,11 @@ return [
 
     'edit_columns'              => 'Editar colunas',
     'empty_items'               => 'Você não adicionou nenhum item.',
-    'grand_total'               => 'Total Geral',
-    'accept_payment_online'     => 'Aceite Pagamentos Online',
-    'transaction'               => 'Um pagamento para :amount foi feito usando :account.',
-    'portal_transaction'        => 'Um pagamento para :amount foi feito usando :payment_method.',
-    'billing'                   => 'Cobrança',
+    'grand_total'               => 'Total geral',
+    'accept_payment_online'     => 'Aceitar pagamentos online',
+    'transaction'               => 'Um pagamento de :amount foi feito usando :account.',
+    'portal_transaction'        => 'Um pagamento de :amount foi feito usando :payment_method.',
+    'billing'                   => 'Faturamento',
     'advanced'                  => 'Avançado',
 
     'item_price_hidden'         => 'Esta coluna está oculta no seu :type.',
@@ -18,11 +18,11 @@ return [
     ],
 
     'invoice_detail' => [
-        'marked'                => '<b> Você </b> marcou esta fatura como',
+        'marked'                => '<b>Você</b> marcou esta fatura como',
         'services'              => 'Serviços',
         'another_item'          => 'Outro item',
         'another_description'   => 'e outra descrição',
-        'more_item'             => '+:count mais itens',
+        'more_item'             => '+:count item a mais',
     ],
 
     'statuses' => [
@@ -39,8 +39,8 @@ return [
         'paid'                  => 'Pago',
         'pending'               => 'Pendente',
         'invoiced'              => 'Faturado',
-        'overdue'               => 'Vencido',
-        'unpaid'                => 'Não Pago',
+        'overdue'               => 'Atrasado',
+        'unpaid'                => 'Não pago',
         'cancelled'             => 'Cancelado',
         'voided'                => 'Anulado',
         'completed'             => 'Concluído',
@@ -54,7 +54,7 @@ return [
         'billed'                => 'Faturado',
         'delivered'             => 'Entregue',
         'returned'              => 'Devolvido',
-        'drawn'                 => 'Rascunho',
+        'drawn'                 => 'Emitido',
         'not_billed'            => 'Não faturado',
         'issued'                => 'Emitido',
         'not_invoiced'          => 'Não faturado',
@@ -65,10 +65,10 @@ return [
     ],
 
     'form_description' => [
-        'companies'             => 'Altere o endereço, logotipo, e outras informações para sua empresa.',
-        'billing'               => 'Detalhes de faturamento aparecem no seu documento.',
+        'companies'             => 'Altere o endereço, logotipo e outras informações da sua empresa.',
+        'billing'               => 'Os detalhes de faturamento aparecem no seu documento.',
         'advanced'              => 'Selecione a categoria, adicione ou edite o rodapé e adicione anexos ao seu :type.',
-        'attachment'            => 'Baixar os arquivos anexados a esse :type',
+        'attachment'            => 'Baixar os arquivos anexados a este :type',
     ],
 
     'slider' => [
@@ -81,7 +81,7 @@ return [
     ],
 
     'messages' => [
-        'email_sent'            => 'E-mail :type foi enviado!',
+        'email_sent'            => 'E-mail do :type foi enviado!',
         'restored'              => ':type foi restaurado!',
         'marked_as'             => ':type marcado como :status!',
         'marked_sent'           => ':type marcado como enviado!',
@@ -95,8 +95,8 @@ return [
         'auto_generated'        => 'Gerado automaticamente',
 
         'tooltip' => [
-            'document_date'     => 'A data :type será automaticamente atribuída com base no agendamento e frequência :type.',
-            'document_number'   => 'O número :type será automaticamente atribuído quando cada :type recorrente é gerado.',
+            'document_date'     => 'A data do :type será automaticamente atribuída com base no agendamento e na frequência do :type.',
+            'document_number'   => 'O número do :type será automaticamente atribuído quando cada :type recorrente for gerado.',
         ],
     ],
 

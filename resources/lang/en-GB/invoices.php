@@ -51,7 +51,7 @@ return [
 
     'messages' => [
         'email_required'    => 'No email address for this customer!',
-        'totals_required'   => 'Invoice totals are required Please edit the :type and save it again.',
+        'totals_required'   => 'Invoice totals are required. Please edit the :type and save it again.',
 
         'draft'             => 'This is a <b>DRAFT</b> invoice and will be reflected to charts after it gets sent.',
 

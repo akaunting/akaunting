@@ -6,14 +6,14 @@ return [
 
     'from_account'          => 'من حساب',
     'to_account'            => 'إلى حساب',
-    'from_rate'             => 'من سعر',
-    'to_rate'               => 'إلى سعر',
-    'from_account_rate'     => 'من سعر الحساب',
-    'to_account_rate'       => 'إلى سعر الحساب',
-    'from_amount'           => 'من مبلغ',
-    'to_amount'             => 'إلى مبلغ',
+    'from_rate'             => 'سعر صرف الحساب المصدر',
+    'to_rate'               => 'سعر صرف الحساب المستهدف',
+    'from_account_rate'     => 'سعر صرف حساب المصدر',
+    'to_account_rate'       => 'سعر صرف حساب الوجهة',
+    'from_amount'           => 'المبلغ المصدر',
+    'to_amount'             => 'المبلغ المستهدف',
     'issued_at'             => 'تاريخ الإصدار',
-    'rate'                  => 'السعر',
+    'rate'                  => 'سعر الصرف',
 
     'form_description' => [
         'general'           => 'حوّل الأموال بين الحسابات بعملات مختلفة واربط العملة بأي سعر تفضله.',
@@ -26,8 +26,8 @@ return [
 
     'slider' => [
         'create'            => 'قام :user بإنشاء هذا التحويل في :date',
-        'transactions'      => 'قائمة العمليات المرتبطة بهذا التحويل',
-        'transactions_desc' => ':number عملية لـ :account',
+        'transactions'      => 'قائمة المعاملات المرتبطة بهذا التحويل',
+        'transactions_desc' => ':number معاملة للحساب :account',
         'attachments'       => 'تنزيل الملفات المرفقة بهذا التحويل',
     ],
 

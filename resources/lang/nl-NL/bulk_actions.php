@@ -22,6 +22,6 @@ return [
     ],
 
     'success' => [
-        'general'       => ':telrecord :type.',
+        'general'       => ':count record :type.',
     ],
 ];

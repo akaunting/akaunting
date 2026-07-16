@@ -5,7 +5,7 @@ return [
     'can_login'                 => 'Undang ke Portal Klien',
     'can_login_description'     => 'Kirim undangan ke pengguna ini untuk masuk ke Portal Klien.',
     'user_created'              => 'Pengguna berhasil dibuat',
-    'client_portal_description' => 'Portal Pelanggan adalah lingkungan di mana Anda dapat berbagi transaksi dan faktur dengan pelanggan Anda, di mana mereka melacak hubungan mereka dengan bisnis Anda dan membayar, dan masuk kapan pun mereka mau; dengan kata sandi mereka',
+    'client_portal_description' => 'Portal Pelanggan adalah lingkungan di mana Anda dapat berbagi transaksi dan faktur dengan pelanggan Anda, di mana mereka melacak hubungan mereka dengan bisnis Anda, membayar secara online, dan masuk kapan pun mereka mau dengan kata sandi mereka',
 
     'error' => [
         'email'                 => 'Email ini sudah dipakai.',
@@ -18,9 +18,9 @@ return [
 
     'form_description' => [
         'general'               => 'Informasi kontak klien Anda akan muncul di faktur dan profil mereka. Anda juga dapat mengizinkan klien Anda untuk masuk untuk melacak faktur yang Anda kirimkan kepada mereka dengan mencentang kotak di bawah.',
-        'billing'               => 'Nomor pajak muncul di setiap faktur yang diterbitkan kepada pelanggan. Mata uang yang dipilih menjadi mata uang default untuk pelanggan ini.',
+        'billing'               => 'Nomor pajak muncul di setiap faktur yang diterbitkan kepada pelanggan. Mata uang yang dipilih menjadi mata uang bawaan untuk pelanggan ini.',
         'address'               => 'Alamat diperlukan untuk faktur, jadi Anda perlu menambahkan detail alamat penagihan untuk pelanggan Anda.',
-        'contact_persons'       => 'Anda dapat menambahkan orang kontak untuk pelanggan ini.',
+        'contact_persons'       => 'Untuk menyertakan penerima tambahan dalam email sebagai CC, tambahkan mereka sebagai kontak.',
     ],
 
     'no_records' => [

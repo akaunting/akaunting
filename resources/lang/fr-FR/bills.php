@@ -18,14 +18,14 @@ return [
     'tax_total'             => 'Taxe totale',
     'total'                 => 'Total',
 
-    'item_name'             => 'Nom de marchandise|Noms des marchandises',
+    'item_name'             => 'Nom de l\'article|Noms des articles',
     'recurring_bills'       => 'Facture récurrente|Factures récurrentes',
 
     'show_discount'         => ':discount % de remise',
     'add_discount'          => 'Ajouter une remise',
     'discount_desc'         => 'du sous-total',
 
-    'payment_made'          => 'Paiements effectués',
+    'payment_made'          => 'Paiement effectué',
     'payment_due'           => 'Paiement dû',
     'amount_due'            => 'Montant dû',
     'paid'                  => 'Payé',
@@ -33,20 +33,20 @@ return [
     'payments'              => 'Paiements',
     'add_payment'           => 'Ajouter un paiement',
     'mark_paid'             => 'Marquer comme payée',
-    'mark_received'         => 'Marqué comme reçu',
-    'mark_cancelled'        => 'Marquer comme annulé',
+    'mark_received'         => 'Marquer comme reçu',
+    'mark_cancelled'        => 'Marquer comme annulée',
     'download_pdf'          => 'Télécharger en PDF',
-    'send_mail'             => 'Envoyer un Email',
-    'create_bill'           => 'Créer une facture',
-    'receive_bill'          => 'Recevoir une facture',
+    'send_mail'             => 'Envoyer un e-mail',
+    'create_bill'           => 'Créer une facture d\'achat',
+    'receive_bill'          => 'Recevoir une facture d\'achat',
     'make_payment'          => 'Faire un paiement',
 
     'form_description' => [
-        'billing'           => 'Les détails de facturation apparaissent dans vos factures à régler. La date de facturation est utilisée dans le tableau de bord et les rapports. Sélectionnez la date à laquelle vous comptez payer comme date d\'échéance.',
+        'billing'           => 'Les détails de facturation apparaissent dans votre facture d\'achat. La date de facturation est utilisée dans le tableau de bord et les rapports. Sélectionnez la date à laquelle vous comptez payer comme date d\'échéance.',
     ],
 
     'messages' => [
-        'draft'             => 'Ceci est un <b>BROUILLON</b> d\'une facture à régler et sera comptabilisée dans les graphiques une fois reçue.',
+        'draft'             => 'Ceci est une facture d\'achat <b>BROUILLON</b> et sera comptabilisée dans les graphiques une fois reçue.',
 
         'status' => [
             'created'       => 'Créée le :date',

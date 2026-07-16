@@ -22,7 +22,7 @@ return [
     'register'              => 'Register',
 
     'form_description' => [
-        'personal'          => 'Ensure the email address is correct before sending the invitation link to the new user. They will be prompted to create their password.',
+        'personal'          => 'The invitation link will be sent to the new user, so ensure that the email address is correct. They will be able to enter their password.',
         'assign'            => 'The user will have access to the selected companies. You can restrict the permissions from the <a href=":url" class="border-b border-black">roles</a> page.',
         'preferences'       => 'Select the default language of the user. You can also set the landing page after the user logs in.',
     ],
@@ -30,8 +30,8 @@ return [
     'password' => [
         'pass'              => 'Password',
         'pass_confirm'      => 'Password Confirmation',
-        'current'           => 'Password',
-        'current_confirm'   => 'Password Confirmation',
+        'current'           => 'Current Password',
+        'current_confirm'   => 'Current Password Confirmation',
         'new'               => 'New Password',
         'new_confirm'       => 'New Password Confirmation',
     ],

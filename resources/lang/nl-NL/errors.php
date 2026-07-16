@@ -10,8 +10,8 @@ return [
 
     'header' => [
         '403'       => '403 Verboden',
-        '404'       => '404 niet gevonden',
-        '500'       => '500 Interne serverfout',
+        '404'       => '404 Niet Gevonden',
+        '500'       => '500 Interne Serverfout',
     ],
 
     'message' => [

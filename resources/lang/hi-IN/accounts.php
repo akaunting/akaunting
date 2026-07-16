@@ -4,7 +4,7 @@ return [
 
     'account_name'          => 'खाते का नाम',
     'account_balance'       => 'खाते का बैलेंस',
-    'number'                => 'खाता संख्या',
+    'number'                => 'संख्या',
     'opening_balance'       => 'प्रारंभिक शेष',
     'current_balance'       => 'वर्तमान शेष',
     'bank_name'             => 'बैंक का नाम',

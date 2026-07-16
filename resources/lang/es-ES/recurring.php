@@ -2,14 +2,14 @@
 
 return [
 
-    'recurring'             => 'Repetitivo',
+    'recurring'             => 'Recurrente',
     'every'                 => 'Cada',
     'period'                => 'Período',
     'times'                 => 'Veces',
-    'daily'                 => 'Diariamente',
-    'weekly'                => 'Semanalmente',
-    'monthly'               => 'Mensualmente',
-    'yearly'                => 'Anualmente',
+    'daily'                 => 'Diario',
+    'weekly'                => 'Semanal',
+    'monthly'               => 'Mensual',
+    'yearly'                => 'Anual',
     'custom'                => 'Personalizado',
     'days'                  => 'Día(s)',
     'weeks'                 => 'Semana(s)',
@@ -21,23 +21,23 @@ return [
     'after'                 => 'Después',
     'on'                    => 'En',
     'never'                 => 'Nunca',
-    'ends_after'            => 'Termina después de :times',
+    'ends_after'            => 'Termina después de :times veces',
     'ends_never'            => 'Nunca termina',
     'ends_date'             => 'Termina el :date',
-    'next_date'             => 'Siguiente :date',
-    'end'                   => 'Finalizar recurrente',
-    'child'                 => ':url fue creado automáticamente el :date',
-    'message'               => 'Éste es un :type periódico y el siguiente :type se generará automáticamente el día :date',
-    'message_parent'        => 'Este :type se generó automáticamente desde :link',
+    'next_date'             => 'Próxima fecha: :date',
+    'end'                   => 'Finalizar recurrencia',
+    'child'                 => ':url se creó automáticamente el :date',
+    'message'               => 'Este :type es recurrente y el siguiente :type se generará automáticamente el :date',
+    'message_parent'        => 'Este :type se generó automáticamente a partir de :link',
     'send_email_auto'       => 'Enviar correo automáticamente',
 
-    'frequency_type'        => 'Repetir esto :type',
+    'frequency_type'        => 'Repetir :type',
     'custom_frequency_desc' => 'Repetir cada :interval :frequency',
-    'limit_date'            => 'Crear primero :type en',
-    'limit_middle'          => 'y termina',
+    'limit_date'            => 'Crear el primer :type el',
+    'limit_middle'          => 'y finalizar',
 
     'form_description' => [
-        'schedule'          => 'Elija los términos y la hora de inicio y fin para asegurarse de que su cliente recibe su :type el día correcto.',
+        'schedule'          => 'Elija las condiciones y las fechas de inicio y fin para que su cliente reciba :type el día correcto.',
     ],
 
 ];

@@ -8,8 +8,8 @@ return [
     'subcopy'             => 'Si vous n\'arrivez pas à cliquer sur le bouton ":text", veuillez copier et coller l\'URL ci-dessous dans votre navigateur web : [:url](:url)',
     'mark_read'           => 'Marquer comme lu',
     'mark_read_all'       => 'Tout marquer comme lu',
-    'empty'               => 'Woohoo, aucune notification!',
-    'new_apps'            => ':app est disponible. <a href=":url">Vérifiez maintenant</a>!',
+    'empty'               => 'Woohoo, aucune notification !',
+    'new_apps'            => ':app est disponible. <a href=":url">Vérifiez maintenant</a> !',
 
     'update' => [
 
@@ -98,7 +98,6 @@ return [
 
             'title'         => 'Le téléchargement est prêt',
             'description'   => 'Votre fichier <strong>:type</strong> est prêt à être <a href=":url" target="_blank"><strong>téléchargé</strong></a>.',
-            'download'      => 'Télécharger',
 
         ],
 
@@ -112,8 +111,7 @@ return [
         'export_completed' => [
 
             'title'         => 'L\'export est prêt',
-            'description'   => 'Votre fichier d\'exportation <strong>:type</strong> est prêt à être<a href=":url" target="_blank"><strong>téléchargé</strong></a>.',
-            'download'      => 'Télécharger',
+            'description'   => 'Votre fichier d\'exportation <strong>:type</strong> est prêt à être <a href=":url" target="_blank"><strong>téléchargé</strong></a>.',
 
         ],
 
@@ -127,7 +125,7 @@ return [
         'import_completed' => [
 
             'title'         => 'Importation terminée',
-            'description'   => 'Vos données <strong>:type</strong> lignées <strong>:count</strong> ont été importées avec succès.',
+            'description'   => 'Vos données <strong>:type</strong> avec <strong>:count</strong> entrées ont été importées avec succès.',
 
         ],
 
@@ -148,21 +146,21 @@ return [
         'invoice_new_customer' => [
 
             'title'         => 'Nouvelle facture',
-            'description'   => ' La facture<strong>:invoice_number</strong> est créée. Vous pouvez <a href=":invoice_portal_link">cliquer ici</a> pour voir les détails et procéder au paiement.',
+            'description'   => 'La facture <strong>:invoice_number</strong> est créée. Vous pouvez <a href=":invoice_portal_link">cliquer ici</a> pour voir les détails et procéder au paiement.',
 
         ],
 
         'invoice_remind_customer' => [
 
             'title'         => 'Facture en retard',
-            'description'   => 'Lla facture <strong>:invoice_number</strong> était due au <strong>:invoice_due_date</strong>. Vous pouvez <a href=":invoice_portal_link">cliquer ici</a> pour voir les détails et procéder au paiement.',
+            'description'   => 'La facture <strong>:invoice_number</strong> était due au <strong>:invoice_due_date</strong>. Vous pouvez <a href=":invoice_portal_link">cliquer ici</a> pour voir les détails et procéder au paiement.',
 
         ],
 
         'invoice_remind_admin' => [
 
             'title'         => 'Facture en retard',
-            'description'   => 'La facture<strong>:invoice_number</strong> était due au <strong>:invoice_due_date</strong>. Vous pouvez <a href=":invoice_admin_link">cliquer ici</a> pour voir les détails.',
+            'description'   => 'La facture <strong>:invoice_number</strong> était due au <strong>:invoice_due_date</strong>. Vous pouvez <a href=":invoice_admin_link">cliquer ici</a> pour voir les détails.',
 
         ],
 
@@ -183,42 +181,42 @@ return [
         'invoice_view_admin' => [
 
             'title'         => 'Facture consultée',
-            'description'   => '<strong>:customer_name</strong> a consulté la facture <strong>:invoice_number</strong> . Vous pouvez <a href=":invoice_admin_link">cliquer ici</a> pour voir les détails.',
+            'description'   => '<strong>:customer_name</strong> a consulté la facture <strong>:invoice_number</strong>. Vous pouvez <a href=":invoice_admin_link">cliquer ici</a> pour voir les détails.',
 
         ],
 
         'revenue_new_customer' => [
 
             'title'         => 'Paiement reçu',
-            'description'   => 'Merci pour le paiement de la facture <strong>:invoice_number</strong> . Vous pouvez <a href=":invoice_portal_link">cliquer ici</a> pour voir les détails.',
+            'description'   => 'Merci pour le paiement de la facture <strong>:invoice_number</strong>. Vous pouvez <a href=":invoice_portal_link">cliquer ici</a> pour voir les détails.',
 
         ],
 
         'invoice_payment_customer' => [
 
             'title'         => 'Paiement reçu',
-            'description'   => 'Merci pour le paiement de la facture <strong>:invoice_number</strong> . Vous pouvez <a href=":invoice_portal_link">cliquer ici</a> pour voir les détails.',
+            'description'   => 'Merci pour le paiement de la facture <strong>:invoice_number</strong>. Vous pouvez <a href=":invoice_portal_link">cliquer ici</a> pour voir les détails.',
 
         ],
 
         'invoice_payment_admin' => [
 
             'title'         => 'Paiement reçu',
-            'description'   => ':customer_name a enregistré le paiement pour la facture <strong>:invoice_number</strong> . Vous pouvez <a href=":invoice_admin_link">cliquer ici</a> pour voir les détails.',
+            'description'   => ':customer_name a enregistré le paiement pour la facture <strong>:invoice_number</strong>. Vous pouvez <a href=":invoice_admin_link">cliquer ici</a> pour voir les détails.',
 
         ],
 
         'bill_remind_admin' => [
 
-            'title'         => 'Facture reçue en retard',
-            'description'   => 'Le paiement de la facture reçue <strong>:bill_number</strong> était dû au <strong>:bill_due_date</strong>. Vous pouvez <a href=":bill_admin_link">cliquer ici</a> pour voir les détails.',
+            'title'         => 'Facture d\'achat en retard',
+            'description'   => 'La facture d\'achat <strong>:bill_number</strong> était due au <strong>:bill_due_date</strong>. Vous pouvez <a href=":bill_admin_link">cliquer ici</a> pour voir les détails.',
 
         ],
 
         'bill_recur_admin' => [
 
-            'title'         => 'Nouvelle facture récurrente',
-            'description'   => 'La facture d\'achat <strong>:bill_number</strong> a été créée sur la base du plan de facturation planifié de <strong>:vendor_name</strong>. Vous pouvez <a href=":bill_admin_link">cliquer ici</a> pour voir les détails.',
+            'title'         => 'Nouvelle facture d\'achat récurrente',
+            'description'   => 'La facture d\'achat <strong>:bill_number</strong> a été créée sur la base du cycle récurrent de <strong>:vendor_name</strong>. Vous pouvez <a href=":bill_admin_link">cliquer ici</a> pour voir les détails.',
 
         ],
 
@@ -233,8 +231,8 @@ return [
 
     'messages' => [
 
-        'mark_read'             => ':type est en lecture de cette notification !',
-        'mark_read_all'         => ':type est en train de lire toutes les notifications !',
+        'mark_read'             => ':type a lu cette notification !',
+        'mark_read_all'         => ':type a lu toutes les notifications !',
 
     ],
 
@@ -243,7 +241,7 @@ return [
         'firefox' => [
 
             'title' => 'Configuration des icônes dans Firefox',
-            'description'  => '<span class="font-medium">Si vos icônes n\'apparaissent pas, merci d\'activer;</span> <br /> <span class="font-medium">Autoriser les pages web à utiliser leurs propres polices au lieu de celles choisies ci-dessus</span> <br /><br /> <span class="font-bold">dans Paramètres > Général > Polices > Avancé </span>',
+            'description'  => '<span class="font-medium">Si vos icônes n\'apparaissent pas, veuillez activer :</span> <br /> <span class="font-medium">Autoriser les pages web à utiliser leurs propres polices au lieu de celles choisies ci-dessus</span> <br /><br /> <span class="font-bold">dans Paramètres > Général > Polices > Avancé </span>',
 
         ],
 

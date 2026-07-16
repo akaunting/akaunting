@@ -9,7 +9,7 @@ return [
     'mark_read'           => 'Markeer als gelezen',
     'mark_read_all'       => 'Markeer alles als gelezen',
     'empty'               => 'Woohoo, kennisgeving nul!',
-    'new_apps'            => 'Nieuwe App|Nieuwe Apps',
+    'new_apps'            => ':app is beschikbaar. <a href=":url">Bekijk het nu</a>!',
 
     'update' => [
 
@@ -97,7 +97,7 @@ return [
         'download_completed' => [
 
             'title'         => 'Downloaden is klaar',
-            'description'   => 'Je <strong>:type</strong> bestand is klaar om <a href=":url" target="_blank"><strong>te downloaden</strong></a>.',
+            'description'   => 'Uw <strong>:type</strong> bestand is klaar om <a href=":url" target="_blank"><strong>te downloaden</strong></a>.',
 
         ],
 
@@ -111,8 +111,7 @@ return [
         'export_completed' => [
 
             'title'         => 'Export is klaar',
-            'description'   => 'Uw <strong>:type</strong> exportbestand is klaar om <a href=":url" target="_blank"><strong>gedownload te worden</strong></a>.
-',
+            'description'   => 'Uw <strong>:type</strong> exportbestand is klaar om <a href=":url" target="_blank"><strong>te downloaden</strong></a>.',
 
         ],
 
@@ -209,15 +208,15 @@ return [
 
         'bill_remind_admin' => [
 
-            'title'         => 'Factuur te laat',
-            'description'   => '<strong>:bill_number</strong> factuur vervallen op <strong>:bill_due_date</strong>. Je kunt <a href=":bill_admin_link">hier klikken</a> om de details te zien.',
+            'title'         => 'Inkoopfactuur te laat',
+            'description'   => '<strong>:bill_number</strong> inkoopfactuur is vervallen op <strong>:bill_due_date</strong>. U kunt <a href=":bill_admin_link">hier klikken</a> om de details te zien.',
 
         ],
 
         'bill_recur_admin' => [
 
-            'title'         => 'Nieuwe Terugkerende Factuur',
-            'description'   => '<strong>:bill_number</strong> factuur is gemaakt op basis van <strong>:vendor_name</strong> terugkerende cirkel. U kunt <a href=":bill_admin_link">hier klikken</a> om de details te zien.',
+            'title'         => 'Nieuwe terugkerende inkoopfactuur',
+            'description'   => '<strong>:bill_number</strong> inkoopfactuur is aangemaakt op basis van de terugkerende cyclus van <strong>:vendor_name</strong>. U kunt <a href=":bill_admin_link">hier klikken</a> om de details te zien.',
 
         ],
 
@@ -232,8 +231,8 @@ return [
 
     'messages' => [
 
-        'mark_read'             => ':type lees deze notificatie!',
-        'mark_read_all'         => ':type lees deze notificaties!',
+        'mark_read'             => ':type heeft deze notificatie gelezen!',
+        'mark_read_all'         => ':type heeft alle notificaties gelezen!',
 
     ],
 

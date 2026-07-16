@@ -3,8 +3,11 @@
 return [
 
     'version'               => 'Versione',
-    'powered'               => 'Powered By Akaunting',
+    'powered'               => 'Powered by Akaunting',
     'link'                  => 'https://akaunting.com',
-    'software'              => 'Free Accounting Software',
+    'software'              => 'Software di contabilità online',
+    'powered_by'            => 'Powered by',
+    'tag_line'              => 'Invia fatture, monitora le uscite e automatizza la contabilità con Akaunting. :get_started_url',
+    'get_started'           => 'Inizia',
 
 ];

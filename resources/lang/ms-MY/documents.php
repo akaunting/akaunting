@@ -2,14 +2,14 @@
 
 return [
 
-    'edit_columns'              => 'Edit Kolom',
-    'empty_items'               => 'Anda belum menambahkan item apa pun',
-    'grand_total'               => 'Total Keseluruhan',
-    'accept_payment_online'     => 'Menerima Bayaran Daring',
-    'transaction'               => 'Bayaran untuk :amount telah dilakukan menggunakan :account',
-    'portal_transaction'        => 'Bayaran untuk :amount telah dilakukan menggunakan :payment_method',
-    'billing'                   => 'Bil',
-    'advanced'                  => 'Opsi Lanjutan',
+    'edit_columns'              => 'Sunting Lajur',
+    'empty_items'               => 'Anda belum menambah sebarang item.',
+    'grand_total'               => 'Jumlah Keseluruhan',
+    'accept_payment_online'     => 'Terima Bayaran Dalam Talian',
+    'transaction'               => 'Bayaran untuk :amount telah dibuat menggunakan :account.',
+    'portal_transaction'        => 'Bayaran untuk :amount telah dibuat menggunakan :payment_method.',
+    'billing'                   => 'Pengebilan',
+    'advanced'                  => 'Lanjutan',
 
     'item_price_hidden'         => 'Kolom ini disembunyikan untuk tipe :type.',
 
@@ -18,11 +18,11 @@ return [
     ],
 
     'invoice_detail' => [
-        'marked'                => '<b>Anda</b> menandai faktur ini sebagai',
+        'marked'                => '<b>Anda</b> menanda invois ini sebagai',
         'services'              => 'Layanan',
         'another_item'          => 'Item Lain',
         'another_description'   => 'dan deskripsi lainnya',
-        'more_item'             => '+:count lebih item',
+        'more_item'             => '+:count item lagi',
     ],
 
     'statuses' => [
@@ -42,7 +42,7 @@ return [
         'overdue'               => 'Jatuh Tempo',
         'unpaid'                => 'Belum Dibayar',
         'cancelled'             => 'Dibatalkan',
-        'voided'                => 'Membatalkan',
+        'voided'                => 'Dibatalkan',
         'completed'             => 'Selesai',
         'shipped'               => 'Dikirim',
         'refunded'              => 'Dikembalikan',
@@ -65,10 +65,10 @@ return [
     ],
 
     'form_description' => [
-        'companies'             => 'Ubah alamat, logo, dan informasi lain perusahaanmu.',
-        'billing'               => 'Detail Bil muncul di dokumen Anda.',
-        'advanced'              => 'Pilih kategori, tambahkan, atau edit footer, dan tambahkan lampiran ke :type.',
-        'attachment'            => 'Unduh berkas terlampir ke :type',
+        'companies'             => 'Tukar alamat, logo, dan maklumat lain untuk syarikat anda.',
+        'billing'               => 'Butiran pengebilan muncul dalam dokumen anda.',
+        'advanced'              => 'Pilih kategori, tambah atau sunting pengaki, dan tambah lampiran kepada :type anda.',
+        'attachment'            => 'Muat turun fail yang dilampirkan kepada :type ini',
     ],
 
     'slider' => [
@@ -81,14 +81,14 @@ return [
     ],
 
     'messages' => [
-        'email_sent'            => ':type email telah dikirim!',
+        'email_sent'            => 'E-mel :type telah dihantar!',
         'restored'              => ':type telah dipulihkan!',
-        'marked_as'             => ':type ditandai sebagai :status!',
-        'marked_sent'           => ':type ditandai terkirim!',
-        'marked_paid'           => ':type ditandai telah terbayar!',
-        'marked_viewed'         => ':type ditandai telah terbaca!',
-        'marked_cancelled'      => ':type ditandai telah dibatalkan!',
-        'marked_received'       => ':type ditandai telah diterima!',
+        'marked_as'             => ':type ditanda sebagai :status!',
+        'marked_sent'           => ':type ditanda sebagai dihantar!',
+        'marked_paid'           => ':type ditanda sebagai dibayar!',
+        'marked_viewed'         => ':type ditanda sebagai dilihat!',
+        'marked_cancelled'      => ':type ditanda sebagai dibatalkan!',
+        'marked_received'       => ':type ditanda sebagai diterima!',
     ],
 
     'recurring' => [
@@ -100,5 +100,5 @@ return [
         ],
     ],
 
-    'empty_attachments'         => 'Tidak ada dokumen yang dilampirkan pada tipe :type ini.',
+    'empty_attachments'         => 'Tiada fail dilampirkan kepada :type ini.',
 ];

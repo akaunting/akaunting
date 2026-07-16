@@ -2,9 +2,9 @@
 
 return [
 
-    'bill_number'           => 'Fatura Numarası',
-    'bill_date'             => 'Fatura Tarihi',
-    'bill_amount'           => 'Fatura Tutarı',
+    'bill_number'           => 'Satın Alma Fatura Numarası',
+    'bill_date'             => 'Satın Alma Fatura Tarihi',
+    'bill_amount'           => 'Satın Alma Fatura Tutarı',
     'total_price'           => 'Toplam Tutar',
     'due_date'              => 'Vade Tarihi',
     'order_number'          => 'Sipariş Numarası',
@@ -19,7 +19,7 @@ return [
     'total'                 => 'Toplam',
 
     'item_name'             => 'Öğe Adı|Öğe Adları',
-    'recurring_bills'       => 'Yinelenen Fatura|Yinelenen Faturalar',
+    'recurring_bills'       => 'Yinelenen Satın Alma Faturası|Yinelenen Satın Alma Faturaları',
 
     'show_discount'         => '%:discount İndirim',
     'add_discount'          => 'İndirim Ekle',
@@ -32,17 +32,17 @@ return [
     'histories'             => 'Geçmiş',
     'payments'              => 'Ödemeler',
     'add_payment'           => 'Ödeme Ekle',
-    'mark_paid'             => 'Ödendi İşaretle',
-    'mark_received'         => 'Teslim Alındı İşaretle',
-    'mark_cancelled'        => 'İptal Edildi İşaretle',
+    'mark_paid'             => 'Ödendi Olarak İşaretle',
+    'mark_received'         => 'Alındı Olarak İşaretle',
+    'mark_cancelled'        => 'İptal Edildi Olarak İşaretle',
     'download_pdf'          => 'PDF İndir',
     'send_mail'             => 'Email Gönder',
-    'create_bill'           => 'Fatura Oluştur',
+    'create_bill'           => 'Satın Alma Faturası Oluştur',
     'receive_bill'          => 'Faturayı Al',
     'make_payment'          => 'Ödeme Yap',
 
     'form_description' => [
-        'billing'           => 'Fatura detayları faturanızda görünür. Fatura Tarihi gösterge tablosunda ve raporlarda kullanılır. Son Ödeme Tarihi olarak ödemeyi beklediğiniz tarihi seçin.',
+        'billing'           => 'Faturalama detayları satın alma faturanızda görünür. Fatura Tarihi kontrol panelinde ve raporlarda kullanılır. Vade Tarihi olarak ödemeyi beklediğiniz tarihi seçin.',
     ],
 
     'messages' => [

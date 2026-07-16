@@ -3,7 +3,7 @@
 return [
 
     'previous'              => 'Sebelumnya',
-    'next'                  => 'Berikutnya',
-    'showing'               => ':first-:last of :total records.',
-    'page'                  => 'per halaman.',
+    'next'                  => 'Seterusnya',
+    'showing'               => ':first-:last daripada :total rekod.',
+    'page'                  => 'setiap halaman.',
 ];

@@ -19,7 +19,7 @@ return [
     ],
 
     'localisation' => [
-        'description'                   => 'Tetapkan tahun fiskal, zona waktu, format tanggal dan lebih banyak bahasa lokal',
+        'description'                   => 'Tetapkan tahun fiskal, zona waktu, format tanggal dan pelokalan lainnya',
         'search_keywords'               => 'keuangan, tahun, mulai, menunjukkan, waktu, zona, tanggal, format, pemisah, diskon, persen',
         'financial_start'               => 'Awal Tahun Keuangan',
         'timezone'                      => 'Zona Waktu',
@@ -59,7 +59,7 @@ return [
 
     'invoice' => [
         'description'                   => 'Kustomisasi awalan faktur, nomor, syarat, catatan kaki dll',
-        'search_keywords'               => 'menyesuaikan, faktur, jumlah, awalan, angka, berikutnya, logo, nama, harga, jumlah, Template, judul, subpos, footer, catatan, menyembunyikan, karena, warna, pembayaran, istilah, kolom',
+        'search_keywords'               => 'kustomisasi, faktur, nomor, awalan, angka, berikutnya, logo, nama, harga, kuantitas, template, judul, subpos, footer, catatan, menyembunyikan, jatuh tempo, warna, pembayaran, syarat, kolom',
         'prefix'                        => 'Prefiks Nomor',
         'digit'                         => 'Digit Nomor',
         'next'                          => 'Nomor Berikutnya',
@@ -90,14 +90,14 @@ return [
         'hide' => [
             'item_name'                 => 'Sembunyikan Nama Item',
             'item_description'          => 'Sembunyikan Deskripsi Item',
-            'quantity'                  => 'Sembunyikan Jumlah',
+            'quantity'                  => 'Sembunyikan Kuantitas',
             'price'                     => 'Sembunyikan Harga',
             'amount'                    => 'Sembunyikan Jumlah',
         ],
         'column'                        => 'Kolom|Kolom',
 
         'form_description' => [
-            'general'                   => 'Tetapkan default untuk memformat nomor faktur dan persyaratan pembayaran Anda.',
+            'general'                   => 'Tetapkan bawaan untuk memformat nomor faktur dan syarat pembayaran Anda.',
             'template'                  => 'Pilih salah satu template di bawah ini untuk faktur Anda.',
             'default'                   => 'Memilih opsi bawaan untuk faktur akan mengisi judul, subjudul, catatan, dan footer terlebih dahulu. Anda tidak perlu mengedit faktur setiap saat agar terlihat lebih profesional.',
             'column'                    => 'Sesuaikan bagaimana kolom faktur diberi nama. Jika Anda ingin menyembunyikan deskripsi item dan jumlah dalam baris, Anda dapat mengubahnya di sini.',
@@ -105,13 +105,13 @@ return [
     ],
 
     'transfer' => [
-        'choose_template'               => 'Pilih contoh transfer',
+        'choose_template'               => 'Pilih template transfer',
         'second'                        => 'Kedua',
         'third'                         => 'Ketiga',
     ],
 
     'default' => [
-        'description'                   => 'Akun default, mata uang, bahasa perusahaan Anda',
+        'description'                   => 'Akun bawaan, mata uang, bahasa perusahaan Anda',
         'search_keywords'               => 'akun, mata uang, bahasa, pajak, pembayaran, metode, paginasi',
         'list_limit'                    => 'Data Per Laman',
         'use_gravatar'                  => 'Gunakan Gravatar',
@@ -121,14 +121,14 @@ return [
         'address_tags'                  => '<strong>Tag Tersedia:</strong> :tags',
 
         'form_description' => [
-            'general'                   => 'Pilih akun bawaan, pajak, dan metode pembayaran untuk membuat catatan dengan cepat. Dasbor dan Laporan ditampilkan di bawah mata uang default.',
+            'general'                   => 'Pilih akun bawaan, pajak, dan metode pembayaran untuk membuat catatan dengan cepat. Dasbor dan Laporan ditampilkan di bawah mata uang bawaan.',
             'category'                  => 'Pilih kategori bawaan untuk mempercepat pembuatan rekaman.',
-            'other'                     => 'Kustomisasi pengaturan bawaan bahasa yang digunakan perusahaan dan cara kerja pemberian nomor pada halaman.',
+            'other'                     => 'Kustomisasi pengaturan bawaan bahasa yang digunakan perusahaan dan cara kerja paginasi.',
         ],
     ],
 
     'email' => [
-        'description'                   => 'Ubah protokol pengiriman dan template email',
+        'description'                   => 'Ubah protokol pengiriman',
         'search_keywords'               => 'email, kirim, protokol, smtp, host, kata sandi',
         'protocol'                      => 'Protokol',
         'php'                           => 'PHP Mail',
@@ -142,7 +142,7 @@ return [
             'none'                      => 'Tidak ada',
         ],
         'sendmail'                      => 'Sendmail',
-        'sendmail_path'                 => ' Path Sendmail',
+        'sendmail_path'                 => 'Path Sendmail',
         'log'                           => 'Log Email',
         'email_service'                 => 'Layanan Email',
         'email_templates'               => 'Template Email',
@@ -153,7 +153,7 @@ return [
 
         'templates' => [
             'description'               => 'Ubah template email',
-            'search_keywords'           => 'email, template, judul, isi, tag',
+            'search_keywords'           => 'email, template, subjek, isi, tag',
             'subject'                   => 'Subjek',
             'body'                      => 'Badan',
             'tags'                      => '<strong>Tag yang Tersedia:</strong> :tag_list',
@@ -163,12 +163,12 @@ return [
             'invoice_recur_customer'    => 'Template Berulang Faktur (dikirim ke pelanggan)',
             'invoice_recur_admin'       => 'Template Berulang Faktur (dikirim ke admin)',
             'invoice_view_admin'        => 'Template Tampilan Faktur (dikirim ke admin)',
-            'invoice_payment_customer'  => 'Template Penerimaan Pembayaran (dikirim ke pelanggan)',
-            'invoice_payment_admin'     => 'Template Penerimaan Pembayaran (dikirim ke admin)',
+            'invoice_payment_customer'  => 'Template Tanda Terima Pembayaran Faktur (dikirim ke pelanggan)',
+            'invoice_payment_admin'     => 'Template Penerimaan Pembayaran Faktur (dikirim ke admin)',
             'bill_remind_admin'         => 'Template Pengingat Tagihan (dikirim ke admin)',
-            'bill_recur_admin'          => 'Template Perulangan Tagihan (dikirim ke admin)',
+            'bill_recur_admin'          => 'Template Berulang Tagihan (dikirim ke admin)',
             'payment_received_customer' => 'Template Tanda Terima Pembayaran (dikirim ke pelanggan)',
-            'payment_made_vendor'       => 'Template Pembayaran (dikirim ke vendor)',
+            'payment_made_vendor'       => 'Template Pembayaran Dilakukan (dikirim ke vendor)',
         ],
     ],
 
@@ -187,24 +187,23 @@ return [
         'form_description' => [
             'invoice'                   => 'Aktifkan atau nonaktifkan, dan atur pengingat untuk faktur Anda saat jatuh tempo.',
             'bill'                      => 'Aktifkan atau nonaktifkan, dan atur pengingat untuk tagihan Anda sebelum jatuh tempo.',
-            'cron'                      => 'Salin perintah cron yang harus dijalankan server Anda. Atur waktu untuk memicu suatu hal.',
+            'cron'                      => 'Salin perintah cron yang harus dijalankan server Anda. Atur waktu untuk memicu event.',
         ]
     ],
 
     'categories' => [
-        'description'                   => 'Kategori tidak terbatas untuk penghasilan, pengeluaran, dan item',
-        'search_keywords'               => 'kategori, pemasukan, pengeluaran, barang',
+        'description'                   => 'Kategori tidak terbatas untuk pemasukan, pengeluaran, dan item',
+        'search_keywords'               => 'kategori, pemasukan, pengeluaran, item',
     ],
 
     'currencies' => [
-        'description'                   => 'Buat dan kelola mata uang dan tetapkan nilainya',
-        'search_keywords'               => 'default, mata uang, mata-mata uang, kode, kurs, simbol, presisi, posisi, desimal, ribuan, tanda, pemisah
-',
+        'description'                   => 'Buat dan kelola mata uang dan tetapkan kursnya',
+        'search_keywords'               => 'default, mata uang, mata uang, kode, kurs, simbol, presisi, posisi, desimal, ribuan, tanda, pemisah',
     ],
 
     'taxes' => [
         'description'                   => 'Tarif pajak tetap, normal, inklusif, dan gabungan',
-        'search_keywords'               => 'pajak, tarif, jenis, tetap, inklusif, majemuk, pemotongan',
+        'search_keywords'               => 'pajak, tarif, jenis, tetap, inklusif, gabungan, pemotongan',
     ],
 
 ];

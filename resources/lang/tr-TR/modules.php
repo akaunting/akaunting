@@ -97,7 +97,7 @@ return [
     'errors' => [
         'purchase'          => ':module satın almalı/yenilemelisiniz!',
         'download'          => ':module indirilemedi',
-        'zip'               => ':module için zip doosyası oluşturulamadı',
+        'zip'               => ':module için zip dosyası oluşturulamadı',
         'unzip'             => ':module zipten çıkarılamadı',
         'file_copy'         => ':module dosyaları kopyalanamadı',
         'finish'            => ':module kurulumu tamamlanamadı',

@@ -17,7 +17,6 @@ return [
     'total_income'                  => 'Totale inkomsten',
     'total_direct_cost'             => 'Totale verkoopkosten',
     'total_expense'                 => 'Totale uitgaven',
-    'total_expenses'                => 'Totale uitgaven',
     'net'                           => 'NET',
     'income_expense'                => 'Inkomsten & Uitgaven',
     'pin'                           => 'Pin uw rapport',

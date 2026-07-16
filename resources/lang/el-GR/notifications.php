@@ -6,8 +6,8 @@ return [
     'hello'               => 'Γεια σας!',
     'salutation'          => 'Με εκτίμηση,<br> :company_name',
     'subcopy'             => 'Αν αντιμετωπίζετε πρόβλημα κάνοντας κλικ στο κουμπί ":text", αντιγράψτε και επικολλήστε την παρακάτω διεύθυνση URL στο πρόγραμμα περιήγησής σας: [:url](:url)',
-    'mark_read'           => 'Επισήμανση ως αναγνωσμένο',
-    'mark_read_all'       => 'Επισήμανση όλων ως αναγνωσμένων',
+    'mark_read'           => 'Σημείωση ως αναγνωσμένο',
+    'mark_read_all'       => 'Σημείωση όλων ως αναγνωσμένων',
     'empty'               => 'Τέλεια, καμία ειδοποίηση!',
     'new_apps'            => 'Η εφαρμογή :app είναι διαθέσιμη. <a href=":url">Δείτε την τώρα</a>!',
 
@@ -188,14 +188,14 @@ return [
         'revenue_new_customer' => [
 
             'title'         => 'Η πληρωμή ελήφθη',
-            'description'   => 'Ευχαριστούμε για την πληρωμή του τιμολογίου <strong>:invoice_number</strong>. Μπορείτε να <a href=":invoice_portal_link">κάνετε κλικ εδώ</a> για να δείτε τις λεπτομέρειες.',
+            'description'   => 'Σας ευχαριστούμε για την πληρωμή του τιμολογίου <strong>:invoice_number</strong>. Μπορείτε να <a href=":invoice_portal_link">κάνετε κλικ εδώ</a> για να δείτε τις λεπτομέρειες.',
 
         ],
 
         'invoice_payment_customer' => [
 
             'title'         => 'Η πληρωμή ελήφθη',
-            'description'   => 'Ευχαριστούμε για την πληρωμή του τιμολογίου <strong>:invoice_number</strong>. Μπορείτε να <a href=":invoice_portal_link">κάνετε κλικ εδώ</a> για να δείτε τις λεπτομέρειες.',
+            'description'   => 'Σας ευχαριστούμε για την πληρωμή του τιμολογίου <strong>:invoice_number</strong>. Μπορείτε να <a href=":invoice_portal_link">κάνετε κλικ εδώ</a> για να δείτε τις λεπτομέρειες.',
 
         ],
 
@@ -208,15 +208,15 @@ return [
 
         'bill_remind_admin' => [
 
-            'title'         => 'Εκπρόθεσμος λογαριασμός',
-            'description'   => 'Ο λογαριασμός <strong>:bill_number</strong> έληξε στις <strong>:bill_due_date</strong>. Μπορείτε να <a href=":bill_admin_link">κάνετε κλικ εδώ</a> για να δείτε τις λεπτομέρειες.',
+            'title'         => 'Εκπρόθεσμο τιμολόγιο αγοράς',
+            'description'   => 'Το τιμολόγιο αγοράς <strong>:bill_number</strong> έληξε στις <strong>:bill_due_date</strong>. Μπορείτε να <a href=":bill_admin_link">κάνετε κλικ εδώ</a> για να δείτε τις λεπτομέρειες.',
 
         ],
 
         'bill_recur_admin' => [
 
-            'title'         => 'Νέος επαναλαμβανόμενος λογαριασμός',
-            'description'   => 'Ο λογαριασμός <strong>:bill_number</strong> δημιουργήθηκε βάσει του επαναλαμβανόμενου κύκλου του προμηθευτή <strong>:vendor_name</strong>. Μπορείτε να <a href=":bill_admin_link">κάνετε κλικ εδώ</a> για να δείτε τις λεπτομέρειες.',
+            'title'         => 'Νέο επαναλαμβανόμενο τιμολόγιο αγοράς',
+            'description'   => 'Το τιμολόγιο αγοράς <strong>:bill_number</strong> δημιουργήθηκε βάσει του επαναλαμβανόμενου κύκλου του προμηθευτή <strong>:vendor_name</strong>. Μπορείτε να <a href=":bill_admin_link">κάνετε κλικ εδώ</a> για να δείτε τις λεπτομέρειες.',
 
         ],
 
@@ -231,8 +231,8 @@ return [
 
     'messages' => [
 
-        'mark_read'             => 'Το :type διάβασε αυτή την ειδοποίηση!',
-        'mark_read_all'         => 'Το :type διάβασε όλες τις ειδοποιήσεις!',
+        'mark_read'             => 'Το :type ανέγνωσε αυτή την ειδοποίηση!',
+        'mark_read_all'         => 'Το :type ανέγνωσε όλες τις ειδοποιήσεις!',
 
     ],
 

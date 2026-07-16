@@ -22,7 +22,7 @@ return [
         'extension'         => ':extension extentie moet worden geïnstalleerd en geladen!',
         'directory'         => ':directory map moet schrijfbaar zijn!',
         'executable'        => 'De PHP CLI uitvoerbare bestand is niet gedefinieerd/werkbaar, of de versie is niet :php_version of hoger! Vraag uw hostingbedrijf om PHP_BINARY of PHP_PATH omgeving correct in te stellen.',
-        'npm'               => '<b>Javascript bestanden ontbreken!</b><br><br><span>Voer eerst de npm install en npm run dev commandos uit.</span>', 
+        'npm'               => '<b>JavaScript bestanden ontbreken!</b> <br><br><span>Voer de <em class="underline">npm install</em> en <em class="underline">npm run dev</em> commando\'s uit.</span>',
     ],
 
     'database' => [

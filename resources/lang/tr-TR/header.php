@@ -8,8 +8,8 @@ return [
     'notifications' => [
         'counter'           => '{0} Bildirim yok|{1} :count yeni bildiriminiz var|[2,*] :count yeni bildiriminiz var',
         'new_apps'          => '{1} :count yeni uygulama yayınlandı|[2,*] :count yeni uygulama yayınlandı',
-        'overdue_invoices'  => '{1} :count Gecikmiş Fatura Mevcut |[2,*] :count Gecikmiş Fatura Mevcut',
-        'upcoming_bills'    => '{1} :count Yaklaşan Fatura Mevcut|[2,*] :count Yaklaşan Fatura Mevcut',
+        'overdue_invoices'  => '{1} :count gecikmiş fatura|[2,*] :count gecikmiş fatura',
+        'upcoming_bills'    => '{1} :count yaklaşan fatura|[2,*] :count yaklaşan fatura',
         'view_all'          => 'Tümünü Görüntüle',
 
         'exports' => [
@@ -17,8 +17,8 @@ return [
             'failed' => '{1} :count başarısız dışa aktarma|[2,*] :count başarısız dışa aktarma',
         ],
         'imports' => [
-            'completed' => '{1} :count tamamlanan dışa aktarım|[2,*] :count tamamlanan dışa aktarım',
-            'failed' => '{1} :count başarısız dışa aktarım|[2,*] :count başarısız dışa aktarım',
+            'completed' => '{1} :count tamamlanan içe aktarım|[2,*] :count tamamlanan içe aktarım',
+            'failed' => '{1} :count başarısız içe aktarım|[2,*] :count başarısız içe aktarım',
         ],
     ],
 

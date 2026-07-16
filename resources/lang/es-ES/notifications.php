@@ -2,21 +2,21 @@
 
 return [
 
-    'whoops'              => 'Vaya!',
-    'hello'               => 'Hola!',
+    'whoops'              => '¡Vaya!',
+    'hello'               => '¡Hola!',
     'salutation'          => 'Saludos,<br> :company_name',
-    'subcopy'             => 'Si tiene problemas haciendo clic en el boton “:text”, copie y pegue la dirección URL en su navegador: [:url] (:url)',
+    'subcopy'             => 'Si tiene problemas para hacer clic en el botón «:text», copie y pegue la siguiente URL en su navegador: [:url](:url)',
     'mark_read'           => 'Marcar como leído',
     'mark_read_all'       => 'Marcar todos como leídos',
-    'empty'               => 'Sin notificaciones',
-    'new_apps'            => ':app está disponible. <a href=":url">¡Échale un vistazo ahora</a>!',
+    'empty'               => '¡Vaya, cero notificaciones!',
+    'new_apps'            => ':app ya está disponible. <a href=":url">¡Consúltela ahora!</a>',
 
     'update' => [
 
         'mail' => [
 
             'title'         => '⚠️ Actualización fallida en :domain',
-            'description'   => 'La actualización de :alias de :current_version a :new_version falló en <strong>:step</strong> paso con el siguiente mensaje: :error_message',
+            'description'   => 'La actualización de :alias de :current_version a :new_version falló en el paso <strong>:step</strong> con el siguiente mensaje: :error_message',
 
         ],
 
@@ -58,7 +58,7 @@ return [
         'failed' => [
 
             'title'         => 'Importación fallida',
-            'description'   => 'No se puede importar el archivo debido a los siguientes problemas:',
+            'description'   => 'No se ha podido importar el archivo debido a los siguientes problemas:',
 
         ],
     ],
@@ -75,7 +75,7 @@ return [
         'failed' => [
 
             'title'         => 'Exportación fallida',
-            'description'   => 'No se puede crear el archivo de exportación debido al siguiente problema:',
+            'description'   => 'No se ha podido crear el archivo de exportación debido al siguiente problema:',
 
         ],
 
@@ -86,7 +86,7 @@ return [
         'invalid' => [
 
             'title'         => 'Correo electrónico :type no válido',
-            'description'   => 'La dirección de correo electrónico :email ha sido reportada como no válida y la persona ha sido desactivada. Por favor, revise el siguiente mensaje de error y corrija la dirección de correo electrónico:',
+            'description'   => 'Se ha notificado que la dirección de correo electrónico :email no es válida y se ha deshabilitado a la persona. Revise el siguiente mensaje de error y corrija la dirección:',
 
         ],
 
@@ -98,134 +98,132 @@ return [
 
             'title'         => 'La descarga está lista',
             'description'   => 'Su archivo <strong>:type</strong> está listo para <a href=":url" target="_blank"><strong>descargar</strong></a>.',
-            'url'           => 'https://example.com',
 
         ],
 
         'download_failed' => [
 
             'title'         => 'Error en la descarga',
-            'description'   => 'No se pudo crear el archivo debido a varios problemas. Revise su correo electrónico para los detalles.',
+            'description'   => 'No se ha podido crear el archivo debido a varios problemas. Consulte los detalles en su correo electrónico.',
 
         ],
 
         'export_completed' => [
 
             'title'         => 'La exportación está lista',
-            'description'   => 'Tu archivo de exportación <strong>:type</strong> está listo para <a href=":url" target="_blank"><strong>descargar</strong></a>.',
-            'url'           => 'https://example.com',
+            'description'   => 'Su archivo de exportación de <strong>:type</strong> está listo para <a href=":url" target="_blank"><strong>descargarlo</strong></a>.',
 
         ],
 
         'export_failed' => [
 
             'title'         => 'Exportación fallida',
-            'description'   => 'No se puede crear el archivo de exportación debido al siguiente problema: :issues',
+            'description'   => 'No se ha podido crear el archivo de exportación debido a varios problemas. Consulte los detalles en su correo electrónico.',
 
         ],
 
         'import_completed' => [
 
             'title'         => 'Importación completada',
-            'description'   => 'Tus datos <strong>:type</strong> alineados <strong>:count</strong> se han importado correctamente.',
+            'description'   => 'Se han importado correctamente <strong>:count</strong> registros de <strong>:type</strong>.',
 
         ],
 
         'import_failed' => [
 
             'title'         => 'Importación fallida',
-            'description'   => 'No se pudo importar el archivo debido a varios problemas. Revise su correo electrónico para los detalles.',
+            'description'   => 'No se ha podido importar el archivo debido a varios problemas. Consulte los detalles en su correo electrónico.',
 
         ],
 
         'new_apps' => [
 
             'title'         => 'Nueva aplicación',
-            'description'   => 'La aplicación <strong>:name</strong> está lista. Puedes <a href=":url">hacer clic aquí</a> para ver los detalles.',
+            'description'   => 'La aplicación <strong>:name</strong> ya está disponible. Puede <a href=":url">hacer clic aquí</a> para consultar los detalles.',
 
         ],
 
         'invoice_new_customer' => [
 
-            'title'         => 'Nueva Factura',
-            'description'   => '<strong>:invoice_number</strong> factura creada. Puedes <a href=":invoice_portal_link">hacer clic aquí</a> para ver los detalles y proceder con el pago.',
+            'title'         => 'Nueva factura',
+            'description'   => 'Se ha creado la factura <strong>:invoice_number</strong>. Puede <a href=":invoice_portal_link">hacer clic aquí</a> para consultar los datos y realizar el pago.',
 
         ],
 
         'invoice_remind_customer' => [
 
-            'title'         => 'Factura atrasada',
-            'description'   => '<strong>:invoice_number</strong> factura venció <strong>:invoice_due_date</strong>. Puedes <a href=":invoice_portal_link">hacer clic aquí</a> para ver los detalles y proceder con el pago.',
+            'title'         => 'Factura vencida',
+            'description'   => 'La factura <strong>:invoice_number</strong> venció el <strong>:invoice_due_date</strong>. Puede <a href=":invoice_portal_link">hacer clic aquí</a> para consultar los datos y realizar el pago.',
 
         ],
 
         'invoice_remind_admin' => [
 
-            'title'         => 'Factura atrasada',
-            'description'   => '<strong>:invoice_number</strong> factura venció <strong>:invoice_due_date</strong>. Puedes <a href=":invoice_admin_link">hacer clic aquí</a> para ver los detalles.',
+            'title'         => 'Factura vencida',
+            'description'   => 'La factura <strong>:invoice_number</strong> venció el <strong>:invoice_due_date</strong>. Puede <a href=":invoice_admin_link">hacer clic aquí</a> para consultar los datos.',
 
         ],
 
         'invoice_recur_customer' => [
 
             'title'         => 'Nueva factura recurrente',
-            'description'   => '<strong>:invoice_number</strong> factura creada. Puedes <a href=":invoice_portal_link">hacer clic aquí</a> para ver los detalles y proceder con el pago.',
+            'description'   => 'Se ha creado la factura <strong>:invoice_number</strong> según la periodicidad configurada. Puede <a href=":invoice_portal_link">hacer clic aquí</a> para consultar los datos y realizar el pago.',
 
         ],
 
         'invoice_recur_admin' => [
 
             'title'         => 'Nueva factura recurrente',
-            'description'   => 'La factura <strong>:invoice_number</strong> se crea en función del círculo recurrente de <strong>:customer_name</strong> . Puede <a href=":invoice_admin_link">hacer clic aquí</a> para ver los detalles.',
+            'description'   => 'Se ha creado la factura <strong>:invoice_number</strong> según la periodicidad configurada para <strong>:customer_name</strong>. Puede <a href=":invoice_admin_link">hacer clic aquí</a> para consultar los datos.',
 
         ],
 
         'invoice_view_admin' => [
 
             'title'         => 'Factura vista',
-            'description'   => '<strong>:customer_name</strong> ha visto la factura <strong>:invoice_number</strong> . Puede <a href=":invoice_admin_link">hacer clic aquí</a> para ver los detalles.',
+            'description'   => '<strong>:customer_name</strong> ha consultado la factura <strong>:invoice_number</strong>. Puede <a href=":invoice_admin_link">hacer clic aquí</a> para consultar los datos.',
 
         ],
 
         'revenue_new_customer' => [
 
             'title'         => 'Pago recibido',
-            'description'   => 'Gracias por el pago de la factura <strong>:invoice_number</strong> . Puedes <a href=":invoice_portal_link">hacer clic aquí</a> para ver los detalles.',
+            'description'   => 'Gracias por pagar la factura <strong>:invoice_number</strong>. Puede <a href=":invoice_portal_link">hacer clic aquí</a> para consultar los datos.',
 
         ],
 
         'invoice_payment_customer' => [
 
             'title'         => 'Pago recibido',
-            'description'   => 'Gracias por el pago de la factura <strong>:invoice_number</strong> . Puedes <a href=":invoice_portal_link">hacer clic aquí</a> para ver los detalles.',
+            'description'   => 'Gracias por pagar la factura <strong>:invoice_number</strong>. Puede <a href=":invoice_portal_link">hacer clic aquí</a> para consultar los datos.',
 
         ],
 
         'invoice_payment_admin' => [
 
             'title'         => 'Pago recibido',
-            'description'   => ':customer_name pago registrado para la factura <strong>:invoice_number</strong> . Puede <a href=":invoice_admin_link">hacer clic aquí</a> para ver los detalles.',
+            'description'   => ':customer_name ha registrado un pago de la factura <strong>:invoice_number</strong>. Puede <a href=":invoice_admin_link">hacer clic aquí</a> para consultar los datos.',
 
         ],
 
         'bill_remind_admin' => [
 
-            'title'         => 'Factura atrasada',
-            'description'   => '<strong>:bill_number</strong> la factura venció <strong>:bill_due_date</strong>. Puedes <a href=":bill_admin_link">hacer clic aquí</a> para ver los detalles.',
+            'title'         => 'Factura de compra vencida',
+            'description'   => 'La factura de compra <strong>:bill_number</strong> venció el <strong>:bill_due_date</strong>. Puede <a href=":bill_admin_link">hacer clic aquí</a> para consultar los datos.',
 
         ],
 
         'bill_recur_admin' => [
 
-            'title'         => 'Nueva factura recurriente',
-            'description'   => '<strong>:bill_number</strong> factura se crea basado en <strong>:vendor_name</strong> círculo recurrente. Puede <a href=":bill_admin_link">hacer clic aquí</a> para ver los detalles.',
+            'title'         => 'Nueva factura de compra recurrente',
+            'description'   => 'Se ha creado la factura de compra <strong>:bill_number</strong> según la periodicidad configurada para <strong>:vendor_name</strong>. Puede <a href=":bill_admin_link">hacer clic aquí</a> para consultar los datos.',
 
         ],
 
         'invalid_email' => [
 
             'title'         => 'Correo electrónico :type no válido',
-            'description'   => 'La dirección de correo electrónico <strong>:email</strong> ha sido reportada como no válida y la persona ha sido desactivada. Por favor, revise y corrija la dirección de correo electrónico.',
+            'description'   => 'Se ha notificado que la dirección de correo electrónico <strong>:email</strong> no es válida y se ha deshabilitado a la persona. Revise y corrija la dirección.',
 
         ],
 
@@ -233,8 +231,8 @@ return [
 
     'messages' => [
 
-        'mark_read'             => ':type has leído todas las notificaciones!',
-        'mark_read_all'         => ':type has leído todas las notificaciones!',
+        'mark_read'             => ':type ha marcado esta notificación como leída.',
+        'mark_read_all'         => ':type ha marcado todas las notificaciones como leídas.',
 
     ],
 
@@ -243,7 +241,7 @@ return [
         'firefox' => [
 
             'title' => 'Configuración de iconos de Firefox',
-            'description'  => '<span class="font-medium">Si sus iconos no aparecen, por favor;</span> <br /> <span class="font-medium">Permita que las páginas elijan sus propias fuentes, en lugar de sus selecciones anteriores</span> <br /><br /> <span class="font-bold"> Ajustes (Preferencias) > Fuentes > Avanzado </span>',
+            'description'  => '<span class="font-medium">Si los iconos no aparecen, por favor:</span> <br /> <span class="font-medium">Permita que las páginas elijan sus propias fuentes en lugar de las seleccionadas arriba.</span> <br /><br /> <span class="font-bold"> Ajustes (Preferencias) > Fuentes > Avanzado </span>',
 
         ],
 

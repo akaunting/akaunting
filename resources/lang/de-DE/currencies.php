@@ -22,6 +22,6 @@ return [
 
     'no_currency'           => 'Keine Währung',
     'create_currency'       => 'Erstellen Sie eine neue Währung und bearbeiten Sie diese jederzeit aus den Einstellungen.',
-    'new_currency'          => 'Neue Währung:',
+    'new_currency'          => 'Neue Währung',
 
 ];

@@ -10,7 +10,7 @@ return [
     'get_started'           => 'Get started for free',
     'billing_address'       => 'Billing Address',
     'see_all_details'       => 'See all account details',
-    'all_payments'          => 'Login to view all payments',
+    'all_payments'          => 'Log in to view all payments',
     'received_date'         => 'Received Date',
     'redirect_description'  => 'You will be redirected to the :name website to make the payment.',
 
@@ -23,19 +23,19 @@ return [
     'outstanding_balance'   => [
         'title'             => 'Outstanding balance',
         'description'       => 'Your outstanding balance is:',
-        'not_payment'       => 'You have not outstanding balance, yet.',
+        'not_payment'       => 'You have no outstanding balance, yet.',
     ],
 
     'latest_invoices'       => [
         'title'             => 'Latest Invoices',
         'description'       => ':date - You were billed with invoice number :invoice_number.',
-        'no_data'           => 'You have not invoice, yet.',
+        'no_data'           => 'You have no invoices, yet.',
     ],
 
     'invoice_history'       => [
         'title'             => 'Invoice History',
         'description'       => ':date - You were billed with invoice number :invoice_number.',
-        'no_data'           => 'You have not invoice history, yet.',
+        'no_data'           => 'You have no invoice history, yet.',
     ],
 
     'payment_history'       => [
@@ -43,7 +43,7 @@ return [
         'description'       => ':date - You made a payment of :amount.',
         'invoice_description'=> ':date - You made a payment of :amount for invoice number :invoice_number.',
 
-        'no_data'           => 'You have not payment history, yet.',
+        'no_data'           => 'You have no payment history, yet.',
     ],
 
     'payment_detail'        => [

@@ -28,13 +28,13 @@ return [
 
     'latest_invoices'       => [
         'title'             => 'नवीनतम चालान',
-        'description'       => ':date - आपको चालान संख्या :invoice_number के साथ बिल भेजा गया था।',
-        'no_data'           => 'आपको अभी तक चालान नहीं करना है।',
+        'description'       => ':date - आपको चालान संख्या :invoice_number के साथ चालान भेजा गया था।',
+        'no_data'           => 'आपके पास अभी तक कोई चालान नहीं है।',
     ],
 
     'invoice_history'       => [
         'title'             => 'चालान इतिहास',
-        'description'       => ':date - आपको चालान संख्या :invoice_number के साथ बिल भेजा गया था।',
+        'description'       => ':date - आपको चालान संख्या :invoice_number के साथ चालान भेजा गया था।',
         'no_data'           => 'आपके पास अभी तक चालान इतिहास नहीं है।',
     ],
 

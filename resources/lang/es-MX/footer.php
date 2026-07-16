@@ -3,11 +3,11 @@
 return [
 
     'version'               => 'Versión',
-    'powered'               => 'Powered By Akaunting',
+    'powered'               => 'Impulsado por Akaunting',
     'link'                  => 'https://akaunting.com',
-    'software'              => 'Software de Contabilidad Libre',
-    'powered_by'            => 'Desarrollado por',
-    'tag_line'              => 'Enviar facturas, rastrear gastos y automatizar la contabilidad con Akaunting. :get_started_url',
-    'get_started'           => 'Empezar',
+    'software'              => 'Software de contabilidad en línea',
+    'powered_by'            => 'Impulsado por',
+    'tag_line'              => 'Envíe facturas, rastree gastos y automatice la contabilidad con Akaunting. :get_started_url',
+    'get_started'           => 'Comenzar',
 
 ];

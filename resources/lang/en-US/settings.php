@@ -53,13 +53,13 @@ return [
         'form_description' => [
             'fiscal'                    => 'Set the financial year period that your company uses for taxing and reporting.',
             'date'                      => 'Select the date format that you want to see everywhere in the interface.',
-            'other'                     => 'Select the where the percentage sign is displayed for taxes. You can enable discounts on line items and at the total for invoices and bills.',
+            'other'                     => 'Select where the percentage sign is displayed for taxes. You can enable discounts on line items and at the total for invoices and bills.',
         ],
     ],
 
     'invoice' => [
         'description'                   => 'Customize invoice prefix, number, terms, footer etc',
-        'search_keywords'               => 'customize, invoice, number, prefix, digit, next, logo, name, price, quantity, template, title, subheading, footer, note, hide, due, colour, payment, terms, column',
+        'search_keywords'               => 'customize, invoice, number, prefix, digit, next, logo, name, price, quantity, template, title, subheading, footer, note, hide, due, color, payment, terms, column',
         'prefix'                        => 'Number Prefix',
         'digit'                         => 'Number Digit',
         'next'                          => 'Next Number',
@@ -123,7 +123,7 @@ return [
         'form_description' => [
             'general'                   => 'Select the default account, tax, and payment method to create records swiftly. Dashboard and Reports are shown under the default currency.',
             'category'                  => 'Select the default categories to expedite the record creation.',
-            'other'                     => 'Customize the default settings of the company language and how pagination works. ',
+            'other'                     => 'Customize the default settings of the company language and how pagination works.',
         ],
     ],
 

@@ -13,7 +13,7 @@ return [
 |
     */
 
-    'reset' => 'Le mot de passe principal a été réinitialisé !',
+    'reset' => 'Votre mot de passe a été réinitialisé !',
     'sent' => 'Nous avons envoyé par courrier électronique votre lien de réinitialisation de mot de passe !',
     'throttled' => 'Veuillez patienter avant de réessayer.',
     'token' => 'Ce jeton de réinitialisation de mot de passe n’est pas valide.',

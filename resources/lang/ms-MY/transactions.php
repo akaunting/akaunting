@@ -5,20 +5,20 @@ return [
     'payment_received'      => 'Bayaran Diterima',
     'payment_made'          => 'Bayaran Dibuat',
     'paid_by'               => 'Dibayar Oleh',
-    'paid_to'               => 'Dibayarkan Ke',
-    'related_invoice'       => 'Invois Terkait',
-    'related_bill'          => 'Bil Terkait',
-    'recurring_income'      => 'Penghasilan Berulang',
+    'paid_to'               => 'Dibayar Kepada',
+    'related_invoice'       => 'Invois Berkaitan',
+    'related_bill'          => 'Bil Berkaitan',
+    'recurring_income'      => 'Pendapatan Berulang',
     'recurring_expense'     => 'Perbelanjaan Berulang',
-    'included_tax'          => 'Jumlah pajak termasuk',
-    'connected'             => 'Terhubung',
-    'connect_message'       => 'Pajak untuk :type ini tidak dihitung selama proses koneksi. Pajak tidak dapat dihubungkan.',
+    'included_tax'          => 'Jumlah cukai termasuk',
+    'connected'             => 'Disambung',
+    'connect_message'       => 'Cukai untuk :type ini tidak dikira semasa proses sambungan. Cukai tidak boleh disambung.',
 
     'form_description' => [
-        'general'           => 'Di sini Anda dapat memasukkan informasi umum transaksi seperti tanggal, jumlah, akaun, deskripsi, dll.',
-        'assign_income'     => 'Pilih kategori dan pelanggan untuk membuat laporan Anda lebih detail.',
-        'assign_expense'    => 'Pilih kategori dan vendor untuk membuat laporan Anda lebih detail.',
-        'other'             => 'Masukkan nomor dan referensi untuk menyimpan transaksi yang ditautkan ke catatan Anda.',
+        'general'           => 'Di sini anda boleh memasukkan maklumat umum transaksi seperti tarikh, jumlah, akaun, penerangan, dll.',
+        'assign_income'     => 'Pilih kategori dan pelanggan untuk menjadikan laporan anda lebih terperinci.',
+        'assign_expense'    => 'Pilih kategori dan pembekal untuk menjadikan laporan anda lebih terperinci.',
+        'other'             => 'Masukkan nombor dan rujukan untuk memastikan transaksi terpaut dengan rekod anda.',
     ],
 
     'slider' => [
@@ -39,13 +39,13 @@ return [
         ],
 
         'expense' => [
-            'show_link'     => 'Penyedia Anda dapat melihat transaksi pada tautan ini',
-            'copy_link'     => 'Salin tautan dan bagikan dengan penyedia.',
+            'show_link'     => 'Pembekal Anda dapat melihat transaksi di tautan ini',
+            'copy_link'     => 'Salin tautan dan bagikan dengan pembekal Anda.',
         ],
     ],
 
     'sticky' => [
-        'description'       => 'Anda melihat pratinjau bagaimana pelanggan Anda akan melihat versi web bayaran Anda.',
+        'description'       => 'Anda sedang pratonton cara pelanggan anda akan melihat versi web bayaran anda.',
     ],
 
     'messages' => [

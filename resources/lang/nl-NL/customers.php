@@ -2,25 +2,25 @@
 
 return [
 
-    'can_login'                 => 'Mag inloggen?',
-    'can_login_description'     => 'Stuur deze gebruiker een uitnodiging om in te loggen op het Klantenportaal.',
+    'can_login'                 => 'Uitnodigen voor klantenportaal',
+    'can_login_description'     => 'Stuur een uitnodiging naar deze gebruiker om in te loggen op het klantenportaal.',
     'user_created'              => 'Gebruiker aangemaakt',
-    'client_portal_description' => 'Het klantenportaal is een omgeving waar u transacties en facturen kunt delen met uw klanten, waar zij hun relatie met uw bedrijf kunnen volgen en betalen, en waar zij kunnen inloggen wanneer zij maar willen; met hun wachtwoord.',
+    'client_portal_description' => 'Het klantenportaal is een omgeving waar u transacties en facturen kunt delen met uw klanten, waar zij hun relatie met uw bedrijf kunnen volgen en online kunnen betalen, en waar zij kunnen inloggen wanneer zij maar willen met hun wachtwoord.',
 
     'error' => [
-        'email'                 => 'Dit e-mailadres is al reeds geregistreerd.',
+        'email'                 => 'Dit e-mailadres is al in gebruik.',
     ],
 
     'client_portal_text' => [
-        'can'                   => 'Deze klant kan inloggen op de klantenportaal.',
+        'can'                   => 'Deze klant kan inloggen op het klantenportaal.',
         'cant'                  => 'Deze klant kan niet inloggen op het klantenportaal.',
     ],
 
     'form_description' => [
-        'general'               => 'De contactgegevens van uw klant verschijnen op de facturen en in hun profiel. Je kunt je klanten ook toestaan in te loggen om de facturen die je hen stuurt te volgen door het vakje hieronder aan te vinken.',
-        'billing'               => 'Het Btw-nummer verschijnt op elke factuur die aan de klant wordt uitgereikt. De geselecteerde valuta wordt de standaardvaluta voor deze klant.',
-        'address'               => 'Het adres is nodig voor de facturen, dus je moet factuuradres-gegevens voor je klant toevoegen.',
-        'contact_persons'       => 'Als u extra ontvangers in een e-mail wilt opnemen als CC, voegt u ze toe als contactpersonen.',
+        'general'               => 'De contactgegevens van uw klant verschijnen op facturen en in hun profiel. U kunt uw klanten ook toestaan in te loggen om de facturen die u hen stuurt te volgen door het vakje hieronder aan te vinken.',
+        'billing'               => 'Het BTW-nummer verschijnt op elke factuur die aan de klant wordt uitgegeven. De geselecteerde valuta wordt de standaardvaluta voor deze klant.',
+        'address'               => 'Het adres is nodig voor de facturen, dus u moet factureringsadresgegevens voor uw klant toevoegen.',
+        'contact_persons'       => 'Om extra ontvangers in een e-mail op te nemen als CC, voegt u ze toe als contactpersonen.',
     ],
 
     'no_records' => [

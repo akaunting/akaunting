@@ -20,8 +20,8 @@ return [
         'general'           => 'Domyślna waluta jest używana w panelu i w raportach. W przypadku innych walut kurs musi być mniejszy niż 1 dla walut słabszych i większy niż 1 dla walut silniejszych.',
     ],
 
-    'no_currency'           => 'Brak Waluty',
+    'no_currency'           => 'Brak waluty',
     'create_currency'       => 'Utwórz nową walutę i edytuj ją w dowolnym momencie w ustawieniach.',
-    'new_currency'          => 'Nowa Waluta',
+    'new_currency'          => 'Nowa waluta',
 
 ];

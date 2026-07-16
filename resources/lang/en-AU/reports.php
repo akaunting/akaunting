@@ -10,9 +10,9 @@ return [
     'expense_summary'               => 'Expense Summary',
     'income_expense_summary'        => 'Income vs Expense',
     'tax_summary'                   => 'Tax Summary',
+    'discount_summary'              => 'Discount Summary',
     'gross_profit'                  => 'Gross Profit',
     'net_profit'                    => 'Net Profit',
-    'discount_summary'              => 'Discount Summary',
     'net_profit_loss'               => 'Net Profit (Loss)',
     'total_income'                  => 'Total Income',
     'total_direct_cost'             => 'Total Cost of Sales',
@@ -21,12 +21,12 @@ return [
     'income_expense'                => 'Income & Expense',
     'pin'                           => 'Pin your report',
 
-    'income_expense_description'    => 'Description for income and expense reports',
-    'accounting_description'        => 'Description for accounting reports',
+    'income_expense_description'    => 'Get an overview of your income and expenses.',
+    'accounting_description'        => 'Get a clear picture of how your business is doing.',
 
     'form_description' => [
         'general'                   => 'Here you can enter the general information of report such as name, type, description, etc.',
-        'preferences'               => 'Preferences helps you to customise your reports.'
+        'preferences'               => 'Preferences help you to customise your reports.'
     ],
 
     'charts' => [

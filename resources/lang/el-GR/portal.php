@@ -21,9 +21,9 @@ return [
     ],
 
     'outstanding_balance'   => [
-        'title'             => 'Εξέχον υπόλοιπο',
-        'description'       => 'Το υπόλοιπο σας είναι:',
-        'not_payment'       => 'Δεν έχετε εκκρεμή ισορροπία, ακόμα.',
+        'title'             => 'Εκκρεμές Υπόλοιπο',
+        'description'       => 'Το υπόλοιπό σας είναι:',
+        'not_payment'       => 'Δεν έχετε εκκρεμές υπόλοιπο, ακόμα.',
     ],
 
     'latest_invoices'       => [
@@ -40,8 +40,8 @@ return [
 
     'payment_history'       => [
         'title'             => 'Ιστορικό Πληρωμών',
-        'description'       => ':date - Κάνατε μια πληρωμή του :amount.',
-        'invoice_description'=> ':date - Κάνατε μια πληρωμή του :amount για τον αριθμό τιμολογίου :invoice_number.',
+        'description'       => ':date - Κάνατε μια πληρωμή :amount.',
+        'invoice_description'=> ':date - Κάνατε μια πληρωμή :amount για τον αριθμό τιμολογίου :invoice_number.',
 
         'no_data'           => 'Δεν έχετε ιστορικό πληρωμών, ακόμα.',
     ],

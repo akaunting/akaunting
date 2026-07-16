@@ -27,7 +27,7 @@ return [
     'next_date'             => 'Nächste am :date',
     'end'                   => 'Wiederholung beenden',
     'child'                 => ':url wurde automatisch am :date erstellt',
-    'message'               => 'Dies ist ein(e) sich wiederholende :type und die/der nächste :type wird automatisch am :date erzeugt',
+    'message'               => 'Dies ist eine wiederkehrende :type und die nächste :type wird automatisch am :date erstellt',
     'message_parent'        => 'Diese :type wurde automatisch aus :link generiert',
     'send_email_auto'       => 'E-Mail automatisch senden',
 

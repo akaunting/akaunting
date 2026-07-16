@@ -9,10 +9,10 @@ return [
     'from_rate'             => 'दर से',
     'to_rate'               => 'दर तक',
     'from_account_rate'     => 'खाता दर से',
-    'to_account_rate'       => 'खाता दर के लिए',
+    'to_account_rate'       => 'खाता दर तक',
     'from_amount'           => 'से',
     'to_amount'             => 'राशि के लिए',
-    'issued_at'             => 'जारी करने की नियत तारीख',
+    'issued_at'             => 'जारी करने की तारीख',
     'rate'                  => 'दर',
 
     'form_description' => [

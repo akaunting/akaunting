@@ -2,16 +2,16 @@
 
 return [
 
-    'sale_price'                => 'Precio de Venta',
-    'purchase_price'            => 'Precio de Compra',
-    'enter_item_description'    => 'Indique una descripción',
+    'sale_price'                => 'Precio de venta',
+    'purchase_price'            => 'Precio de compra',
+    'enter_item_description'    => 'Introduzca la descripción del artículo',
     'billing'                   => 'Facturación',
     'sale_information'          => 'Información de venta',
     'purchase_information'      => 'Información de compra',
 
     'form_description' => [
-        'general'               => 'Seleccione una categoría para que sus informes sean más detallados. La descripción se rellenará cuando el artículo sea seleccionado en una factura o cuenta.',
-        'billing'               => 'La información de venta se utiliza dentro de las facturas, y la información de compra se utiliza dentro de las facturas. Los impuestos se aplicarán tanto a las facturas como a las cuentas.',
+        'general'               => 'Seleccione una categoría para que sus informes sean más detallados. La descripción se rellenará cuando seleccione el artículo en una factura de venta o de compra.',
+        'billing'               => 'La información de venta se utiliza en las facturas de venta y la información de compra, en las facturas de compra. Los impuestos se aplican a ambas.',
     ],
 
 ];

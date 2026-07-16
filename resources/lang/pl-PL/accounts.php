@@ -2,7 +2,7 @@
 
 return [
 
-    'account_name'          => 'Nazwa konta bankowego',
+    'account_name'          => 'Nazwa konta',
     'account_balance'       => 'Saldo konta',
     'number'                => 'Numer',
     'opening_balance'       => 'Saldo początkowe',
@@ -11,10 +11,10 @@ return [
     'bank_phone'            => 'Numer telefonu do banku',
     'bank_address'          => 'Adres banku',
     'default_account'       => 'Domyślne konto',
-    'incoming'              => 'Nadchodzące',
+    'incoming'              => 'Przychodzące',
     'outgoing'              => 'Wychodzące',
-    'see_performance'       => 'Sprawdź Wydajność',
-    'create_report'         => 'Jeśli chcesz zobaczyć wysokość dochodu. Możesz utworzyć raportu o przychodach i wydatkach.',
+    'see_performance'       => 'Zobacz wyniki',
+    'create_report'         => 'Jeśli chcesz zobaczyć wyniki konta. Możesz utworzyć raport Dochód vs Wydatek.',
     'banks'                 => 'Bank|Banki',
     'credit_cards'          => 'Karta kredytowa|Karty kredytowe',
 

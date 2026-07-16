@@ -21,9 +21,9 @@ return [
     ],
 
     'outstanding_balance'   => [
-        'title'             => 'Zadłużenie',
-        'description'       => 'Twoje zadłużenie wynosi:',
-        'not_payment'       => 'Nie masz jeszcze zadłużenia.',
+        'title'             => 'Saldo do zapłaty',
+        'description'       => 'Twoje saldo do zapłaty wynosi:',
+        'not_payment'       => 'Nie masz jeszcze salda do zapłaty.',
     ],
 
     'latest_invoices'       => [

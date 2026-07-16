@@ -23,7 +23,7 @@ return [
     'outstanding_balance'   => [
         'title'             => 'Ausstehender Saldo',
         'description'       => 'Ihr ausstehender Saldo ist:',
-        'not_payment'       => 'Sie haben noch kein ausstehendes Guthaben.',
+        'not_payment'       => 'Sie haben noch keinen ausstehenden Saldo.',
     ],
 
     'latest_invoices'       => [
@@ -35,7 +35,7 @@ return [
     'invoice_history'       => [
         'title'             => 'Rechnungsverlauf',
         'description'       => ':date - Sie wurden mit Rechnungsnummer :invoice_number abgerechnet.',
-        'no_data'           => 'Sie haben noch keine Rechnungsverlauf.',
+        'no_data'           => 'Sie haben noch keinen Rechnungsverlauf.',
     ],
 
     'payment_history'       => [

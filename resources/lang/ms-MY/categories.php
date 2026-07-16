@@ -2,10 +2,10 @@
 
 return [
 
-    'collapse'              => 'Sembunyikan',
+    'collapse'              => 'Lipat',
 
     'form_description' => [
-        'general'           => 'Kategori membantu Anda mengklasifikasikan barang, pendapatan, perbelanjaan, dan catatan lainnya.',
+        'general'           => 'Kategori membantu anda mengelas item, pendapatan, perbelanjaan, dan rekod lain.',
     ],
 
 ];

@@ -19,7 +19,7 @@ return [
     ],
 
     'localisation' => [
-        'description'                   => 'Set fiscal year, time zone, date format and more locals',
+        'description'                   => 'Set fiscal year, time zone, date format and more localisations',
         'search_keywords'               => 'financial, year, start, denote, time, zone, date, format, separator, discount, percent',
         'financial_start'               => 'Financial Year Start',
         'timezone'                      => 'Time Zone',
@@ -53,13 +53,13 @@ return [
         'form_description' => [
             'fiscal'                    => 'Set the financial year period that your company uses for taxing and reporting.',
             'date'                      => 'Select the date format that you want to see everywhere in the interface.',
-            'other'                     => 'Select the where the percentage sign is displayed for taxes. You can enable discounts on line items and at the total for invoices and bills.',
+            'other'                     => 'Select where the percentage sign is displayed for taxes. You can enable discounts on line items and at the total for invoices and bills.',
         ],
     ],
 
     'invoice' => [
-        'description'                   => 'Customize invoice prefix, number, terms, footer etc',
-        'search_keywords'               => 'customize, invoice, number, prefix, digit, next, logo, name, price, quantity, template, title, subheading, footer, note, hide, due, colour, payment, terms, column',
+        'description'                   => 'Customise invoice prefix, number, terms, footer etc',
+        'search_keywords'               => 'customise, invoice, number, prefix, digit, next, logo, name, price, quantity, template, title, subheading, footer, note, hide, due, colour, payment, terms, column',
         'prefix'                        => 'Number Prefix',
         'digit'                         => 'Number Digit',
         'next'                          => 'Next Number',
@@ -100,7 +100,7 @@ return [
             'general'                   => 'Set the defaults for formatting your invoice numbers and payment terms.',
             'template'                  => 'Select one of the templates below for your invoices.',
             'default'                   => 'Selecting defaults for invoices will pre-populate titles, subheadings, notes, and footers. So you don\'t need to edit invoices each time to look more professional.',
-            'column'                    => 'Customize how the invoice columns are named. If you like to hide item descriptions and amounts in lines, you can change it here.',
+            'column'                    => 'Customise how the invoice columns are named. If you like to hide item descriptions and amounts in lines, you can change it here.',
         ]
     ],
 
@@ -123,7 +123,7 @@ return [
         'form_description' => [
             'general'                   => 'Select the default account, tax, and payment method to create records swiftly. Dashboard and Reports are shown under the default currency.',
             'category'                  => 'Select the default categories to expedite the record creation.',
-            'other'                     => 'Customize the default settings of the company language and how pagination works. ',
+            'other'                     => 'Customise the default settings of the company language and how pagination works.',
         ],
     ],
 

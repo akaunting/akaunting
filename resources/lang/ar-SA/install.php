@@ -21,12 +21,12 @@ return [
         'disabled'          => 'يجب تعطيل :feature!',
         'extension'         => 'يجب تثبيت وتشغيل ملحق :extension!',
         'directory'         => 'يجب منح صلاحية الكتابة على مجلد :directory!',
-        'executable'        => 'ان الملف التنفيذى ل PHP CLI غير معرف او لا يعمل او ان اصداره ليس :php_version او اعلى منه, من فضلك اطلب من شركه الاستضافه تعيين متغير بيئة PHP_BINARY أو PHP_PATH بشكل صحيح.',
+        'executable'        => 'ملف PHP CLI التنفيذي غير معرّف أو لا يعمل، أو أن إصداره ليس :php_version أو أحدث! اطلب من شركة الاستضافة ضبط متغير البيئة PHP_BINARY أو PHP_PATH بصورة صحيحة.',
         'npm'               => '<b>ملفات JavaScript مفقودة!</b> <br><br><span>يجب عليك تشغيل أوامر <em class="underline">npm install</em> و <em class="underline">npm run dev</em>.</span>',
     ],
 
     'database' => [
-        'hostname'          => 'اسم المستضيف',
+        'hostname'          => 'اسم المضيف',
         'username'          => 'اسم المستخدم',
         'password'          => 'كلمة المرور',
         'name'              => 'قاعدة البيانات',
@@ -40,7 +40,7 @@ return [
     ],
 
     'error' => [
-        'php_version'       => 'حدث خطأ: اطلب من المتعهد مزود الخدمه ان يستخدم PHP :php_version او اعلى منه لكلا من HTTP و CLI',
+        'php_version'       => 'خطأ: اطلب من مزود الاستضافة استخدام PHP :php_version أو إصدار أحدث لكل من HTTP وCLI.',
         'connection'        => 'خطأ: لا يمكن الاتصال بقاعدة البيانات! من فضلك، تأكد من صحة المعلومات.',
     ],
 

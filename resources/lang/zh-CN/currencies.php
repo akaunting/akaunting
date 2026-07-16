@@ -2,26 +2,26 @@
 
 return [
 
-    'code'                  => '货币代码',
-    'rate'                  => '货币汇率',
-    'default'               => '默认货币',
+    'code'                  => '代码',
+    'rate'                  => '汇率',
+    'default'               => '默认币种',
     'decimal_mark'          => '小数点',
     'thousands_separator'   => '千位分隔符',
-    'precision'             => '精确度',
-    'conversion'            => '货币转换: :price (:currency_code) 为 :currency_rate',
+    'precision'             => '精度',
+    'conversion'            => '货币转换：:price (:currency_code) 汇率 :currency_rate',
     'symbol' => [
         'symbol'            => '货币符号',
-        'position'          => '货币符号位置',
+        'position'          => '符号位置',
         'before'            => '金额前',
-        'after'             => '在金额之后',
+        'after'             => '金额后',
     ],
 
     'form_description' => [
-        'general'           => '仪表盘和统计报告均采用默认货币。对于其它货币，弱势货币的汇率必须低于1，而强势货币的汇率必须高于1。',
+        'general'           => '默认币种用于仪表板和报表。对于其他币种，弱势币种的汇率必须低于 1，强势币种的汇率必须高于 1。',
     ],
 
-    'no_currency'           => '未设置货币种类',
-    'create_currency'       => '创建一个新的货币种类，如果不合适，后续可以在设置中修改',
-    'new_currency'          => '新建货币',
+    'no_currency'           => '无币种',
+    'create_currency'       => '创建新币种，可随时从设置中编辑。',
+    'new_currency'          => '新币种',
 
 ];

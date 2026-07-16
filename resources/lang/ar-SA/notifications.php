@@ -8,7 +8,7 @@ return [
     'subcopy'             => 'إذا كنت تواجه مشكلة في النقر على زر ":text"، فانسخ والصق عنوان URL أدناه في متصفح الويب الخاص بك: [:url](:url)',
     'mark_read'           => 'وضع علامة كمقروء',
     'mark_read_all'       => 'وضع علامة على الكل كمقروء',
-    'empty'               => 'رائع، صفر إشعارات!',
+    'empty'               => 'رائع، لا توجد إشعارات!',
     'new_apps'            => ':app متاح. <a href=":url">تحقق منه الآن</a>!',
 
     'update' => [
@@ -180,7 +180,7 @@ return [
 
         'invoice_view_admin' => [
 
-            'title'         => 'فاتورة مشاهدة',
+            'title'         => 'تمت مشاهدة الفاتورة',
             'description'   => 'قام <strong>:customer_name</strong> بمشاهدة فاتورة <strong>:invoice_number</strong>. يمكنك <a href=":invoice_admin_link">النقر هنا</a> لعرض التفاصيل.',
 
         ],
@@ -241,7 +241,7 @@ return [
         'firefox' => [
 
             'title' => 'تكوين أيقونات Firefox',
-            'description'  => '<span class="font-medium">إذا لم تظهر أيقوناتك يرجى؛</span> <br /> <span class="font-medium">السماح للصفحات باختيار خطوطها الخاصة، بدلاً من اختياراتك أعلاه</span> <br /><br /> <span class="font-bold"> الإعدادات (تفضيلات) > الخطوط > متقدم </span>',
+            'description'  => '<span class="font-medium">إذا لم تظهر أيقوناتك، يرجى:</span> <br /> <span class="font-medium">السماح للصفحات باختيار خطوطها الخاصة، بدلاً من اختياراتك أعلاه</span> <br /><br /> <span class="font-bold"> الإعدادات (تفضيلات) > الخطوط > متقدم </span>',
 
         ],
 

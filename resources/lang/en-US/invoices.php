@@ -34,7 +34,7 @@ return [
     'mark_paid'             => 'Mark Paid',
     'mark_sent'             => 'Mark Sent',
     'mark_viewed'           => 'Mark Viewed',
-    'mark_cancelled'        => 'Mark Cancelled',
+    'mark_cancelled'        => 'Mark Canceled',
     'download_pdf'          => 'Download PDF',
     'send_mail'             => 'Send Email',
     'all_invoices'          => 'Login to view all invoices',

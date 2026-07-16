@@ -2,30 +2,30 @@
 
 return [
 
-    'account_name'          => 'Nome',
-    'account_balance'       => 'Saldo da Conta',
+    'account_name'          => 'Nome da conta',
+    'account_balance'       => 'Saldo da conta',
     'number'                => 'Número',
-    'opening_balance'       => 'Saldo Inicial',
-    'current_balance'       => 'Valor Atual',
-    'bank_name'             => 'Nome do Banco',
-    'bank_phone'            => 'Telefone',
-    'bank_address'          => 'Endereço',
-    'default_account'       => 'Conta Padrão',
+    'opening_balance'       => 'Saldo inicial',
+    'current_balance'       => 'Saldo atual',
+    'bank_name'             => 'Nome do banco',
+    'bank_phone'            => 'Telefone do banco',
+    'bank_address'          => 'Endereço do banco',
+    'default_account'       => 'Conta padrão',
     'incoming'              => 'Entrada',
     'outgoing'              => 'Saída',
-    'see_performance'       => 'Ver Desempenho',
-    'create_report'         => 'Se você quiser ver o desempenho da conta. Você pode criar um relatório de receitas vs despesas.',
+    'see_performance'       => 'Ver desempenho',
+    'create_report'         => 'Se você deseja ver o desempenho da conta, você pode criar um relatório de Receita vs Despesa.',
     'banks'                 => 'Banco|Bancos',
-    'credit_cards'          => 'Cartão de Crédito|Cartões de Crédito',
+    'credit_cards'          => 'Cartão de crédito|Cartões de crédito',
 
     'form_description' => [
-        'general'           => 'Use o tipo cartão de crédito para saldo inicial negativo. O número é essencial para reconciliar corretamente as contas. A conta padrão registrará todas as transações se não for selecionada de outra forma.',
-        'bank'              => 'É possível ter várias contas bancárias em mais de um banco. Gravar informações sobre seu banco irá facilitar o reconhecimento as transações dentro de seu banco.',
+        'general'           => 'Use o tipo cartão de crédito para saldo inicial negativo. O número é essencial para reconciliar as contas corretamente. A conta padrão registrará todas as transações se nenhuma outra for selecionada.',
+        'bank'              => 'Você pode ter várias contas bancárias em mais de um banco. Registrar informações sobre seu banco facilitará a correspondência das transações dentro do seu banco.',
     ],
 
     'no_records' => [
-        'transactions'      => 'Ainda não há nenhuma transação nessa conta. Crie uma agora.',
-        'transfers'         => 'Ainda não há nenhuma transação para/de nessa conta. Crie uma agora.',
+        'transactions'      => 'Ainda não há nenhuma transação nesta conta. Crie uma agora.',
+        'transfers'         => 'Ainda não há nenhuma transferência de/para esta conta. Crie uma agora.',
     ],
 
 ];

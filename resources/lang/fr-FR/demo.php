@@ -3,11 +3,11 @@
 return [
 
     'accounts' => [
-        'cash'              => 'Espèce',
+        'cash'              => 'Espèces',
     ],
 
     'categories' => [
-        'deposit'           => 'Acompte',
+        'deposit'           => 'Dépôt',
         'sales'             => 'Ventes',
     ],
 
@@ -23,9 +23,9 @@ return [
     'reports' => [
         'income'            => 'Résumé mensuel des revenus par catégorie.',
         'expense'           => 'Résumé des dépenses mensuelles par catégorie.',
-        'income_expense'    => 'Revenus mensuels vs charges par catégorie.',
-        'tax'               => 'Résumé trimestriel des impôts.',
-        'profit_loss'       => 'Gains et pertes trimestriels par catégorie.',
+        'income_expense'    => 'Revenus mensuels vs dépenses par catégorie.',
+        'tax'               => 'Résumé trimestriel des taxes.',
+        'profit_loss'       => 'Bénéfices et pertes trimestriels par catégorie.',
     ],
 
 ];

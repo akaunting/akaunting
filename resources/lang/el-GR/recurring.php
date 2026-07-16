@@ -19,7 +19,7 @@ return [
     'duration'              => 'Διάρκεια',
     'last_issued'           => 'Τελευταία Έκδοση',
     'after'                 => 'Μετά',
-    'on'                    => 'Ενεργό',
+    'on'                    => 'Σε',
     'never'                 => 'Ποτέ',
     'ends_after'            => 'Λήγει μετά από :times',
     'ends_never'            => 'Ποτέ αποστολή',

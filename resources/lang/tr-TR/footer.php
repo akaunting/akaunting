@@ -3,10 +3,10 @@
 return [
 
     'version'               => 'Sürüm',
-    'powered'               => 'Altyapı Akaunting',
+    'powered'               => 'Akaunting tarafından sağlanmaktadır',
     'link'                  => 'https://akaunting.com/tr',
-    'software'              => 'Ücretsiz Ön Muhasebe Programı',
-    'powered_by'            => 'Destekleyen',
+    'software'              => 'Ücretsiz Muhasebe Yazılımı',
+    'powered_by'            => 'Tarafından sağlanmaktadır',
     'tag_line'              => 'Akaunting ile fatura gönderin, masrafları takip edin ve muhasebe işlemlerini otomatikleştirin. :get_started_url',
     'get_started'           => 'Başla',
 

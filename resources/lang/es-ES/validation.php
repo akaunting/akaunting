@@ -2,11 +2,11 @@
 
 return [
 
-    /*
+/*
 |--------------------------------------------------------------------------
 |Validation Language Lines
 |--------------------------------------------------------------------------
-    */
+*/
 
     'accepted' => ':attribute debe ser aceptado.',
     'accepted_if' => ':attribute debe ser aceptado cuando :other es :value.',
@@ -16,7 +16,7 @@ return [
     'alpha' => ':attribute sólo debe contener letras.',
     'alpha_dash' => ':attribute sólo debe contener letras, números, guiones y guiones bajos.',
     'alpha_num' => ':attribute sólo debe contener letras y números.',
-    'array' => ':attribute debe ser un array.',
+    'array' => ':attribute debe ser una lista.',
     'before' => ':attribute debe ser una fecha anterior a :date.',
     'before_or_equal' => ':attribute debe ser una fecha anterior o igual a :date.',
     'between' => [
@@ -42,8 +42,8 @@ return [
     'double' => ':attribute debe ser un número decimal válido.',
     'email' => ':attribute debe ser una dirección de correo electrónico válida.',
     'ends_with' => ':attribute debe terminar con uno de los siguientes: :values.',
-    'enum' => 'El :attribute seleccionado no es válido.',
-    'exists' => 'El :attribute seleccionado no es válido.',
+    'enum' => 'El valor seleccionado de :attribute no es válido.',
+    'exists' => 'El valor seleccionado de :attribute no es válido.',
     'file' => ':attribute debe ser un archivo.',
     'filled' => 'El campo :attribute debe tener un valor.',
     'gt' => [
@@ -59,9 +59,9 @@ return [
         'string' => ':attribute debe tener :value caracteres o más.',
     ],
     'image' => ':attribute debe ser una imagen.',
-    'in' => 'El :attribute seleccionado no es válido.',
+    'in' => 'El valor seleccionado de :attribute no es válido.',
     'in_array' => 'El campo :attribute no existe en :other.',
-    'in_detailed' => 'El valor :attribute ":value" no es válido. Se esperaba uno de: :values',
+    'in_detailed' => 'El valor «:value» de :attribute no es válido. Se esperaba uno de estos valores: :values',
     'integer' => ':attribute debe ser un número entero.',
     'ip' => ':attribute debe ser una dirección IP válida.',
     'ipv4' => ':attribute debe ser una dirección IPv4 válida.',
@@ -95,7 +95,7 @@ return [
         'string' => ':attribute debe tener al menos :min caracteres.',
     ],
     'multiple_of' => ':attribute debe ser múltiplo de :value.',
-    'not_in' => 'El :attribute seleccionado no es válido.',
+    'not_in' => 'El valor seleccionado de :attribute no es válido.',
     'not_regex' => 'El formato de :attribute no es válido.',
     'numeric' => ':attribute debe ser un número.',
     'password' => [
@@ -103,7 +103,7 @@ return [
         'mixed' => ':attribute debe contener al menos una letra mayúscula y una minúscula.',
         'numbers' => ':attribute debe contener al menos un número.',
         'symbols' => ':attribute debe contener al menos un símbolo.',
-        'uncompromised' => 'El :attribute dado ha aparecido en una filtración de datos. Por favor, elija un :attribute diferente.',
+        'uncompromised' => 'El :attribute indicado ha aparecido en una filtración de datos. Elija un :attribute diferente.',
     ],
     'present' => 'El campo :attribute debe estar presente.',
     'prohibited' => 'El campo :attribute está prohibido.',
@@ -129,8 +129,8 @@ return [
     'starts_with' => ':attribute debe empezar con uno de los siguientes: :values.',
     'string' => ':attribute debe ser una cadena.',
     'timezone' => ':attribute debe ser una zona horaria válida.',
-    'unique' => ':attribute ya ha sido tomado.',
-    'uploaded' => ':attribute no se pudo subir.',
+    'unique' => ':attribute ya está en uso.',
+    'uploaded' => 'No se ha podido subir :attribute.',
     'url' => ':attribute debe ser una URL válida.',
     'uuid' => ':attribute debe ser un UUID válido.',
 
@@ -138,13 +138,13 @@ return [
         'attribute-name' => [
             'rule-name' => 'mensaje-personalizado',
         ],
-        'invalid_currency'      => 'El código de :attribute es inválido.',
-        'invalid_amount'        => 'El monto :attribute es inválido.',
+        'invalid_currency'      => 'El código de :attribute no es válido.',
+        'invalid_amount'        => 'El importe :attribute no es válido.',
         'invalid_quantity'      => ':attribute no es una expresión matemática válida.',
         'invalid_extension'     => 'La extensión del archivo no es válida.',
-        'invalid_dimension'     => 'Las dimensiones de :attribute deben ser máximo :width x :height px.',
-        'invalid_colour'        => 'El color de :attribute es inválido.',
-        'invalid_payment_method'=> 'El método de pago es inválido.',
+        'invalid_dimension'     => 'Las dimensiones de :attribute deben ser, como máximo, de :width x :height px.',
+        'invalid_colour'        => 'El color de :attribute no es válido.',
+        'invalid_payment_method'=> 'El método de pago no es válido.',
     ],
 
     'attributes' => [],

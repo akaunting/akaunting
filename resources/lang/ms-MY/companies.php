@@ -6,15 +6,15 @@ return [
     'logo'                  => 'Logo',
 
     'error' => [
-        'not_user_company'  => 'Error: Anda tidak diperbolehkan merubah perusahaan ini!',
-        'delete_active'     => 'Kesalahan: kamu tidak dapat menghapus Perusahaan aktif, Silakan, beralih ke yang lain dulu!',
-        'disable_active'    => 'Kesalahan: Tidak dapat menonaktifkan perusahaan yang aktif. Silakan, beralih ke yang lain dulu!',
+        'not_user_company'  => 'Ralat: Anda tidak dibenarkan menukar syarikat ini!',
+        'delete_active'     => 'Ralat: Tidak boleh memadam syarikat aktif. Sila beralih ke yang lain dahulu!',
+        'disable_active'    => 'Ralat: Tidak boleh menonaktifkan syarikat aktif. Sila beralih ke yang lain dahulu!',
     ],
 
     'form_description' => [
-        'general'           => 'Informasi ini terlihat dalam rekaman yang Anda buat.',
-        'billing'           => 'Nomor pajak muncul di setiap faktur/Bil. Dasbor dan Laporan ditampilkan di bawah mata uang default.',
-        'address'           => 'Alamat tersebut akan digunakan dalam faktur, Bil, dan catatan lain yang Anda keluarkan.',
+        'general'           => 'Maklumat ini terpapar dalam rekod yang anda cipta.',
+        'billing'           => 'Nombor cukai muncul dalam setiap invois/bil. Papan Pemuka dan Laporan dipaparkan di bawah mata wang lalai.',
+        'address'           => 'Alamat akan digunakan dalam invois, bil, dan rekod lain yang anda keluarkan.',
     ],
 
     'skip_step'             => 'Lewati langkah ini',

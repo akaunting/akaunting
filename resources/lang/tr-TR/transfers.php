@@ -11,8 +11,8 @@ return [
     'from_account_rate'     => 'Gönderen Hesap Kuru',
     'to_account_rate'       => 'Alan Hesap Kuru',
     'from_amount'           => 'Gönderilen Tutar',
-    'to_amount'             => 'Alınan Tutarı',
-    'issued_at'             => 'İşlem Tarihi',
+    'to_amount'             => 'Alınan Tutar',
+    'issued_at'             => 'Düzenleme Tarihi',
     'rate'                  => 'Kur',
 
     'form_description' => [

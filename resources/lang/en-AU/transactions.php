@@ -18,7 +18,7 @@ return [
         'general'           => 'Here you can enter the general information of transaction such as date, amount, account, description, etc.',
         'assign_income'     => 'Select a category and customer to make your reports more detailed.',
         'assign_expense'    => 'Select a category and vendor to make your reports more detailed.',
-        'other'             => 'Enter a reference to keep the transaction linked to your records.',
+        'other'             => 'Enter a number and reference to keep the transaction linked to your records.',
     ],
 
     'slider' => [
@@ -53,6 +53,6 @@ return [
         'create_document_transaction_error' => 'This endpoint cannot be added to a document. Use {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions',
         'update_document_transaction_error' => 'This endpoint cannot be updated to a document. Use {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions/{akaunting_transaction_id}',
         'delete_document_transaction_error' => 'This endpoint cannot be deleted to a document. Use {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions/{akaunting_transaction_id}',
-    ],
+    ]
 
 ];

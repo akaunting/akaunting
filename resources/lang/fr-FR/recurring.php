@@ -25,7 +25,7 @@ return [
     'ends_never'            => 'Ne finit jamais',
     'ends_date'             => 'Se termine le :date',
     'next_date'             => 'Suivant le :date',
-    'end'                   => 'Stopper la réccurence',
+    'end'                   => 'Arrêter la récurrence',
     'child'                 => ':url a été créé automatiquement le :date',
     'message'               => 'Il s\'agit d\'un :type récurrent et le prochain :type sera automatiquement généré le :date',
     'message_parent'        => 'Ce :type a été généré automatiquement à partir de :link',
@@ -34,7 +34,7 @@ return [
     'frequency_type'        => 'Répéter ce :type',
     'custom_frequency_desc' => 'Répéter à chaque :interval :frequency',
     'limit_date'            => 'Créer le premier :type le',
-    'limit_middle'          => 'et fini',
+    'limit_middle'          => 'et finir',
 
     'form_description' => [
         'schedule'          => 'Choisissez les conditions et la date de début et de fin en vous assurant que votre client recevra votre :type à la bonne échéance.',

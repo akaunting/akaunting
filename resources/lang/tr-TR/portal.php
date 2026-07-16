@@ -10,8 +10,8 @@ return [
     'get_started'           => 'Ücretsiz olarak başlayın',
     'billing_address'       => 'Fatura Adresi',
     'see_all_details'       => 'Tüm hesap ayrıntılarını görün',
-    'all_payments'          => 'Tüm ödemeleri görüntülemek için giriş yapın',
-    'received_date'         => 'Ulaşma Tarihi',
+    'all_payments'          => 'Tüm ödemeleri görüntülemek için oturum açın',
+    'received_date'         => 'Alınma Tarihi',
     'redirect_description'  => 'Ödeme yapmak için :name web sitesine yönlendirileceksiniz.',
 
     'last_payment'          => [

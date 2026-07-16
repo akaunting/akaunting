@@ -3,62 +3,62 @@
 return [
 
     'invoice_new_customer' => [
-        'subject'       => '{invoice_number} Invois dibuat',
-        'body'          => 'Kepada {customer_name},<br /><br />Kami telah Menyiapkan Bil kepada Anda sebagai berikut: <strong>{invoice_number}</strong>.<br /><br />Anda dapat melihat rincian Bil dan dilanjutkan dengan bayaran dari link berikut ini: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Hubungi Kami Jika ada pertanyaan.<br /><br />Hormat Kami,,<br />{company_name}',
+        'subject'       => '{invoice_number} invois dicipta',
+        'body'          => 'Kepada {customer_name},<br /><br />Kami telah menyediakan invois berikut untuk anda: <strong>{invoice_number}</strong>.<br /><br />Anda boleh melihat butiran invois dan meneruskan bayaran dari pautan berikut: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Jangan teragak-agak untuk menghubungi kami jika ada sebarang soalan.<br /><br />Salam hormat,<br />{company_name}',
     ],
 
     'invoice_remind_customer' => [
-        'subject'       => 'pemberitahuan jatuh tempo Bil nomor{invoice_number}',
-        'body'          => 'Kepada {customer_name},<br /><br />Ini adalah pemberitahuan jatuh tempo untuk Bil nomor <strong>{invoice_number}</strong> invoice.<br /><br />Total Bilnya adalah {invoice_total} dan jatuh tempo pada <strong>{invoice_due_date}</strong>.<br /><br />Anda dapat melihat rincian Bil dan melanjutkannya dengan bayaran dengan link berikut ini: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Hormat Kami,<br />{company_name}',
+        'subject'       => 'Notis kelewatan invois {invoice_number}',
+        'body'          => 'Kepada {customer_name},<br /><br />Ini adalah notis kelewatan untuk invois <strong>{invoice_number}</strong>.<br /><br />Jumlah invois ialah {invoice_total} dan telah jatuh tempo pada <strong>{invoice_due_date}</strong>.<br /><br />Anda boleh melihat butiran invois dan meneruskan bayaran dari pautan berikut: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Salam hormat,<br />{company_name}',
     ],
 
     'invoice_remind_admin' => [
-        'subject'       => 'pemberitahuan jatuh tempo Bil nomor{invoice_number}',
-        'body'          => 'Hello,<br /><br />{customer_name} telah menerima pemberitahuan jatuh tempo untuk Bil nomor <strong>{invoice_number}</strong> <br /><br />Total Bilnya adalah {invoice_total} dan jatuh tempo pada <strong>{invoice_due_date}</strong>.<br /><br />Anda dapat melihan rincian Bil dari link berikut ini: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Hormat Kami,,<br />{company_name}',
+        'subject'       => 'Notis kelewatan invois {invoice_number}',
+        'body'          => 'Halo,<br /><br />{customer_name} telah menerima notis kelewatan untuk invois <strong>{invoice_number}</strong>.<br /><br />Jumlah invois ialah {invoice_total} dan telah jatuh tempo pada <strong>{invoice_due_date}</strong>.<br /><br />Anda boleh melihat butiran invois dari pautan berikut: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Salam hormat,<br />{company_name}',
     ],
 
     'invoice_recur_customer' => [
-        'subject'       => 'Bil ulang nomor {invoice_number} dibuat',
-        'body'          => 'Kepada {customer_name},<br /><br />Kami telah mempersiapkan Bil kepada Anda sebagai berikut: <strong>{invoice_number}</strong>.<br /><br />Anda dapat melihat rincian Bil dan dilanjutkan dengan bayaran dari link berikut ini: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Apabila ada pertanyaan harap hubungi kami.<br /><br />Hormat Kami,,<br />{company_name}',
+        'subject'       => 'Invois berulang {invoice_number} dicipta',
+        'body'          => 'Kepada {customer_name},<br /><br />Berdasarkan kitaran berulang anda, kami telah menyediakan invois berikut untuk anda: <strong>{invoice_number}</strong>.<br /><br />Anda boleh melihat butiran invois dan meneruskan bayaran dari pautan berikut: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Jangan teragak-agak untuk menghubungi kami jika ada sebarang soalan.<br /><br />Salam hormat,<br />{company_name}',
     ],
 
     'invoice_recur_admin' => [
-        'subject'       => 'Bil ulang nomor {invoice_number} dibuat',
-        'body'          => 'Halo, <br /> <br /> Berdasarkan lingkaran berulang {customer_name}, <strong> {invoice_number} </strong> faktur telah dibuat secara otomatis. <br /> <br /> Anda dapat melihat detail faktur dari tautan berikut: <a href="{invoice_admin_link}"> {invoice_number} </a>. <br /> <br /> Salam, <br /> {company_name}',
+        'subject'       => 'Invois berulang {invoice_number} dicipta',
+        'body'          => 'Halo,<br /><br />Berdasarkan kitaran berulang {customer_name}, invois <strong>{invoice_number}</strong> telah dicipta secara automatik.<br /><br />Anda boleh melihat butiran invois dari pautan berikut: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Salam hormat,<br />{company_name}',
     ],
 
     'invoice_view_admin' => [
-        'subject'       => 'faktur {invoice_number} telah dilihat',
-        'body'          => 'Halo,<br /><br />{customer_name} telah melihat faktur <strong>{invoice_number}</strong>.<br /><br />Anda dapat melihat detail faktur di tautan berikut: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Salam,<br />{company_name}',
+        'subject'       => 'Invois {invoice_number} telah dilihat',
+        'body'          => 'Halo,<br /><br />{customer_name} telah melihat invois <strong>{invoice_number}</strong>.<br /><br />Anda boleh melihat butiran invois dari pautan berikut: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Salam hormat,<br />{company_name}',
     ],
 
     'invoice_payment_customer' => [
-        'subject'       => 'Bayaran diterima untuk faktur {invoice_number}',
-        'body'          => 'Dear {customer_name}, <br /> <br /> Terima kasih atas bayarannya. Temukan detail bayaran di bawah ini: <br /> <br /> ------------------------------------ ------------- <br /> Jumlah: <strong> {transaction_total} </strong> <br /> Tanggal: <strong> {transaction_paid_date} </strong> <br /> Invois Nomor: <strong> {invoice_number} </strong> <br /> ---------------------------------- --------------- <br /> <br /> Anda selalu dapat melihat detail faktur dari tautan berikut: <a href="{invoice_guest_link}"> {invoice_number} </ a>. <br /> <br /> Jangan ragu untuk menghubungi kami jika ada pertanyaan. <br /> <br /> Salam, <br /> {company_name}',
+        'subject'       => 'Resit anda untuk invois {invoice_number}',
+        'body'          => 'Kepada {customer_name},<br /><br />Terima kasih atas bayaran. Sila lihat butiran bayaran di bawah:<br /><br />-------------------------------------------------<br />Jumlah: <strong>{transaction_total}</strong><br />Tarikh: <strong>{transaction_paid_date}</strong><br />Nombor Invois: <strong>{invoice_number}</strong><br />-------------------------------------------------<br /><br />Anda sentiasa boleh melihat butiran invois dari pautan berikut: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />Jangan teragak-agak untuk menghubungi kami jika ada sebarang soalan.<br /><br />Salam hormat,<br />{company_name}',
     ],
 
     'invoice_payment_admin' => [
-        'subject'       => 'Bayaran diterima untuk faktur {invoice_number}',
-        'body'          => 'Halo, <br /> <br /> Berdasarkan lingkaran berulang {customer_name}, <strong> {invoice_number} </strong> faktur telah dibuat secara otomatis. <br /> <br /> Anda dapat melihat detail faktur dari tautan berikut: <a href="{invoice_admin_link}"> {invoice_number} </a>. <br /> <br /> Salam, <br /> {company_name}',
+        'subject'       => 'Bayaran diterima untuk invois {invoice_number}',
+        'body'          => 'Halo,<br /><br />{customer_name} telah merekodkan bayaran untuk invois <strong>{invoice_number}</strong>.<br /><br />Anda boleh melihat butiran invois dari pautan berikut: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />Salam hormat,<br />{company_name}',
     ],
 
     'bill_remind_admin' => [
-        'subject'       => '{bill_number} pemberitahuan pengingat Bil',
-        'body'          => 'Halo, <br /> <br /> Ini adalah pemberitahuan untuk Bil <strong> {bill_number} </strong> ke {vendor_name}. <br /> <br /> Total Bil adalah {bill_total} dan sudah jatuh tempo <strong> {bill_due_date} </strong>. <br /> <br /> Anda dapat melihat detail Bil dari tautan berikut: <a href="{bill_admin_link}"> {bill_number} </a>. <br /> <br /> Salam, <br /> {company_name}',
+        'subject'       => 'Notis peringatan bil {bill_number}',
+        'body'          => 'Halo,<br /><br />Ini adalah notis peringatan untuk bil <strong>{bill_number}</strong> kepada {vendor_name}.<br /><br />Jumlah bil ialah {bill_total} dan akan jatuh tempo pada <strong>{bill_due_date}</strong>.<br /><br />Anda boleh melihat butiran bil dari pautan berikut: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Salam hormat,<br />{company_name}',
     ],
 
     'bill_recur_admin' => [
-        'subject'       => '{bill_number} Bil berulang dibuat',
-        'body'          => 'Halo, <br /> <br /> Berdasarkan lingkaran berulang {customer_name}, <strong> {invoice_number} </strong> faktur telah dibuat secara otomatis. <br /> <br /> Anda dapat melihat detail faktur dari tautan berikut: <a href="{invoice_admin_link}"> {invoice_number} </a>. <br /> <br /> Salam, <br /> {company_name}',
+        'subject'       => 'Bil berulang {bill_number} dicipta',
+        'body'          => 'Halo,<br /><br />Berdasarkan kitaran berulang {vendor_name}, bil <strong>{bill_number}</strong> telah dicipta secara automatik.<br /><br />Anda boleh melihat butiran bil dari pautan berikut: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />Salam hormat,<br />{company_name}',
     ],
 
     'payment_received_customer' => [
-        'subject'       => 'Tanda terima Anda dari {company_name}',
-        'body'          => 'Yang Terhormat {contact_name},<br /><br />Terima kasih atas bayarannya. <br /><br />Anda dapat melihat rincian bayaran di tautan berikut ini: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Silakan hubungi kami jika ada pertanyaan lebih lanjut.<br /><br />Hormat Kami,<br />{company_name}',
+        'subject'       => 'Resit anda dari {company_name}',
+        'body'          => 'Kepada {contact_name},<br /><br />Terima kasih atas bayaran. <br /><br />Anda boleh melihat butiran bayaran dari pautan berikut: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Jangan teragak-agak untuk menghubungi kami jika ada sebarang soalan.<br /><br />Salam hormat,<br />{company_name}',
     ],
 
     'payment_made_vendor' => [
-        'subject'       => 'Bayaran dilakukan oleh {company_name}',
-        'body'          => 'Yang Terhormat {contact_name},<br /><br />Kami telah melakukan bayaran sebagai berikut. <br /><br />Anda dapat melihat rincian bayaran di tautan berikut ini: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Silakan hubungi kami jika ada pertanyaan lebih lanjut.<br /><br />Hormat Kami,<br />{company_name}',
+        'subject'       => 'Bayaran dibuat oleh {company_name}',
+        'body'          => 'Kepada {contact_name},<br /><br />Kami telah membuat bayaran berikut. <br /><br />Anda boleh melihat butiran bayaran dari pautan berikut: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />Jangan teragak-agak untuk menghubungi kami jika ada sebarang soalan.<br /><br />Salam hormat,<br />{company_name}',
     ],
 ];

@@ -4,8 +4,8 @@ return [
 
     'account_name'          => 'Account Name',
     'account_balance'       => 'Account Balance',
-    'number'                => 'Account Number',
-    'opening_balance'       => 'Starting Balance',
+    'number'                => 'Number',
+    'opening_balance'       => 'Opening Balance',
     'current_balance'       => 'Current Balance',
     'bank_name'             => 'Bank Name',
     'bank_phone'            => 'Bank Phone',
@@ -13,19 +13,19 @@ return [
     'default_account'       => 'Default Account',
     'incoming'              => 'Incoming',
     'outgoing'              => 'Outgoing',
-    'see_performance'       => 'View Performance',
-    'create_report'         => 'To view account performance, create an Income vs. Expense report.',
+    'see_performance'       => 'See Performance',
+    'create_report'         => 'If you want to see account performance. You can create Income vs Expense report instance.',
     'banks'                 => 'Bank|Banks',
     'credit_cards'          => 'Credit Card|Credit Cards',
 
     'form_description' => [
-        'general'           => 'Use the credit card type for negative opening balances; the number is essential for accurate account reconciliation. If no specific account is selected, the default account will record all transactions.',
-        'bank'              => 'You may have multiple bank accounts across various banks. Recording your bank details will facilitate easier matching of transactions within each bank.',
+        'general'           => 'Use credit card type for negative opening balance. The number is essential to reconcile accounts correctly. Default account will record all transactions if not selected otherwise.',
+        'bank'              => 'You may have multiple bank accounts in more than one banks. Recording information about your bank will make it easier to match the transactions within your bank.',
     ],
 
     'no_records' => [
-        'transactions'      => 'No transactions have been recorded in this account yet. Create a new transaction now.',
-        'transfers'         => 'No transfers to or from this account have been made yet. Create a new transfer now.',
+        'transactions'      => 'There is no transaction in this account yet. Create a new one now.',
+        'transfers'         => 'There is no transfer to/from this account yet. Create a new one now.',
     ],
 
 ];

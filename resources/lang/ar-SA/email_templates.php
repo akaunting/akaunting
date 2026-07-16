@@ -3,62 +3,63 @@
 return [
 
     'invoice_new_customer' => [
-        'subject'       => 'تم إنشاء الفاتورة {invoice_number}',
-        'body'          => 'عزيزي {customer_name}،<br /><br /> قمنا باصدار الفاتورة التالية:<strong>{invoice_number}</strong>.<br /><br /> يمكنك اﻹطلاع على تفاصيل الفاتورة و اكمال الدفع عن طريق الرابط التالي: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />لاتتردد بالتواصل معنا لأي سؤال.<br /><br />تحيّاتي،<br />{company_name}',
+        'subject' => 'تم إنشاء الفاتورة {invoice_number}',
+        'body'    => 'مرحباً {customer_name}،<br /><br />أعددنا لك الفاتورة التالية: <strong>{invoice_number}</strong>.<br /><br />يمكنك الاطلاع على تفاصيل الفاتورة وإتمام الدفع عبر الرابط التالي: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />لا تتردد في التواصل معنا إذا كانت لديك أي أسئلة.<br /><br />مع أطيب التحيات،<br />{company_name}',
     ],
 
     'invoice_remind_customer' => [
-        'subject'       => 'إشعار بتأخر فاتورة رقم {invoice_number}',
-        'body'          => 'عزيزي {customer_name}،<br /><br /> هذا اشعار بتأخر فاتورة رقم <strong>{invoice_number}</strong>.<br /><br /> مجموع الفاتورة هو {invoice_total} و تاريخ الاستحقاق <strong>{invoice_due_date}</strong>.<br /><br /> يمكنك مشاهدة تفاصيل الفاتورة و اكمال الدفع عن طريق الرابط التالي: <a href="{invoice_guest_link}">{invoice_number}</a><br /><br />تقبل تحيّاتي،<br />{company_name}',
+        'subject' => 'إشعار بتأخر الفاتورة {invoice_number}',
+        'body'    => 'مرحباً {customer_name}،<br /><br />هذا إشعار بتأخر سداد الفاتورة <strong>{invoice_number}</strong>.<br /><br />إجمالي الفاتورة هو {invoice_total}، وكان تاريخ استحقاقها <strong>{invoice_due_date}</strong>.<br /><br />يمكنك الاطلاع على تفاصيل الفاتورة وإتمام الدفع عبر الرابط التالي: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />مع أطيب التحيات،<br />{company_name}',
     ],
 
     'invoice_remind_admin' => [
-        'subject'       => 'إشعار بتأخر فاتورة رقم {invoice_number}',
-        'body'          => 'مرحبا {customer_name}،<br /><br /> تلقى اشعار بتأخر فاتورة رقم <strong>{invoice_number}</strong>.<br /><br /> مجموع الفاتورة هو {invoice_total} و تاريخ الاستحقاق <strong>{invoice_due_date}</strong>.<br /><br /> يمكنك مشاهدة تفاصيل الفاتورة و اكمال الدفع عن طريق الرابط التالي: <a href="{invoice_admin_link}">{invoice_number}</a><br /><br />تقبل تحيّاتي،<br />{company_name}',
+        'subject' => 'إشعار بتأخر الفاتورة {invoice_number}',
+        'body'    => 'مرحباً،<br /><br />تلقى {customer_name} إشعاراً بتأخر سداد الفاتورة <strong>{invoice_number}</strong>.<br /><br />إجمالي الفاتورة هو {invoice_total}، وكان تاريخ استحقاقها <strong>{invoice_due_date}</strong>.<br /><br />يمكنك الاطلاع على تفاصيل الفاتورة عبر الرابط التالي: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />مع أطيب التحيات،<br />{company_name}',
     ],
 
     'invoice_recur_customer' => [
-        'subject'       => 'تم إنشاء فاتورة متكررة',
-        'body'          => 'عزيزي {customer_name}،<br /><br /> بناء على الإتفاق الدورى,  قمنا باصدار الفاتورة التالية:<strong>{invoice_number}</strong>.<br /><br /> يمكنك اﻹطلاع على تفاصيل الفاتورة و اكمال الدفع عن طريق الرابط التالي: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />لاتتردد بالتواصل معنا لأي سؤال.<br /><br />تحيّاتي،<br />{company_name}',
+        'subject' => 'تم إنشاء الفاتورة المتكررة {invoice_number}',
+        'body'    => 'مرحباً {customer_name}،<br /><br />بناءً على دورة التكرار المحددة، أعددنا لك الفاتورة التالية: <strong>{invoice_number}</strong>.<br /><br />يمكنك الاطلاع على تفاصيل الفاتورة وإتمام الدفع عبر الرابط التالي: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />لا تتردد في التواصل معنا إذا كانت لديك أي أسئلة.<br /><br />مع أطيب التحيات،<br />{company_name}',
     ],
 
     'invoice_recur_admin' => [
-        'subject'       => '{invoice_number} تم إنشاء فاتورة متكررة',
-        'body'          => 'مرحبا,<br /><br /> بناء على الإتفاق الدورى ل {customer_name},<strong>{invoice_number}</strong> تم إنشاء الفاتورة أتوماتكيا <br /><br /> يمكنك الاطلاع على تفاصيل الفاتورة من الرابط:<a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />مع أطيب التحيات{br /> {company_name>',
+        'subject' => 'تم إنشاء الفاتورة المتكررة {invoice_number}',
+        'body'    => 'مرحباً،<br /><br />تم إنشاء الفاتورة <strong>{invoice_number}</strong> تلقائياً بناءً على دورة التكرار الخاصة بـ {customer_name}.<br /><br />يمكنك الاطلاع على تفاصيل الفاتورة عبر الرابط التالي: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />مع أطيب التحيات،<br />{company_name}',
     ],
 
     'invoice_view_admin' => [
-        'subject'       => 'تم الاطلاع على الفاتورة',
-        'body'          => 'مرحبًا،<br /><br /> {customer_name} يمكنك الاطلاع على   <strong>{invoice_number}</strong>.رقم الفاتورة <br /><br />يمكنك الاطلاع على تفاصيل الفاتورة من الرابط التالي: <a href ="{invoice_admin_link}">{invoice_number}</a>.<br /><br />مع أطيب التحيات،<br />{company_name}',
+        'subject' => 'تمت مشاهدة الفاتورة {invoice_number}',
+        'body'    => 'مرحباً،<br /><br />شاهد {customer_name} الفاتورة <strong>{invoice_number}</strong>.<br /><br />يمكنك الاطلاع على تفاصيل الفاتورة عبر الرابط التالي: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />مع أطيب التحيات،<br />{company_name}',
     ],
 
     'invoice_payment_customer' => [
-        'subject'       => 'تم استلام الدفعة لفاتورة رقم {invoice_number}',
-        'body'          => 'عزيزي {customer_name}،<br /><br />شكرا للسداد، سوف تجد تفاصيل الدفع في اﻷسفل:<br /><br />-------------------------------------------------<br /><br />القيمة: <strong>{transaction_total}<br /></strong> التاريخ: <strong>{transaction_paid_date}</strong><br /> رقم الفاتورة: <strong>{invoice_number}<br /><br /></strong>-------------------------------------------------<br /><br /> يمكنك بالتاكيد اﻹطلاع على تفاصيل الفاتورة من خلال الرابط التالي: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />لاتتردد بالتواصل معنا لأي سؤال.<br /><br />تحيّاتي،<br />{company_name}',
+        'subject' => 'إيصال سداد الفاتورة {invoice_number}',
+        'body'    => 'مرحباً {customer_name}،<br /><br />شكراً لك على السداد. فيما يلي تفاصيل الدفعة:<br /><br />-------------------------------------------------<br />المبلغ: <strong>{transaction_total}</strong><br />التاريخ: <strong>{transaction_paid_date}</strong><br />رقم الفاتورة: <strong>{invoice_number}</strong><br />-------------------------------------------------<br /><br />يمكنك دائماً الاطلاع على تفاصيل الفاتورة عبر الرابط التالي: <a href="{invoice_guest_link}">{invoice_number}</a>.<br /><br />لا تتردد في التواصل معنا إذا كانت لديك أي أسئلة.<br /><br />مع أطيب التحيات،<br />{company_name}',
     ],
 
     'invoice_payment_admin' => [
-        'subject'       => 'تم استلام الدفعة لفاتورة رقم {invoice_number}',
-        'body'          => 'مرحبا، <br /><br />{customer_name} قام بتسديد فاتورة رقم  <strong>{invoice_number}</strong>.<br /><br />يمكنك اﻹطلاع على تفاصيل الفاتورة من خلال الرابط التالي: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />تحيّاتي،<br />{company_name}',
+        'subject' => 'تم استلام دفعة للفاتورة {invoice_number}',
+        'body'    => 'مرحباً،<br /><br />سجّل {customer_name} دفعة للفاتورة <strong>{invoice_number}</strong>.<br /><br />يمكنك الاطلاع على تفاصيل الفاتورة عبر الرابط التالي: <a href="{invoice_admin_link}">{invoice_number}</a>.<br /><br />مع أطيب التحيات،<br />{company_name}',
     ],
 
     'bill_remind_admin' => [
-        'subject'       => '{bill_number} إشعار للتذكير بالفاتورة',
-        'body'          => 'مرحبا {customer_name}،<br /><br /> هذا إشعار بتأخر فاتورة رقم <strong>{invoice_number}</strong>.<br /><br /> مجموع الفاتورة هو {invoice_total} و تاريخ الاستحقاق <strong>{invoice_due_date}</strong>.<br /><br /> يمكنك مشاهدة تفاصيل الفاتورة و اكمال الدفع عن طريق الرابط التالي: <a href="{invoice_admin_link}">{invoice_number}</a><br /><br />تقبل تحيّاتي،<br />{company_name}',
+        'subject' => 'تذكير بفاتورة الشراء {bill_number}',
+        'body'    => 'مرحباً،<br /><br />هذا تذكير بفاتورة الشراء <strong>{bill_number}</strong> المستحقة للمورد {vendor_name}.<br /><br />إجمالي فاتورة الشراء هو {bill_total}، وتاريخ استحقاقها <strong>{bill_due_date}</strong>.<br /><br />يمكنك الاطلاع على تفاصيل فاتورة الشراء عبر الرابط التالي: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />مع أطيب التحيات،<br />{company_name}',
     ],
 
     'bill_recur_admin' => [
-        'subject'       => '{invoice_number} تم إنشاء فاتورة متكررة',
-        'body'          => 'مرحبا,<br /><br /> بناء على الإتفاق الدورى ل <vendor_name} <strong>{bill_number}</strong} تم إنشاء الفاتورة أتوماتكيا <br /><br /> يمكنك الاطلاع على تفاصيل الفاتورة من الرابط: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br /< Regards,<br />{company_name} مع أطيب التحيات{br /> {company_name>',
+        'subject' => 'تم إنشاء فاتورة الشراء المتكررة {bill_number}',
+        'body'    => 'مرحباً،<br /><br />تم إنشاء فاتورة الشراء <strong>{bill_number}</strong> تلقائياً بناءً على دورة التكرار الخاصة بالمورد {vendor_name}.<br /><br />يمكنك الاطلاع على تفاصيل فاتورة الشراء عبر الرابط التالي: <a href="{bill_admin_link}">{bill_number}</a>.<br /><br />مع أطيب التحيات،<br />{company_name}',
     ],
 
     'payment_received_customer' => [
-        'subject'       => 'فاتورتك من {company_name}',
-        'body'          => 'عزيزي {contact_name}،<br /><br />شكرًا لك على الدفع. <br /><br />يمكنك الاطلاع على تفاصيل الدفع من الرابط التالي: <a href="{Payment_guest_link}">{Payment_date}</a>.<br /><br />لا تتردد في الاتصال بنا إذا كانت لديك أية أسئلة.<br /><br />مع أطيب التحيات،<br />{company_name}',
+        'subject' => 'إيصالك من {company_name}',
+        'body'    => 'مرحباً {contact_name}،<br /><br />شكراً لك على الدفع. <br /><br />يمكنك الاطلاع على تفاصيل الدفعة عبر الرابط التالي: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />لا تتردد في التواصل معنا إذا كانت لديك أي أسئلة.<br /><br />مع أطيب التحيات،<br />{company_name}',
     ],
 
     'payment_made_vendor' => [
-        'subject'       => 'تم الدفع بواسطة {company_name}',
-        'body'          => 'عزيزي {contact_name}،<br /><br />شكرًا لك على الدفع. <br /><br />يمكنك الاطلاع على تفاصيل الدفع من الرابط التالي: <a href="{Payment_guest_link}">{Payment_date}</a>.<br /><br />لا تتردد في الاتصال بنا إذا كانت لديك أية أسئلة.<br /><br />مع أطيب التحيات،<br />{company_name}',
+        'subject' => 'دفعة من {company_name}',
+        'body'    => 'مرحباً {contact_name}،<br /><br />لقد أجرينا الدفعة التالية. <br /><br />يمكنك الاطلاع على تفاصيل الدفعة عبر الرابط التالي: <a href="{payment_guest_link}">{payment_date}</a>.<br /><br />لا تتردد في التواصل معنا إذا كانت لديك أي أسئلة.<br /><br />مع أطيب التحيات،<br />{company_name}',
     ],
+
 ];

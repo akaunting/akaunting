@@ -7,7 +7,7 @@ return [
     'enter_item_description'    => 'वस्तु का विवरण दर्ज करें',
     'billing'                   => 'बिलिंग',
     'sale_information'          => 'बिक्री की जानकारी',
-    'purchase_information'      => 'खऱीदी की जानकारी ',
+    'purchase_information'      => 'खरीद की जानकारी',
 
     'form_description' => [
         'general'               => 'अपनी रिपोर्ट को अधिक विस्तृत बनाने के लिए एक श्रेणी चुनें। जब किसी चलान या बिल में आइटम का चयन किया जाता है तो विवरण पॉप्युलेट हो जाएगा।',

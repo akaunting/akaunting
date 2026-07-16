@@ -10,7 +10,7 @@ return [
     'order_number'          => 'Nomor Pesanan',
     'bill_from'             => 'Tagihan Dari',
 
-    'quantity'              => 'Jumlah',
+    'quantity'              => 'Kuantitas',
     'price'                 => 'Harga',
     'sub_total'             => 'Subtotal',
     'discount'              => 'Diskon',
@@ -25,7 +25,7 @@ return [
     'add_discount'          => 'Tambahkan diskon',
     'discount_desc'         => 'dari sub-total',
 
-    'payment_made'          => 'Pembayaran Dibuat',
+    'payment_made'          => 'Pembayaran Dilakukan',
     'payment_due'           => 'Pembayaran Jatuh Tempo',
     'amount_due'            => 'Jumlah Jatuh Tempo',
     'paid'                  => 'Dibayar',
@@ -34,10 +34,10 @@ return [
     'add_payment'           => 'Tambahkan Pembayaran',
     'mark_paid'             => 'Tandai sudah dibayar',
     'mark_received'         => 'Tandai Diterima',
-    'mark_cancelled'        => 'Dibatalkan',
+    'mark_cancelled'        => 'Tandai Dibatalkan',
     'download_pdf'          => 'Unduh PDF',
     'send_mail'             => 'Kirim Email',
-    'create_bill'           => 'Membuat Tagihan',
+    'create_bill'           => 'Buat Tagihan',
     'receive_bill'          => 'Menerima Tagihan',
     'make_payment'          => 'Melakukan Pembayaran',
 

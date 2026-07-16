@@ -4,6 +4,6 @@ return [
 
     'previous'              => 'Vorige',
     'next'                  => 'Volgende',
-    'showing'               => ':first-:last van :total items',
-    'page'                  => 'per pagina',
+    'showing'               => ':first-:last van :total records.',
+    'page'                  => 'per pagina.',
 ];

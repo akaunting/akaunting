@@ -22,8 +22,8 @@ return [
     'income_expense'                => 'आय & व्यय',
     'pin'                           => 'अपनी रिपोर्ट पिन करें',
 
-    'income_expense_description'    => 'आय और व्यय रिपोर्ट के लिए विवरण',
-    'accounting_description'        => 'लेखांकन रिपोर्ट के लिए विवरण',
+    'income_expense_description'    => 'अपनी आय और व्यय का अवलोकन प्राप्त करें।',
+    'accounting_description'        => 'समझें कि आपका व्यवसाय कैसा कर रहा है।',
 
     'form_description' => [
         'general'                   => 'यहां आप रिपोर्ट की सामान्य जानकारी जैसे नाम, प्रकार, विवरण आदि दर्ज कर सकते हैं।',

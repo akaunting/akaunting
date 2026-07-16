@@ -15,39 +15,39 @@ return [
     'redirect_description'  => 'U wordt doorgestuurd naar de website van :name om de betaling uit te voeren.',
 
     'last_payment'          => [
-        'title'             => 'Laatste Betaling Verricht',
-        'description'       => 'Je hebt deze betaling gedaan op :date',
-        'not_payment'       => 'Je hebt nog geen betaling gedaan.',
+        'title'             => 'Laatste betaling verricht',
+        'description'       => 'U heeft deze betaling verricht op :date',
+        'not_payment'       => 'U heeft nog geen betaling verricht.',
     ],
 
     'outstanding_balance'   => [
         'title'             => 'Openstaand saldo',
-        'description'       => 'Uw uitstaande saldo is:',
-        'not_payment'       => 'U hebt nog geen uitstaande saldo.',
+        'description'       => 'Uw openstaande saldo is:',
+        'not_payment'       => 'U heeft nog geen openstaand saldo.',
     ],
 
     'latest_invoices'       => [
-        'title'             => 'Laatste Facturen',
-        'description'       => ':date - Je werd gefactureerd met factuurnummer :invoice_number.',
-        'no_data'           => 'Je hebt nog niet gefactureerd.',
+        'title'             => 'Laatste facturen',
+        'description'       => ':date - U bent gefactureerd met factuurnummer :invoice_number.',
+        'no_data'           => 'U heeft nog geen facturen.',
     ],
 
     'invoice_history'       => [
-        'title'             => 'Factuur Geschiedenis',
-        'description'       => ':date - Je werd gefactureerd met factuurnummer :invoice_number.',
-        'no_data'           => 'Je hebt nog geen factuur geschiedenis.',
+        'title'             => 'Factuurgeschiedenis',
+        'description'       => ':date - U bent gefactureerd met factuurnummer :invoice_number.',
+        'no_data'           => 'U heeft nog geen factuurgeschiedenis.',
     ],
 
     'payment_history'       => [
         'title'             => 'Betalingsgeschiedenis',
-        'description'       => ':date - Je hebt een betaling gedaan van :amount.',
-        'invoice_description'=> ':date - Je hebt een betaling gedaan van :amount voor factuurnummer :invoice_number.',
+        'description'       => ':date - U heeft een betaling verricht van :amount.',
+        'invoice_description'=> ':date - U heeft een betaling verricht van :amount voor factuurnummer :invoice_number.',
 
-        'no_data'           => 'Je hebt nog geen betaal geschiedenis.',
+        'no_data'           => 'U heeft nog geen betalingsgeschiedenis.',
     ],
 
     'payment_detail'        => [
-        'description'       => 'Voor deze factuur heeft u op :date :amount betaald.'
+        'description'       => 'U heeft voor deze factuur op :date :amount betaald.'
     ],
 
 ];

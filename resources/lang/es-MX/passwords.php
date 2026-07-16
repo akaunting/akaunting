@@ -13,8 +13,8 @@ return [
 |
     */
 
-    'reset' => 'Su contraseña ha sido reestablecida!',
-    'sent' => 'Hemos enviado un enlace para reiniciar su contraseña!',
+    'reset' => '¡Su contraseña ha sido restablecida!',
+    'sent' => '¡Hemos enviado un enlace para restablecer su contraseña!',
     'throttled' => 'Por favor, espere antes de reintentar.',
     'token' => 'Ese token de contraseña ya no es válido.',
     'user' => "No podemos encontrar un usuario con esa dirección de correo electrónico.",

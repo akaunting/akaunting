@@ -10,8 +10,8 @@ return [
     'purchase_information'      => 'Informasi Pembelian',
 
     'form_description' => [
-        'general'               => 'Pilih kategori untuk membuat laporan Anda lebih detail. Deskripsi akan diisi saat item dipilih dalam faktur atau Bil.',
-        'billing'               => 'Informasi Penjualan digunakan dalam faktur, dan Informasi Pembelian digunakan dalam Bil. Pajak akan diterapkan pada faktur dan Bil.',
+        'general'               => 'Pilih kategori untuk menjadikan laporan anda lebih terperinci. Penerangan akan diisi apabila item dipilih dalam invois atau bil.',
+        'billing'               => 'Maklumat Jualan digunakan dalam invois, dan Maklumat Pembelian digunakan dalam bil. Cukai akan diterapkan pada invois dan bil.',
     ],
 
 ];

@@ -23,11 +23,11 @@ return [
     ],
 
     'error' => [
-        'over_payment'      => 'Error: Payment not added! The amount you entered exceeds the total: :amount',
+        'over_payment'      => 'Error: Payment not added! The amount you entered passes the total: :amount',
         'not_user_company'  => 'Error: You are not allowed to manage this company!',
         'customer'          => 'Error: User not created! :name already uses this email address.',
         'no_file'           => 'Error: No file selected!',
-        'last_category'     => 'Error: Can not delete the last :type category!',
+        'last_category'     => 'Error: Can not delete the last <b>:type</b> category!',
         'transfer_category' => 'Error: Can not delete the transfer <b>:type</b> category!',
         'change_type'       => 'Error: Can not change the type because it has :text related!',
         'invalid_apikey'    => 'Error: The API Key entered is invalid!',
@@ -44,7 +44,7 @@ return [
         'reconciled_tran'   => 'Warning: You are not allowed to change/delete transaction because it is reconciled!',
         'reconciled_doc'    => 'Warning: You are not allowed to change/delete :type because it has reconciled transactions!',
         'disable_code'      => 'Warning: You are not allowed to disable or change the currency of <b>:name</b> because it has :text related.',
-        'payment_cancel'    => 'Warning: You have cancelled your recent :method payment!',
+        'payment_cancel'    => 'Warning: You have canceled your recent :method payment!',
         'missing_transfer'  => 'Warning: The transfer related to this transaction is missing. You should consider deleting this transaction.',
         'connect_tax'       => 'Warning: This :type has a tax amount. Taxes added to the :type can not be connected, so the tax will be added to the total and calculated accordingly.',
         'contact_change'    => 'Warning: You are not allowed to change the contact on a :type that has already been sent, received, or paid!',

@@ -2,10 +2,10 @@
 
 return [
 
-    'can_login'                 => 'Czy może się zalogować?',
+    'can_login'                 => 'Zaproś do portalu klienta',
     'can_login_description'     => 'Wyślij zaproszenie do tego użytkownika, aby zalogował się do portalu klienta.',
     'user_created'              => 'Utworzono konto użytkownika',
-    'client_portal_description' => 'Portal Klienta jest środowiskiem, w którym możesz dzielić się transakcjami i fakturami ze swoimi klientami, gdzie śledzą stosunki z Twoim biznesem i płacą oraz logują się zawsze, kiedy tylko chcą; korzystając z własnego hasła',
+    'client_portal_description' => 'Portal Klienta jest środowiskiem, w którym możesz dzielić się transakcjami i fakturami ze swoimi klientami, gdzie śledzą swoją relację z Twoim biznesem, płacą online i logują się, kiedy tylko chcą, używając własnego hasła',
 
     'error' => [
         'email'                 => 'Ten adres e-mail jest już zajęty.',

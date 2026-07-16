@@ -17,11 +17,11 @@ return [
     ],
 
     'form_description' => [
-        'general'           => 'Mata uang bawaan saat ini digunakan pada Dasbor dan Laporan. Bagi mata uang yang lain, nilai tukar harus lebih rendah dari 1 untuk mata uang yang lebih lemah dan lebih dari 1 untuk mata uang yang lebih kuat.',
+        'general'           => 'Mata wang lalai digunakan pada Papan Pemuka dan Laporan. Bagi mata wang lain, kadar mesti lebih rendah daripada 1 untuk mata wang yang lebih lemah dan lebih tinggi daripada 1 untuk mata wang yang lebih kuat.',
     ],
 
     'no_currency'           => 'Tanpa Mata Uang',
-    'create_currency'       => 'Buat mata uang baru dan edit kapan saja melalui tetapan.',
+    'create_currency'       => 'Cipta mata wang baharu dan sunting bila-bila masa melalui tetapan.',
     'new_currency'          => 'Mata Uang Baru',
 
 ];

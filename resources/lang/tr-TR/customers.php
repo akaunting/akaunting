@@ -8,7 +8,7 @@ return [
     'client_portal_description' => 'Müşteri Portalı, müşterilerinizle işlemleri ve faturaları paylaşabileceğiniz, işletmenizle olan ilişkilerini takip edebilecekleri, ödeme yapabilecekleri ve kendi şifreleriyle istedikleri zaman giriş yapabilecekleri bir ortamdır',
 
     'error' => [
-        'email'                 => 'Bu email adresi kullanılmaktadır.',
+        'email'                 => 'Bu e-posta adresi zaten kullanılmaktadır.',
     ],
 
     'client_portal_text' => [

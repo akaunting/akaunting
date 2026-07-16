@@ -8,11 +8,11 @@ return [
     'to_account'            => 'Ke Akun',
     'from_rate'             => 'Kurs Asal',
     'to_rate'               => 'Kurs Tujuan',
-    'from_account_rate'     => 'Dari Tarif Akun',
-    'to_account_rate'       => 'Ke Tarif Akun',
+    'from_account_rate'     => 'Kurs Akun Asal',
+    'to_account_rate'       => 'Kurs Akun Tujuan',
     'from_amount'           => 'Jumlah Asal',
     'to_amount'             => 'Jumlah Tujuan',
-    'issued_at'             => 'Tanggal Dibuat',
+    'issued_at'             => 'Tanggal Terbit',
     'rate'                  => 'Kurs',
 
     'form_description' => [
@@ -21,11 +21,11 @@ return [
     ],
 
     'messages' => [
-        'delete'            => ':from sampai :to (:amount)',
+        'delete'            => ':from ke :to (:amount)',
     ],
 
     'slider' => [
-        'create'            => ':user membuat transaksi ini pada :date',
+        'create'            => ':user membuat transfer ini pada :date',
         'transactions'      => 'Daftar transaksi terkait pemindahan ini',
         'transactions_desc' => ':number transaksi untuk :account',
         'attachments'       => 'Unduh berkas yang terlampir di pemindahan ini',

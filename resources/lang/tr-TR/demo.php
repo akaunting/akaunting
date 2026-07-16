@@ -23,7 +23,7 @@ return [
     'reports' => [
         'income'            => 'Kategori bazlı aylık gelir özeti.',
         'expense'           => 'Kategori bazlı aylık gider özeti.',
-        'income_expense'    => 'Kategori bazlı aylık gelir-gider dengesi.',
+        'income_expense'    => 'Kategori bazlı aylık gelir-gider karşılaştırması.',
         'tax'               => 'Çeyreklik vergi özeti.',
         'profit_loss'       => 'Çeyreklik kar-zarar tablosu.',
     ],

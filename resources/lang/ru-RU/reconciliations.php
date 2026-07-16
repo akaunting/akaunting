@@ -3,7 +3,7 @@
 return [
 
     'reconcile'             => 'Сверить',
-    'unreconcile'           => 'Не сверено',
+    'unreconcile'           => 'Отменить сверку',
     'reconciled'            => 'Сверено',
     'opening_balance'       => 'Начальное сальдо',
     'closing_balance'       => 'Конечное сальдо',
@@ -12,7 +12,11 @@ return [
     'start_date'            => 'Дата начала',
     'end_date'              => 'Дата окончания',
     'cleared_amount'        => 'Зачтенная сумма',
-    'deposit'               => 'Пополнить средства',
-    'withdrawal'            => 'Вывести средства',
+    'deposit'               => 'Пополнение',
+    'withdrawal'            => 'Снятие',
+    'reconciled_amount'     => 'Сверено',
+    'in_progress'           => 'В процессе',
+    'save_draft'            => 'Сохранить как черновик',
+    'irreconcilable'        => 'Несверяемое',
 
 ];

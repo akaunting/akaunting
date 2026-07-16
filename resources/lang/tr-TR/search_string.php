@@ -10,7 +10,7 @@ return [
         'billed_at'         => 'Fatura Tarihi',
         'due_at'            => 'Vade Tarihi',
         'invoiced_at'       => 'Fatura Tarihi',
-        'issued_at'         => 'İşlem Tarihi',
+        'issued_at'         => 'Düzenleme Tarihi',
         'symbol_first'      => 'Simge Konumu',
         'reconciled'        => 'Mutabakat Yapıldı',
         'expense_account'   => 'Gönderen Hesap',

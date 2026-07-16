@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     'AF' => 'Afghanistan',
     'AX' => 'Åland Islands',
     'AL' => 'Albania',
@@ -206,13 +207,13 @@ return [
     'SS' => 'South Sudan',
     'ES' => 'Spain',
     'LK' => 'Sri Lanka',
-    'BL' => 'St. Barthélemy',
-    'SH' => 'St. Helena',
-    'KN' => 'St. Kitts & Nevis',
-    'LC' => 'St. Lucia',
-    'MF' => 'St. Martin',
-    'PM' => 'St. Pierre & Miquelon',
-    'VC' => 'St. Vincent & Grenadines',
+    'BL' => 'St Barthélemy',
+    'SH' => 'St Helena',
+    'KN' => 'St Kitts & Nevis',
+    'LC' => 'St Lucia',
+    'MF' => 'St Martin',
+    'PM' => 'St Pierre & Miquelon',
+    'VC' => 'St Vincent & the Grenadines',
     'SD' => 'Sudan',
     'SR' => 'Suriname',
     'SJ' => 'Svalbard & Jan Mayen',
@@ -251,4 +252,5 @@ return [
     'YE' => 'Yemen',
     'ZM' => 'Zambia',
     'ZW' => 'Zimbabwe',
+
 ];

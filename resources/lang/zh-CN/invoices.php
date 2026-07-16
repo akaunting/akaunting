@@ -19,8 +19,8 @@ return [
     'tax_total'             => '税额合计',
     'total'                 => '总计',
 
-    'item_name'             => '项目名称',
-    'recurring_invoices'    => '定期发票',
+    'item_name'             => '项目名称|项目名称',
+    'recurring_invoices'    => '定期发票|定期发票',
 
     'show_discount'         => ':discount% 折扣',
     'add_discount'          => '添加折扣',
@@ -46,12 +46,12 @@ return [
     'over_payment'          => '您输入的金额超过了总额：:amount',
 
     'form_description' => [
-        'billing'           => '账单详情显示在您的发票中。发票日期用于仪表板和报表。请选择您期望收到付款的日期作为到期日期。',
+        'billing'           => '账单详情显示在您的发票中。发票日期用于仪表板和报表。请选择您预期收到付款的日期作为到期日期。',
     ],
 
     'messages' => [
         'email_required'    => '此客户没有邮箱地址！',
-        'totals_required'   => '发票合计为必填项，请编辑 :type 并再次保存。',
+        'totals_required'   => '发票合计为必填项。请编辑 :type 并再次保存。',
 
         'draft'             => '这是一张 <b>草稿</b> 发票，发送后将反映到图表中。',
 
