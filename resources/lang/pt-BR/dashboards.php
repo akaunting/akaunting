@@ -9,7 +9,7 @@ return [
     ],
 
     'form_description' => [
-        'general'               => 'Selecione os usuários que deseja que tenham acesso ao novo painel.',
+        'general'               => 'Selecione os usuários que deseja que tenham acessó ao novo painel.',
     ],
 
 ];
