@@ -87,11 +87,14 @@ trait Contacts
             return null;
         }
 
-        $address_format = setting('default.address_format');
+        $address_format = (string) setting('default.address_format');
+
+        // Keep formatted address as plain text. Views convert line breaks to <br> safely.
+        $address_format = str_ireplace(['<br>', '<br/>', '<br />'], "\n", $address_format);
 
         $formatted_address = str_replace(
             ["{city}", "{country}", "{state}", "{zip_code}", "\n"],
-            [e($city), e($country), e($state), e($zip_code), '<br>'],
+            [$city, $country, $state, $zip_code, "\n"],
             $address_format
         );
 
