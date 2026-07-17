@@ -71,7 +71,11 @@ class Import
         if (! empty($rows[0])) {
             $total_rows = count($rows[0]);
         } else if (! empty($sheets = $class->sheets())) {
-            $total_rows = count($rows[array_keys($sheets)[0]]);
+            // The uploaded file's sheet names may not match the expected keys
+            // (e.g. a single-sheet file, or differently named sheets), so the
+            // expected key may be absent from $rows — default to 0 instead of
+            // crashing on an undefined array key.
+            $total_rows = count($rows[array_keys($sheets)[0]] ?? []);
         }
 
         $class->queue($file)->onQueue('imports')->chain([
