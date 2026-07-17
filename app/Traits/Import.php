@@ -118,6 +118,12 @@ trait Import
 
     public function getCurrencyCode($row)
     {
+        // Uploaded file may not include a currency_code column — fall back to the
+        // company default instead of crashing on an undefined array key.
+        if (empty($row['currency_code'])) {
+            return default_currency();
+        }
+
         $currency = Currency::where('code', $row['currency_code'])->first();
 
         if (!empty($currency)) {

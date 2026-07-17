@@ -31,7 +31,8 @@ class Customers extends Import
     {
         $row = parent::map($row);
 
-        $country = array_search($row['country'], trans('countries'));
+        // Uploaded file may not include a country column.
+        $country = ! empty($row['country']) ? array_search($row['country'], trans('countries')) : false;
 
         $row['type'] = 'customer';
         $row['country'] = !empty($country) ? $country : null;
