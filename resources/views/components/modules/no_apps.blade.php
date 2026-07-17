@@ -26,15 +26,15 @@
 
                 <div class="flex flex-col gap-y-6">
                     <p class="font-semibold text-sm ltr:text-left rtl:text-right leading-loose">
-                        <x-nl2br :value="$item->text" />
+                        <x-nl2br :value="$item->text ?? ''" />
                     </p>
 
                     <div class="flex place-items-center">
-                        <img src="{{ $item->thumb }}" class="w-12 h-12 object-cover" alt="{{ $item->name }}" />
+                        <img src="{{ $item->thumb ?? '' }}" class="w-12 h-12 object-cover" alt="{{ $item->name ?? '' }}" />
 
                         <div class="flex flex-col ltr:ml-2 rtl:mr-2">
-                            <span>{{ $item->author }}</span>
-                            <span class="font-thin">{{ $item->country }}</span>
+                            <span>{{ $item->author ?? '' }}</span>
+                            <span class="font-thin">{{ $item->country ?? '' }}</span>
                         </div>
                     </div>
                 </div>
