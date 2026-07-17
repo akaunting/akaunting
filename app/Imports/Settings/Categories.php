@@ -32,7 +32,9 @@ class Categories extends Import
     {
         $row = parent::map($row);
 
-        $row['type'] = $this->getCategoryType($row['type']);
+        // Uploaded file may not include a type column; getCategoryType() falls
+        // back to the default type when the value is null/unknown.
+        $row['type'] = $this->getCategoryType($row['type'] ?? null);
         $row['parent_id'] = $this->getParentId($row) ?? null;
 
         return $row;
