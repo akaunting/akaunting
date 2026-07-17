@@ -96,7 +96,8 @@ class ProfitLoss extends Widget
         $totals = $this->calculateTotals($invoices, 'issued_at');
 
         // Transactions
-        $query = Transaction::with('recurring')->income()->isNotDocument()->isNotTransfer();
+        $query = Transaction::with('recurring')->income()->isNotDocument()->isNotTransfer()
+            ->select(['id', 'paid_at', 'amount', 'currency_code', 'currency_rate', 'parent_id']);
         $transactions = $this->applyFilters($query, ['date_field' => 'paid_at'])->get();
         Recurring::reflect($transactions, 'paid_at');
         $totals = $this->calculateTotals($transactions, 'paid_at', $totals);
@@ -113,7 +114,8 @@ class ProfitLoss extends Widget
         $totals = $this->calculateTotals($bills, 'issued_at');
 
         // Transactions
-        $query = Transaction::with('recurring')->expense()->isNotDocument()->isNotTransfer();
+        $query = Transaction::with('recurring')->expense()->isNotDocument()->isNotTransfer()
+            ->select(['id', 'paid_at', 'amount', 'currency_code', 'currency_rate', 'parent_id']);
         $transactions = $this->applyFilters($query, ['date_field' => 'paid_at'])->get();
         Recurring::reflect($transactions, 'paid_at');
         $totals = $this->calculateTotals($transactions, 'paid_at', $totals);

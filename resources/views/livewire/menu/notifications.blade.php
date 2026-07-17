@@ -25,7 +25,7 @@
                 <li class="mb-5 border-b pb-2">
                     <div class="flex items-start justify-between font-medium text-sm text-purple mb-1">
                         <div class="flex flex-col">
-                            {{ $notification->data['title'] }}
+                            {!! $notification->data['title'] !!}
 
                             <span class="text-gray-500" style="font-size: 10px;">
                                 {{ \Carbon\Carbon::createFromTimeStamp(strtotime($notification->created_at))->diffForHumans() }}
@@ -41,7 +41,7 @@
                         @endif
                     </div>
 
-                    <div class="lex items-end justify-between">
+                    <div class="flex items-end justify-between">
                         <p class="text-black text-sm">
                             {!! $notification->data['description'] !!}
                         </p>

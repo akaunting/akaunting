@@ -154,7 +154,15 @@ class CashFlow extends Widget
             }
         }
 
-        $items = $this->applyFilters(Transaction::$type()->whereBetween('paid_at', [$this->start_date, $this->end_date])->isNotTransfer())->get();
+        // Only select the columns the totals loop actually needs (paid_at, type
+        // and the currency fields used by getAmountConvertedToDefault) so we don't
+        // pull every column of potentially huge transaction sets into memory.
+        $query = Transaction::$type()
+            ->whereBetween('paid_at', [$this->start_date, $this->end_date])
+            ->isNotTransfer()
+            ->select(['paid_at', 'amount', 'currency_code', 'currency_rate', 'type']);
+
+        $items = $this->applyFilters($query)->get();
 
         $this->setTotals($totals, $items, $date_format);
 
