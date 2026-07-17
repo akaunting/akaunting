@@ -14,11 +14,14 @@ class Pin extends Component
 
     public function render(): View
     {
-        // Report deleted, class missing, module disabled, or access restricted — render empty
+        // Report deleted, class missing, module disabled, or access restricted — render empty.
+        // Use class_exists + canShow (module-enabled + canRead) instead of getClassInstance(),
+        // which instantiates the report and fires setGroups() for every one of the 150+ reports
+        // rendered on the index — the cause of the 256s timeouts.
         if (
             empty($this->report)
-            || ! Utility::getClassInstance($this->report, false)
-            || ! Utility::canRead($this->report->class)
+            || ! class_exists($this->report->class)
+            || Utility::cannotShow($this->report->class)
         ) {
             $this->pinned = false;
 

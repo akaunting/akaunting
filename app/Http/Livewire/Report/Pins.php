@@ -40,6 +40,13 @@ class Pins extends Component
                         $report = Report::find($report['id']);
                     }
 
+                    // Only pinned reports are displayed, so skip everything else before the
+                    // expensive canShow()/getClassInstance() work — instantiating all 150+
+                    // reports on render was causing 256s timeouts. Pins are capped at 6.
+                    if (empty($report) || ! in_array($report->id, $pins)) {
+                        continue;
+                    }
+
                     if (! Utility::canShow($report->class)) {
                         continue;
                     }
@@ -50,11 +57,9 @@ class Pins extends Component
                         continue;
                     }
 
-                    if (in_array($report->id, $pins)) {
-                        $this->reports->push($report);
+                    $this->reports->push($report);
 
-                        $this->icons[$report->id] = $class->getIcon();
-                    }
+                    $this->icons[$report->id] = $class->getIcon();
                 }
             }
         }
