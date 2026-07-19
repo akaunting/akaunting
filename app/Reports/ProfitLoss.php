@@ -69,8 +69,8 @@ class ProfitLoss extends Report
 
                 break;
             default:
-                $incomes_query = $this->getTransactionQuery(Transaction::INCOME_TYPE);
-                $expenses_query = $this->getTransactionQuery(Transaction::EXPENSE_TYPE);
+                $incomes_query = $this->getTransactionQuery(Transaction::INCOME_TYPE)->isNotDocument();
+                $expenses_query = $this->getTransactionQuery(Transaction::EXPENSE_TYPE)->isNotDocument();
                 $invoices_query = $this->getDocumentQuery(Document::INVOICE_TYPE);
                 $bills_query = $this->getDocumentQuery(Document::BILL_TYPE);
 
@@ -86,7 +86,7 @@ class ProfitLoss extends Report
                 );
 
                 // Incomes
-                $incomes = $incomes_query->isNotDocument()->get();
+                $incomes = $incomes_query->get();
                 Recurring::reflect($incomes, 'paid_at');
                 $this->setTotals($incomes, 'paid_at', false, Category::INCOME_TYPE, false);
 
