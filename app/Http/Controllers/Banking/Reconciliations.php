@@ -16,6 +16,16 @@ use App\Utilities\Date;
 class Reconciliations extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('permission:update-banking-reconciliations')->only('calculate');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response

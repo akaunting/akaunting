@@ -20,7 +20,7 @@ class Reports extends Controller
     {
         // Add CRUD permission check
         $this->middleware('permission:create-common-reports')->only('create', 'store', 'duplicate', 'import');
-        $this->middleware('permission:read-common-reports')->only('index', 'show', 'export', 'print', 'pdf');
+        $this->middleware('permission:read-common-reports')->only('index', 'show', 'export', 'print', 'pdf', 'fields');
         $this->middleware('permission:update-common-reports')->only('edit', 'update', 'enable', 'disable');
         $this->middleware('permission:delete-common-reports')->only('destroy');
     }

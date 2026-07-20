@@ -20,8 +20,8 @@ class Companies extends Controller
     {
         // Add CRUD permission checks to all methods only remove index method for all companies list.
         $this->middleware('permission:create-common-companies')->only('create', 'store', 'duplicate', 'import');
-        $this->middleware('permission:read-common-companies')->only('show', 'edit', 'export');
-        $this->middleware('permission:update-common-companies')->only('update', 'enable', 'disable');
+        $this->middleware('permission:read-common-companies')->only('index', 'show', 'switch', 'export', 'autocomplete');
+        $this->middleware('permission:update-common-companies')->only('edit', 'update', 'enable', 'disable');
         $this->middleware('permission:delete-common-companies')->only('destroy');
     }
 

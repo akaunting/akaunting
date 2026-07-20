@@ -20,8 +20,8 @@ class Users extends Controller
     public function __construct()
     {
         $this->middleware('permission:create-auth-users')->only('create', 'store', 'duplicate', 'import');
-        $this->middleware('permission:read-auth-users')->only('index', 'show', 'export');
-        $this->middleware('permission:update-auth-users')->only('enable', 'disable');
+        $this->middleware('permission:read-auth-users')->only('index', 'show', 'export', 'readUpcomingBills', 'readOverdueInvoices', 'autocomplete', 'landingPages');
+        $this->middleware('permission:update-auth-users')->only('enable', 'disable', 'invite');
         $this->middleware('permission:delete-auth-users')->only('destroy');
 
         $this->middleware('permission:read-auth-users|read-auth-profile')->only('edit');

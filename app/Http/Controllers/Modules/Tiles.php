@@ -13,6 +13,16 @@ class Tiles extends Controller
     use Modules;
 
     /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('permission:read-modules-tiles')->only('categoryModules', 'vendorModules', 'paidModules', 'newModules', 'freeModules', 'searchModules', 'loadMore');
+    }
+
+    /**
      * Show the form for viewing the specified resource.
      *
      * @param  $alias

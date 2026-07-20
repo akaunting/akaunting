@@ -10,6 +10,16 @@ class Plans extends Controller
     use PlansTrait;
 
     /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('permission:read-admin-panel')->only('check');
+    }
+
+    /**
      * Check for plan changes.
      *
      * @return Response

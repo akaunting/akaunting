@@ -19,6 +19,16 @@ class Items extends Controller
     use Uploads;
 
     /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('permission:read-common-items')->only('autocomplete');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response

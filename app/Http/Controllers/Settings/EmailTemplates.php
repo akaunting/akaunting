@@ -14,6 +14,16 @@ class EmailTemplates extends Controller
     use Modules;
 
     /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('permission:read-settings-email-templates')->only('get');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response

@@ -25,8 +25,8 @@ class Dashboards extends Controller
     {
         // Add CRUD permission check
         $this->middleware('permission:create-common-dashboards')->only('create', 'store', 'duplicate', 'import');
-        $this->middleware('permission:read-common-dashboards')->only('show');
-        $this->middleware('permission:update-common-dashboards')->only('index', 'edit', 'export', 'update', 'enable', 'disable', 'share');
+        $this->middleware('permission:read-common-dashboards')->only('index', 'show', 'switch');
+        $this->middleware('permission:update-common-dashboards')->only('edit', 'export', 'update', 'enable', 'disable', 'share');
         $this->middleware('permission:delete-common-dashboards')->only('destroy');
     }
 

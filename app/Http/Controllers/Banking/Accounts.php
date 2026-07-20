@@ -17,6 +17,19 @@ use App\Models\Setting\Currency;
 class Accounts extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('permission:create-banking-transactions')->only('createIncome', 'createExpense');
+        $this->middleware('permission:create-banking-transfers')->only('createTransfer');
+        $this->middleware('permission:read-banking-accounts')->only('seePerformance');
+        $this->middleware('permission:read-settings-currencies')->only('currency');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response

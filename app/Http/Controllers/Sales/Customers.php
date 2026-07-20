@@ -24,6 +24,17 @@ class Customers extends Controller
     public $type = Contact::CUSTOMER_TYPE;
 
     /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('permission:create-sales-invoices')->only('createInvoice');
+        $this->middleware('permission:create-banking-transactions')->only('createIncome');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response

@@ -13,6 +13,16 @@ use App\Utilities\Widgets as Utility;
 class Widgets extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('permission:read-common-widgets')->only('getData');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response

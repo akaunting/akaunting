@@ -24,6 +24,17 @@ class Vendors extends Controller
     public $type = Contact::VENDOR_TYPE;
 
     /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->middleware('permission:create-purchases-bills')->only('createBill');
+        $this->middleware('permission:create-banking-transactions')->only('createExpense');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
