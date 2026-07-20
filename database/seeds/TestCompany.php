@@ -60,6 +60,7 @@ class TestCompany extends Seeder
             'address' => 'New Street 1254',
             'currency' => 'USD',
             'locale' => 'en-GB',
+            'country' => 'US',
             'enabled' => '1',
             'settings' => [
                 'schedule.send_invoice_reminder' => '1',
