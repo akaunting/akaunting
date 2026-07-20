@@ -36,6 +36,7 @@ class CompaniesTest extends FeatureTestCase
             'financial_start' => '01-04',
             'address' => $this->faker->address,
             'tax_number' => $this->faker->randomNumber(9),
+            'country' => $this->faker->randomElement(array_keys(trans('countries'))),
             //'logo' => UploadedFile::fake()->image('akaunting-logo.jpg'),
         ];
     }
