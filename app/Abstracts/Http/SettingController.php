@@ -76,6 +76,15 @@ abstract class SettingController extends Controller
                 continue;
             }
 
+            // Once set, the company country cannot be changed.
+            if ($real_key === 'company.country') {
+                $existing_country = setting('company.country');
+
+                if (! empty($existing_country)) {
+                    continue;
+                }
+            }
+
             // change dropzone middleware already uploaded file
             if (in_array($real_key, $this->uploaded_file_keys)) {
                 continue;

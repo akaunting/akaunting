@@ -39,6 +39,7 @@ class Company extends FormRequest
 
         $rules = [
             'logo' => $logo,
+            'country' => 'required|string',
         ];
 
         if (! setting('apps.api_key', false) && ! empty($this->request->get('api_key'))) {

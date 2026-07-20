@@ -6,6 +6,8 @@
     <x-slot name="content">
         <x-form.container>
             <x-form id="company" route="companies.store">
+                <x-alert.warning message="{{ trans('companies.country_warning') }}" />
+
                 <x-form.section>
                     <x-slot name="head">
                         <x-form.section.head title="{{ trans('general.general') }}" description="{{ trans('companies.form_description.general') }}" />

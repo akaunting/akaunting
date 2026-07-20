@@ -48,14 +48,25 @@ class Version320 extends Listener
     {
         Log::channel('stdout')->info('Updating document items...');
 
+        $updatedCount = 0;
+
         DB::table('document_items')
             ->join('documents', 'documents.id', '=', 'document_items.document_id')
             ->whereNull('document_items.category_id')
             ->whereNotNull('documents.category_id')
-            ->update([
-                'document_items.category_id' => DB::raw(DB::getTablePrefix() . 'documents.category_id'),
-            ]);
+            ->select('document_items.id as id')
+            ->orderBy('document_items.id')
+            ->chunkById(500, function ($items) use (&$updatedCount) {
+                $ids = $items->pluck('id');
 
-        Log::channel('stdout')->info('Document items updated.');
+                $updatedCount += DB::table('document_items')
+                    ->join('documents', 'documents.id', '=', 'document_items.document_id')
+                    ->whereIn('document_items.id', $ids)
+                    ->update([
+                        'document_items.category_id' => DB::raw(DB::getTablePrefix() . 'documents.category_id'),
+                    ]);
+            }, 'document_items.id', 'id');
+
+        Log::channel('stdout')->info("Document items updated. Updated rows: {$updatedCount}.");
     }
 }

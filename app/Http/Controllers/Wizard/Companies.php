@@ -83,6 +83,15 @@ class Companies extends Controller
                 default             => 'company.' . $key,
             };
 
+            // Once set, the company country cannot be changed.
+            if ($real_key === 'company.country') {
+                $existing_country = setting('company.country');
+
+                if (! empty($existing_country)) {
+                    continue;
+                }
+            }
+
             // change dropzone middleware already uploaded file
             if (in_array($real_key, $uploaded_file_keys)) {
                 continue;

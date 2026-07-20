@@ -7,10 +7,4 @@
         not-required
         form-group-class="sm:col-span-6"
     />
-
-    <x-form.group.country
-        selected=""
-        not-required
-        form-group-class="sm:col-span-6"
-    />
 </div>

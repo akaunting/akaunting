@@ -87,6 +87,8 @@ class Scripts extends Component
                 'skip' => trans('companies.skip_step'),
                 'save' => trans('general.save'),
                 'country' => trans_choice('general.countries', 1),
+                'country_warning' => trans('companies.country_warning'),
+                'country_immutable' => trans('companies.error.country_immutable'),
             ],
 
             'currencies' => [

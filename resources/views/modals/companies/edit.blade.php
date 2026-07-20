@@ -1,4 +1,10 @@
 <x-form id="setting" method="PATCH" route="settings.company.update">
+    @if (! empty(setting('company.country')))
+        <x-alert.warning message="{{ trans('companies.error.country_immutable') }}" />
+    @else
+        <x-alert.warning message="{{ trans('companies.country_warning') }}" />
+    @endif
+
     <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5d">
         <x-form.group.text name="name" label="{{ trans('settings.company.name') }}" value="{{ setting('company.name') }}" form-group-class="col-span-6" />
 
@@ -10,7 +16,7 @@
 
         <x-form.group.textarea name="address" label="{{ trans('settings.company.address') }}" :value="setting('company.address')" form-group-class="col-span-6" />
 
-        <x-form.group.country form-group-class="col-span-6" />
+        <x-form.group.country form-group-class="col-span-6" disabled="{{ ! empty(setting('company.country')) }}" :selected="setting('company.country')" />
 
         <x-form.input.hidden name="_prefix" value="company" form-group-class="col-span-6" />
     </div>

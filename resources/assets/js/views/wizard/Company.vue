@@ -7,7 +7,12 @@
                 <span class="material-icons form-spin animate-spin text-9xl">data_usage</span>
             </div>
 
-            <div class="overflow-x-visible overflow-y-auto menu-scroll mt-1">
+            <div class="flex items-start gap-2 px-3 py-2 rounded-lg bg-orange-100 text-orange-700 text-sm leading-relaxed mb-2 -mt-2">
+                <span class="material-icons text-base flex-shrink-0 mt-0.5">warning</span>
+                <span>{{ company.country ? translations.company.country_immutable : translations.company.country_warning }}</span>
+            </div>
+
+            <div class="overflow-x-visible overflow-y-auto menu-scroll">
                 <form ref="form" class="py-2 align-middle inline-block min-w-full">
                     <div class="relative">
                         <div v-if="pageLoad" class="absolute left-0 right-0 top-0 bottom-0 w-full h-full bg-white rounded-lg flex items-center justify-center z-50">
@@ -16,7 +21,7 @@
 
                         <div class="flex flex-col justify-between -mt-5 sm:mt-0">
                             <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5 menu-scroll gap-10">
-                                <div class="sm:col-span-6">
+                                <div class="sm:col-span-6 -mt-2">
                                     <base-input
                                         not-required
                                         :label="translations.company.api_key"
@@ -35,7 +40,7 @@
                                     </div>
                                 </div>
 
-                                <div class="sm:col-span-3">
+                                <div class="sm:col-span-3 -mt-2">
                                     <base-input
                                         not-required
                                         type="text"
@@ -48,7 +53,7 @@
                                     />
                                 </div>
 
-                                <div class="sm:col-span-3">
+                                <div class="sm:col-span-3 -mt-2">
                                     <akaunting-date
                                         not-required 
                                         :title="translations.company.financial_start"
@@ -66,7 +71,7 @@
                                     ></akaunting-date>
                                 </div>
 
-                                <div class="sm:col-span-3 grid gap-y-4">
+                                <div class="sm:col-span-3 grid gap-y-4 -mt-2">
                                     <div class="sm:col-span-3">
                                         <base-input not-required :label="translations.company.address" :error="onFailErrorGet('address')">
                                             <textarea class="w-full text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple" name="address" data-name="address" rows="3" :placeholder="translations.company.address" v-model="company.address"></textarea>
@@ -75,7 +80,7 @@
 
                                     <div class="sm:col-span-3">
                                         <base-input not-required :label="translations.company.country" :error="onFailErrorGet('country')">
-                                            <el-select v-model="company.country" filterable>
+                                            <el-select v-model="company.country" filterable :disabled="Boolean(company.country)">
                                                 <el-option
                                                     v-for="(country, index) in sortedCountries"
                                                     :key="index"
@@ -90,7 +95,7 @@
                                     </div>
                                 </div>
 
-                                <div class="sm:col-span-3">
+                                <div class="sm:col-span-3 -mt-2">
                                     <label class="text-black text-sm font-medium">
                                         {{  translations.company.logo }}
                                     </label>

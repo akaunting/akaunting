@@ -4,6 +4,12 @@
     <x-slot name="content">
         <x-form.container>
             <x-form id="setting" method="PATCH" route="settings.company.update">
+                @if (! empty(setting('company.country')))
+                    <x-alert.warning message="{{ trans('companies.error.country_immutable') }}" />
+                @else
+                    <x-alert.warning message="{{ trans('companies.country_warning') }}" />
+                @endif
+
                 <x-form.section>
                     <x-slot name="head">
                         <x-form.section.head title="{{ trans('general.general') }}" description="{{ trans('settings.company.form_description.general') }}" />
@@ -40,7 +46,7 @@
 
                         <x-form.group.text name="state" label="{{ trans('general.state') }}" value="{{ setting('company.state') }}" not-required />
 
-                        <x-form.group.country />
+                        <x-form.group.country disabled="{{ ! empty(setting('company.country')) }}" :selected="setting('company.country')" />
                     </x-slot>
                 </x-form.section>
 

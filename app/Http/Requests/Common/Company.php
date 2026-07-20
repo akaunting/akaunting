@@ -26,6 +26,7 @@ class Company extends FormRequest
             'name'      => 'required|string',
             'email'     => 'required|email:rfc,dns',
             'currency'  => 'required|string',
+            'country'   => 'required|string',
             'domain'    => 'nullable|string',
             'logo'      => $logo,
         ];

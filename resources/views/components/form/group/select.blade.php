@@ -162,6 +162,8 @@
 
         @if (isset($attributes['v-disabled']))
         :disabled="{{ $attributes['v-disabled'] }}"
+        @elseif ($disabled)
+        :disabled="true"
         @endif
 
         @if (isset($attributes['v-error-message']))

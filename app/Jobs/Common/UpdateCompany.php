@@ -67,7 +67,14 @@ class UpdateCompany extends Job implements ShouldUpdate
             }
 
             if ($this->request->has('country')) {
-                setting()->set('company.country', $this->request->get('country'));
+                // Once set, the company country cannot be changed.
+                $existing_country = setting('company.country');
+
+                if (! empty($existing_country)) {
+                    $this->request->merge(['country' => $existing_country]);
+                } else {
+                    setting()->set('company.country', $this->request->get('country'));
+                }
             }
 
             if ($this->request->has('currency')) {
