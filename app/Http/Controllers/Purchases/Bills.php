@@ -32,6 +32,7 @@ class Bills extends Controller
     {
         parent::__construct();
 
+        $this->middleware('permission:read-purchases-bills')->only('printBill', 'pdfBill');
         $this->middleware('permission:update-purchases-bills')->only('markReceived', 'markCancelled', 'restoreBill');
     }
 

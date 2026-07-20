@@ -34,7 +34,8 @@ class Invoices extends Controller
     {
         parent::__construct();
 
-        $this->middleware('permission:update-sales-invoices')->only('markSent', 'markCancelled', 'restoreInvoice');
+        $this->middleware('permission:read-sales-invoices')->only('printInvoice', 'pdfInvoice');
+        $this->middleware('permission:update-sales-invoices')->only('markSent', 'markCancelled', 'restoreInvoice', 'emailInvoice');
     }
 
     /**
