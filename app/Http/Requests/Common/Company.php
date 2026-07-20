@@ -22,11 +22,13 @@ class Company extends FormRequest
                     . '|dimensions:max_width=' . config('filesystems.max_width') . ',max_height=' . config('filesystems.max_height');
         }
 
+        $countries = implode(',', array_keys(trans('countries')));
+
         return [
             'name'      => 'required|string',
             'email'     => 'required|email:rfc,dns',
             'currency'  => 'required|string',
-            'country'   => 'required|string',
+            'country'   => 'required|string|in:' . $countries,
             'domain'    => 'nullable|string',
             'logo'      => $logo,
         ];

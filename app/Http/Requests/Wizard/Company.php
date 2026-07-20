@@ -37,9 +37,11 @@ class Company extends FormRequest
                     . '|dimensions:max_width=' . config('filesystems.max_width') . ',max_height=' . config('filesystems.max_height');
         }
 
+        $countries = implode(',', array_keys(trans('countries')));
+
         $rules = [
             'logo' => $logo,
-            'country' => 'required|string',
+            'country' => 'required|string|in:' . $countries,
         ];
 
         if (! setting('apps.api_key', false) && ! empty($this->request->get('api_key'))) {
