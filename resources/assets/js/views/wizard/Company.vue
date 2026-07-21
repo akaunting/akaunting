@@ -80,7 +80,7 @@
 
                                     <div class="sm:col-span-3">
                                         <base-input not-required :label="translations.company.country" :error="onFailErrorGet('country')">
-                                            <el-select v-model="company.country" filterable :disabled="Boolean(company.country)">
+                                            <el-select v-model="company.country" filterable :disabled="country">
                                                 <el-option
                                                     v-for="(country, index) in sortedCountries"
                                                     :key="index"
@@ -204,7 +204,8 @@
                 real_date: "",
                 lang_data: '',
                 sorted_countries: [],
-                button_loading_company: false
+                button_loading_company: false,
+                country: false
             };
         },
 
@@ -232,6 +233,7 @@
 
         mounted() {
             let company_data = this.company;
+            this.country = Boolean(company_data.country);
 
             this.onDataWatch(company_data);
         },
