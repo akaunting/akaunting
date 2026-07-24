@@ -25,7 +25,7 @@ return [
     'add_discount'          => 'Додади попуст',
     'discount_desc'         => 'од меѓузбир',
 
-    'payment_made'          => 'Направено Плаќање',
+    'payment_made'          => 'Извршено плаќање',
     'payment_due'           => 'Доспева за плаќање',
     'amount_due'            => 'Доспеан износ',
     'paid'                  => 'Платено',

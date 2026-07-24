@@ -2,9 +2,9 @@
 
 return [
 
-    'payment_made'      => 'Направено Плаќање',
-    'paid_to'           => 'Платено На',
-    'related_bill'      => 'Поврзана Сметка',
+    'payment_made'      => 'Извршено плаќање',
+    'paid_to'           => 'Платено на',
+    'related_bill'      => 'Поврзана сметка',
     'create_payment'    => 'Направи плаќање',
 
 ];

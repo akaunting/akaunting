@@ -31,7 +31,7 @@ return [
         'transfer_category' => 'Грешка: Не може да се избрише категоријата за трансфер <b>:type</b>!',
         'change_type'       => 'Грешка: Не може да се промени типот затоа што има поврзано: :text!',
         'invalid_apikey'    => 'Грешка: Внесениот токен е невалиден!',
-        'empty_apikey'      => 'Грешка: Не сте го внесле вашиот API клуч! <a href=":url" class="font-bold underline underline-offset-4">Кликнете тука</a> за да го внесете API клучот.',
+        'empty_apikey'      => 'Грешка: Не сте го внесле вашиот API клуч! <a href=":url" class="font-bold underline underline-offset-4">Кликнете овде</a> за да го внесете API клучот.',
         'import_column'     => 'Грешка: :message Име на колона: :column. Број на ред: :line.',
         'import_sheet'      => 'Грешка: Името на листот не е валидно. Проверете ја пример-датотеката.',
         'same_amount'       => 'Грешка: Вкупниот износ на поделбата мора целосно да се совпаѓа со вкупниот износ на :transaction: :amount',
