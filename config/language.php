@@ -149,6 +149,7 @@ return [
         'hi-IN',
         'id-ID',
         'it-IT',
+        'mk-MK',
         'ms-MY',
         'nl-NL',
         'pl-PL',

@@ -79,10 +79,14 @@ return [
         'subheading'                    => 'Поднаслов',
         'due_receipt'                   => 'Плаќање по прием',
         'due_days'                      => 'Датум на валута :days дена',
+        'due_custom'                    => 'Прилагоден ден(ови)',
+        'due_custom_day'                => 'по ден',
         'choose_template'               => 'Избери шаблон за фактура',
         'default'                       => 'Стандардно',
         'classic'                       => 'Класична',
         'modern'                        => 'Модерна',
+        'logo_size_width'               => 'Ширина на лого',
+        'logo_size_height'              => 'Висина на лого',
         'hide' => [
             'item_name'                 => 'Сокриј го името на ставката',
             'item_description'          => 'Сокриј опис на ставката',
@@ -113,6 +117,8 @@ return [
         'use_gravatar'                  => 'Користи Граватар',
         'income_category'               => 'Категорија на приход',
         'expense_category'              => 'Категотија на Трошок',
+        'address_format'                => 'Формат на адреса',
+        'address_tags'                  => '<strong>Достапни ознаки:</strong> :tags',
 
         'form_description' => [
             'general'                   => 'Изберете ја стандардната сметка, данок и начин на плаќање за брзо креирање записи. Контролната табла и Извештаите се прикажани под стандардната валута.',
@@ -123,13 +129,13 @@ return [
 
     'email' => [
         'description'                   => 'Променете го протоколот за испраќање',
-        'search_keywords'               => 'email, send, protocol, smtp, host, password',
+        'search_keywords'               => 'е-пошта, испраќање, протокол, smtp, хост, лозинка',
         'protocol'                      => 'Протокол',
         'php'                           => 'PHP Маил',
         'smtp' => [
             'name'                      => 'SMTP',
-            'host'                      => 'SMTP Host',
-            'port'                      => 'SMTP Port',
+            'host'                      => 'SMTP хост',
+            'port'                      => 'SMTP порта',
             'username'                  => 'SMTP корисничко име',
             'password'                  => 'SMTP лозинка',
             'encryption'                => 'SMTP безбедност',
@@ -174,7 +180,7 @@ return [
         'invoice_days'                  => 'Испрати после денови на доспевање',
         'send_bill'                     => 'Испрати потсетник за сметки',
         'bill_days'                     => 'Испрати пред денови на доспевање',
-        'cron_command'                  => 'Cron Command',
+        'cron_command'                  => 'Cron команда',
         'command'                       => 'Команда',
         'schedule_time'                 => 'Како да се изврши',
 

@@ -7,8 +7,14 @@ return [
     'grand_total'               => 'Вкупно',
     'accept_payment_online'     => 'Прифатете плаќања преку Интернет',
     'transaction'               => 'Уплатата за :amount беше извршена преку :account.',
+    'portal_transaction'        => 'Уплатата за :amount беше извршена преку :payment_method.',
     'billing'                   => 'Наплата',
     'advanced'                  => 'Напредно',
+    'item_price_hidden'         => 'Оваа колона е скриена на вашиот :type.',
+
+    'actions' => [
+        'cancel'                => 'Откажи',
+    ],
 
     'invoice_detail' => [
         'marked'                => '<b>Вие</b> ја означивте оваа фактура како',
@@ -37,7 +43,7 @@ return [
         'cancelled'             => 'Откажано',
         'voided'                => 'Сторнирано',
         'completed'             => 'Завршено',
-        'shipped'               => 'Испратено',
+        'shipped'               => 'Отпремено',
         'refunded'              => 'Рефундирано',
         'failed'                => 'Неуспешно',
         'denied'                => 'Одбиено',
@@ -54,7 +60,7 @@ return [
         'confirmed'             => 'Потврдена',
         'not_confirmed'         => 'Не е потврдена',
         'active'                => 'Активен',
-        'ended'                 => 'Заврши',
+        'ended'                 => 'Завршено',
     ],
 
     'form_description' => [
@@ -64,8 +70,18 @@ return [
         'attachment'            => 'Преземете ги документите прикачени на оваа :type',
     ],
 
+    'slider' => [
+        'create'            => ':user го создаде овој :type на :date',
+        'create_recurring'  => ':user го создаде овој повторувачки шаблон на :date',
+        'send'              => ':user го испрати овој :type на :date',
+        'schedule'          => 'Повторувај секој :interval :frequency од :date',
+        'children'          => ':count :type беа создадени автоматски',
+        'cancel'            => ':user го откажа овој :type на :date',
+    ],
+
     'messages' => [
         'email_sent'            => ':type Е-маил пораката е успешно пратена!',
+        'restored'              => ':type е обновено!',
         'marked_as'             => ':type означен како :status!',
         'marked_sent'           => ':type означен како пратено!',
         'marked_paid'           => ':type означено како платено!',
@@ -82,5 +98,7 @@ return [
             'document_number'   => 'Бројот :type автоматски ќе се додели кога ќе се генерира секој повторлив :type.',
         ],
     ],
+
+    'empty_attachments'         => 'Нема прикачени датотеки за овој :type.',
 
 ];

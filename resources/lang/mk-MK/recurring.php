@@ -27,10 +27,12 @@ return [
     'next_date'             => 'Следно на :date',
     'end'                   => 'Крај Повторувачки',
     'child'                 => ':url беше автоматски креиран на :date',
-    'message'               => 'Ова е повторувачки :type и следниот :type ќе биде автоматски генериран at :date',
+    'message'               => 'Ова е повторувачки :type и следниот :type ќе биде автоматски генериран на :date',
     'message_parent'        => 'Овој :type е автоматски генериран од :link',
+    'send_email_auto'       => 'Испрати е-пошта автоматски',
 
     'frequency_type'        => 'Повторете го ова :type',
+    'custom_frequency_desc' => 'Повторувај секој :interval :frequency',
     'limit_date'            => 'Креирај прва :type на',
     'limit_middle'          => 'и заврши',
 
