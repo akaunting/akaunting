@@ -75,7 +75,7 @@ class DocumentTransactions extends Controller
      */
     public function create(Document $document)
     {
-        $this->authorizeDocumentTransaction($document, 'read');
+        $this->authorizeDocumentTransaction($document, 'create');
 
         $document->load(['totals', 'transactions']);
 
@@ -339,7 +339,7 @@ class DocumentTransactions extends Controller
             ];
 
             $quin = '?';
-    
+
             if (Str::contains($redirect, '?')) {
                 $quin = '&';
             }
