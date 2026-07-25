@@ -176,6 +176,12 @@ trait Categories
         foreach ($types as $type) {
             $config_type = config('type.category.' . $type, []);
 
+            if (! empty($config_type['show_code'])) {
+                $type_codes[$type] = false;
+
+                continue;
+            }
+
             $type_codes[$type] = ! empty($config_type['hide']) && in_array('code', $config_type['hide']) ? true : false;
         }
 

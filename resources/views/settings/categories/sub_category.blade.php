@@ -5,7 +5,7 @@
                 <x-index.bulkaction.single id="{{ $parent_category->id }}" name="{{ $parent_category->name }}" disabled />
             </x-table.td>
 
-            @if (!$hide_code_column && (empty(config('type.category.' . $parent_category->type . '.hide', [])) || ! in_array('code', config('type.category.' . $sub_category->type . '.hide'))))
+            @if (!$hide_code_column)
                 <x-table.td class="w-2/12 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-medium text-black truncate">
                     @if(!empty($parent_category->code))
                         {{ $parent_category->code }}
@@ -48,7 +48,7 @@
             <x-index.bulkaction.single id="{{ $sub_category->id }}" name="{{ $sub_category->name }}" />
         </x-table.td>
 
-        @if (!$hide_code_column && (empty(config('type.category.' . $sub_category->type . '.hide', [])) || ! in_array('code', config('type.category.' . $sub_category->type . '.hide'))))
+        @if (!$hide_code_column)
             <x-table.td class="w-2/12 py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-medium text-black truncate">
                 @if(!empty($sub_category->code))
                     {{ $sub_category->code }}

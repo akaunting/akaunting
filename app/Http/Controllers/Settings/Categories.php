@@ -38,25 +38,14 @@ class Categories extends Controller
 
         $categories = $query->collect();
 
-        $hide_code_column = true;
-
         $search_string_type = search_string_value('type');
-        $selected_types = ! empty($search_string_type) ? explode(',', $search_string_type) : array_keys($types);
 
-        foreach (config('type.category', []) as $type => $config) {
-            if (! is_array($config)) {
-                continue;
-            }
+        $filtered_types = is_array($search_string_type) ? $search_string_type : explode(',', $search_string_type);
 
-            if (! in_array($type, $selected_types)) {
-                continue;
-            }
+        $selected_types = ! empty($search_string_type) ? array_intersect($filtered_types, array_keys($types)) : array_keys($types);
 
-            if (empty($config['hide']) || ! in_array('code', $config['hide'])) {
-                $hide_code_column = false;
-                break;
-            }
-        }
+        // Hide the column only when the code is hidden for all of the listed types
+        $hide_code_column = ! in_array(false, $this->hideCodeCategoryTypes($selected_types), true);
 
         return $this->response('settings.categories.index', compact('categories', 'types', 'hide_code_column'));
     }

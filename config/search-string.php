@@ -493,6 +493,7 @@ return [
                 'values' => [
                     'income' => 'general.incomes',
                     'expense' => 'general.expenses',
+                    'direct_cost' => 'general.direct_costs',
                     'item' => 'general.items',
                     'other' => 'general.others',
                 ],
