@@ -103,6 +103,8 @@ return [
         'unzip'             => 'Uitpakken van het zip-bestand van :module is mislukt',
         'file_copy'         => 'Kopiëren van bestanden van :module is mislukt',
         'finish'            => 'Niet in staat om de installatie van :module af te ronden',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'warning' => [

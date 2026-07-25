@@ -57,6 +57,8 @@ return [
         'file_copy' => ':module files can not copy!',
         'migrate' => ':module migrate broken!',
         'migrate core' => ': โมดูลเป็นรุ่นล่าสุดอยู่แล้วดังนั้นจึงไม่สามารถอับเดทได้',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'badge' => [

@@ -54,6 +54,8 @@ return [
         'unzip'             => ' :module মডিউলটি  আনজিপ করতে অসমর্থ',
         'file_copy'         => ' :module মডিউল ফাইলগুলো অনুলিপি করতে অসমর্থ ',
         'finish'            => ' :module মডিউল সংস্থাপনা সুসম্পন্ন করতে অসমর্থ',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'badge' => [

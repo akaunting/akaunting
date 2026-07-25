@@ -103,6 +103,8 @@ return [
         'unzip'             => ':module अनज़िप करने में सक्षम नहीं है।',
         'file_copy'         => ':module फ़ाइलों को कॉपी करने में सक्षम नहीं है',
         'finish'            => ':module इंस्टॉलेसन को अंतिम रूप देने में सक्षम नहीं है',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'warning' => [

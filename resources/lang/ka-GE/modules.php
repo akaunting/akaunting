@@ -58,6 +58,8 @@ return [
         'file_copy' => ':მოდულის ფაილები არ დაკოპირდა!',
         'migrate' => ':მოდულის მიგრაცია გატეხილია!',
         'migrate core' => ':მოდული არის უახლესი ვერსიის. ასე, რომ თქვენ მას ვერ განაახლებთ.',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'badge' => [

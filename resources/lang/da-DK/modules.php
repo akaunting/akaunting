@@ -103,6 +103,8 @@ return [
         'unzip'             => 'Kan ikke udpakke zip filen :module',
         'file_copy'         => 'Kan ikke kopiere :module filerne',
         'finish'            => 'Kan ikke færdiggøre :module installationen',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'warning' => [

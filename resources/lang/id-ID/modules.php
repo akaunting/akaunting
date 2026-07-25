@@ -100,6 +100,8 @@ return [
         'unzip'             => 'Tidak dapat unzip :module',
         'file_copy'         => 'Tidak dapat menyalin file :module',
         'finish'            => 'Tidak dapat menyelesaikan pemasangan :module',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'warning' => [

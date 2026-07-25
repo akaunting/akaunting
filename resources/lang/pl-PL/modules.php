@@ -97,6 +97,8 @@ return [
         'unzip'             => 'Nie można wypakować :module',
         'file_copy'         => 'Nie można skopiować plików :module',
         'finish'            => 'Nie można sfinalizować instalacji :module',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'warning' => [

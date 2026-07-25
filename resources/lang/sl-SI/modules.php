@@ -103,6 +103,8 @@ return [
         'unzip'             => 'Napaka pri razširjanju :module',
         'file_copy'         => 'Napaka pri kopiranju :module datotek',
         'finish'            => 'Napaka pri končevanju namestitve :module',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'warning' => [

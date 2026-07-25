@@ -54,6 +54,8 @@ return [
         'unzip'             => 'Ei voitu purata :module',
         'file_copy'         => 'Ei voitu kopioida :module tiedostoja',
         'finish'            => 'Ei voitu viimeistellä :module asennusta',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'badge' => [

@@ -103,6 +103,8 @@ return [
         'unzip'             => 'Nevar unzip :modulis',
         'file_copy'         => 'Nevar nokopēt :modulis failus',
         'finish'            => 'Nevar pabeigt :modulis uzstādīšanu',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'warning' => [

@@ -54,6 +54,8 @@ return [
         'unzip'             => 'Nuk mund të hiqet nga zipi :module',
         'file_copy'         => 'Nuk mund të kopjohen :module skedaret',
         'finish'            => 'Nuk mund të finalizohet :module instalimi',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'badge' => [

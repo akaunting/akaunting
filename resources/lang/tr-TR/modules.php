@@ -101,6 +101,8 @@ return [
         'unzip'             => ':module zipten çıkarılamadı',
         'file_copy'         => ':module dosyaları kopyalanamadı',
         'finish'            => ':module kurulumu tamamlanamadı',
+        'disable_protected' => ':module Akaunting tarafından gereklidir, bu nedenle devre dışı bırakılamaz.',
+        'uninstall_protected' => ':module Akaunting tarafından gereklidir, bu nedenle kaldırılamaz.',
     ],
 
     'warning' => [

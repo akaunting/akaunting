@@ -54,6 +54,8 @@ return [
         'unzip'             => ':module खोल्न असफल',
         'file_copy'         => ':module का फाइलहरू कपि गर्न असफल',
         'finish'            => ':module को स्थापनालाई अन्तिम चरणमा लैजान सकिएन',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'badge' => [

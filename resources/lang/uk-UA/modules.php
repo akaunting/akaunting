@@ -54,6 +54,8 @@ return [
         'unzip'             => 'Не вдалося розпакувати :module',
         'file_copy'         => 'Неможливо скопіювати :module файли',
         'finish'            => 'Не вдалося завершити встановлення :module',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'badge' => [
