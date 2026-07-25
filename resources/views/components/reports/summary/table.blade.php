@@ -1,4 +1,7 @@
-@php $grand_total = array_sum($class->footer_totals[$table_key]); @endphp
+@php
+    $totals = $class->footer_totals[$table_key] ?? [];
+    $grand_total = array_sum($totals);
+@endphp
 
 <div class="w-full lg:w-6/12">
     @include($class->views['summary.table.header'])

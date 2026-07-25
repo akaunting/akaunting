@@ -187,13 +187,15 @@ abstract class Report
         }
 
         $options = !empty($this->chart[$table_key]) ? $this->chart[$table_key]['bar'] : $this->chart['bar'];
+        $dataset_name = $this->tables[$table_key] ?? trans_choice('general.totals', 1);
+        $dataset_values = $this->footer_totals[$table_key] ?? [];
 
         $chart->setType('bar')
             ->setOptions($options)
             ->setDefaultLocale($this->getDefaultLocaleOfChart())
             ->setLocales($this->getLocaleTranslationOfChart())
             ->setLabels(array_values($this->dates))
-            ->setDataset($this->tables[$table_key], 'column', array_values($this->footer_totals[$table_key]));
+            ->setDataset($dataset_name, 'column', array_values($dataset_values));
 
         return $chart;
     }
