@@ -4,6 +4,7 @@ namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
 use App\Events\Banking\TransactionCreated;
+use App\Events\Banking\TransactionDuplicating;
 use App\Models\Banking\Transaction;
 
 class DuplicateTransaction extends Job
@@ -19,6 +20,8 @@ class DuplicateTransaction extends Job
 
     public function handle(): Transaction
     {
+        event(new TransactionDuplicating($this->model));
+
         \DB::transaction(function () {
             $this->clone = $this->model->duplicate();
         });
