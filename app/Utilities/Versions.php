@@ -203,6 +203,12 @@ class Versions
             return;
         }
 
+        // A protected app stays in place whatever its subscription says, so there is
+        // nothing to enforce and the disable/uninstall jobs would only throw.
+        // if (in_array($alias, (array) config('module.protected', []))) {
+        //     return;
+        // }
+
         if ($version->subscription->expired_at > Date::now()->startOfDay()) {
             return;
         }

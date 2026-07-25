@@ -197,4 +197,14 @@ return [
     */
     'activator' => env('MODULE_ACTIVATOR', \App\Utilities\ModuleActivator::class),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Protected Modules
+    |--------------------------------------------------------------------------
+    |
+    | Modules listed here are part of how the app is expected to work, so they can
+    | neither be disabled nor deleted once they are installed.
+    |
+    */
+    'protected' => explode(',', env('MODULE_PROTECTED', 'double-entry')),
 ];
