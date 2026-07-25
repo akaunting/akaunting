@@ -46,7 +46,7 @@ class CreateTransaction extends Job implements HasOwner, HasSource, ShouldCreate
             $this->model->createRecurring($this->request->all());
         });
 
-        event(new TransactionCreated($this->model));
+        event(new TransactionCreated($this->model, $this->request));
 
         return $this->model;
     }

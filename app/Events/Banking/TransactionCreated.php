@@ -9,13 +9,17 @@ class TransactionCreated extends Event
 {
     public $transaction;
 
+    public $request;
+
     /**
      * Create a new event instance.
      *
      * @param $transaction
+     * @param $request
      */
-    public function __construct(Transaction $transaction)
+    public function __construct(Transaction $transaction, $request = null)
     {
         $this->transaction = $transaction;
+        $this->request  = $request ?? request();
     }
 }

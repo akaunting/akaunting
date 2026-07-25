@@ -178,7 +178,7 @@ class RecurringCheck extends Command
 
                     break;
                 case Transaction::class:
-                    event(new TransactionCreated($model));
+                    event(new TransactionCreated($model, request()));
 
                     event(new TransactionRecurring($model));
 
