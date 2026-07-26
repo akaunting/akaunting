@@ -879,7 +879,6 @@ export default {
             let currency_code = (contact.currency_code) ? contact.currency_code : this.form.currency_code;
 
             this.onChangeCurrency(currency_code);
-            this.onChangeContact(contact);
 
             this.$forceUpdate();
     },
