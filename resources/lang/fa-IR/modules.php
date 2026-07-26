@@ -54,6 +54,8 @@ return [
         'unzip'             => 'امکان خارج کردن :module از حالت فشرده وجود ندارد',
         'file_copy'         => 'امکان کپی کردن فایل های :module وجود ندارد',
         'finish'            => 'امکان نهایی کردن نصب :module وجود ندارد',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'badge' => [

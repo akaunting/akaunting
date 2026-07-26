@@ -426,6 +426,15 @@ trait Modules
         return ! $this->moduleIsEnabled($alias);
     }
 
+    /**
+     * Whether the app is part of how Akaunting is expected to work, and so may
+     * neither be disabled nor uninstalled.
+     */
+    public function moduleIsProtected($alias): bool
+    {
+        return in_array($alias, (array) config('module.protected', []));
+    }
+
     public function getModulesLimitOfSubscription()
     {
         $limit = new \stdClass();
@@ -478,8 +487,14 @@ trait Modules
         if (empty($version)) {
             $version = Versions::getVersionByAlias($alias);
         }
-        
+
         if (! $version->subscription) {
+            return $limit;
+        }
+
+        // A protected app stays in place whatever its subscription says, so there is
+        // nothing to enforce and the disable/uninstall jobs would only throw.
+        if ($this->moduleIsProtected($alias)) {
             return $limit;
         }
 

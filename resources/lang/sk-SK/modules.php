@@ -54,6 +54,8 @@ return [
         'file_copy' => 'Nepodarilo sa nakopírvať súbory modulu:module!',
         'migrate' => 'Migrácia modulu :module zlyhala!',
         'migrate core' => 'Modul :module je aktuálny, preto nie je možné vykonať jeho aktualizáciu.',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'badge' => [

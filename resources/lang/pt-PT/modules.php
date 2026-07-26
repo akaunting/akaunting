@@ -54,6 +54,8 @@ return [
         'unzip'             => 'Não foi possível descompactar :module',
         'file_copy'         => 'Não foi possível copiar os ficheiros de :module',
         'finish'            => 'Não foi possível finalizar a instalação de :module',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'badge' => [

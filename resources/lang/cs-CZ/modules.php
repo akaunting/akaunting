@@ -103,6 +103,8 @@ return [
         'unzip'             => 'Nelze rozbalit: modul',
         'file_copy'         => 'Nelze kopírovat :module soubory',
         'finish'            => 'Není možné dokončit instalaci :module',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'warning' => [

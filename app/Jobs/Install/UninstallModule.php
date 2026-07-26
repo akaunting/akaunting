@@ -59,6 +59,12 @@ class UninstallModule extends Job
             throw new \Exception("Module [{$this->alias}] not found.");
         }
 
+        if ($this->moduleIsProtected($this->alias)) {
+            throw new \Exception(
+                trans('modules.errors.uninstall_protected', ['module' => module($this->alias)->getName()])
+            );
+        }
+
         if (! in_array($this->locale, config('language.allowed'))) {
             throw new \Exception("Unknown locale: {$this->locale}");
         }

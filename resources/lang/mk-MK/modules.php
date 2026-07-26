@@ -110,6 +110,8 @@ return [
         'unzip' => ':module не може да се отпакува!',
         'file_copy' => 'Датотеките на :module не можат да се копираат!',
         'finish' => 'Не може да се финализира инсталацијата на :module',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'warning' => [

@@ -100,6 +100,8 @@ return [
         'unzip'             => '无法解压 :module',
         'file_copy'         => '无法复制 :module 文件',
         'finish'            => '无法完成 :module 安装',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'warning' => [

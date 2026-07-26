@@ -100,6 +100,8 @@ return [
         'unzip'             => 'Не удалось распаковать :module',
         'file_copy'         => 'Не удалось скопировать файлы :module',
         'finish'            => 'Не удалось завершить установку :module',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'warning' => [

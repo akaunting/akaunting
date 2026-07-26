@@ -103,6 +103,8 @@ return [
         'unzip'             => 'Δεν είναι δυνατή η αποσυμπίεση του :module',
         'file_copy'         => 'Δεν είναι δυνατή η αντιγραφή των αρχείων του :module',
         'finish'            => 'Δεν είναι δυνατή η ολοκλήρωση της εγκατάστασης του :module',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'warning' => [

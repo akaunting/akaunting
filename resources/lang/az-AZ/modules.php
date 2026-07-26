@@ -54,6 +54,8 @@ return [
         'unzip'             => ':module zipdən çıxarılması',
         'file_copy'         => ':module faylları kopyalana bilmədi',
         'finish'            => ':module qurulum tamamlana bilmədi',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'badge' => [

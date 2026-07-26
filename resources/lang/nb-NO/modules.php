@@ -54,6 +54,8 @@ return [
         'unzip'             => 'Ikke mulig å pakke ut :module',
         'file_copy'         => 'Ikke mulig å kopiere filer til :module',
         'finish'            => 'Ikke mulig å ferdigstille installasjon av :module',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'badge' => [

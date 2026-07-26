@@ -102,6 +102,8 @@ return [
         'unzip'             => 'Kan inte packa upp :module',
         'file_copy'         => 'Kan inte kopiera :module filer',
         'finish'            => 'Kan inte slutföra :module installation',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'warning' => [

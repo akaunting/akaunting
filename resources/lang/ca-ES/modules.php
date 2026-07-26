@@ -103,6 +103,8 @@ return [
         'unzip'             => 'No s\'ha pogut descomprimir :module',
         'file_copy'         => 'No s\'ha pogut copiar els fitxers de :module',
         'finish'            => 'No s\'ha pogut acabar la instal·lació de :module',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'warning' => [

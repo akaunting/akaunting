@@ -104,6 +104,8 @@ return [
         'unzip'             => 'Не е възможно да се разархивира :module',
         'file_copy'         => 'Не е възможно да се копират файловете на :module',
         'finish'            => 'Не е възможно да се приключи инсталацията на :module',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'warning' => [

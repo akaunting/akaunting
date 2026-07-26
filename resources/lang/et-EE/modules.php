@@ -54,6 +54,8 @@ return [
         'unzip'             => 'Pole võimalik :module lahti pakkida',
         'file_copy'         => 'Pole võimalik kopeerida :module faile',
         'finish'            => 'Pole võimalik lõpule viia :module installeerimist',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'badge' => [

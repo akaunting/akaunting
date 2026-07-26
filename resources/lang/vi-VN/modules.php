@@ -54,6 +54,8 @@ return [
         'file_copy' => ':module files can not copy!',
         'migrate' => ':module migrate broken!',
         'migrate core' => ':module already latest version so then yon can not update.',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'badge' => [

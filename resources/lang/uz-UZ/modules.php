@@ -54,6 +54,8 @@ return [
         'unzip'             => 'Ochib bo‘lmadi: modul',
         'file_copy'         => 'Nusxalash imkoniyati yo\'q: modul fayllari',
         'finish'            => 'Yakunlay olmadi: modulni o\'rnatish',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'badge' => [

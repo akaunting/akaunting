@@ -100,6 +100,8 @@ return [
         'unzip'             => 'No se puede descomprimir :module',
         'file_copy'         => 'No se pueden copiar los archivos de :module',
         'finish'            => 'No se puede finalizar la instalación de :module',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'warning' => [

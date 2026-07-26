@@ -100,6 +100,8 @@ return [
         'unzip'             => 'تعذر استخراج :module',
         'file_copy'         => 'تعذر نسخ ملفات :module',
         'finish'            => 'تعذر إنهاء تثبيت :module',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'warning' => [

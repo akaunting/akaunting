@@ -54,6 +54,8 @@ return [
         'unzip'             => ':module nu poate fi dezarchivat!',
         'file_copy'         => 'Fișierele pentru :module nu pot fi copiate!',
         'finish'            => 'Nu se poate finaliza instalarea modulului :module',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'badge' => [

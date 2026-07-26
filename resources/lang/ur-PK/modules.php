@@ -58,6 +58,8 @@ return [
         'file_copy' => ': ماڈیول مسلیں نقل نہیں کر سکتے ہیں!',
         'migrate' => ': ماڈیول شکستہ منتقل کریں!',
         'migrate core' => ': ماڈیول پہلے سے ہی تازہ ترین ورژن ہے تو پھر اپ ڈیٹ نہیں کر سکتا۔',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'badge' => [

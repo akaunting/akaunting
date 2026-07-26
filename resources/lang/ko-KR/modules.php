@@ -57,6 +57,8 @@ return [
         'file_copy' => ':module 파일들을 복사할 수 없습니다!',
         'migrate' => ':module 마이그레이션 실패!',
         'migrate core' => ':module은 이미 최신 버전이기 때문에, 업데이트할 수 없습니다.',
+        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
+        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
     ],
 
     'badge' => [
