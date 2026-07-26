@@ -58,7 +58,7 @@
                     <x-slot name="body">
                         <x-form.group.category :type="$type" model="form.category_id" />
 
-                        <x-form.group.contact :type="$contact_type" not-required @option="onChangeContact($event.option)" />
+                        <x-form.group.contact :type="$contact_type" not-required />
 
                         <x-form.group.tax name="tax_ids" multiple with-summary not-required :currency="$currency" change="onChangeTax" />
 
