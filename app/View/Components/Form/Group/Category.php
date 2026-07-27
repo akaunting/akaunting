@@ -87,7 +87,6 @@ class Category extends Form
             foreach ($this->categories as $category) {
                 $group = $typeLabels[$category->type] ?? trans_choice('general.others', 1);
 
-                $category->title = ($category->code ? $category->code . ' - ' : '') . $category->name;
                 $category->group = $group;
 
                 $groups[$group][$category->id] = $category;
@@ -123,8 +122,6 @@ class Category extends Form
             if (empty($category)) {
                 return;
             }
-
-            $category->title = ($category->code ? $category->code . ' - ' : '') . $category->name;
 
             if (! $this->group) {
                 $this->categories->push($category);

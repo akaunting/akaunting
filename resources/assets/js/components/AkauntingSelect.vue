@@ -481,8 +481,30 @@ export default {
         findOptionByKey(optionKey) {
             const normalizedKey = optionKey.toString();
 
+            const foundInSortedOptions = this.findOptionInList(this.sorted_options, normalizedKey);
+
+            if (foundInSortedOptions) {
+                return foundInSortedOptions;
+            }
+
+            const foundInFullOptions = this.findOptionInList(this.full_options, normalizedKey);
+
+            if (foundInFullOptions) {
+                return foundInFullOptions;
+            }
+
+            return null;
+        },
+
+        findOptionInList(list, optionKey) {
+            if (!Array.isArray(list) || optionKey === null || optionKey === undefined) {
+                return null;
+            }
+
+            const normalizedKey = optionKey.toString();
+
             if (this.group) {
-                for (const groupOption of this.sorted_options) {
+                for (const groupOption of list) {
                     if (!Array.isArray(groupOption.value)) {
                         continue;
                     }
@@ -493,21 +515,108 @@ export default {
                         return found;
                     }
                 }
-            } else {
-                const found = this.sorted_options.find(option => option.key == normalizedKey);
 
-                if (found) {
-                    return found;
+                return null;
+            }
+
+            const found = list.find(option => option.key == normalizedKey);
+
+            return found ? found : null;
+        },
+
+        // Option label field control
+        getOptionLabel(option) {
+            return option[this.option_field.value] ? option[this.option_field.value] : (option.title) ? option.title : (option.display_name) ? option.display_name : option.name;
+        },
+
+        matchesOptionQuery(sorted_option, query) {
+            let search = (query) ? query.toString().toLowerCase() : '';
+
+            if (! search) {
+                return true;
+            }
+
+            let option = sorted_option.option ? sorted_option.option : {};
+
+            let values = [sorted_option.value, option.name, option.code, option.title, option.display_name];
+
+            return values.some(value => value && value.toString().toLowerCase().indexOf(search) > -1);
+        },
+
+        // Filter the options without breaking the group structure
+        filterOptionList(list, query) {
+            if (! Array.isArray(list)) {
+                return [];
+            }
+
+            if (! this.group) {
+                return list.filter(option => this.matchesOptionQuery(option, query));
+            }
+
+            let filtered_options = [];
+
+            list.forEach(function (group_option) {
+                if (! Array.isArray(group_option.value)) {
+                    return;
                 }
+
+                let options = group_option.value.filter(option => this.matchesOptionQuery(option, query));
+
+                if (! options.length) {
+                    return;
+                }
+
+                filtered_options.push({
+                    key: group_option.key,
+                    value: options,
+                });
+            }, this);
+
+            return filtered_options;
+        },
+
+        // Add the option to sorted_options with the group structure of the select
+        pushSortedOption(sorted_option, option) {
+            if (! this.group) {
+                this.sorted_options.push(sorted_option);
+
+                return;
             }
 
-            const foundInFullOptions = this.full_options.find(option => option.key == normalizedKey);
+            let group_key = this.getOptionGroupKey(option);
+            let group_option = this.sorted_options.find(group => group.key == group_key);
 
-            if (foundInFullOptions) {
-                return foundInFullOptions;
+            if (group_option && Array.isArray(group_option.value)) {
+                group_option.value.push(sorted_option);
+
+                return;
             }
 
-            return null;
+            this.sorted_options.push({
+                key: group_key,
+                value: [sorted_option],
+            });
+        },
+
+        getOptionGroupKey(option) {
+            if (option && option.group) {
+                return option.group.toString();
+            }
+
+            // Group data is not set, so the option is added to the group of its own type
+            let group_option = this.sorted_options.find(function (group) {
+                if (! Array.isArray(group.value)) {
+                    return false;
+                }
+
+                return group.value.some(item => item.option && option && item.option.type == option.type);
+            });
+
+            if (group_option) {
+                return group_option.key.toString();
+            }
+
+            return this.sorted_options.length ? this.sorted_options[0].key.toString() : '';
         },
 
         sortBy(option) {
@@ -850,31 +959,40 @@ export default {
             }
 
             if (this.searchable) {
-                let selected = this.selected;
-                this.sorted_options = [];
-
                 this.setSortedOptions();
 
-                let current_sorted_option = false;
-
-                for (const [key, value] of Object.entries(this.full_options)) {
-                    current_sorted_option = Array.isArray(this.sorted_options) && this.sorted_options.find((option) => option.key == selected);
-
-                    if (selected == value.key && ! current_sorted_option) {
-                        let sorted_option_key = value.option[this.option_field.key] ? value.option[this.option_field.key] : value.option.id;
-                        let sorted_option_value = value.option[this.option_field.value] ? value.option[this.option_field.value] : (value.option.title) ? value.option.title : (value.option.display_name) ? value.option.display_name : value.option.name;
-
-                        this.sorted_options.push({
-                            index: value.index,
-                            key: value.key,
-                            value: value.value,
-                            level: value.level,
-                            mark_new: false,
-                            option: value.option,
-                        });
-                    }
-                }
+                this.keepSelectedOptionInSortedOptions();
             }
+        },
+
+        // The selected option must stay in the list even if it is not listed in the options
+        keepSelectedOptionInSortedOptions() {
+            let selected_keys = this.multiple ? (Array.isArray(this.selected) ? this.selected : []) : [this.selected];
+
+            selected_keys.forEach(function (selected_key) {
+                if (selected_key === null || selected_key === undefined || selected_key === '') {
+                    return;
+                }
+
+                if (this.findOptionInList(this.sorted_options, selected_key)) {
+                    return;
+                }
+
+                let full_option = this.findOptionInList(this.full_options, selected_key);
+
+                if (! full_option) {
+                    return;
+                }
+
+                this.pushSortedOption({
+                    index: full_option.index,
+                    key: full_option.key,
+                    value: full_option.value,
+                    level: full_option.level,
+                    mark_new: false,
+                    option: full_option.option,
+                }, full_option.option);
+            }, this);
         },
 
         removeTag(event) {
@@ -1015,12 +1133,12 @@ export default {
                 this.form.loading = false;
 
                 if (response.data.success) {
-                    this.sorted_options.push({
+                    this.pushSortedOption({
                         key: response.data.data[this.add_new.field.key].toString(),
-                        value: response.data.data[this.add_new.field.value],
+                        value: this.getOptionLabel(response.data.data),
                         level: response.data.data.parent_id ? 1 : 0,
                         option: response.data.data,
-                    });
+                    }, response.data.data);
 
                     this.new_options[response.data.data[this.add_new.field.key]] = response.data.data[this.add_new.field.value];
 
@@ -1078,10 +1196,7 @@ export default {
                 setTimeout(() => {
                     this.loading = false;
 
-                    this.sorted_options = this.full_options.filter(item => {
-                        return item.value.toLowerCase()
-                            .indexOf(query.toLowerCase()) > -1;
-                    });
+                    this.sorted_options = this.filterOptionList(this.full_options, query);
                 }, 200);
             } else {
                 this.setSortedOptions();
@@ -1104,7 +1219,7 @@ export default {
                 this.selected = [];
 
                 selected.forEach(function (select, index) {
-                    if (Array.isArray(this.sorted_options) && this.sorted_options.find((option) => option.key == select)) {
+                    if (this.findOptionInList(this.sorted_options, select)) {
                         this.selected.push(select);
                     }
                 }, this);
