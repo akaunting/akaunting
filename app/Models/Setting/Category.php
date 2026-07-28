@@ -29,7 +29,7 @@ class Category extends Model
 
     protected $table = 'categories';
 
-    protected $appends = ['display_name', 'color_hex_code'];
+    protected $appends = ['display_name', 'color_hex_code', 'title'];
 
     /**
      * Attributes that should be mass-assignable.
@@ -301,18 +301,27 @@ class Category extends Model
     }
 
     /**
+     * Get the name with code.
+     */
+    public function getTitleAttribute(): string
+    {
+        $hideCode = $this->type ? $this->hideCodeCategoryType($this->type) : true;
+
+        $prefix = (!$hideCode && $this->code) ? $this->code . ' - ' : '';
+
+        return $prefix . $this->name;
+    }
+
+    /**
      * Get the display name of the category.
      */
     public function getDisplayNameAttribute(): string
     {
-        $hideCode = $this->type ? $this->hideCodeCategoryType($this->type) : true;
         $typeNames = $this->getCategoryTypes();
 
         $typeName = $this->type ? ($typeNames[$this->type] ?? ucfirst($this->type)) : '';
 
-        $prefix = (!$hideCode && $this->code) ? $this->code . ' - ' : '';
-
-        return $prefix . $this->name . ' (' . $typeName . ')';
+        return $this->title . ' (' . $typeName . ')';
     }
 
     /**
