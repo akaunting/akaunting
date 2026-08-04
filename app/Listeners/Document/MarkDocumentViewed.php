@@ -20,6 +20,11 @@ class MarkDocumentViewed
     {
         $document = $event->document;
 
+        // Preview mode should never mutate document visibility state.
+        if (request()->isPreview($document->company_id)) {
+            return;
+        }
+
         if ($document->status != 'sent') {
             return;
         }

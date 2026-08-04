@@ -13,11 +13,15 @@ class SendDocumentViewNotification
      * Handle the event.
      *
      * @param  $event
-     * @return array
+     * @return void
      */
     public function handle(Event $event)
     {
         $document = $event->document;
+
+        if (request()->isPreview($document->company_id)) {
+            return;
+        }
 
         if (in_array($document->status, [
             'viewed', 'approved', 'received', 'refused', 'partial', 'paid',
