@@ -58,7 +58,7 @@ class DeleteLink extends Component
         $label = '',
         $model = false, $modelId = 'id', $modelName = 'name', string $modelTitle = '', string $modelTable = '',
         $text = '', $type = '',
-        $title = '',  $message = '', 
+        $title = '',  $message = '',
         $action = '', $route = '', $url = '',
         $cancelText = '', $deleteText = '',
         $override = '', $class = '', $textClass = ''
@@ -212,15 +212,6 @@ class DeleteLink extends Component
         $type = '';
 
         if (! empty($this->model)) {
-            $page = '';
-
-            if (! empty($this->route)) {
-                $page = explode('.', $this->route)[0];
-            } elseif (! empty($this->url)) {
-                $page = explode('/', $this->url)[1];
-            }
-
-            $text = $this->text ? $this->text : $page;
             $name = e($this->model->{$this->modelName});
             $name = addslashes($name);
             $name = Str::replace(['\"', '"'], '&quot;', $name);
@@ -254,13 +245,19 @@ class DeleteLink extends Component
             $page = $paths[1];
         }
 
-        $title = trans_choice('general.' . $page, 1);
+        $key = 'general.' . $page;
 
         if (module($page) != null) {
             $group = $page;
             $page = (! empty($this->route)) ? $paths[1] : $paths[2];
 
-            $title = trans_choice($group . '::general.' . $page, 1);
+            $key = $group . '::general.' . $page;
+        }
+
+        $title = trans_choice($key, 1);
+
+        if ($title === $key && ! empty($this->text)) {
+            return $this->text;
         }
 
         return $title;
