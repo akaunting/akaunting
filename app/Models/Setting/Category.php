@@ -400,6 +400,21 @@ class Category extends Model
     }
 
     /**
+     * Get the url of the category row on the index page.
+     *
+     * @return string
+     */
+    public function getRowUrlAttribute()
+    {
+        // If a module has set a custom url, return it directly. i.e. Double Entry sets the general ledger report url
+        if (! empty($this->custom_row_url)) {
+            return $this->custom_row_url;
+        }
+
+        return route('categories.edit', $this->id);
+    }
+
+    /**
      * Get the line actions.
      *
      * @return array

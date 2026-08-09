@@ -1,6 +1,6 @@
 @if ($sub_category->sub_categories)
     @if ($loop->first)
-        <x-table.tr data-collapse="child-{{ $parent_category->id }}" data-animation class="relative flex items-center hover:bg-gray-100 px-1 group border-b transition-all collapse-sub" href="{{ route('categories.edit', $sub_category->id) }}">
+        <x-table.tr data-collapse="child-{{ $parent_category->id }}" data-animation class="relative flex items-center hover:bg-gray-100 px-1 group border-b transition-all collapse-sub" href="{{ $parent_category->row_url }}">
             <x-table.td kind="bulkaction">
                 <x-index.bulkaction.single id="{{ $parent_category->id }}" name="{{ $parent_category->name }}" disabled />
             </x-table.td>
@@ -43,7 +43,7 @@
         </x-table.tr>
     @endif
 
-    <x-table.tr data-collapse="child-{{ $parent_category->id }}" data-animation class="relative flex items-center hover:bg-gray-100 px-1 group border-b transition-all collapse-sub" href="{{ route('categories.edit', $sub_category->id) }}">
+    <x-table.tr data-collapse="child-{{ $parent_category->id }}" data-animation class="relative flex items-center hover:bg-gray-100 px-1 group border-b transition-all collapse-sub" href="{{ $sub_category->row_url }}">
         <x-table.td kind="bulkaction">
             <x-index.bulkaction.single id="{{ $sub_category->id }}" name="{{ $sub_category->name }}" />
         </x-table.td>
