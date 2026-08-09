@@ -54,10 +54,15 @@ class Date extends Carbon
             return parent::rawCreateFromFormat($format, $time, $timezone);
         }
 
+        // Short month and day names are abbreviated with a dot in some locales, but they can not be parsed with it
+        $times = array_unique([$time, preg_replace('/(\p{L})\./u', '$1', $time)]);
+
         foreach (static::getFallbackLocales() as $locale) {
-            try {
-                return parent::createFromLocaleFormat($format, $locale, $time, $timezone);
-            } catch (\Throwable $e) {
+            foreach ($times as $value) {
+                try {
+                    return parent::createFromLocaleFormat($format, $locale, $value, $timezone);
+                } catch (\Throwable $e) {
+                }
             }
         }
 

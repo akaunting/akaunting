@@ -276,27 +276,27 @@ class ProfitLoss extends Report
 
                 break;
             case 'quarterly':
-                [$d_start, $d_end] = array_map('trim', explode(' - ', $date, 2));
+                [$d_start, $d_end] = array_pad(array_map('trim', explode(' - ', $date, 2)), 2, trim($date));
 
                 $range = [
-                    Date::createFromFormat('M Y', $d_start)->startOfMonth()->format('Y-m-d'),
-                    Date::createFromFormat('M Y', $d_end)->endOfMonth()->format('Y-m-d'),
+                    $this->safeParsePeriodDate($d_start, ['M Y'])->startOfMonth()->format('Y-m-d'),
+                    $this->safeParsePeriodDate($d_end, ['M Y'])->endOfMonth()->format('Y-m-d'),
                 ];
 
                 break;
             case 'weekly':
-                [$d_start, $d_end] = array_map('trim', explode(' - ', $date, 2));
+                [$d_start, $d_end] = array_pad(array_map('trim', explode(' - ', $date, 2)), 2, trim($date));
 
                 $range = [
-                    Date::createFromFormat('d M Y', $d_start)->startOfDay()->format('Y-m-d'),
-                    Date::createFromFormat('d M Y', $d_end)->endOfDay()->format('Y-m-d'),
+                    $this->safeParsePeriodDate($d_start, ['d M Y'])->startOfDay()->format('Y-m-d'),
+                    $this->safeParsePeriodDate($d_end, ['d M Y'])->endOfDay()->format('Y-m-d'),
                 ];
 
                 break;
             default: // monthly
                 $range = [
-                    Date::createFromFormat('M Y', $date)->startOfMonth()->format('Y-m-d'),
-                    Date::createFromFormat('M Y', $date)->endOfMonth()->format('Y-m-d'),
+                    $this->safeParsePeriodDate($date, ['M Y'])->startOfMonth()->format('Y-m-d'),
+                    $this->safeParsePeriodDate($date, ['M Y'])->endOfMonth()->format('Y-m-d'),
                 ];
 
                 break;
@@ -312,5 +312,24 @@ class ProfitLoss extends Report
         }
 
         return $range;
+    }
+
+    private function safeParsePeriodDate(string $value, array $formats): Date
+    {
+        $value = trim($value);
+
+        foreach ($formats as $format) {
+            try {
+                return Date::createFromFormat($format, $value);
+            } catch (\Throwable $e) {
+                // Try the next format.
+            }
+        }
+
+        try {
+            return Date::parse($value);
+        } catch (\Throwable $e) {
+            return Date::today();
+        }
     }
 }
