@@ -248,19 +248,26 @@ class ProfitLoss extends Report
 
     public function getDrillDownUrl(string $date, int|string $id): string
     {
-        [$date_start, $date_end] = $this->getDateRangeForDrillDown($date);
-
         $group = $this->getGroup();
 
-        // category_id:519 paid_at>=2026-03-01 paid_at<=2026-03-29
-        $search = implode(
-            separator: ' ',
-            array: [
-                "{$group}_id:{$id}",
-                "paid_at>={$date_start}",
-                "paid_at<={$date_end}",
-            ],
-        );
+        try {
+            [$date_start, $date_end] = $this->getDateRangeForDrillDown($date);
+
+            // category_id:519 paid_at>=2026-03-01 paid_at<=2026-03-29
+            $search = implode(
+                separator: ' ',
+                array: [
+                    "{$group}_id:{$id}",
+                    "paid_at>={$date_start}",
+                    "paid_at<={$date_end}",
+                ],
+            );
+        } catch (\Throwable $e) {
+            // A period label that can't be parsed back into a date range must not
+            // break the whole report render — fall back to a link filtered by
+            // category only (no date range) instead of throwing.
+            $search = "{$group}_id:{$id}";
+        }
 
         return route('transactions.index') . '?list_records=all&search=' . $search;
     }

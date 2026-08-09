@@ -15,7 +15,7 @@
                 'space-y-2 my-3' => !$is_print
             ])
             >
-            @foreach($class->row_tree_nodes[$table_key] as $id => $node)
+            @foreach($class->row_tree_nodes[$table_key] ?? [] as $id => $node)
                 @include($class->views['summary.table.row'], ['tree_level' => 0])
             @endforeach
         </ul>
