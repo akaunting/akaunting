@@ -33,7 +33,7 @@ class DocumentTransactions extends ApiController
      */
     public function index($document_id)
     {
-        $transactions = Transaction::with(['document', 'taxes'])->documentId($document_id)->get();
+        $transactions = Transaction::with(['document', 'owner', 'taxes'])->documentId($document_id)->get();
 
         return Resource::collection($transactions);
     }

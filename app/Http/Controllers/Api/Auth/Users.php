@@ -18,7 +18,7 @@ class Users extends ApiController
      */
     public function index()
     {
-        $users = user_model_class()::with('companies', 'media', 'permissions', 'roles')->isNotCustomer()->collect();
+        $users = user_model_class()::with('companies', 'media', 'owner', 'permissions', 'roles')->isNotCustomer()->collect();
 
         return Resource::collection($users);
     }
@@ -36,9 +36,9 @@ class Users extends ApiController
 
         // Check if we're querying by id or email
         if (is_numeric($id)) {
-            $user = $model_class::with('companies', 'permissions', 'roles')->find($id);
+            $user = $model_class::with('companies', 'owner', 'permissions', 'roles')->find($id);
         } else {
-            $user = $model_class::with('companies', 'permissions', 'roles')->where('email', $id)->first();
+            $user = $model_class::with('companies', 'owner', 'permissions', 'roles')->where('email', $id)->first();
         }
 
         if (! $user instanceof $model_class) {

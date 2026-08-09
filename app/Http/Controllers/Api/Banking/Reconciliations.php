@@ -19,7 +19,7 @@ class Reconciliations extends ApiController
      */
     public function index()
     {
-        $reconciliations = Reconciliation::with('account')->collect();
+        $reconciliations = Reconciliation::with('account', 'owner')->collect();
 
         return Resource::collection($reconciliations);
     }

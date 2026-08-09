@@ -20,7 +20,7 @@ class Transfers extends ApiController
     public function index()
     {
         $transfers = Transfer::with(
-            'expense_transaction', 'expense_transaction.account', 'income_transaction', 'income_transaction.account'
+            'expense_transaction', 'expense_transaction.account', 'income_transaction', 'income_transaction.account', 'owner'
         )->collect('expense_transaction.paid_at');
 
         $special_key = [

@@ -23,7 +23,7 @@ class Dashboards extends ApiController
      */
     public function index()
     {
-        $dashboards = user()->dashboards()->with('widgets')->collect();
+        $dashboards = user()->dashboards()->with('owner', 'widgets')->collect();
 
         return Resource::collection($dashboards);
     }
