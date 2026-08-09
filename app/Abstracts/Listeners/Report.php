@@ -280,33 +280,43 @@ abstract class Report
     {
         $nodes = [];
 
-        foreach ($categories as $id => $name) {
-            $category = Category::withSubCategory()->find($id);
+        // Load all categories once and walk the tree in memory (avoids the per-node N+1).
+        $all = Category::withSubCategory()->orderBy('name')->getWithoutChildren();
 
-            if (!is_null($category->parent_id)) {
+        $keyed = $all->keyBy('id');
+        $children = $all->groupBy('parent_id');
+
+        foreach ($categories as $id => $name) {
+            $category = $keyed->get($id);
+
+            if (is_null($category) || ! is_null($category->parent_id)) {
                 unset($categories[$id]);
 
                 continue;
             }
 
-            $nodes[$id] = $this->getSubCategories($category);
+            $nodes[$id] = $this->getSubCategories($category, $children);
         }
 
         return $nodes;
     }
 
-    public function getSubCategories($category)
+    public function getSubCategories($category, $children = null)
     {
-        if ($category->sub_categories->count() == 0) {
+        // Use the preloaded parent => children map when available; otherwise fall
+        // back to the relation so the method still works when called on its own.
+        $sub_categories_list = ! is_null($children)
+            ? ($children->get($category->id) ?? collect())
+            : $category->sub_categories;
+
+        if ($sub_categories_list->count() == 0) {
             return null;
         }
 
         $sub_categories = [];
 
-        foreach ($category->sub_categories as $sub_category) {
-            $sub_category->load('sub_categories');
-
-            $sub_categories[$sub_category->id] = $this->getSubCategories($sub_category);
+        foreach ($sub_categories_list as $sub_category) {
+            $sub_categories[$sub_category->id] = $this->getSubCategories($sub_category, $children);
         }
 
         if (!empty($sub_categories)) {
