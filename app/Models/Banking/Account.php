@@ -125,6 +125,18 @@ class Account extends Model
         // Opening Balance
         $total = $this->opening_balance;
 
+        // Use the totals loaded by withSum() when the query provided them, so listings
+        // don't run an aggregate query per account.
+        if (
+            array_key_exists('income_transactions_sum_amount', $this->attributes)
+            || array_key_exists('expense_transactions_sum_amount', $this->attributes)
+        ) {
+            $total += $this->attributes['income_transactions_sum_amount'] ?? 0;
+            $total -= $this->attributes['expense_transactions_sum_amount'] ?? 0;
+
+            return $total;
+        }
+
         // Sum Incomes
         $total += $this->income_transactions()->sum('amount');
 
