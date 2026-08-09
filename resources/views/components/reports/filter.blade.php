@@ -83,6 +83,7 @@
             $filters[] = [
                 'key'       => $key,
                 'value'     => $value,
+                'operator'  => '=',
                 'type'      => $type,
                 'url'       => $url,
                 'values'    => $filter_values,
