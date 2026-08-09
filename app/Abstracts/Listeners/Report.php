@@ -276,6 +276,11 @@ abstract class Report
         }
     }
 
+    /**
+     * Preloaded parent => children map, used while building the category tree.
+     */
+    protected $preloaded_sub_categories = null;
+
     public function getCategoriesNodes($categories)
     {
         $nodes = [];
@@ -284,7 +289,8 @@ abstract class Report
         $all = Category::withSubCategory()->orderBy('name')->getWithoutChildren();
 
         $keyed = $all->keyBy('id');
-        $children = $all->groupBy('parent_id');
+
+        $this->preloaded_sub_categories = $all->groupBy('parent_id');
 
         foreach ($categories as $id => $name) {
             $category = $keyed->get($id);
@@ -295,28 +301,29 @@ abstract class Report
                 continue;
             }
 
-            $nodes[$id] = $this->getSubCategories($category, $children);
+            $nodes[$id] = $this->getSubCategories($category);
         }
+
+        $this->preloaded_sub_categories = null;
 
         return $nodes;
     }
 
-    public function getSubCategories($category, $children = null)
+    public function getSubCategories($category)
     {
-        // Use the preloaded parent => children map when available; otherwise fall
-        // back to the relation so the method still works when called on its own.
-        $sub_categories_list = ! is_null($children)
-            ? ($children->get($category->id) ?? collect())
+        // Read the children from the preloaded map when getCategoriesNodes() filled it in.
+        $sub_categories_list = ! is_null($this->preloaded_sub_categories)
+            ? ($this->preloaded_sub_categories->get($category->id) ?? collect())
             : $category->sub_categories;
 
-        if ($sub_categories_list->count() == 0) {
+        if ($sub_categories->count() == 0) {
             return null;
         }
 
         $sub_categories = [];
 
         foreach ($sub_categories_list as $sub_category) {
-            $sub_categories[$sub_category->id] = $this->getSubCategories($sub_category, $children);
+            $sub_categories[$sub_category->id] = $this->getSubCategories($sub_category);
         }
 
         if (!empty($sub_categories)) {
