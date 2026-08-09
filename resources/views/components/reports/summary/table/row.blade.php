@@ -1,7 +1,7 @@
 <!-- if it HAS NOT subcategories -->
 @if (is_null($node))
     @php
-        $rows = $class->row_values[$table_key][$id];
+        $rows = $class->row_values[$table_key][$id] ?? [];
     @endphp
 
     @if ($row_total = array_sum($rows))
@@ -26,7 +26,7 @@
                 @else
                 <div style="display:flex; align-items: center;">
                 @endif
-                    <span>{{ $class->row_names[$table_key][$id] }}</span>
+                    <span>{{ $class->row_names[$table_key][$id] ?? '' }}</span>
                 </div>
                 <span>{{ $class->has_money ? money($row_total) : $row_total }}</span>
             </div>
@@ -38,15 +38,15 @@
 @if (is_array($node))
     <!-- parent part -->
     @php
-        $parent_row_values = $class->row_values[$table_key][$id];
+        $parent_row_values = $class->row_values[$table_key][$id] ?? [];
 
         array_walk_recursive($node, function ($value, $key) use ($class, $table_key, $id, &$parent_row_values) {
             if ($key == $id) {
                 return;
             }
 
-            foreach($class->row_values[$table_key][$key] as $date => $amount) {
-                $parent_row_values[$date] += $amount;
+            foreach(($class->row_values[$table_key][$key] ?? []) as $date => $amount) {
+                $parent_row_values[$date] = ($parent_row_values[$date] ?? 0) + $amount;
             }
         });
     @endphp
@@ -64,9 +64,9 @@
         @endif
             <div style="display: flex; justify-content: space-between;">
                 <div style="display:flex; align-items: center; padding-inline-start: {{ $tree_level * 20 }}px;">
-                    <span>{{ $class->row_names[$table_key][$id] }}</span>
+                    <span>{{ $class->row_names[$table_key][$id] ?? '' }}</span>
                     @if (! $is_print)
-                        @if (array_sum($parent_row_values) != array_sum($class->row_values[$table_key][$id]))
+                        @if (array_sum($parent_row_values) != array_sum($class->row_values[$table_key][$id] ?? []))
                             <button type="button"  class="align-text-top flex" node="child-{{ $id }}" onClick="toggleSub('child-{{ $id }}', event)">
                                 <span class="material-icons transform rotate-90 transition-all text-lg leading-none">navigate_next</span>
                             </button>
@@ -79,7 +79,7 @@
     @endif
 
     <!-- no categories part -->
-    @php $rows = $class->row_values[$table_key][$id]; @endphp
+    @php $rows = $class->row_values[$table_key][$id] ?? []; @endphp
     @if (($row_total = array_sum($rows)) && array_sum($parent_row_values) != array_sum($rows))
     <li
         @class([
@@ -89,7 +89,7 @@
         data-collapse="child-{{ $id }}">
         <div style="display: flex; justify-content: space-between;">
             <div style="display:flex; align-items: center; padding-inline-start: {{ ($tree_level + 1) * 20 }}px;">
-                <span>{{ $class->row_names[$table_key][$id] }}</span>
+                <span>{{ $class->row_names[$table_key][$id] ?? '' }}</span>
             </div>
             <span>{{ $class->has_money ? money($row_total) : $row_total }}</span>
         </div>
