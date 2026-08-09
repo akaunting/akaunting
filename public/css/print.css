@@ -43,8 +43,18 @@ html[dir="rtl"] .right-column {
     font-size: 10px;
 }
 
-.text-medium {
-    font-weight: 500;
+/* Same DomPDF numeric-weight problem as .font-semibold below; 500 has no matching
+   variant either, so it resolves to `normal` for DomPDF and back to 500 for browsers. */
+.text-medium,
+.font-medium {
+    font-weight: normal;
+}
+
+@supports (display: flex) {
+    .text-medium,
+    .font-medium {
+        font-weight: 500;
+    }
 }
 
 .text-normal {
@@ -55,20 +65,26 @@ html[dir="rtl"] .right-column {
     font-size: 12px;
 }
 
-.text-semibold {
-    font-weight: 600;
+/* DomPDF cannot map the numeric weight 600 to a variant of the loaded family,
+   so it falls back to the default Base-14 font (Helvetica/WinAnsi). That font has
+   no Cyrillic/Greek glyphs, so those characters print as "?" (Latin looks fine,
+   which is why this only shows up on non-Latin locales). The `bold` keyword maps
+   to DejaVu Sans Bold correctly. Browsers get 600 back in the @supports block below. */
+.text-semibold,
+.font-semibold {
+    font-weight: bold;
 }
 
-.font-semibold {
-    font-weight: 600;
+/* Browsers keep the original 600 weight; DomPDF ignores @supports. */
+@supports (display: flex) {
+    .text-semibold,
+    .font-semibold {
+        font-weight: 600;
+    }
 }
 
 .font-bold {
     font-weight: 700;
-}
-
-.font-medium {
-    font-weight: 500;
 }
 
 .row {
