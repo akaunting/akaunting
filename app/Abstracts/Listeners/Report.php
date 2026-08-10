@@ -316,7 +316,7 @@ abstract class Report
             ? ($this->preloaded_sub_categories->get($category->id) ?? collect())
             : $category->sub_categories;
 
-        if ($sub_categories->count() == 0) {
+        if ($sub_categories_list->count() == 0) {
             return null;
         }
 
