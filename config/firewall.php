@@ -65,7 +65,8 @@ return [
         'firewall.session',
         //'firewall.sqli',
         'firewall.swear',
-        'firewall.xss',
+        //'firewall.xss',
+        \App\Http\Middleware\Firewall\Xss::class,
         //'App\Http\Middleware\YourCustomRule',
     ],
 
@@ -426,11 +427,8 @@ return [
                 '#(<[^>]+[\x00-\x20\"\'\/])(form|formaction|on\w*|style|xmlns|xlink:href)[^>]*>?#iUu',
 
                 // javascript:, livescript:, vbscript:, mocha: protocols (literal)
-                '!((java|live|vb)script|mocha|feed|data):(\w)*!iUu',
+                '!((java|live|vb)script|mocha):|(feed|data):[^,;\s]*[,;]!iUu',
                 '#-moz-binding[\x00-\x20]*:#u',
-
-                // HTML entity-encoded protocol bypass (e.g. java&#115;cript: or java\u0073cript:)
-                '/j[\s\S]*a[\s\S]*v[\s\S]*a[\s\S]*s[\s\S]*c[\s\S]*r[\s\S]*i[\s\S]*p[\s\S]*t[\s\S]*:/iu',
 
                 // Unneeded tags
                 '#</*(applet|meta|xml|blink|link|style|script|embed|object|iframe|frame|frameset|ilayer|layer|bgsound|title|base|img)[^>]*>?#i'
