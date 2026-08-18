@@ -108,6 +108,9 @@ abstract class Form extends Component
     /** @var bool */
     public $hideCurrency;
 
+    /** @var array */
+    public $types = [];
+
     /**
      * Create a new component instance.
      *
@@ -120,7 +123,8 @@ abstract class Form extends Component
         bool $searchable = false, bool $disabled = false, bool $readonly = false, bool $required = true, bool $notRequired = false,
         string $formGroupClass = '', string $inputGroupClass = '', $icon = '', $trailing = '',
         $dynamicAttributes = '',
-        bool $hideCurrency = false
+        bool $hideCurrency = false,
+        array $types = []
     ) {
         $this->type = $this->getType($type);
         $this->name = $this->getName($name);
@@ -160,6 +164,8 @@ abstract class Form extends Component
         $this->setDynamicAttributes($dynamicAttributes);
 
         $this->hideCurrency = $hideCurrency;
+
+        $this->types = $types;
     }
 
     protected function getType($type)
