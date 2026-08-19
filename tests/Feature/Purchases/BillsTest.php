@@ -17,6 +17,14 @@ use Tests\Feature\FeatureTestCase;
 
 class BillsTest extends FeatureTestCase
 {
+    public function testItShouldUseVendorPaymentTemplateForBillPayments()
+    {
+        $email_template = config('type.document.' . Document::BILL_TYPE . '.transaction.email_template');
+
+        $this->assertEquals('payment_made_vendor', $email_template);
+        $this->assertNotEquals('invoice_payment_customer', $email_template);
+    }
+
     public function testItShouldSeeBillListPage()
     {
         $this->loginAs()
