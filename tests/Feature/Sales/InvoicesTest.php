@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Notification as NotificationFacade;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use Tests\Feature\FeatureTestCase;
+use App\Jobs\Banking\CreateBankingDocumentTransaction;
+use App\Jobs\Banking\UpdateBankingDocumentTransaction;
+use App\Models\Banking\Account;
 
 class InvoicesTest extends FeatureTestCase
 {
@@ -366,5 +369,39 @@ class InvoicesTest extends FeatureTestCase
             'subject'       => $notification->getSubject(),
             'body'          => $notification->getBody(),
         ];
+    }
+
+
+    public function testItShouldPreserveSubmittedCurrencyRateOnPaymentUpdate()
+    {
+        $this->loginAs();
+
+        $invoice = $this->dispatch(new CreateDocument($this->getRequest()));
+
+        $account = Account::first();
+
+        $payment = [
+            'account_id'     => $account->id,
+            'paid_at'        => Carbon::now()->toDateTimeString(),
+            'amount'         => 10,
+            'currency_code'  => $invoice->currency_code,
+            'currency_rate'  => 1.1628,
+            'payment_method' => setting('default.payment_method'),
+        ];
+
+        $transaction = $this->dispatch(
+            new CreateBankingDocumentTransaction($invoice, $payment)
+        );
+
+        $payment['amount'] = 11;
+
+        $transaction = $this->dispatch(
+            new UpdateBankingDocumentTransaction($invoice, $transaction, $payment)
+        );
+
+        $this->assertDatabaseHas('transactions', [
+            'id'            => $transaction->id,
+            'currency_rate' => 1.1628,
+        ]);
     }
 }
