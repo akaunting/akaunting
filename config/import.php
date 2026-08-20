@@ -7,6 +7,15 @@ use App\Models\Setting\Category;
 
 return [
 
+    // Sales
+    'sales' => [
+
+        // Estimates is provided by the Estimates module, not the core sales namespace.
+        'estimates' => [
+            'title_type' => 'estimates::general.estimates',
+        ],
+    ],
+
     // Group
     'banking' => [
 
