@@ -6,7 +6,6 @@ use App\Abstracts\View\Components\Form;
 use App\Models\Setting\Category as Model;
 use App\Traits\Categories;
 use App\Traits\Modules;
-use Illuminate\Support\Arr;
 
 class Category extends Form
 {
@@ -39,7 +38,7 @@ class Category extends Form
             $this->name = 'category_id';
         }
 
-        $types = $this->getTypeCategoryTypes($this->type);
+        $types = ! empty($this->types) ? $this->types : $this->getTypeCategoryTypes($this->type);
         $types_string = implode(',', $types);
 
         $this->path = route('modals.categories.create', ['type' => $this->type]);

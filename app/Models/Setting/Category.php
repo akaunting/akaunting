@@ -205,6 +205,18 @@ class Category extends Model
     }
 
     /**
+     * Scope to include only expense and direct cost.
+     * Uses Categories trait to support multiple expense and direct cost types (e.g. from modules).
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeExpenseAndDirectCost($query)
+    {
+        return $query->whereIn($this->qualifyColumn('type'), array_merge($this->getDirectCostCategoryTypes(), $this->getExpenseCategoryTypes()));
+    }
+
+    /**
      * Scope to include only item.
      * Uses Categories trait to support multiple item types (e.g. from modules).
      *

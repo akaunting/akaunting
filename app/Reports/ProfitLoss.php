@@ -55,7 +55,7 @@ class ProfitLoss extends Report
                 $expenses_query = $this->getTransactionQuery(Transaction::EXPENSE_TYPE);
 
                 // Incomes
-                $incomes = $incomes_query->get();
+                $incomes = $incomes_query->whereHas('category', fn (Builder $q) => $q->income())->get();
                 $this->setTotals($incomes, 'paid_at', false, Category::INCOME_TYPE, false);
 
                 // Direct Costs: Expenses
@@ -64,7 +64,7 @@ class ProfitLoss extends Report
                 $this->setTotals($direct_costs_expenses, 'paid_at', false, Category::DIRECT_COST_TYPE, false);
 
                 // Expenses
-                $expenses = $expenses_query->whereDoesntHave('category', fn (Builder $q) => $q->directCost())->get();
+                $expenses = $expenses_query->whereHas('category', fn (Builder $q) => $q->expense())->get();
                 $this->setTotals($expenses, 'paid_at', false, Category::EXPENSE_TYPE, false);
 
                 break;
@@ -78,7 +78,7 @@ class ProfitLoss extends Report
                 $invoices = $invoices_query->get();
                 Recurring::reflect($invoices, 'issued_at');
                 $this->setTotals(
-                    items: $this->flattenDocumentItems($invoices),
+                    items: $this->flattenDocumentItems($invoices)->filter(fn (DocumentItem $i) => $i->category?->isIncomeCategory()),
                     date_field: 'issued_at',
                     check_type: false,
                     table: Category::INCOME_TYPE,
@@ -86,7 +86,7 @@ class ProfitLoss extends Report
                 );
 
                 // Incomes
-                $incomes = $incomes_query->get();
+                $incomes = $incomes_query->whereHas('category', fn (Builder $q) => $q->income())->get();
                 Recurring::reflect($incomes, 'paid_at');
                 $this->setTotals($incomes, 'paid_at', false, Category::INCOME_TYPE, false);
 
@@ -102,7 +102,7 @@ class ProfitLoss extends Report
                     with_tax: false,
                 );
                 $this->setTotals(
-                    items: $flat_bill_items->filter(fn (DocumentItem $i) => ! $i->category?->isDirectCostCategory()),
+                    items: $flat_bill_items->filter(fn (DocumentItem $i) => $i->category?->isExpenseCategory()),
                     date_field: 'issued_at',
                     check_type: false,
                     table: Category::EXPENSE_TYPE,
@@ -116,7 +116,7 @@ class ProfitLoss extends Report
                 $this->setTotals($direct_costs_expenses, 'paid_at', false, Category::DIRECT_COST_TYPE, false);
 
                 // Expenses
-                $expenses = $expenses_query->whereDoesntHave('category', fn (Builder $q) => $q->directCost())->get();
+                $expenses = $expenses_query->whereHas('category', fn (Builder $q) => $q->expense())->get();
                 Recurring::reflect($expenses, 'paid_at');
                 $this->setTotals($expenses, 'paid_at', false, Category::EXPENSE_TYPE, false);
 
@@ -156,7 +156,7 @@ class ProfitLoss extends Report
     public function setNetProfit(): void
     {
         foreach ($this->footer_totals as $table => $dates) {
-            if (! in_array($table, [Category::INCOME_TYPE, Category::EXPENSE_TYPE])) {
+            if (! in_array($table, [Category::INCOME_TYPE, Category::DIRECT_COST_TYPE, Category::EXPENSE_TYPE])) {
                 continue;
             }
 
