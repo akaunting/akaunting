@@ -26,13 +26,17 @@
         {{ $attributes }}
     >
         <template #option="{option}">
-            <div class="flex items-center">
-                <span class="{{ (! $group) ? 'ltr:ml-2 rtl:mr-2 ' : '' }}w-5 h-4 rounded-full" :style="{backgroundColor: option.option ? option.option.color_hex_code : ''}"></span>
+            <div class="flex items-center{{ $group ? ' justify-between w-full' : '' }}">
+                <div class="{{ (! $group) ? 'ltr:ml-2 rtl:mr-2 ' : '' }}w-4 h-4 rounded-full" :style="{backgroundColor: option.option ? option.option.color_hex_code : ''}"></div>
 
                 @if ($option_field['value'] == 'title')
-                <span>@{{ option.option && option.option.title ? option.option.title : option.value }}</span>
+                <div class="{{ $group ? 'flex-1 ltr:ml-2 rtl:mr-2' : '' }}">@{{ option.option && option.option.title ? option.option.title : option.value }}</div>
                 @else
-                <span>@{{ option.option && option.option.name ? option.option.name : option.value }}</span>
+                <div class="{{ $group ? 'flex-1 ltr:ml-2 rtl:mr-2' : '' }}">@{{ option.option && option.option.name ? option.option.name : option.value }}</div>
+                @endif
+
+                @if ($group)
+                <div class="text-xs text-gray-400 shrink-0 ltr:ml-auto rtl:mr-auto">@{{ option.option && option.option.group ? option.option.group : '' }}</div>
                 @endif
             </div>
         </template>
@@ -62,13 +66,17 @@
         {{ $attributes }}
     >
         <template #option="{option}">
-            <div class="flex items-center">
-                <span class="{{ (! $group) ? 'ltr:ml-2 rtl:mr-2 ' : '' }}w-5 h-4 rounded-full" :style="{backgroundColor: option.option ? option.option.color_hex_code : ''}"></span>
+            <div class="flex items-center{{ $group ? ' justify-between w-full' : '' }}">
+                <div class="{{ (! $group) ? 'ltr:ml-2 rtl:mr-2 ' : '' }}w-4 h-4 rounded-full" :style="{backgroundColor: option.option ? option.option.color_hex_code : ''}"></div>
 
                 @if ($option_field['value'] == 'title')
-                <span>@{{ option.option && option.option.title ? option.option.title : option.value }}</span>
+                <div class="{{ $group ? 'flex-1 ltr:ml-2 rtl:mr-2' : '' }}">@{{ option.option && option.option.title ? option.option.title : option.value }}</div>
                 @else
-                <span>@{{ option.option && option.option.name ? option.option.name : option.value }}</span>
+                <div class="{{ $group ? 'flex-1 ltr:ml-2 rtl:mr-2' : '' }}">@{{ option.option && option.option.name ? option.option.name : option.value }}</div>
+                @endif
+
+                @if ($group)
+                <div class="text-xs text-gray-400 shrink-0 ltr:ml-auto rtl:mr-auto">@{{ option.option && option.option.group ? option.option.group : '' }}</div>
                 @endif
             </div>
         </template>
@@ -98,13 +106,17 @@
         {{ $attributes }}
     >
         <template #option="{option}">
-            <div class="flex items-center">
-                <span class="{{ (! $group) ? 'ltr:ml-2 rtl:mr-2 ' : '' }}w-5 h-4 rounded-full" :style="{backgroundColor: option.option ? option.option.color_hex_code : ''}"></span>
+            <div class="flex items-center{{ $group ? ' justify-between w-full' : '' }}">
+                <div class="{{ (! $group) ? 'ltr:ml-2 rtl:mr-2 ' : '' }}w-4 h-4 rounded-full" :style="{backgroundColor: option.option ? option.option.color_hex_code : ''}"></div>
 
                 @if ($option_field['value'] == 'title')
-                <span>@{{ option.option && option.option.title ? option.option.title : option.value }}</span>
+                <div class="{{ $group ? 'flex-1 ltr:ml-2 rtl:mr-2' : '' }}">@{{ option.option && option.option.title ? option.option.title : option.value }}</div>
                 @else
-                <span>@{{ option.option && option.option.name ? option.option.name : option.value }}</span>
+                <div class="{{ $group ? 'flex-1 ltr:ml-2 rtl:mr-2' : '' }}">@{{ option.option && option.option.name ? option.option.name : option.value }}</div>
+                @endif
+
+                @if ($group)
+                <div class="text-xs text-gray-400 shrink-0 ltr:ml-auto rtl:mr-auto">@{{ option.option && option.option.group ? option.option.group : '' }}</div>
                 @endif
             </div>
         </template>
@@ -128,15 +140,22 @@
         {{ $attributes }}
     >
         <template #option="{option}">
-            <div class="flex items-center">
-                <span class="{{ (! $group) ? 'ltr:ml-2 rtl:mr-2 ' : '' }}w-5 h-4 rounded-full" :style="{backgroundColor: option.option ? option.option.color_hex_code : ''}"></span>
+            <div class="flex items-center{{ $group ? ' justify-between w-full' : '' }}">
+                <div class="{{ (! $group) ? 'ltr:ml-2 rtl:mr-2 ' : '' }}w-4 h-4 rounded-full" :style="{backgroundColor: option.option ? option.option.color_hex_code : ''}"></div>
 
                 @if ($option_field['value'] == 'title')
-                <span>@{{ option.option && option.option.title ? option.option.title : option.value }}</span>
+                <div class="{{ $group ? 'flex-1 ltr:ml-2 rtl:mr-2' : '' }}">@{{ option.option && option.option.title ? option.option.title : option.value }}</div>
                 @else
-                <span>@{{ option.option && option.option.name ? option.option.name : option.value }}</span>
+                <div class="{{ $group ? 'flex-1 ltr:ml-2 rtl:mr-2' : '' }}">@{{ option.option && option.option.name ? option.option.name : option.value }}</div>
+                @endif
+
+                @if ($group)
+                <div class="text-xs text-gray-400 shrink-0 ltr:ml-auto rtl:mr-auto">@{{ option.option && option.option.group ? option.option.group : '' }}</div>
                 @endif
             </div>
         </template>
     </x-form.group.select>
 @endif
+
+
+
