@@ -10,6 +10,7 @@ use App\Interfaces\Job\ShouldUpdate;
 use App\Jobs\Document\CreateDocumentItemsAndTotals;
 use App\Models\Document\Document;
 use App\Traits\Relationships;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class UpdateDocument extends Job implements ShouldUpdate
@@ -20,19 +21,23 @@ class UpdateDocument extends Job implements ShouldUpdate
     {
         $this->authorize();
 
-        if (empty($this->request['amount'])) {
-            $this->request['amount'] = 0;
-        }
+        // An absent items key is a partial update; rebuilding from it would force delete the lines
+        $has_items = $this->request->has('items');
+
+        // Derived from the lines, never taken from the caller
+        $this->request['amount'] = $has_items ? 0 : $this->model->amount;
 
         // Disable this lines for global discount issue fixed ( https://github.com/akaunting/akaunting/issues/2797 )
-        $this->request['discount_rate'] = $this->request['discount'] ?? null;
+        if ($this->request->has('discount')) {
+            $this->request['discount_rate'] = $this->request['discount'];
+        }
 
         event(new DocumentUpdating($this->model, $this->request));
 
         // Track original contact_id to sync transactions if it changes
         $originalContactId = $this->model->contact_id;
 
-        \DB::transaction(function () use ($originalContactId) {
+        \DB::transaction(function () use ($originalContactId, $has_items) {
             // Upload attachment
             if ($this->request->file('attachment')) {
                 $this->deleteMediaModel($this->model, 'attachment', $this->request);
@@ -48,28 +53,32 @@ class UpdateDocument extends Job implements ShouldUpdate
                 $this->deleteMediaModel($this->model, 'attachment', $this->request);
             }
 
-            $this->deleteRelationships($this->model, ['items', 'item_taxes', 'totals'], true);
+            if ($has_items) {
+                $this->deleteRelationships($this->model, ['items', 'item_taxes', 'totals'], true);
 
-            $this->dispatch(new CreateDocumentItemsAndTotals($this->model, $this->request));
+                $this->dispatch(new CreateDocumentItemsAndTotals($this->model, $this->request));
+            }
 
             $this->model->paid_amount = $this->model->paid;
 
             event(new PaidAmountCalculated($this->model));
 
             if ($this->model->paid_amount > 0) {
-                if ($this->request['amount'] == $this->model->paid_amount) {
-                    $this->request['status'] = 'paid';
-                }
+                // Rounded before comparing, otherwise a float cent keeps a settled document partial
+                $currency_code = $this->request['currency_code'] ?? $this->model->currency_code;
+                $precision = currency($currency_code)->getPrecision();
 
-                if ($this->request['amount'] > $this->model->paid_amount) {
-                    $this->request['status'] = 'partial';
-                }
+                $amount = round((float) $this->request['amount'], $precision);
+                $paid = round((float) $this->model->paid_amount, $precision);
+
+                // At or below what was already paid counts as settled, including an overpayment
+                $this->request['status'] = ($amount > $paid) ? 'partial' : 'paid';
             }
 
             unset($this->model->reconciled);
             unset($this->model->paid_amount);
 
-            $this->model->update($this->request->all());
+            $this->model->update($this->getUpdatePayload());
 
             // Sync transaction contact_id if document contact changed (skip reconciled transactions)
             if (isset($this->request['contact_id']) && $originalContactId != $this->request['contact_id']) {
@@ -84,6 +93,14 @@ class UpdateDocument extends Job implements ShouldUpdate
         event(new DocumentUpdated($this->model, $this->request));
 
         return $this->model;
+    }
+
+    /**
+     * The attributes an update may write, without the ones that identify the document.
+     */
+    protected function getUpdatePayload(): array
+    {
+        return Arr::except($this->request->all(), ['company_id', 'type', 'parent_id']);
     }
 
     /**

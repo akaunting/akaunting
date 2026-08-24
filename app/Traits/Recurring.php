@@ -44,6 +44,11 @@ trait Recurring
 
     public function updateRecurring($request)
     {
+        // An absent key leaves the schedule alone; send the frequency empty or as 'no' to remove it
+        if (! array_key_exists('recurring_frequency', (array) $request)) {
+            return;
+        }
+
         if (empty($request['recurring_frequency']) || ($request['recurring_frequency'] == 'no')) {
             $this->recurring()->delete();
 

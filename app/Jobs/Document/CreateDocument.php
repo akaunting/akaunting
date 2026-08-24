@@ -21,9 +21,8 @@ class CreateDocument extends Job implements HasOwner, HasSource, ShouldCreate
     {
         $this->authorize();
 
-        if (empty($this->request['amount'])) {
-            $this->request['amount'] = 0;
-        }
+        // Derived from the lines by CreateDocumentItemsAndTotals, never taken from the caller
+        $this->request['amount'] = 0;
 
         // Disable this lines for global discount issue fixed ( https://github.com/akaunting/akaunting/issues/2797 )
         if (! empty($this->request['discount'])) {

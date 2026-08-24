@@ -23,7 +23,7 @@ class RecurringCheck extends Command
      *
      * @var string
      */
-    protected $signature = 'recurring:check';
+    protected $signature = 'recurring:check {--prune : Soft delete the schedules of dormant, disabled or orphaned companies}';
 
     /**
      * The console command description.
@@ -62,7 +62,7 @@ class RecurringCheck extends Command
             if (empty($recur->company)) {
                 $this->info('Missing company.');
 
-                $recur->delete();
+                $this->prune($recur);
 
                 continue;
             }
@@ -77,12 +77,9 @@ class RecurringCheck extends Command
             if (! $recur->company->enabled) {
                 $this->info($company_name . ' company is disabled. Skipping...');
 
-                if (Date::parse($recur->company->updated_at)->format('Y-m-d') > Date::now()->subMonth(3)->format('Y-m-d')) {
-                    $recur->delete();
-
-                    if ($template) {
-                        $template->delete();
-                    }
+                // Untouched for 3 months; the comparison used to be reversed, pruning the active ones
+                if (Date::parse($recur->company->updated_at)->format('Y-m-d') < Date::now()->subMonth(3)->format('Y-m-d')) {
+                    $this->prune($recur);
                 }
 
                 continue;
@@ -102,11 +99,7 @@ class RecurringCheck extends Command
             if (! $has_active_users) {
                 $this->info('No active users for ' . $company_name . ' company. Skipping...');
 
-                $recur->delete();
-
-                if ($template) {
-                    $template->delete();
-                }
+                $this->prune($recur);
 
                 continue;
             }
@@ -116,7 +109,7 @@ class RecurringCheck extends Command
             if (! $template) {
                 $this->info('Missing model.');
 
-                $recur->delete();
+                $this->prune($recur);
 
                 continue;
             }
@@ -159,6 +152,20 @@ class RecurringCheck extends Command
         app()->forgetInstance(static::class);
 
         $this->info('Recurring check done!');
+    }
+
+    /**
+     * Soft delete a schedule whose company is dormant, disabled or missing, never the template itself.
+     */
+    protected function prune(Recurring $recur): void
+    {
+        if (! $this->option('prune')) {
+            return;
+        }
+
+        $this->info('Pruning recurring ID: ' . $recur->id);
+
+        $recur->delete();
     }
 
     protected function recur(Document|Transaction $template, Date $schedule_date): void

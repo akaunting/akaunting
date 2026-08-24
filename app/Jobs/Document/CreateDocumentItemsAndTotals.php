@@ -47,7 +47,8 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
             'created_by' => $this->request['created_by'],
         ]);
 
-        $this->request['amount'] += $actual_total;
+        // Local total: seeding it from the request doubled the amount and leaked across bulk actions
+        $amount = $actual_total;
 
         $sort_order++;
 
@@ -106,7 +107,7 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
                     'created_by' => $this->request['created_by'],
                 ]);
 
-                $this->request['amount'] += $tax['amount'];
+                $amount += $tax['amount'];
 
                 $sort_order++;
             }
@@ -131,17 +132,17 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
                 DocumentTotal::create($total);
 
                 if (empty($total['operator']) || ($total['operator'] == 'addition')) {
-                    $this->request['amount'] += $total['amount'];
+                    $amount += $total['amount'];
                 } else {
                     // subtraction
-                    $this->request['amount'] -= $total['amount'];
+                    $amount -= $total['amount'];
                 }
 
                 $sort_order++;
             }
         }
 
-        $this->request['amount'] = round($this->request['amount'], $precision);
+        $this->request['amount'] = round($amount, $precision);
 
         // Add total
         DocumentTotal::create([
