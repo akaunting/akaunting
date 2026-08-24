@@ -137,10 +137,19 @@ abstract class Controller extends BaseController
         $status = $this->getSearchStringValue('status');
 
         if (empty($status)) {
-            $search = config('type.document.' . $this->type . '.route.params.unpaid.search');
+            // Nothing was requested at all, so fall back to the default tab.
+            if (! request()->filled('search')) {
+                $search = config('type.document.' . $this->type . '.route.params.unpaid.search');
 
-            request()->offsetSet('search', $search);
-            request()->offsetSet('programmatic', '1');
+                request()->offsetSet('search', $search);
+                request()->offsetSet('programmatic', '1');
+
+                return;
+            }
+
+            // The user filtered by something else (contact, date, free text...).
+            // Keep their filter and drop the tab scope instead of overwriting it.
+            request()->offsetSet('list_records', 'all');
         } else {
             $unpaid = str_replace('status:', '', config('type.document.' . $this->type . '.route.params.unpaid.search'));
             $draft = str_replace('status:', '', config('type.document.' . $this->type . '.route.params.draft.search'));
@@ -189,10 +198,19 @@ abstract class Controller extends BaseController
         $type = $this->getSearchStringValue('type');
 
         if (empty($type)) {
-            $search = config('type.transaction.transactions.route.params.income.search');
+            // Nothing was requested at all, so fall back to the default tab.
+            if (! request()->filled('search')) {
+                $search = config('type.transaction.transactions.route.params.income.search');
 
-            request()->offsetSet('search', $search);
-            request()->offsetSet('programmatic', '1');
+                request()->offsetSet('search', $search);
+                request()->offsetSet('programmatic', '1');
+
+                return;
+            }
+
+            // The user filtered by something else (account, date, free text...).
+            // Keep their filter and drop the tab scope instead of overwriting it.
+            request()->offsetSet('list_records', 'all');
         } else {
             $income = str_replace('type:', 'income', config('type.transaction.transactions.route.params.income.search'));
             $expense = str_replace('type:', 'expense', config('type.transaction.transactions.route.params.expense.search'));
