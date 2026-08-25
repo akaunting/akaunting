@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Sales;
 
 use App\Abstracts\Http\Controller;
-use App\Exports\Sales\Customers as Export;
+use App\Exports\Sales\Customers\Customers as Export;
 use App\Http\Requests\Common\Contact as Request;
 use App\Http\Requests\Common\Import as ImportRequest;
-use App\Imports\Sales\Customers as Import;
+use App\Imports\Sales\Customers\Customers as Import;
 use App\Jobs\Common\CreateContact;
 use App\Jobs\Common\DeleteContact;
 use App\Jobs\Common\DuplicateContact;

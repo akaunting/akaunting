@@ -3,7 +3,7 @@
 namespace App\BulkActions\Sales;
 
 use App\Abstracts\BulkAction;
-use App\Exports\Sales\Customers as Export;
+use App\Exports\Sales\Customers\Customers as Export;
 use App\Jobs\Common\UpdateContact;
 use App\Models\Common\Contact;
 

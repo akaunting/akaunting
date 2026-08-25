@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Imports\Sales;
+namespace App\Imports\Sales\Customers\Sheets;
 
 use App\Abstracts\Import;
 use App\Http\Requests\Common\Contact as Request;

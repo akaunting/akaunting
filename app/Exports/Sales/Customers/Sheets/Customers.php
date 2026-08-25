@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exports\Sales;
+namespace App\Exports\Sales\Customers\Sheets;
 
 use App\Abstracts\Export;
 use App\Models\Common\Contact as Model;
@@ -21,7 +21,7 @@ class Customers extends Export
         }
 
         $model->country = $country;
-        $model->category_name = $model->category->name ?? null;
+        $model->category_name = $model->category->exists ? $model->category->name : null;
 
         $model->can_login = $model->user_id ? true : false;
 
