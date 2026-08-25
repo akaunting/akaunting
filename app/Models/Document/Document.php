@@ -188,6 +188,39 @@ class Document extends Model
         return $query->orderBy('issued_at', 'desc');
     }
 
+    public function documentNumberSortable(Builder $query, string $direction): Builder
+    {
+        $direction = strtolower($direction) === 'asc' ? 'asc' : 'desc';
+        $table = $query->getQuery()->from;
+        $grammar = $query->getQuery()->getGrammar();
+        $documentNumber = $grammar->wrap($table . '.document_number');
+        $documentType = $grammar->wrap($table . '.type');
+        $driver = $query->getConnection()->getDriverName();
+        $substringFunction = $driver === 'mysql' ? 'SUBSTRING' : 'SUBSTR';
+        $integerType = $driver === 'mysql' ? 'UNSIGNED' : 'INTEGER';
+        $sortExpressions = [];
+
+        foreach (config('type.document', []) as $type => $typeConfig) {
+            $settingPrefix = $typeConfig['setting']['prefix'] ?? null;
+
+            if (! $settingPrefix) {
+                continue;
+            }
+
+            $prefixLength = mb_strlen((string) setting($settingPrefix . '.number_prefix', ''));
+
+            $sortExpressions[] = "WHEN '" . str_replace("'", "''", $type) . "' THEN CAST({$substringFunction}({$documentNumber}, " . ($prefixLength + 1) . ") AS {$integerType})";
+        }
+
+        $fallback = $driver === 'mysql'
+            ? "CAST(SUBSTRING_INDEX({$documentNumber}, '-', -1) AS UNSIGNED)"
+            : "CAST({$substringFunction}({$documentNumber}, 1) AS INTEGER)";
+
+        return $query->orderByRaw(
+            "CASE {$documentType} " . implode(' ', $sortExpressions) . " ELSE {$fallback} END {$direction}"
+        );
+    }
+
     public function scopeNumber(Builder $query, string $number): Builder
     {
         return $query->where('document_number', '=', $number);

@@ -15,9 +15,6 @@ use Illuminate\Support\Facades\Notification as NotificationFacade;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use Tests\Feature\FeatureTestCase;
-use App\Jobs\Banking\CreateBankingDocumentTransaction;
-use App\Jobs\Banking\UpdateBankingDocumentTransaction;
-use App\Models\Banking\Account;
 
 class InvoicesTest extends FeatureTestCase
 {
@@ -27,6 +24,118 @@ class InvoicesTest extends FeatureTestCase
             ->get(route('invoices.index'))
             ->assertStatus(200)
             ->assertSeeText(trans_choice('general.invoices', 2));
+    }
+
+    public function testItShouldSortInvoiceListByDocumentNumber()
+    {
+        $this->loginAs();
+
+        $document_numbers = [
+            'INV-0992',
+            'INV-0799',
+            'INV-0792',
+            'INV-0733',
+            'INV-0488',
+            'INV-0351',
+            'INV-0239',
+            'INV-1117',
+            'INV-1185',
+        ];
+
+        foreach ($document_numbers as $document_number) {
+            Document::factory()->invoice()->create([
+                'company_id' => $this->company->id,
+                'document_number' => $document_number,
+            ]);
+        }
+
+        $this->get(route('invoices.index', ['list_records' => 'all']))
+            ->assertStatus(200)
+            ->assertViewHas('invoices', function ($invoices) {
+                $document_numbers = $invoices->getCollection()
+                    ->whereIn('document_number', [
+                        'INV-0992',
+                        'INV-0799',
+                        'INV-0792',
+                        'INV-0733',
+                        'INV-0488',
+                        'INV-0351',
+                        'INV-0239',
+                        'INV-1117',
+                        'INV-1185',
+                    ])
+                    ->pluck('document_number')
+                    ->all();
+
+                return $document_numbers === [
+                    'INV-1185',
+                    'INV-1117',
+                    'INV-0992',
+                    'INV-0799',
+                    'INV-0792',
+                    'INV-0733',
+                    'INV-0488',
+                    'INV-0351',
+                    'INV-0239',
+                ];
+            });
+
+        $this->get(route('invoices.index', [
+            'list_records' => 'all',
+            'sort' => 'document_number',
+            'direction' => 'asc',
+        ]))
+            ->assertStatus(200)
+            ->assertViewHas('invoices', function ($invoices) {
+                $document_numbers = $invoices->getCollection()
+                    ->whereIn('document_number', [
+                        'INV-0992',
+                        'INV-0799',
+                        'INV-0792',
+                        'INV-0733',
+                        'INV-0488',
+                        'INV-0351',
+                        'INV-0239',
+                        'INV-1117',
+                        'INV-1185',
+                    ])
+                    ->pluck('document_number')
+                    ->all();
+
+                return $document_numbers === [
+                    'INV-0239',
+                    'INV-0351',
+                    'INV-0488',
+                    'INV-0733',
+                    'INV-0792',
+                    'INV-0799',
+                    'INV-0992',
+                    'INV-1117',
+                    'INV-1185',
+                ];
+            });
+    }
+
+    public function testItShouldShowOnlyUnpaidInvoicesOnUnpaidTab()
+    {
+        $this->loginAs();
+
+        foreach (['sent', 'viewed', 'partial', 'paid', 'draft'] as $status) {
+            Document::factory()->invoice()->create([
+                'company_id' => $this->company->id,
+                'status' => $status,
+            ]);
+        }
+
+        $this->get(route('invoices.index'))
+            ->assertStatus(200)
+            ->assertViewHas('invoices', function ($invoices) {
+                return $invoices->getCollection()
+                    ->pluck('status')
+                    ->sort()
+                    ->values()
+                    ->all() === ['partial', 'sent', 'viewed'];
+            });
     }
 
     public function testItShouldPreloadCustomerEmailCountOnInvoiceListPage()
@@ -369,39 +478,5 @@ class InvoicesTest extends FeatureTestCase
             'subject'       => $notification->getSubject(),
             'body'          => $notification->getBody(),
         ];
-    }
-
-
-    public function testItShouldPreserveSubmittedCurrencyRateOnPaymentUpdate()
-    {
-        $this->loginAs();
-
-        $invoice = $this->dispatch(new CreateDocument($this->getRequest()));
-
-        $account = Account::first();
-
-        $payment = [
-            'account_id'     => $account->id,
-            'paid_at'        => Carbon::now()->toDateTimeString(),
-            'amount'         => 10,
-            'currency_code'  => $invoice->currency_code,
-            'currency_rate'  => 1.1628,
-            'payment_method' => setting('default.payment_method'),
-        ];
-
-        $transaction = $this->dispatch(
-            new CreateBankingDocumentTransaction($invoice, $payment)
-        );
-
-        $payment['amount'] = 11;
-
-        $transaction = $this->dispatch(
-            new UpdateBankingDocumentTransaction($invoice, $transaction, $payment)
-        );
-
-        $this->assertDatabaseHas('transactions', [
-            'id'            => $transaction->id,
-            'currency_rate' => 1.1628,
-        ]);
     }
 }

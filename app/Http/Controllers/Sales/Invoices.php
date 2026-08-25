@@ -47,6 +47,13 @@ class Invoices extends Controller
     {
         $this->setActiveTabForDocuments();
 
+        if (! request()->filled('sort')) {
+            request()->merge([
+                'sort' => 'document_number',
+                'direction' => 'desc',
+            ]);
+        }
+
         $invoices = Document::invoice()->with([
             'contact' => function ($query) {
                 $query->withCount([
@@ -63,7 +70,7 @@ class Invoices extends Controller
             'totals',
             'histories',
             'media',
-        ])->collect(['document_number'=> 'desc']);
+        ])->collect(['document_number' => 'desc']);
 
         $total_invoices = Document::invoice()->count();
 
