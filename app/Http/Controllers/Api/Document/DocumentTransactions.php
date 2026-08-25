@@ -86,6 +86,10 @@ class DocumentTransactions extends ApiController
 
         $transaction = Transaction::documentId($document_id)->find($id);
 
+        if (! $transaction instanceof Transaction) {
+            return $this->errorInternal('No query results for model [' . Transaction::class . '] ' . $id);
+        }
+
         $transaction = $this->dispatch(new UpdateBankingDocumentTransaction($document, $transaction, $request));
 
         return $this->created(route('api.documents.transactions.show', [$document_id, $transaction->id]), new Resource($transaction));
@@ -101,6 +105,10 @@ class DocumentTransactions extends ApiController
     public function destroy($document_id, $id)
     {
         $transaction = Transaction::documentId($document_id)->find($id);
+
+        if (! $transaction instanceof Transaction) {
+            return $this->errorInternal('No query results for model [' . Transaction::class . '] ' . $id);
+        }
 
         $this->dispatch(new DeleteTransaction($transaction));
 
