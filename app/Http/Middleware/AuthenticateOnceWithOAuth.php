@@ -37,8 +37,16 @@ class AuthenticateOnceWithOAuth
             ]);
         }
 
-        // Check if user is authenticated via Passport
-        if (! Auth::guard($guard)->check()) {
+        // Check if user is authenticated via Passport. A malformed bearer token makes
+        // Passport throw instead of returning false, so treat any failure as
+        // unauthenticated and return the 401 below.
+        try {
+            $authenticated = Auth::guard($guard)->check();
+        } catch (\Throwable $e) {
+            $authenticated = false;
+        }
+
+        if (! $authenticated) {
             if ($shouldLog) {
                 Log::warning('OAuth: Authentication failed', [
                     'guard' => $guard,
