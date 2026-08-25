@@ -159,6 +159,12 @@ const app = new Vue({
                                 this.form = new Form('redirect-form');
                             },
 
+                            mounted: function() {
+                                let form = this.$el.querySelector('form');
+
+                                this.form = new Form(form ? form.id : 'redirect-form');
+                            },
+
                             data: function () {
                                 return {
                                     form: {},
@@ -176,9 +182,13 @@ const app = new Vue({
 
                             methods: {
                                 onRedirectConfirm() {
-                                    let redirect_form = new Form('redirect-form');
+                                    if (this.form.loading) {
+                                        return;
+                                    }
 
-                                    this.$emit('interface', redirect_form);
+                                    this.form.loading = true;
+
+                                    this.$emit('interface', this.form);
                                 }
                             }
                           })
@@ -190,8 +200,8 @@ const app = new Vue({
             });
         },
 
-        onRedirectConfirm() {
-            this.redirectForm = new Form('redirect-form');
+        onRedirectConfirm(form) {
+            this.redirectForm = (form instanceof Form) ? form : new Form('redirect-form');
 
             axios.post(this.redirectForm.action, this.redirectForm.data())
             .then(response => {
@@ -202,8 +212,14 @@ const app = new Vue({
                 if (response.data.success) {
                     location.reload();
                 }
+
+                if (! response.data.redirect && ! response.data.success) {
+                    this.redirectForm.loading = false;
+                }
             })
             .catch(error => {
+                this.redirectForm.loading = false;
+
                 this.method_show_html = error.message;
             });
         },
@@ -254,6 +270,12 @@ const app = new Vue({
                                 this.form = new Form('redirect-form');
                             },
 
+                            mounted: function() {
+                                let form = this.$el.querySelector('form');
+
+                                this.form = new Form(form ? form.id : 'redirect-form');
+                            },
+
                             data: function () {
                                 return {
                                     form: {},
@@ -271,9 +293,13 @@ const app = new Vue({
 
                             methods: {
                                 onRedirectConfirm() {
-                                    let redirect_form = new Form('redirect-form');
+                                    if (this.form.loading) {
+                                        return;
+                                    }
 
-                                    this.$emit('interface', redirect_form);
+                                    this.form.loading = true;
+
+                                    this.$emit('interface', this.form);
                                 }
                             }
                           })
