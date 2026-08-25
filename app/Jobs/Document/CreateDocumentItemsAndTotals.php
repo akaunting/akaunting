@@ -194,7 +194,7 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
                 $new_item_request = [
                     'company_id' => $this->request['company_id'],
                     'name' => $item['name'],
-                    'description' => $item['description'],
+                    'description' => $item['description'] ?? null,
                     'sale_price' => $item['price'],
                     'purchase_price' => $item['price'],
                     'category_id' => $item['category_id'],
