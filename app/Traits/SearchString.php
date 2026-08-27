@@ -49,7 +49,12 @@ trait SearchString
 
             $extracted = trim($variable[1], '"\'');
 
-            if (str_contains($column, ':')) {
+            // ':' and '=' are single-value (exact match) operators, so return
+            // immediately. '>', '<', '>=' and '<=' are range operators that may
+            // repeat for the same column, so they fall through and accumulate.
+            $operator = substr($column, strlen($name));
+
+            if (str_starts_with($operator, ':') || str_starts_with($operator, '=')) {
                 return $extracted;
             }
 
