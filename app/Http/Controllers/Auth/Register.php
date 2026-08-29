@@ -46,7 +46,9 @@ class Register extends Controller
     {
         $invitation = UserInvitation::token($request->get('token'))->first();
 
-        if (!$invitation) {
+        // The invited user may have been deleted while the invitation was still
+        // pending, which makes the invitation as invalid as a missing one.
+        if (! $invitation || ! $invitation->user) {
             abort(403);
         }
 
