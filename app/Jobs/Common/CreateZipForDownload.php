@@ -103,7 +103,11 @@ class CreateZipForDownload extends JobShouldQueue
 
         $content = Storage::disk($disk)->put($file_path, fopen($zip_path, 'r+'));
 
-        report($file_path);
+        // The queue and the web server do not share a disk, so a failed copy leaves the
+        // user waiting for a queued download that never arrives.
+        if (! $content) {
+            report(new \Exception('Bulk action zip could not be copied to the [' . $disk . '] disk: ' . $file_path));
+        }
 
         return $content;
     }
