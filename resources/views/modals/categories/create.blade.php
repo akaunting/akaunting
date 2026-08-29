@@ -4,18 +4,24 @@
 
         <x-form.group.color name="color" label="{{ trans('general.color') }}" form-group-class="col-span-6" />
 
-        <x-form.group.select name="parent_id" label="{{ trans('general.parent') . ' ' . trans_choice('general.categories', 1) }}" :options="$categories" not-required sort-options="false" searchable form-group-class="col-span-6" />
-
-        @if (! empty($types) && count($types) > 1)
-            <x-form.group.select name="type" label="{{ trans_choice('general.types', 1) }}" :options="$types" value="{{ $type }}" form-group-class="col-span-6" :group="$type_group" />
+        @if (count($category_types) > 1)
+            <x-form.group.select name="type" label="{{ trans_choice('general.types', 1) }}" :options="$types" change="updateParentCategories" form-group-class="col-span-6" :group="$type_group" />
 
             <x-form.group.text name="code" label="{{ trans('general.code') }}" form-group-class="col-span-6" v-show="isCategoryCodeFieldVisible()" />
-        @else
-            <x-form.input.hidden name="type" value="{{ $type }}" />
 
-            @if (empty($hide_code_types[$type]) || ! $hide_code_types[$type])
+            <x-form.group.select name="parent_id" label="{{ trans('general.parent') . ' ' . trans_choice('general.categories', 1) }}" :options="[]" not-required dynamicOptions="categoriesBasedTypes" sort-options="false" v-disabled="selected_type" form-group-class="col-span-6" />
+
+            <x-form.input.hidden name="parent_categories" value="{{ json_encode($categories) }}" />
+        @else
+            @php ($single_type = reset($category_types))
+
+            <x-form.input.hidden name="type" value="{{ $single_type }}" />
+
+            @if (empty($hide_code_types[$single_type]) || ! $hide_code_types[$single_type])
                 <x-form.group.text name="code" label="{{ trans('general.code') }}" form-group-class="col-span-6" />
             @endif
+
+            <x-form.group.select name="parent_id" label="{{ trans('general.parent') . ' ' . trans_choice('general.categories', 1) }}" :options="collect($categories[$single_type] ?? [])" not-required sort-options="false" searchable form-group-class="col-span-6" />
         @endif
 
         <x-form.group.textarea name="description" label="{{ trans('general.description') }}" not-required />

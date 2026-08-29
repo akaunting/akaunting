@@ -38,24 +38,25 @@ class Categories extends Controller
         $category_types = $this->getTypeCategoryTypes($type);
         $hide_code_types = $this->hideCodeCategoryTypes($category_types);
 
-        $categories = collect();
+        // Group the categories by type so the parent field can be filtered by the selected type
+        $categories = array_fill_keys($category_types, []);
 
         Category::type($category_types)
             ->enabled()
             ->orderBy('name')
             ->get()
             ->each(function ($category) use (&$categories) {
-                $categories->push([
+                $categories[$category->type][] = [
                     'id' => $category->id,
                     'title' => $category->name,
                     'level' => $category->level,
-                ]);
+                ];
             });
 
         $type_group = count($category_types) > 1 ? true : false;
         $types = $this->getCategoryTypes(group: true, types: $category_types);
 
-        $html = view('modals.categories.create', compact('type', 'types', 'categories', 'type_group', 'hide_code_types'))->render();
+        $html = view('modals.categories.create', compact('type', 'types', 'categories', 'category_types', 'type_group', 'hide_code_types'))->render();
 
         return response()->json([
             'success' => true,

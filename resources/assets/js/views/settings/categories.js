@@ -29,32 +29,6 @@ const app = new Vue({
         return {
             form: new Form('category'),
             bulk_action: new BulkAction('categories'),
-            categoriesBasedTypes: null,
-            selected_type: true,
         }
     },
-
-    methods: {
-        updateParentCategories(event) {
-            if (event === '') {
-                return;
-            }
-
-            if (typeof categoryData[event] === 'undefined') {
-                this.categoriesBasedTypes = [];
-
-                return;
-            }
-
-            if (this.form.parent_category_id) {
-                this.form.parent_category_id = null;
-
-                return;
-            }
-
-            this.selected_type = false;
-
-            this.categoriesBasedTypes = categoryData[event];
-        }
-    }
 });
