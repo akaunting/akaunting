@@ -6,6 +6,7 @@ use App\Abstracts\Http\Controller;
 use App\Http\Requests\Auth\Login as Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
 class Login extends Controller
@@ -94,8 +95,16 @@ class Login extends Controller
             ]);
         }
 
+        $route_name = $user->landing_page;
+
+        // Module routes are not registered on this guest request, and the landing page
+        // can point to a module, so the always available dashboard is used as a fallback.
+        if (! Route::has($route_name)) {
+            $route_name = 'dashboard';
+        }
+
         // Redirect to landing page if is user
-        $url = route($user->landing_page, ['company_id' => $company->id]);
+        $url = route($route_name, ['company_id' => $company->id]);
 
         return response()->json([
             'status' => null,
