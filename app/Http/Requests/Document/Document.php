@@ -94,8 +94,12 @@ class Document extends FormRequest
                 $size = 10;
                 $quantityRule = ['required'];
 
+                // A request does not always carry a quantity for every item, which the
+                // required rule below reports, so the key is not assumed to be there.
+                $quantity = $item['quantity'] ?? null;
+
                 try {
-                    $items[$key]['quantity'] = calculation_to_quantity($item['quantity']);
+                    $items[$key]['quantity'] = calculation_to_quantity($quantity);
                 } catch (\InvalidArgumentException $e) {
                     $quantityRule[] = function ($attribute, $value, $fail) {
                         $fail(trans('validation.custom.invalid_quantity', [
@@ -104,7 +108,7 @@ class Document extends FormRequest
                     };
                 }
 
-                if (Str::contains($item['quantity'], ['.', ','])) {
+                if (Str::contains((string) $quantity, ['.', ','])) {
                     $size = 12;
                 }
 
