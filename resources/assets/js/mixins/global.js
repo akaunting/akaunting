@@ -129,6 +129,9 @@ export default {
             quantity_name_input: false,
 
             tax_summary: '',
+
+            categoriesBasedTypes: null,
+            selected_type: true,
         }
     },
 
@@ -299,6 +302,38 @@ export default {
         onHandleFileUpload(key, event) {
             this.form[key] = '';
             this.form[key] = event.target.files[0];
+        },
+
+        // Enable the parent category field and load its options based on the selected type
+        updateParentCategories(event) {
+            if (event === '') {
+                return;
+            }
+
+            // The category page sets a global variable, the modal sends it within the form
+            let category_data = (typeof categoryData !== 'undefined') ? categoryData : (this.form ? this.form.parent_categories : null);
+
+            if (typeof category_data === 'string') {
+                try {
+                    category_data = JSON.parse(category_data);
+                } catch (e) {
+                    category_data = null;
+                }
+            }
+
+            if (! category_data || typeof category_data[event] === 'undefined') {
+                this.categoriesBasedTypes = [];
+
+                return;
+            }
+
+            if (this.form.parent_id) {
+                this.form.parent_id = null;
+            }
+
+            this.selected_type = false;
+
+            this.categoriesBasedTypes = category_data[event];
         },
 
         isCategoryCodeFieldVisible() {
