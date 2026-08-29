@@ -38,6 +38,10 @@ class Category extends Form
             $this->name = 'category_id';
         }
 
+        if (empty($this->label)) {
+            $this->label = trans_choice('general.categories', 1);
+        }
+
         $types = ! empty($this->types) ? $this->types : $this->getTypeCategoryTypes($this->type);
         $types_string = implode(',', $types);
 
