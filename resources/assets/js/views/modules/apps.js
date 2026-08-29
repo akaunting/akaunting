@@ -210,7 +210,10 @@ const app = new Vue({
             this.installation.alias = alias;
             this.installation.show = true;
             this.installation.total = 0;
-            this.installation.path = path;
+            // The download step is what produces a path (temp-<md5>); until then there
+            // is none. Seeding it with the marketplace action_url posted a full URL on
+            // every step, which the firewall's RFI rule blocks. Matches update.js.
+            this.installation.path = '';
             this.installation.version = version;
 
             let steps_promise = Promise.resolve(axios.post(url + '/apps/steps', {
