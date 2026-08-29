@@ -18,6 +18,7 @@ use App\Utilities\Overrider;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Laratrust\Contracts\Ownable;
 use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 
@@ -356,6 +357,69 @@ class Company extends Eloquent implements Ownable
             $this->offsetUnset('currency');
         } catch(\Throwable $e) {
 
+        }
+    }
+
+    /**
+     * Apply the search string without letting it order by a settings based column.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param $string
+     *
+     * @return void
+     */
+    public function scopeUsingSearchString($query, $string = null)
+    {
+        $this->getSearchStringManager()->updateBuilder($query, $string ?: request('search', ''));
+
+        $this->removeCustomSortableOrders($query);
+    }
+
+    /**
+     * Drop the orders set for a column handled by a custom {column}Sortable method.
+     *
+     * Those columns (name, email, phone, etc.) are stored in settings and not on the
+     * companies table, so they can't be ordered directly. The sortable scope orders
+     * them by joining the settings table instead.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return void
+     */
+    public function removeCustomSortableOrders($query)
+    {
+        $orders = $query->getQuery()->orders;
+
+        if (empty($orders)) {
+            return;
+        }
+
+        $custom = [];
+
+        $orders = array_values(array_filter($orders, function ($order) use (&$custom) {
+            if (! isset($order['column']) || ! is_string($order['column'])) {
+                return true;
+            }
+
+            $column = Str::afterLast($order['column'], '.');
+
+            if (! method_exists($this, Str::camel($column) . 'Sortable')) {
+                return true;
+            }
+
+            if (empty($custom)) {
+                $custom = ['sort' => $column, 'direction' => $order['direction'] ?? 'asc'];
+            }
+
+            return false;
+        }));
+
+        $query->getQuery()->orders = empty($orders) ? null : $orders;
+
+        // Hand the dropped column over to the sortable scope, which knows how to order
+        // by it. A sort parameter sent with the request always wins.
+        if (! empty($custom) && ! request()->filled('sort')) {
+            request()->merge($custom);
         }
     }
 
