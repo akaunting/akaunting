@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Wizard;
 
 use App\Abstracts\Http\Controller;
+use App\Events\Wizard\WizardCompleted;
 use App\Traits\Modules;
 
 class Finish extends Controller
@@ -25,10 +26,7 @@ class Finish extends Controller
      */
     public function index()
     {
-        setting()->set('wizard.completed', 1);
-
-        // Save all settings
-        setting()->save();
+        $this->complete();
 
         $data = [
             'query' => [
@@ -48,11 +46,29 @@ class Finish extends Controller
      */
     public function update()
     {
+        $this->complete();
+
+        return response()->json([]);
+    }
+
+    /**
+     * Mark the wizard as completed and fire the event once.
+     *
+     * @return void
+     */
+    protected function complete()
+    {
+        $is_first = ! setting('wizard.completed', false);
+
         setting()->set('wizard.completed', 1);
 
         // Save all settings
         setting()->save();
 
-        return response()->json([]);
+        if (! $is_first) {
+            return;
+        }
+
+        event(new WizardCompleted(company(), user()));
     }
 }
