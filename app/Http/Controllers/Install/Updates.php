@@ -305,8 +305,6 @@ class Updates extends Controller
     /**
      * Redirect back
      *
-     * @param  $request
-     *
      * @return Response
      */
     public function redirect()

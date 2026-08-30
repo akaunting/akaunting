@@ -263,8 +263,9 @@ class DocumentTransactions extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  $item
-     * @param  $request
+     * @param  Document  $document
+     * @param  Transaction  $transaction
+     * @param  Request  $request
      * @return Response
      */
     public function update(Document $document, Transaction $transaction, Request $request)

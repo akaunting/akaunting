@@ -418,7 +418,7 @@ class Users extends Controller
     /**
      * Process request for reinviting the specified resource.
      *
-     * @param  role_model_class()  $role
+     * @param  BaseRequest  $request
      *
      * @return Response
      */
