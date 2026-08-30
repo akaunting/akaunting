@@ -22,8 +22,6 @@ class DocumentItemColumns extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Contact  $customer
-     *
      * @return Response
      */
     public function edit()

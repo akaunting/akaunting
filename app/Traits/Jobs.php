@@ -24,7 +24,7 @@ trait Jobs
     /**
      * Dispatch a job to its appropriate handler.
      *
-     * @param  mixed  $command
+     * @param  mixed  $job
      * @return mixed
      */
     public function dispatchQueue($job)
@@ -37,7 +37,7 @@ trait Jobs
      *
      * Queuable jobs will be dispatched to the "sync" queue.
      *
-     * @param  mixed  $command
+     * @param  mixed  $job
      * @param  mixed  $handler
      * @return mixed
      */

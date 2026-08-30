@@ -154,7 +154,7 @@ class Transfers extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  $id
+     * @param  Transfer  $transfer
      * @param  Request  $request
      *
      * @return Response
@@ -183,7 +183,7 @@ class Transfers extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  $id
+     * @param  Transfer  $transfer
      *
      * @return Response
      */
