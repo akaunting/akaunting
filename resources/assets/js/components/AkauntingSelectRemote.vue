@@ -876,7 +876,7 @@ export default {
                             values.push({
                                 key: sorted_option_key.toString(),
                                 value: sorted_option_value,
-                                level: 0,
+                                level: (option.parent_id) ? 1 : 0,
                                 mark_new: false,
                                 option:option,
                             });

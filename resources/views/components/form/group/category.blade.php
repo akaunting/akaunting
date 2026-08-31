@@ -26,7 +26,9 @@
         {{ $attributes }}
     >
         <template #option="{option}">
-            <div class="flex items-center{{ $group ? ' justify-between w-full' : '' }}">
+            <div class="flex items-center{{ $group ? ' justify-between w-full' : '' }}" :style="'padding-inline-start: ' + (10 * option.level).toString() + 'px;'">
+                <i v-if="option.level != 0" class="material-icons align-middle text-base ltr:mr-1 rtl:ml-1 rtl:rotate-180">subdirectory_arrow_right</i>
+
                 <div class="{{ (! $group) ? 'ltr:ml-2 ltr:mr-2 rtl:mr-2 rtl:ml-2 ' : '' }}w-4 h-4 rounded-full" :style="{backgroundColor: option.option ? option.option.color_hex_code : ''}"></div>
 
                 @if ($option_field['value'] == 'title')
@@ -66,7 +68,9 @@
         {{ $attributes }}
     >
         <template #option="{option}">
-            <div class="flex items-center{{ $group ? ' justify-between w-full' : '' }}">
+            <div class="flex items-center{{ $group ? ' justify-between w-full' : '' }}" :style="'padding-inline-start: ' + (10 * option.level).toString() + 'px;'">
+                <i v-if="option.level != 0" class="material-icons align-middle text-base ltr:mr-1 rtl:ml-1 rtl:rotate-180">subdirectory_arrow_right</i>
+
                 <div class="{{ (! $group) ? 'ltr:ml-2 ltr:mr-2 rtl:mr-2 rtl:ml-2 ' : '' }}w-4 h-4 rounded-full" :style="{backgroundColor: option.option ? option.option.color_hex_code : ''}"></div>
 
                 @if ($option_field['value'] == 'title')
@@ -106,7 +110,9 @@
         {{ $attributes }}
     >
         <template #option="{option}">
-            <div class="flex items-center{{ $group ? ' justify-between w-full' : '' }}">
+            <div class="flex items-center{{ $group ? ' justify-between w-full' : '' }}" :style="'padding-inline-start: ' + (10 * option.level).toString() + 'px;'">
+                <i v-if="option.level != 0" class="material-icons align-middle text-base ltr:mr-1 rtl:ml-1 rtl:rotate-180">subdirectory_arrow_right</i>
+
                 <div class="{{ (! $group) ? 'ltr:ml-2 ltr:mr-2 rtl:mr-2 rtl:ml-2 ' : '' }}w-4 h-4 rounded-full" :style="{backgroundColor: option.option ? option.option.color_hex_code : ''}"></div>
 
                 @if ($option_field['value'] == 'title')
@@ -140,7 +146,9 @@
         {{ $attributes }}
     >
         <template #option="{option}">
-            <div class="flex items-center{{ $group ? ' justify-between w-full' : '' }}">
+            <div class="flex items-center{{ $group ? ' justify-between w-full' : '' }}" :style="'padding-inline-start: ' + (10 * option.level).toString() + 'px;'">
+                <i v-if="option.level != 0" class="material-icons align-middle text-base ltr:mr-1 rtl:ml-1 rtl:rotate-180">subdirectory_arrow_right</i>
+
                 <div class="{{ (! $group) ? 'ltr:ml-2 ltr:mr-2 rtl:mr-2 rtl:ml-2 ' : '' }}w-4 h-4 rounded-full" :style="{backgroundColor: option.option ? option.option.color_hex_code : ''}"></div>
 
                 @if ($option_field['value'] == 'title')
