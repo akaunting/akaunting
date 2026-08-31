@@ -61,7 +61,7 @@
                         @elseif (is_object($user->picture))
                             <img src="{{ Storage::url($user->picture->id) }}" class="absolute w-12 h-12 rounded-full hidden lg:block" alt="{{ $user->name }}" title="{{ $user->name }}">
                         @else
-                            <img src="{{ asset('public/img/user.svg') }}" class="absolute w-12 h-12 rounded-full hidden lg:block" alt="{{ $user->name }}"/>
+                            <img src="{{ asset('img/user.svg') }}" class="absolute w-12 h-12 rounded-full hidden lg:block" alt="{{ $user->name }}"/>
                         @endif
                     </x-slot>
 
