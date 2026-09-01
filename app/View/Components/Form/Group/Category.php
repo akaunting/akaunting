@@ -38,7 +38,7 @@ class Category extends Form
             $this->name = 'category_id';
         }
 
-        if (empty($this->label)) {
+        if (empty($this->label) && ! $this->hideLabel) {
             $this->label = trans_choice('general.categories', 1);
         }
 
