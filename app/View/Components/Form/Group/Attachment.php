@@ -36,11 +36,16 @@ class Attachment extends Form
     {
         $this->file_types = [];
 
-        $file_type_mimes = explode(',', config('filesystems.mimes'));
+        // The caller may pass its own file types, otherwise the global whitelist is used
+        $file_type_mimes = ! empty($this->types) ? $this->types : explode(',', (string) config('filesystems.mimes'));
 
         $file_types = [];
 
         foreach ($file_type_mimes as $mime) {
+            if (! $mime = trim((string) $mime)) {
+                continue;
+            }
+
             $file_types[] = '.' . $mime;
         }
 
