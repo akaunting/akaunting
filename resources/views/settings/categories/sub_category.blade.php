@@ -26,6 +26,10 @@
                     @if (! $parent_category->enabled)
                         <x-index.disable text="{{ trans_choice('general.categories', 1) }}" />
                     @endif
+
+                    @if ($parent_category->isDefaultCategory())
+                        <x-index.default text="{{ trans('double-entry::general.default_type', ['type' => $parent_category->default_category_label]) }}" />
+                    @endif
                 </div>
             </x-table.td>
 
@@ -45,7 +49,11 @@
 
     <x-table.tr data-collapse="child-{{ $parent_category->id }}" data-animation class="relative flex items-center hover:bg-gray-100 px-1 group border-b transition-all collapse-sub" href="{{ $sub_category->row_url }}">
         <x-table.td kind="bulkaction">
-            <x-index.bulkaction.single id="{{ $sub_category->id }}" name="{{ $sub_category->name }}" />
+            <x-index.bulkaction.single
+                id="{{ $sub_category->id }}"
+                name="{{ $sub_category->name }}"
+                :disabled="$sub_category->isDefaultCategory()"
+            />
         </x-table.td>
 
         @if (!$hide_code_column)
@@ -84,6 +92,10 @@
 
                 @if (! $sub_category->enabled)
                     <x-index.disable text="{{ trans_choice('general.categories', 1) }}" />
+                @endif
+
+                @if ($sub_category->isDefaultCategory())
+                    <x-index.default text="{{ trans('double-entry::general.default_type', ['type' => $sub_category->default_category_label]) }}" />
                 @endif
             </div>
         </x-table.td>

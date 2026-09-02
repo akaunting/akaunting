@@ -31,6 +31,17 @@ class Category extends Model
 
     protected $appends = ['display_name', 'color_hex_code', 'title'];
 
+    protected const DEFAULT_CATEGORY_LABELS = [
+        'income_category' => 'sales',
+        'expense_category' => 'expenses',
+        'categories_receivable' => 'receivable',
+        'categories_payable' => 'payable',
+        'categories_sales_discount' => 'sales_discount',
+        'categories_purchase_discount' => 'purchase_discount',
+        'categories_owners_contribution' => 'owners_contribution',
+        'categories_payroll' => 'payroll',
+    ];
+
     /**
      * Attributes that should be mass-assignable.
      *
@@ -336,6 +347,33 @@ class Category extends Model
         return $this->title . ' (' . $typeName . ')';
     }
 
+    public function isDefaultCategory(): bool
+    {
+        if (! module_is_enabled('double-entry')) {
+            return false;
+        }
+
+        return in_array($this->id, array_filter(array_map(
+            fn ($setting) => setting('default.' . $setting),
+            array_keys(self::DEFAULT_CATEGORY_LABELS)
+        )));
+    }
+
+    public function getDefaultCategoryLabelAttribute(): ?string
+    {
+        if (! $this->isDefaultCategory()) {
+            return null;
+        }
+
+        foreach (self::DEFAULT_CATEGORY_LABELS as $setting => $label) {
+            if ((int) setting('default.' . $setting) === (int) $this->id) {
+                return trans('double-entry::general.categories.' . $label);
+            }
+        }
+
+        return null;
+    }
+
     /**
      * Get the balance of a category.
      *
@@ -445,7 +483,7 @@ class Category extends Model
             ],
         ];
 
-        if ($this->isTransferCategory()) {
+        if ($this->isTransferCategory() || $this->isDefaultCategory()) {
             return $actions;
         }
 

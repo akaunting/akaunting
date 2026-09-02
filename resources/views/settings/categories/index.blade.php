@@ -80,7 +80,7 @@
                                 <x-index.bulkaction.single
                                     id="{{ $item->id }}"
                                     name="{{ $item->name }}"
-                                    :disabled="($item->isTransferCategory()) ? true : false"
+                                    :disabled="$item->isTransferCategory() || $item->isDefaultCategory()"
                                 />
                             </x-table.td>
 
@@ -115,6 +115,10 @@
                                         @if (! $item->enabled)
                                             <x-index.disable text="{{ trans_choice('general.categories', 1) }}" />
                                         @endif
+
+                                        @if ($item->isDefaultCategory())
+                                            <x-index.default text="{{ trans('double-entry::general.default_type', ['type' => $item->default_category_label]) }}" />
+                                        @endif
                                     </div>
                                 @else
                                     <div class="flex items-center">
@@ -126,6 +130,10 @@
 
                                         @if (! $item->enabled)
                                             <x-index.disable text="{{ trans_choice('general.categories', 1) }}" />
+                                        @endif
+
+                                        @if ($item->isDefaultCategory())
+                                            <x-index.default text="{{ trans('double-entry::general.default_type', ['type' => $item->default_category_label]) }}" />
                                         @endif
                                     </div>
                                 @endif
