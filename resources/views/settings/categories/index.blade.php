@@ -75,7 +75,7 @@
 
                 <x-table.tbody>
                     @foreach($categories as $item)
-                        <x-table.tr href="{{ $item->row_url }}">
+                        <x-table.tr href="{{ route('categories.edit', $item->id) }}">
                             <x-table.td kind="bulkaction">
                                 <x-index.bulkaction.single
                                     id="{{ $item->id }}"
@@ -109,7 +109,15 @@
                                         </x-tooltip>
 
                                         <div class="flex items-center font-bold ltr:ml-2 rtl:mr-2">
-                                            {{ $item->name }}
+                                            @if (! empty($item->custom_row_url))
+                                                <x-link href="{{ $item->row_url }}" class="text-sm font-semibold sm:mt-0 sm:mb-0 leading-4" override="class">
+                                                    <x-link.hover color="to-black-400">
+                                                        {{ $item->name }}
+                                                    </x-link.hover>
+                                                </x-link>
+                                            @else
+                                                {{ $item->name }}
+                                            @endif
                                         </div>
 
                                         @if (! $item->enabled)
@@ -125,7 +133,15 @@
                                         <span class="material-icons text-{{ $item->color }}" class="text-3xl" style="color:{{ $item->color }};">circle</span>
 
                                         <span class="font-bold ltr:ml-2 rtl:mr-2">
-                                            {{ $item->name }}
+                                            @if (! empty($item->custom_row_url))
+                                                <x-link href="{{ $item->row_url }}" class="text-sm font-semibold sm:mt-0 sm:mb-0 leading-4" override="class">
+                                                    <x-link.hover color="to-black-400">
+                                                        {{ $item->name }}
+                                                    </x-link.hover>
+                                                </x-link>
+                                            @else
+                                                {{ $item->name }}
+                                            @endif
                                         </span>
 
                                         @if (! $item->enabled)
