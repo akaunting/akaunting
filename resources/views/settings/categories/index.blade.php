@@ -111,6 +111,10 @@
                                         <div class="flex items-center font-bold ltr:ml-2 rtl:mr-2">
                                             {{ $item->name }}
                                         </div>
+
+                                        @if (! $item->enabled)
+                                            <x-index.disable text="{{ trans_choice('general.categories', 1) }}" />
+                                        @endif
                                     </div>
                                 @else
                                     <div class="flex items-center">
@@ -119,11 +123,11 @@
                                         <span class="font-bold ltr:ml-2 rtl:mr-2">
                                             {{ $item->name }}
                                         </span>
-                                    </div>
-                                @endif
 
-                                @if (! $item->enabled)
-                                    <x-index.disable text="{{ trans_choice('general.categories', 1) }}" />
+                                        @if (! $item->enabled)
+                                            <x-index.disable text="{{ trans_choice('general.categories', 1) }}" />
+                                        @endif
+                                    </div>
                                 @endif
                             </x-table.td>
 

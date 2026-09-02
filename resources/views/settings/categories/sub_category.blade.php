@@ -22,11 +22,11 @@
                     <div class="flex items-center font-bold table-submenu ltr:ml-2 rtl:mr-2">
                         {{ $parent_category->name }}
                     </div>
-                </div>
 
-                @if (! $parent_category->enabled)
-                    <x-index.disable text="{{ trans_choice('general.categories', 1) }}" />
-                @endif
+                    @if (! $parent_category->enabled)
+                        <x-index.disable text="{{ trans_choice('general.categories', 1) }}" />
+                    @endif
+                </div>
             </x-table.td>
 
             <x-table.td class="{{ $name_class }} py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-normal text-black cursor-pointer truncate">
@@ -81,11 +81,11 @@
                         {{ $sub_category->name }}
                     </div>
                 @endif
-            </div>
 
-            @if (! $sub_category->enabled)
-                <x-index.disable text="{{ trans_choice('general.categories', 1) }}" />
-            @endif
+                @if (! $sub_category->enabled)
+                    <x-index.disable text="{{ trans_choice('general.categories', 1) }}" />
+                @endif
+            </div>
         </x-table.td>
 
         <x-table.td class="{{ $name_class }} py-4 ltr:text-left rtl:text-right whitespace-nowrap text-sm font-normal text-black cursor-pointer truncate">
