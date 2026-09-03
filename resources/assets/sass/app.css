@@ -645,6 +645,14 @@ html[dir="rtl"] .el-select-dropdown.is-multiple .el-select-dropdown__item.select
 .collapse-sub-report.collapse-sub {
     @apply hidden;
 }
+
+tr.collapse-sub {
+    @apply hidden;
+}
+
+tr.active-collapse {
+    display: table-row;
+}
 /* collapse */
 
 .none-truncate {

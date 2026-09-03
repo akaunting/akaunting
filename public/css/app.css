@@ -67831,6 +67831,14 @@ html[dir="rtl"] .el-select-dropdown.is-multiple .el-select-dropdown__item.select
 .collapse-sub-report.collapse-sub{
   display: none;
 }
+
+tr.collapse-sub{
+  display: none;
+}
+
+tr.active-collapse {
+    display: table-row;
+}
 /* collapse */
 
 .none-truncate {
