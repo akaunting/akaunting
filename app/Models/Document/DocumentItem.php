@@ -77,7 +77,7 @@ class DocumentItem extends Model
 
     public function category()
     {
-        return $this->belongsTo('App\Models\Setting\Category');
+        return $this->belongsTo('App\Models\Setting\Category')->withoutGlobalScope('App\Scopes\Category')->withDefault(['name' => trans('general.na')]);
     }
 
     public function taxes()
