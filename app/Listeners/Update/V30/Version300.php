@@ -377,7 +377,6 @@ class Version300 extends Listener
             'purchases-payments' => 'c,r,u,d',
             'sales-revenues' => 'c,r,u,d',
             'settings-settings' => 'r,u',
-            'settings-settings' => 'r,u',
             'widgets-income-by-category' => 'r',
             'widgets-latest-expenses' => 'r',
             'widgets-latest-income' => 'r',

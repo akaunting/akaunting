@@ -113,7 +113,6 @@ class DocumentTransactions extends Controller
             ],
             'payment' => [
                 'text' => trans('invoices.accept_payments'),
-                'class' => 'long-texts',
                 'before_text' => trans('general.get_paid_faster'),
                 'class' => 'px-6 py-1.5 text-xs bg-gray-200 hover:bg-purple-200 font-medium rounded-lg leading-6 long-texts',
                 'url' => route('apps.categories.show', [
