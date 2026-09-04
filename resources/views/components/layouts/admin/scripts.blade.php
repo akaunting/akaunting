@@ -1,5 +1,5 @@
 <!-- Core -->
-<script src="{{ asset('public/vendor/js-cookie/js.cookie.js') }}"></script>
+<script src="{{ asset('vendor/js-cookie/js.cookie.js') }}"></script>
 
 <script type="text/javascript">
     var company_currency_code = '{{ default_currency() }}';
@@ -11,9 +11,9 @@
 
 @stack('charts')
 
-<!-- <script type="text/javascript" src="{{ asset('public/akaunting-js/hotkeys.js') }}" defer></script> -->
-<script type="text/javascript" src="{{ asset('public/akaunting-js/generalAction.js') }}"></script>
-<script type="text/javascript" src="{{ asset('public/akaunting-js/popper.js') }}"></script>
+<!-- <script type="text/javascript" src="{{ asset('akaunting-js/hotkeys.js') }}" defer></script> -->
+<script type="text/javascript" src="{{ asset('akaunting-js/generalAction.js') }}"></script>
+<script type="text/javascript" src="{{ asset('akaunting-js/popper.js') }}"></script>
 
 <script type="text/javascript">
     "use strict";

@@ -9,7 +9,7 @@
                                 <a href="{!! $url !!}" style="color: #676ba2; text-decoration: none;">{{ trans('footer.powered_by') }}&nbsp;</a>
                             </td>
                             <td align="center" valign="middle" style="text-align: center; padding-top: 5px;">
-                                <a href="{!! $url !!}"><img src="{{ asset('public/img/akaunting-logo-wild-blue.png') }}" style="height:20px;" alt="Akaunting" /></a>
+                                <a href="{!! $url !!}"><img src="{{ asset('img/akaunting-logo-wild-blue.png') }}" style="height:20px;" alt="Akaunting" /></a>
                             </td>
                         </tr>
                     </tbody>

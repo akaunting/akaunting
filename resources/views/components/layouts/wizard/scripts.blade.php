@@ -1,9 +1,9 @@
 @stack('scripts_start')
 
 <!-- Core -->
-<script src="{{ asset('public/vendor/js-cookie/js.cookie.js') }}"></script>
-<script type="text/javascript" src="{{ asset('public/akaunting-js/generalAction.js') }}"></script>
-<script type="text/javascript" src="{{ asset('public/akaunting-js/popper.js') }}"></script>
+<script src="{{ asset('vendor/js-cookie/js.cookie.js') }}"></script>
+<script type="text/javascript" src="{{ asset('akaunting-js/generalAction.js') }}"></script>
+<script type="text/javascript" src="{{ asset('akaunting-js/popper.js') }}"></script>
 
 <script type="text/javascript">
     var wizard_translations = {!! json_encode($translations) !!};
@@ -14,7 +14,7 @@
     var wizard_modules = {!! json_encode($modules) !!};
 </script>
 
-<script src="{{ asset('public/js/wizard/wizard.min.js?v=' . version('short')) }}"></script>
+<script src="{{ asset('js/wizard/wizard.min.js?v=' . version('short')) }}"></script>
 
 @stack('body_css')
 
