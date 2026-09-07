@@ -30,7 +30,7 @@
                 </x-link>
             </div>
 
-            <img src="{{ asset('public/img/errors/500.png') }}" alt="500" />
+            <img src="{{ asset('img/errors/500.png') }}" alt="500" />
         </div>
     </x-slot>
 </x-layouts.error>

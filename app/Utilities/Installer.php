@@ -223,6 +223,9 @@ class Installer
         $db = Config::get('database.connections.' . $con);
 
         $db['host'] = $host;
+        $db['port'] = $port;
+        $db['read']['host'][0] = $host;
+        $db['write']['host'][0] = $host;
         $db['database'] = $database;
         $db['username'] = $username;
         $db['password'] = $password;

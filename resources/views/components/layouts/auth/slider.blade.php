@@ -5,7 +5,7 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide flex justify-center flex-col items-center">
                     <div style="width:450px; height:450px;">
-                        <img src="{{ asset('public/img/auth/folder.png') }}" alt="{{ trans('auth.information.invoice') }}" />
+                        <img src="{{ asset('img/auth/folder.png') }}" alt="{{ trans('auth.information.invoice') }}" />
                     </div>
 
                     <h1 class="text-3xl text-black-400 font-bold">
@@ -15,7 +15,7 @@
 
                 <div class="swiper-slide flex justify-center flex-col items-center">
                     <div style="width:450px; height:450px;">
-                        <img src="{{ asset('public/img/auth/chart.png') }}" alt="{{ trans('auth.information.reports') }}" />
+                        <img src="{{ asset('img/auth/chart.png') }}" alt="{{ trans('auth.information.reports') }}" />
                     </div>
 
                     <h1 class="text-3xl text-black-400 font-bold">
@@ -25,7 +25,7 @@
 
                 <div class="swiper-slide flex justify-center flex-col items-center">
                     <div style="width:450px; height:450px;">
-                        <img src="{{ asset('public/img/auth/client.png') }}" alt="{{ trans('auth.information.expense') }}" />
+                        <img src="{{ asset('img/auth/client.png') }}" alt="{{ trans('auth.information.expense') }}" />
                     </div>
 
                     <h1 class="text-3xl text-black-400 font-bold">
@@ -35,7 +35,7 @@
 
                 <div class="swiper-slide flex justify-center flex-col items-center">
                     <div style="width:450px; height:450px;">
-                        <img src="{{ asset('public/img/auth/layout.png') }}" alt="{{ trans('general.dashboard') }}" />
+                        <img src="{{ asset('img/auth/layout.png') }}" alt="{{ trans('general.dashboard') }}" />
                     </div>
 
                     <h1 class="text-3xl text-black-400 font-bold">

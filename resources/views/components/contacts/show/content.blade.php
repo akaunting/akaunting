@@ -10,7 +10,7 @@
                         @if (is_object($contact->logo))
                             <img src="{{ Storage::url($contact->logo->id) }}" class="absolute w-12 h-12 rounded-full hidden lg:block" alt="{{ $contact->name }}" title="{{ $contact->name }}">
                         @else
-                            <img src="{{ asset('public/img/user.svg') }}" class="absolute w-12 h-12 rounded-full hidden lg:block" alt="{{ $contact->name }}"/>
+                            <img src="{{ asset('img/user.svg') }}" class="absolute w-12 h-12 rounded-full hidden lg:block" alt="{{ $contact->name }}"/>
                         @endif
 
                         {{ $contact->initials }}

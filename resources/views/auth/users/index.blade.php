@@ -62,7 +62,7 @@
                                         @elseif (is_object($item->picture))
                                             <img src="{{ Storage::url($item->picture->id) }}" class="w-6 h-6 rounded-full ltr:mr-2 rtl:ml-2 hidden lg:block text-transparent" alt="{{ $item->name }}" title="{{ $item->name }}">
                                         @else
-                                            <img src="{{ asset('public/img/user.svg') }}" class="w-6 h-6 rounded-full ltr:mr-2 rtl:ml-2 hidden lg:block text-transparent" alt="{{ $item->name }}"/>
+                                            <img src="{{ asset('img/user.svg') }}" class="w-6 h-6 rounded-full ltr:mr-2 rtl:ml-2 hidden lg:block text-transparent" alt="{{ $item->name }}"/>
                                         @endif
 
                                         {{ !empty($item->name) ? $item->name : trans('general.na') }}

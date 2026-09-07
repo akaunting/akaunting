@@ -31,7 +31,7 @@
                         <div class="sm:col-span-2 rounded-lg cursor-pointer text-center py-2 px-2">
                             <label class="cursor-pointer">
                                 <div @click="form.template='default'" class="flex flex-col items-center">
-                                    <img src="{{ asset('public/img/invoice_templates/default.png') }}" class="h-60 my-3" alt="Default" />
+                                    <img src="{{ asset('img/invoice_templates/default.png') }}" class="h-60 my-3" alt="Default" />
 
                                     <div class="flex items-center space-x-2 rtl:space-x-reverse">
                                         <input type="radio" name="template" value="default" v-model="form._template">
@@ -44,7 +44,7 @@
                         <div class="sm:col-span-2 rounded-lg cursor-pointer text-center py-2 px-2">
                             <label class="cursor-pointer">
                                 <div @click="form.template='classic'" class="flex flex-col items-center">
-                                    <img src="{{ asset('public/img/invoice_templates/classic.png') }}" class="h-60 my-3" alt="Classic" />
+                                    <img src="{{ asset('img/invoice_templates/classic.png') }}" class="h-60 my-3" alt="Classic" />
 
                                     <div class="flex items-center space-x-2 rtl:space-x-reverse">
                                         <input type="radio" name="template" value="classic" v-model="form._template">
@@ -57,7 +57,7 @@
                         <div class="sm:col-span-2 rounded-lg cursor-pointer text-center py-2 px-2">
                             <label class="cursor-pointer">
                                 <div @click="form.template='modern'" class="flex flex-col items-center">
-                                    <img src="{{ asset('public/img/invoice_templates/modern.png') }}" class="h-60 my-3" alt="Modern" />
+                                    <img src="{{ asset('img/invoice_templates/modern.png') }}" class="h-60 my-3" alt="Modern" />
 
                                     <div class="flex items-center space-x-2 rtl:space-x-reverse">
                                         <input type="radio" name="template" value="modern" v-model="form._template">

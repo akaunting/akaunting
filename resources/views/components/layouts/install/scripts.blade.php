@@ -1,6 +1,6 @@
 @stack('scripts_start')
 
-<script src="{{ asset('public/js/install.min.js?v=' . version('short')) }}"></script>
+<script src="{{ asset('js/install.min.js?v=' . version('short')) }}"></script>
 
 @stack('body_css')
 

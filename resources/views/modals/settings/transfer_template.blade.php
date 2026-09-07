@@ -3,7 +3,7 @@
         <div class="grid sm:grid-cols-6 gap-x-8 gap-y-6 my-3.5">
             <div class="sm:col-span-2 bg-gray-100 rounded-lg cursor-pointer text-center py-2 px-2">
                 <div @click="transfer_form.template='default'">
-                    <img src="{{ asset('public/img/transfer_templates/default.png') }}" class="h-72 m-auto" alt="Default"/>
+                    <img src="{{ asset('img/transfer_templates/default.png') }}" class="h-72 m-auto" alt="Default"/>
                     </br>
                     <label style="font-size: initial;">
                         <input type="radio" name="template" value="default" v-model="transfer_form.template">
@@ -14,7 +14,7 @@
 
             <div class="sm:col-span-2 bg-gray-100 rounded-lg cursor-pointer text-center py-2 px-2">
                 <div @click="transfer_form.template='second'">
-                    <img src="{{ asset('public/img/transfer_templates/second.png') }}" class="h-72 m-auto" alt="Second"/>
+                    <img src="{{ asset('img/transfer_templates/second.png') }}" class="h-72 m-auto" alt="Second"/>
                     </br>
                     <label style="font-size: initial;">
                         <input type="radio" name="template" value="second" v-model="transfer_form.template">
@@ -25,7 +25,7 @@
 
             <div class="sm:col-span-2 bg-gray-100 rounded-lg cursor-pointer text-center py-2 px-2">
                 <div @click="transfer_form.template='third'">
-                    <img src="{{ asset('public/img/transfer_templates/third.png') }}" class="h-72 m-auto" alt="Third"/>
+                    <img src="{{ asset('img/transfer_templates/third.png') }}" class="h-72 m-auto" alt="Third"/>
                     </br>
                     <label style="font-size: initial;">
                         <input type="radio" name="template" value="third" v-model="transfer_form.template">

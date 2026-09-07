@@ -41,7 +41,7 @@
                                 :title="option.option.name"
                             >
                             <img v-else
-                                :src="'{{ url("/") }}' + '/public/img/user.svg'"
+                                :src="'{{ url("/") }}' + '/img/user.svg'"
                                 class="absolute w-12 h-12 rounded-full hidden lg:block"
                                 :alt="option.option.name"
                             />
@@ -96,7 +96,7 @@
                                 :title="option.option.name"
                             >
                             <img v-else
-                                :src="'{{ url("/") }}' + '/public/img/user.svg'"
+                                :src="'{{ url("/") }}' + '/img/user.svg'"
                                 class="absolute w-12 h-12 rounded-full hidden lg:block"
                                 :alt="option.option.name"
                             />
@@ -151,7 +151,7 @@
                                 :title="option.option.name"
                             >
                             <img v-else
-                                :src="'{{ url("/") }}' + '/public/img/user.svg'"
+                                :src="'{{ url("/") }}' + '/img/user.svg'"
                                 class="absolute w-12 h-12 rounded-full hidden lg:block"
                                 :alt="option.option.name"
                             />
@@ -203,7 +203,7 @@
                                 :title="option.option.name"
                             >
                             <img v-else
-                                :src="'{{ url("/") }}' + '/public/img/user.svg'"
+                                :src="'{{ url("/") }}' + '/img/user.svg'"
                                 class="absolute w-12 h-12 rounded-full hidden lg:block"
                                 :alt="option.option.name"
                             />

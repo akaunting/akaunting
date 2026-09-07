@@ -1,5 +1,5 @@
 <!-- Core -->
-<script src="{{ asset('public/vendor/js-cookie/js.cookie.js') }}"></script>
+<script src="{{ asset('vendor/js-cookie/js.cookie.js') }}"></script>
 
 <script type="text/javascript">
     var company_currency_code = '{{ default_currency() }}';

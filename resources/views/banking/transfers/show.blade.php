@@ -51,7 +51,7 @@
     @endpush
 
     @push('stylesheet')
-        <link rel="stylesheet" href="{{ asset('public/css/print.css?v=' . version('short')) }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('css/print.css?v=' . version('short')) }}" type="text/css">
     @endpush
 
     <x-script folder="banking" file="transfers" />

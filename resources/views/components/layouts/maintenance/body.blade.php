@@ -8,7 +8,7 @@
             </span>
         </div>
 
-        <img src="{{ asset('public/img/empty_pages/transactions.png') }}" alt="{{ trans('maintenance.message') }}" />
+        <img src="{{ asset('img/empty_pages/transactions.png') }}" alt="{{ trans('maintenance.message') }}" />
     </div>
 
     @stack('body_end')
