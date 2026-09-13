@@ -105,7 +105,7 @@
             <div :id="'search-field-operator-' + _uid" class="absolute top-12 ltr:left-8 rtl:right-8 py-2 bg-white rounded-md border border-gray-200 shadow-xl z-20 list-none dropdown-menu operator" :class="[{'show': visible.operator}]">
                 <li v-if="equal" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap">
                     <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onOperatorSelected('=')">
-                        <span class="material-icons text-2xl transform pointer-events-none">drag_handle</span>
+                        <span class="material-icons text-2xl transform pointer-events-none mx-auto">drag_handle</span>
                         <span class="text-gray hidden pointer-events-none">{{ operatorIsText }}
                         </span>
                     </button>
@@ -120,7 +120,7 @@
 
                 <li v-if="range" class="w-full flex items-center px-2 h-9 leading-9 whitespace-nowrap">
                     <button type="button" class="w-full h-full flex items-center rounded-md px-2 text-sm hover:bg-lilac-100" @click="onOperatorSelected('><')">
-                        <span class="material-icons text-2xl transform rotate-90 pointer-events-none">height</span>
+                        <span class="material-icons text-2xl transform rotate-90 pointer-events-none mx-auto">height</span>
                         <span class="text-gray hidden pointer-events-none">{{ operatorIsNotText }}</span>
                     </button>
                 </li>
