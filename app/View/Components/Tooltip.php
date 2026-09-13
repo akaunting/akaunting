@@ -35,12 +35,13 @@ class Tooltip extends Component
      * @return void
      */
     public function __construct(
-        string $id = '', string $dynamicId = '', string $placement = '', string $tooltipPosition = '',
+        string $id = '', string $placement = '', string $tooltipPosition = '',
         string $backgroundColor = '', string $textColor = '', string $borderColor = '',
         string $message = '',
         string $size = '',
         string $whitespace = '',
         string $width = 'auto',
+        string $dynamicId = '',
     ) {
         $this->id = $this->getId($id);
         $this->dynamicId = $dynamicId;

@@ -74,7 +74,6 @@ const app = new Vue({
             dynamic_taxes: [],
             recalculate_taxes: false,
             taxes_out_of_date: false,
-            original_tax_rates: {},
             tax_rate_note: '',
             percent_position: 'after',
             show_discount: false,
@@ -410,6 +409,10 @@ const app = new Vue({
         onChangeTaxRow(row_tax, tax_id) {
             row_tax.id = tax_id;
             row_tax.rate = null;
+
+            // The rate kept for the recalculate toggle belonged to the previous
+            // tax, so undoing the toggle must not bring it back on this row.
+            row_tax.original_rate = undefined;
         },
 
         // True when the line was charged at a rate the tax no longer has, which is
@@ -1116,23 +1119,23 @@ const app = new Vue({
 
     watch: {
         recalculate_taxes: function (value) {
-            this.items.forEach(function (item, index) {
+            this.items.forEach(function (item) {
                 if (! item.tax_ids) {
                     return;
                 }
 
                 item.tax_ids.forEach(function (item_tax) {
-                    let key = index + '-' + item_tax.id;
-
+                    // Keeping the previous rate on the row itself survives lines
+                    // being reordered or removed, which an index based key does not.
                     if (value) {
-                        if (this.original_tax_rates[key] === undefined) {
-                            this.original_tax_rates[key] = item_tax.rate;
+                        if (item_tax.original_rate === undefined) {
+                            item_tax.original_rate = item_tax.rate;
                         }
 
                         // Dropping the charged rate makes the current one apply
                         item_tax.rate = null;
-                    } else if (this.original_tax_rates[key] !== undefined) {
-                        item_tax.rate = this.original_tax_rates[key];
+                    } else if (item_tax.original_rate !== undefined) {
+                        item_tax.rate = item_tax.original_rate;
                     }
                 }, this);
             }, this);

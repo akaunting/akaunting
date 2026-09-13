@@ -16,6 +16,10 @@ return new class extends Migration
     {
         Schema::table('document_item_taxes', function (Blueprint $table) {
             $table->double('rate', 15, 4)->default('0.0000')->after('name');
+
+            // The backfill below and the rate lookup in DocumentTotal both filter
+            // on tax_id, which had no index of its own.
+            $table->index('tax_id');
         });
 
         // Existing rows never stored the rate they were charged at, so seed them
@@ -39,6 +43,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('document_item_taxes', function (Blueprint $table) {
+            $table->dropIndex(['tax_id']);
             $table->dropColumn('rate');
         });
     }

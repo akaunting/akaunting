@@ -212,8 +212,8 @@ abstract class Controller extends BaseController
             // Keep their filter and drop the tab scope instead of overwriting it.
             request()->offsetSet('list_records', 'all');
         } else {
-            $income = str_replace('type:', 'income', config('type.transaction.transactions.route.params.income.search'));
-            $expense = str_replace('type:', 'expense', config('type.transaction.transactions.route.params.expense.search'));
+            $income = str_replace('type:', '', config('type.transaction.transactions.route.params.income.search'));
+            $expense = str_replace('type:', '', config('type.transaction.transactions.route.params.expense.search'));
 
             if (($type == $income) || ($type == $expense)) {
                 return;

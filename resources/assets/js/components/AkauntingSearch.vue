@@ -469,12 +469,9 @@ export default {
             search_string[path] = {};
 
             this.filtered.forEach(function (filter, index) {
-                if (list) {
-                    args += sign + 'search=';
-                    sign = '&';
-                }
-
-                if (! args) {
+                // One search parameter for all filters, not one per filter: a
+                // repeated query key leaves PHP with only the last of them.
+                if (args.indexOf('search=') === -1) {
                     args += sign + 'search=';
                     sign = '&';
                 }
