@@ -2,6 +2,9 @@
     "name": "akaunting",
     "version": "3.1.15",
     "private": true,
+    "engines": {
+        "node": ">=18 <21"
+    },
     "scripts": {
         "dev": "npm run development",
         "development": "mix",

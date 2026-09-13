@@ -15,6 +15,7 @@ Online accounting software designed for small businesses and freelancers. Akaunt
 ## Requirements
 
 * PHP 8.1 or higher
+* Node.js 18 or 20 (the asset pipeline does not build on Node 21+ yet)
 * Database (e.g.: MariaDB, MySQL, PostgreSQL, SQLite)
 * Web Server (eg: Apache, Nginx, IIS)
 * [Other libraries](https://akaunting.com/hc/docs/on-premise/requirements/)
@@ -34,6 +35,12 @@ php artisan install --db-name="akaunting" --db-username="root" --db-password="pa
 ```
 
 * Create sample data (optional): `php artisan sample-data:seed`
+
+Point the web server's document root at the project root, not at `public`.
+Akaunting serves itself through the `index.php` in the project root and builds
+its asset URLs accordingly.
+
+> If you prefer, `php artisan serve` also works for a quick local run.
 
 ## Contributing
 
