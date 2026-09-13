@@ -224,8 +224,16 @@ class Installer
 
         $db['host'] = $host;
         $db['port'] = $port;
-        $db['read']['host'] = [$host];
-        $db['write']['host'] = [$host];
+
+        // Only mysql and mariadb split reads from writes, and there the split
+        // takes precedence over the host above. Adding these keys to a driver
+        // that has none would turn it into a read/write connection for no
+        // reason, so leave those connections alone.
+        if (isset($db['read'], $db['write'])) {
+            $db['read']['host'] = [$host];
+            $db['write']['host'] = [$host];
+        }
+
         $db['database'] = $database;
         $db['username'] = $username;
         $db['password'] = $password;
