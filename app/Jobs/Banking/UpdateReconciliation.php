@@ -20,6 +20,8 @@ class UpdateReconciliation extends Job implements ShouldUpdate
             $this->model->save();
 
             if ($transactions) {
+                $transaction_reconciles = [];
+
                 foreach ($transactions as $key => $value) {
                     $transaction_reconcile = $reconcile;
 
@@ -29,8 +31,12 @@ class UpdateReconciliation extends Job implements ShouldUpdate
 
                     $t = explode('_', $key);
 
-                    $transaction = Transaction::find($t[1]);
-                    $transaction->reconciled = $transaction_reconcile;
+                    $transaction_reconciles[$t[1]] = $transaction_reconcile;
+                }
+
+                // One query for the transactions, save() keeps the observers running
+                foreach (Transaction::find(array_keys($transaction_reconciles)) as $transaction) {
+                    $transaction->reconciled = $transaction_reconciles[$transaction->id];
                     $transaction->save();
                 }
             }

@@ -19,7 +19,7 @@ class Accounts extends ApiController
      */
     public function index()
     {
-        $accounts = Account::with('owner')->collect();
+        $accounts = Account::with('owner')->withSum('income_transactions', 'amount')->withSum('expense_transactions', 'amount')->collect();
 
         return Resource::collection($accounts);
     }

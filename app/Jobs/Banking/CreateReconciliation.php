@@ -30,6 +30,8 @@ class CreateReconciliation extends Job implements HasOwner, HasSource, ShouldCre
             $this->model = Reconciliation::create($this->request->all());
 
             if ($reconcile && $transactions) {
+                $transaction_ids = [];
+
                 foreach ($transactions as $key => $value) {
                     if (empty($value)) {
                         continue;
@@ -37,7 +39,11 @@ class CreateReconciliation extends Job implements HasOwner, HasSource, ShouldCre
 
                     $t = explode('_', $key);
 
-                    $transaction = Transaction::find($t[1]);
+                    $transaction_ids[] = $t[1];
+                }
+
+                // One query for the transactions, save() keeps the observers running
+                foreach (Transaction::find($transaction_ids) as $transaction) {
                     $transaction->reconciled = 1;
                     $transaction->save();
                 }

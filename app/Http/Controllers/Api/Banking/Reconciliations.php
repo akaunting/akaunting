@@ -19,7 +19,9 @@ class Reconciliations extends ApiController
      */
     public function index()
     {
-        $reconciliations = Reconciliation::with('account', 'owner')->collect();
+        $reconciliations = Reconciliation::with(['account' => function ($query) {
+            $query->with('owner')->withSum('income_transactions', 'amount')->withSum('expense_transactions', 'amount');
+        }, 'owner'])->collect();
 
         return Resource::collection($reconciliations);
     }
