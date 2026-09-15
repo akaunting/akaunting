@@ -75,10 +75,12 @@ const dashboard = new Vue({
         const scrollLeft = document.getElementById('dashboard-left');
         const scrollRight = document.getElementById('dashboard-right');
 
-        scrollLeft.addEventListener('click', () => scrollToItem('left'));
-        scrollRight.addEventListener('click', () => scrollToItem('right'));
-
         const isRtl = document.documentElement.dir === 'rtl';
+
+        if (slider && scrollLeft && scrollRight) {
+            scrollLeft.addEventListener('click', () => scrollToItem('left'));
+            scrollRight.addEventListener('click', () => scrollToItem('right'));
+        }
 
         function scrollToItem(direction) {
             if (direction == 'right') {
@@ -162,9 +164,11 @@ const dashboard = new Vue({
             }
         }
 
-        updateSlider();
+        if (slider && scrollLeft && scrollRight) {
+            updateSlider();
 
-        window.addEventListener('resize', updateSlider);
+            window.addEventListener('resize', updateSlider);
+        }
         // dashboard slider ending
     },
 
