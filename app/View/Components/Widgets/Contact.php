@@ -3,7 +3,7 @@
 namespace App\View\Components\Widgets;
 
 use App\Abstracts\View\Component;
-use Illuminate\Support\Str;
+use App\Utilities\Str;
 
 class Contact extends Component
 {
@@ -35,9 +35,8 @@ class Contact extends Component
             return trans('general.na');
         }
 
-        $names = explode(' ', $full_name);
-
-        return strtoupper(substr($names[0], 0, 1) . substr(end($names), 0, 1));
+        // Same initials as the contact show page, multibyte safe
+        return Str::getInitials($full_name);
     }
 
     /**
