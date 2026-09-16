@@ -98,6 +98,21 @@ trait Contacts
             $address_format
         );
 
-        return $formatted_address;
+        // Remove separators left behind by empty fields, e.g. ", {state}" when state is empty.
+        $lines = [];
+
+        foreach (preg_split('/\r\n|\r|\n/', $formatted_address) as $line) {
+            $line = preg_replace('/\s+/u', ' ', $line);
+            $line = preg_replace('/\s*,(\s*,)+/u', ',', $line);
+            $line = trim($line, " ,");
+
+            if ($line === '') {
+                continue;
+            }
+
+            $lines[] = $line;
+        }
+
+        return empty($lines) ? null : implode("\n", $lines);
     }
 }
