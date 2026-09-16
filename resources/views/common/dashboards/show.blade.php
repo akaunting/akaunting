@@ -71,48 +71,6 @@
                 </x-dropdown>
             </div>
         @endcanany
-
-        @php
-            $text = json_encode([
-                'name' => trans('general.name'),
-                'type' => trans_choice('general.types', 1),
-                'width' => trans('general.width'),
-                'limit' => trans('general.limit'),
-                'sort' => trans('general.sort'),
-                'enabled' => trans('general.enabled'),
-                'yes' => trans('general.yes'),
-                'no' => trans('general.no'),
-                'save' => trans('general.save'),
-                'cancel' => trans('general.cancel')
-            ]);
-
-            $placeholder = json_encode([
-                'name' => trans('general.form.enter', ['field' => trans('general.name')]),
-                'type' => trans('general.form.select.field', ['field' => trans_choice('general.types', 1)]),
-                'width' => trans('general.form.select.field', ['field' => trans('general.width')]),
-                'limit' => trans('general.form.enter', ['field' => trans('general.limit')]),
-                'sort' => trans('general.form.enter', ['field' => trans('general.sort')])
-            ]);
-        @endphp
-
-        <akaunting-widget
-            v-if="widget_modal"
-            :title="widget.action == 'edit' ? '{{ trans('general.title.edit') }}'.replace(':type', widget.name) : '{{ trans('general.title.create', ['type' => trans_choice('general.widgets', 1)]) }}'"
-            :show="widget_modal"
-            :widget_id="widget.id"
-            :name="widget.name"
-            :width="widget.width"
-            :limit="widget.limit"
-            :action="widget.action"
-            :type="widget.class"
-            :types="widgets"
-            :settings="widget_settings"
-            :sort="widget.sort"
-            :dashboard_id="{{ $dashboard->id }}"
-            :text="{{ $text }}"
-            :placeholder="{{ $placeholder }}"
-            @cancel="onCancel">
-        </akaunting-widget>
     @endsection
 
     <x-slot name="content">
@@ -171,6 +129,48 @@
                 @widget($widget)
             @endforeach
         </div>
+
+        @php
+            $text = json_encode([
+                'name' => trans('general.name'),
+                'type' => trans_choice('general.types', 1),
+                'width' => trans('general.width'),
+                'limit' => trans('general.limit'),
+                'sort' => trans('general.sort'),
+                'enabled' => trans('general.enabled'),
+                'yes' => trans('general.yes'),
+                'no' => trans('general.no'),
+                'save' => trans('general.save'),
+                'cancel' => trans('general.cancel')
+            ]);
+
+            $placeholder = json_encode([
+                'name' => trans('general.form.enter', ['field' => trans('general.name')]),
+                'type' => trans('general.form.select.field', ['field' => trans_choice('general.types', 1)]),
+                'width' => trans('general.form.select.field', ['field' => trans('general.width')]),
+                'limit' => trans('general.form.enter', ['field' => trans('general.limit')]),
+                'sort' => trans('general.form.enter', ['field' => trans('general.sort')])
+            ]);
+        @endphp
+
+        <akaunting-widget
+            v-if="widget_modal"
+            :title="widget.action == 'edit' ? '{{ trans('general.title.edit') }}'.replace(':type', widget.name) : '{{ trans('general.title.create', ['type' => trans_choice('general.widgets', 1)]) }}'"
+            :show="widget_modal"
+            :widget_id="widget.id"
+            :name="widget.name"
+            :width="widget.width"
+            :limit="widget.limit"
+            :action="widget.action"
+            :type="widget.class"
+            :types="widgets"
+            :settings="widget_settings"
+            :sort="widget.sort"
+            :dashboard_id="{{ $dashboard->id }}"
+            :text="{{ $text }}"
+            :placeholder="{{ $placeholder }}"
+            @cancel="onCancel">
+        </akaunting-widget>
     </x-slot>
 
     <x-script folder="common" file="dashboards" />
