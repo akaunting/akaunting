@@ -13,7 +13,7 @@
                         <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
                         @can('read-auth-users')
-                            <x-form.group.checkbox name="users" label="{{ trans_choice('general.users', 2) }}" :options="$users" :checked="[]" />
+                            <x-form.group.checkbox name="users" label="{{ trans_choice('general.users', 2) }}" :options="$users" :checked="($users->count() === 1) ? $users->pluck('id')->toArray() : []" />
                         @endcan
                     </x-slot>
                 </x-form.section>
