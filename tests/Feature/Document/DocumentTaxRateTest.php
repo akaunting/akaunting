@@ -45,7 +45,7 @@ class DocumentTaxRateTest extends FeatureTestCase
         $this->assertEquals(10, $item_tax->amount);
     }
 
-    public function testItUsesTheCurrentRateWhenNoRateIsPosted(): void
+    public function testItKeepsTheStoredRateWhenNoRateIsPosted(): void
     {
         $tax = $this->createTax(10);
 
@@ -54,6 +54,25 @@ class DocumentTaxRateTest extends FeatureTestCase
         $tax->update(['rate' => 25]);
 
         $this->dispatch(new UpdateDocument($invoice, $this->getRequest($tax, $invoice)));
+
+        $item_tax = $invoice->refresh()->item_taxes()->first();
+
+        $this->assertEquals(10, $item_tax->rate);
+        $this->assertEquals(10, $item_tax->amount);
+    }
+
+    public function testItUsesTheCurrentRateWhenRecalculationIsRequested(): void
+    {
+        $tax = $this->createTax(10);
+
+        $invoice = $this->createInvoice($tax);
+
+        $tax->update(['rate' => 25]);
+
+        $request = $this->getRequest($tax, $invoice);
+        $request['recalculate_taxes'] = '1';
+
+        $this->dispatch(new UpdateDocument($invoice, $request));
 
         $item_tax = $invoice->refresh()->item_taxes()->first();
 
