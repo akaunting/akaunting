@@ -56,6 +56,8 @@
                             v-model="form.limit"
                             :label="text.limit"
                             :placeholder="placeholder.limit"
+                            :error="form.errors.limit[0]"
+                            @input="form.errors.limit[0] = ''"
                             inputGroupClasses="input-group-merge">
                         </base-input>
                     </div>
@@ -212,6 +214,7 @@ export default {
                     name: [],
                     class: [],
                     sort: [],
+                    limit: [],
                 }
             },
             display: this.show
@@ -253,6 +256,7 @@ export default {
                         self.form.errors.name = (error.response.data.errors.name) ? error.response.data.errors.name : [];
                         self.form.errors.class = (error.response.data.errors.class) ? error.response.data.errors.class : [];
                         self.form.errors.sort = (error.response.data.errors.sort) ? error.response.data.errors.sort : [];
+                        self.form.errors.limit = (error.response.data.errors.limit) ? error.response.data.errors.limit : [];
 
                         self.form.loading = false;
                     }
@@ -263,6 +267,7 @@ export default {
                     self.form.errors.name = (error.response.data.errors.name) ? error.response.data.errors.name : [];
                     self.form.errors.class = (error.response.data.errors.class) ? error.response.data.errors.class : [];
                     self.form.errors.sort = (error.response.data.errors.sort) ? error.response.data.errors.sort : [];
+                    self.form.errors.limit = (error.response.data.errors.limit) ? error.response.data.errors.limit : [];
 
                     self.form.loading = false;
                 });

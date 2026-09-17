@@ -44,7 +44,7 @@
       </div>
       <slot name="infoBlock"></slot>
       <slot name="error">
-        <div v-if="error" class="text-red text-sm mt-1 block"
+        <div v-if="error" class="text-red text-sm mt-1 block max-w-full whitespace-normal break-words"
             v-html="error">
         </div>
       </slot>
