@@ -11,6 +11,7 @@ use App\Jobs\Document\CreateDocumentItemsAndTotals;
 use App\Models\Document\Document;
 use App\Traits\Relationships;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class UpdateDocument extends Job implements ShouldUpdate
@@ -23,6 +24,10 @@ class UpdateDocument extends Job implements ShouldUpdate
 
         // An absent items key is a partial update; rebuilding from it would force delete the lines
         $has_items = $this->request->has('items');
+
+        if ($has_items) {
+            $this->preserveExistingTaxRates();
+        }
 
         // Derived from the lines, never taken from the caller
         $this->request['amount'] = $has_items ? 0 : $this->model->amount;
@@ -37,7 +42,7 @@ class UpdateDocument extends Job implements ShouldUpdate
         // Track original contact_id to sync transactions if it changes
         $originalContactId = $this->model->contact_id;
 
-        \DB::transaction(function () use ($originalContactId, $has_items) {
+        DB::transaction(function () use ($originalContactId, $has_items) {
             // Upload attachment
             if ($this->request->file('attachment')) {
                 $this->deleteMediaModel($this->model, 'attachment', $this->request);
@@ -93,6 +98,58 @@ class UpdateDocument extends Job implements ShouldUpdate
         event(new DocumentUpdated($this->model, $this->request));
 
         return $this->model;
+    }
+
+    /**
+     * Preserve stored line tax rates when the client does not submit tax_rates.
+     */
+    protected function preserveExistingTaxRates(): void
+    {
+        if ($this->request->boolean('recalculate_taxes')) {
+            return;
+        }
+
+        $items = (array) $this->request->input('items', []);
+
+        if (empty($items)) {
+            return;
+        }
+
+        $existingItems = $this->model->items()->with('taxes')->get()->values();
+
+        foreach ($items as $index => &$item) {
+            if (! empty($item['tax_rates']) || empty($item['tax_ids'])) {
+                continue;
+            }
+
+            $existingItem = $existingItems->get((int) $index);
+
+            if (! $existingItem) {
+                continue;
+            }
+
+            $existingRates = $existingItem->taxes->pluck('rate', 'tax_id')->all();
+
+            if (empty($existingRates)) {
+                continue;
+            }
+
+            $matchedRates = [];
+
+            foreach ((array) $item['tax_ids'] as $taxId) {
+                if (array_key_exists($taxId, $existingRates)) {
+                    $matchedRates[$taxId] = $existingRates[$taxId];
+                }
+            }
+
+            if (! empty($matchedRates)) {
+                $item['tax_rates'] = $matchedRates;
+            }
+        }
+
+        unset($item);
+
+        $this->request->merge(['items' => $items]);
     }
 
     /**

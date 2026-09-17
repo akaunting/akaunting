@@ -983,6 +983,16 @@ const app = new Vue({
             this.edit.currency = 1;
 
             document_items.forEach(function(item) {
+                let form_item_tax_rates = {};
+
+                if (item.taxes) {
+                    item.taxes.forEach(function (item_tax) {
+                        if (item_tax.rate !== undefined && item_tax.rate !== null) {
+                            form_item_tax_rates[item_tax.tax_id] = item_tax.rate;
+                        }
+                    });
+                }
+
                 // form set item
                 this.form.items.push({
                     item_id: item.item_id,
@@ -991,6 +1001,7 @@ const app = new Vue({
                     quantity: item.quantity,
                     price: (item.price).toFixed(this.currency.precision ?? 2),
                     tax_ids: item.tax_ids,
+                    tax_rates: form_item_tax_rates,
                     discount: item.discount_rate,
                     discount_type: item.discount_type,
                     total: (item.total).toFixed(this.currency.precision ?? 2)
@@ -1120,11 +1131,17 @@ const app = new Vue({
             this.onAddDiscount();
         }
 
+        if (this.edit.status) {
+            this.onCalculateTotal();
+        }
+
         this.page_loaded = true;
     },
 
     watch: {
         recalculate_taxes: function (value) {
+            this.form.recalculate_taxes = value ? '1' : '';
+
             this.items.forEach(function (item) {
                 if (! item.tax_ids) {
                     return;
