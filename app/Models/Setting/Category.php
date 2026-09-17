@@ -16,6 +16,7 @@ use App\Traits\Transactions;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
+use Illuminate\Support\Facades\Lang;
 
 class Category extends Model
 {
@@ -349,10 +350,6 @@ class Category extends Model
 
     public function isDefaultCategory(): bool
     {
-        if (! module_is_enabled('double-entry')) {
-            return false;
-        }
-
         return in_array($this->id, array_filter(array_map(
             fn ($setting) => setting('default.' . $setting),
             array_keys(self::DEFAULT_CATEGORY_LABELS)
@@ -367,7 +364,21 @@ class Category extends Model
 
         foreach (self::DEFAULT_CATEGORY_LABELS as $setting => $label) {
             if ((int) setting('default.' . $setting) === (int) $this->id) {
-                return trans('double-entry::general.categories.' . $label);
+                foreach ([
+                    'double-entry::general.categories.' . $label,
+                    'categories.' . $label,
+                    'general.' . $label,
+                ] as $translation) {
+                    if (Lang::has($translation)) {
+                        $value = Lang::get($translation);
+
+                        return is_string($value) && str_contains($value, '|')
+                            ? trans_choice($translation, 2)
+                            : trans($translation);
+                    }
+                }
+
+                return null;
             }
         }
 

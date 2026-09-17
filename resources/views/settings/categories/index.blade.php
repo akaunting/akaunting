@@ -125,7 +125,7 @@
                                         @endif
 
                                         @if ($item->isDefaultCategory())
-                                            <x-index.default text="{{ trans('double-entry::general.default_type', ['type' => $item->default_category_label]) }}" />
+                                            <x-index.default text="{{ trans('categories.default_type', ['type' => $item->default_category_label]) }}" />
                                         @endif
                                     </div>
                                 @else
@@ -149,7 +149,7 @@
                                         @endif
 
                                         @if ($item->isDefaultCategory())
-                                            <x-index.default text="{{ trans('double-entry::general.default_type', ['type' => $item->default_category_label]) }}" />
+                                            <x-index.default text="{{ trans('categories.default_type', ['type' => $item->default_category_label]) }}" />
                                         @endif
                                     </div>
                                 @endif
