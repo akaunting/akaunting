@@ -407,6 +407,12 @@ const app = new Vue({
         // Picking a different tax means the line is no longer charged at the
         // previous tax's rate, so drop it and let the new tax's rate apply.
         onChangeTaxRow(row_tax, tax_id) {
+            // Some select components emit the current value on mount. Only
+            // clear the charged rate when the selected tax actually changes.
+            if (String(row_tax.id) === String(tax_id)) {
+                return;
+            }
+
             row_tax.id = tax_id;
             row_tax.rate = null;
 
