@@ -41,6 +41,20 @@ class ItemsTest extends FeatureTestCase
         $this->assertDatabaseHas('items', $request);
     }
 
+    public function testItShouldNotCreateItemWithInvalidCategory()
+    {
+        $request = $this->getRequest();
+        $request['category_id'] = 99999;
+
+        $this->withExceptionHandling()
+            ->loginAs()
+            ->postJson(route('items.store'), $request)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors([
+                'category_id' => trans('validation.exists', ['attribute' => 'category id']),
+            ]);
+    }
+
     public function testItShouldSeeItemUpdatePage()
     {
         $request = $this->getRequest();

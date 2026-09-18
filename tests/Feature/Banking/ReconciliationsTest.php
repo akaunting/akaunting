@@ -35,6 +35,18 @@ class ReconciliationsTest extends FeatureTestCase
         $this->assertFlashLevel('success');
     }
 
+    public function testItShouldNotCreateReconciliationWithInvalidAccount()
+    {
+        $request = $this->getRequest();
+        $request['account_id'] = 99999;
+
+        $this->withExceptionHandling()
+            ->loginAs()
+            ->postJson(route('reconciliations.store'), $request)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['account_id']);
+    }
+
     public function testItShouldSeeReconciliationUpdatePage()
     {
         $request = $this->getRequest();

@@ -53,6 +53,18 @@ class CustomersTest extends FeatureTestCase
         $this->assertDatabaseHas('contacts', $request);
     }
 
+    public function testItShouldNotCreateCustomerWithInvalidUser()
+    {
+        $request = $this->getRequest();
+        $request['user_id'] = 99999;
+
+        $this->withExceptionHandling()
+            ->loginAs()
+            ->postJson(route('customers.store'), $request)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['user_id']);
+    }
+
     public function testItShouldCreateCustomerWithUser()
     {
         $request = $this->getRequestWithUser();

@@ -233,6 +233,26 @@ class InvoicesTest extends FeatureTestCase
         $this->assertSame('2025-12-29', $document->due_at->format('Y-m-d'));
     }
 
+    public function testItShouldNotCreateInvoiceWithInvalidRelationsThroughApi()
+    {
+        $request = $this->getRequest();
+        $request['contact_id'] = 99999;
+        $request['category_id'] = 99999;
+
+        $this->withExceptionHandling()
+            ->withHeaders([
+                'Authorization' => 'Basic ' . base64_encode('test@company.com:123456'),
+            ])
+            ->postJson(route('api.documents.store', ['search' => 'type:invoice']), $request)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors([
+                'contact_id' => trans('validation.exists', ['attribute' => 'contact id']),
+                'category_id' => trans('validation.exists', ['attribute' => 'category id']),
+            ]);
+
+        $this->assertDatabaseMissing('documents', ['document_number' => $request['document_number']]);
+    }
+
     public function testItShouldCreateInvoiceWithAttachment()
     {
         Storage::fake('uploads');
