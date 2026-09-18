@@ -16,6 +16,7 @@ class Dashboard extends FormRequest
         return [
             'name' => 'required|string',
             'users' => 'required|array',
+            'users.*' => 'integer|exists:user_companies,user_id,company_id,' . company_id(),
             //'enabled' => 'integer|boolean',
         ];
     }

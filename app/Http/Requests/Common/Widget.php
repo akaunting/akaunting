@@ -31,8 +31,10 @@ class Widget extends FormRequest
      */
     public function rules()
     {
+        $company_id = company_id();
+
         return [
-            'dashboard_id' => 'required|integer',
+            'dashboard_id' => 'required|integer|exists:dashboards,id,company_id,' . $company_id . ',deleted_at,NULL',
             'name' => 'required|string',
             'class' => 'required',
             'sort' => 'integer',

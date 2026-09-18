@@ -56,7 +56,7 @@ class Contact extends FormRequest
             'type'          => 'required|string',
             'name'          => 'required|string',
             'email'         => $email,
-            'user_id'       => 'integer|nullable',
+            'user_id'       => 'integer|nullable|exists:users,id,deleted_at,NULL',
             'currency_code' => 'required|string|currency',
             'enabled'       => 'integer|boolean',
             'logo'          => $logo,
