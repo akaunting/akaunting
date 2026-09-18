@@ -126,7 +126,7 @@
                     <x-table.tr href="{{ route($routeButtonShow, $item->id) }}">
                         @if (! $hideBulkAction)
                         <x-table.td class="{{ $classBulkAction }}" override="class">
-                            <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" />
+                            <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" enabled="{{ $item->enabled }}" />
                         </x-table.td>
                         @endif
 

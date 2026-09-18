@@ -59,7 +59,7 @@
                     @foreach($accounts as $item)
                         <x-table.tr href="{{ route('accounts.show', $item->id) }}">
                             <x-table.td kind="bulkaction">
-                                <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" />
+                                <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" enabled="{{ $item->enabled }}" />
                             </x-table.td>
 
                             <x-table.td class="w-6/12 sm:w-5/12">
