@@ -47,6 +47,18 @@ class DashboardsTest extends FeatureTestCase
         $this->assertDatabaseHas('dashboards', $this->getAssertRequest($request));
     }
 
+    public function testItShouldNotCreateDashboardWithInvalidUser()
+    {
+        $request = $this->getRequest();
+        $request['users'] = [99999];
+
+        $this->withExceptionHandling()
+            ->loginAs()
+            ->postJson(route('dashboards.store'), $request)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['users.0']);
+    }
+
     public function testItShouldSeeDashboardUpdatePage()
     {
         $request = $this->getRequest();
@@ -122,6 +134,18 @@ class DashboardsTest extends FeatureTestCase
             ->assertOk();
 
         $this->assertDatabaseHas('widgets', $this->getAssertRequest($request));
+    }
+
+    public function testItShouldNotCreateWidgetWithInvalidDashboard()
+    {
+        $request = $this->getWidget();
+        $request['dashboard_id'] = 99999;
+
+        $this->withExceptionHandling()
+            ->loginAs()
+            ->postJson(route('widgets.store'), $request)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['dashboard_id']);
     }
 
     public function testItShouldUpdateWidget()

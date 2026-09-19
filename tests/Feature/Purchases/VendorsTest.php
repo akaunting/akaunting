@@ -53,6 +53,18 @@ class VendorsTest extends FeatureTestCase
         $this->assertDatabaseHas('contacts', $request);
     }
 
+    public function testItShouldNotCreateVendorWithInvalidUser()
+    {
+        $request = $this->getRequest();
+        $request['user_id'] = 99999;
+
+        $this->withExceptionHandling()
+            ->loginAs()
+            ->postJson(route('vendors.store'), $request)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['user_id']);
+    }
+
     public function testItShouldSeeVendorDetailPage()
     {
         $request = $this->getRequest();

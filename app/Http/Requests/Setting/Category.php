@@ -25,6 +25,7 @@ class Category extends FormRequest
             'code' => $code,
             'type' => 'required|string|in:' . $types->implode(','),
             'color' => 'required|string|colour',
+            'parent_id' => 'nullable|integer|exists:categories,id,company_id,' . company_id() . ',deleted_at,NULL',
         ];
     }
 }

@@ -13,9 +13,11 @@ class ContactPerson extends FormRequest
      */
     public function rules()
     {
+        $company_id = company_id();
+
         return [
             'type' => 'required|string',
-            'contact_id' => 'required|integer',
+            'contact_id' => 'required|integer|exists:contacts,id,company_id,' . $company_id . ',deleted_at,NULL',
             'name' => 'nullable|string',
             'email' => 'nullable|email:rfc,dns',
             'phone' => 'nullable|string',

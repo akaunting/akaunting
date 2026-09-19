@@ -37,6 +37,18 @@ class CategoriesTest extends FeatureTestCase
         $this->assertDatabaseHas('categories', $request);
     }
 
+    public function testItShouldNotCreateCategoryWithInvalidParent()
+    {
+        $request = $this->getRequest();
+        $request['parent_id'] = 99999;
+
+        $this->withExceptionHandling()
+            ->loginAs()
+            ->postJson(route('categories.store'), $request)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['parent_id']);
+    }
+
     public function testItShouldSeeCategoryUpdatePage()
     {
         $request = $this->getRequest();
