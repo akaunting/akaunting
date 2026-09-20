@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Document;
 
 use App\Http\Resources\Auth\Owner;
+use App\Events\Api\ResourceShowing;
 use App\Events\Document\DocumentResourceShowing;
 use App\Http\Resources\Banking\Transaction;
 use App\Http\Resources\Common\Contact;
@@ -70,6 +71,13 @@ class Document extends JsonResource
 
         if (! empty($event->resources)) {
             $resources = array_merge($resources, $event->resources);
+        }
+
+        $api_event = new ResourceShowing($this->resource);
+        event($api_event);
+
+        if (! empty($api_event->resources)) {
+            $resources = array_merge($resources, $api_event->resources);
         }
 
         return $resources;

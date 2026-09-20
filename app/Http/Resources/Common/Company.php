@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Common;
 
 use App\Http\Resources\Auth\Owner;
+use App\Events\Api\ResourceShowing;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Company extends JsonResource
@@ -15,7 +16,7 @@ class Company extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $resources = [
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
@@ -29,5 +30,14 @@ class Company extends JsonResource
             'created_from' => $this->created_from,
             'owner' => Owner::from($this->owner),
         ];
+
+        $event = new ResourceShowing($this->resource);
+        event($event);
+
+        if (! empty($event->resources)) {
+            $resources = array_merge($resources, $event->resources);
+        }
+
+        return $resources;
     }
 }

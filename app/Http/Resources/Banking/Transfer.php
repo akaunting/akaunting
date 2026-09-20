@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Banking;
 
+use App\Events\Api\ResourceShowing;
 use App\Http\Resources\Auth\Owner;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,7 +19,7 @@ class Transfer extends JsonResource
         $expense_transaction = $this->expense_transaction;
         $income_transaction = $this->income_transaction;
 
-        return [
+        $resources = [
             'id' => $this->id,
             'company_id' => $this->company_id,
             'from_account' => $expense_transaction->account->name,
@@ -34,5 +35,14 @@ class Transfer extends JsonResource
             'created_from' => $this->created_from,
             'owner' => Owner::from($this->owner),
         ];
+
+        $event = new ResourceShowing($this->resource);
+        event($event);
+
+        if (! empty($event->resources)) {
+            $resources = array_merge($resources, $event->resources);
+        }
+
+        return $resources;
     }
 }

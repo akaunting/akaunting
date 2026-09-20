@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Document;
 
+use App\Events\Api\ResourceShowing;
 use App\Http\Resources\Auth\Owner;
 use App\Http\Resources\Document\DocumentItemTax;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -16,7 +17,7 @@ class DocumentItem extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $resources = [
             'id' => $this->id,
             'company_id' => $this->company_id,
             'type' => $this->type,
@@ -34,5 +35,14 @@ class DocumentItem extends JsonResource
             'owner' => Owner::from($this->owner),
             'taxes' => [static::$wrap => DocumentItemTax::collection($this->taxes)],
         ];
+
+        $event = new ResourceShowing($this->resource);
+        event($event);
+
+        if (! empty($event->resources)) {
+            $resources = array_merge($resources, $event->resources);
+        }
+
+        return $resources;
     }
 }
