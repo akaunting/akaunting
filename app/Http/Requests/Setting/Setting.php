@@ -32,7 +32,7 @@ class Setting extends FormRequest
 
                 break;
             case 'default':
-                $company_id = company_id();
+                $company_id = (int) $this->request->get('company_id', company_id());
 
                 $rules = [
                     'account'           => 'required|string|exists:accounts,id,company_id,' . $company_id . ',deleted_at,NULL',

@@ -40,7 +40,7 @@ class Item extends FormRequest
             $purchase_price .= $this->maxSizePrice($this->request->get('purchase_price'));
         }
 
-        $company_id = company_id();
+        $company_id = (int) $this->request->get('company_id', company_id());
 
         return [
             'type'              => 'required|string|in:product,service',

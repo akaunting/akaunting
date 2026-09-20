@@ -13,6 +13,8 @@ class Category extends FormRequest
      */
     public function rules()
     {
+        $company_id = (int) $this->request->get('company_id', company_id());
+
         $types = collect(config('type.category'))->keys();
 
         $type = $this->request->get('type');

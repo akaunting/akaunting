@@ -13,7 +13,7 @@ class Reconciliation extends FormRequest
      */
     public function rules()
     {
-        $company_id = company_id();
+        $company_id = (int) $this->request->get('company_id', company_id());
 
         return [
             'account_id' => 'required|integer|exists:accounts,id,company_id,' . $company_id . ',deleted_at,NULL',

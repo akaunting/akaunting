@@ -31,7 +31,7 @@ class Widget extends FormRequest
      */
     public function rules()
     {
-        $company_id = company_id();
+        $company_id = (int) $this->request->get('company_id', company_id());
 
         return [
             'dashboard_id' => 'required|integer|exists:dashboards,id,company_id,' . $company_id . ',deleted_at,NULL',

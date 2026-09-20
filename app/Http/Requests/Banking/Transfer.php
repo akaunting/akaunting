@@ -13,7 +13,7 @@ class Transfer extends FormRequest
      */
     public function rules()
     {
-        $company_id = company_id();
+        $company_id = (int) $this->request->get('company_id', company_id());
 
         return [
             'from_account_id' => 'required|integer|exists:accounts,id,company_id,' . $company_id . ',deleted_at,NULL',

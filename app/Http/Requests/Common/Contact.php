@@ -23,7 +23,7 @@ class Contact extends FormRequest
             $type = null;
         }
 
-        $company_id = (int) $this->request->get('company_id');
+        $company_id = (int) $this->request->get('company_id', company_id());
 
         // Check if store or update
         if (in_array($this->getMethod(), ['PATCH', 'PUT'])) {

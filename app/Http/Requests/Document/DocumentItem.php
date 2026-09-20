@@ -20,7 +20,7 @@ class DocumentItem extends FormRequest
             $this->quantity_size = 12;
         }
 
-        $company_id = company_id();
+        $company_id = (int) $this->request->get('company_id', company_id());
 
         return [
             'type' => 'required|string',

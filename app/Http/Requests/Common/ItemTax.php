@@ -13,7 +13,7 @@ class ItemTax extends FormRequest
      */
     public function rules()
     {
-        $company_id = company_id();
+        $company_id = (int) $this->request->get('company_id', company_id());
 
         return [
             'item_id' => 'required|integer|exists:items,id,company_id,' . $company_id . ',deleted_at,NULL',

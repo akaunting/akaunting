@@ -13,7 +13,7 @@ class TransactionConnect extends FormRequest
      */
     public function rules()
     {
-        $company_id = company_id();
+        $company_id = (int) $this->request->get('company_id', company_id());
 
         return [
             'data' => 'required|array',
