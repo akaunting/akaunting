@@ -341,7 +341,7 @@ trait Categories
     public function getNextCategoryCode()
     {
         return Category::isNotSubCategory()->get(['code'])->reject(function ($category) {
-            return !preg_match('/^[0-9]*$/', $category->code);
+            return !preg_match('/^[0-9]+$/', (string) $category->code);
         })->max('code') + 1;
     }
 }

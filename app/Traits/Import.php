@@ -24,6 +24,7 @@ use App\Models\Document\Document;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Tax;
+use App\Traits\Categories;
 use App\Traits\Jobs;
 use App\Traits\Sources;
 use App\Traits\Translations;
@@ -33,7 +34,7 @@ use Akaunting\Module\Module;
 
 trait Import
 {
-    use Jobs, Sources, Translations;
+    use Categories, Jobs, Sources, Translations;
 
     public function getImportView($group, $type, $route = null)
     {
@@ -372,7 +373,13 @@ trait Import
             'created_by'        => !empty($row['created_by']) ? $row['created_by'] : user()?->id,
         ];
 
-        Validator::validate($data, (new CategoryRequest)->rules());
+        // Code is required for the category types showing it, so create the new category with the next available code
+        if (! $this->hideCodeCategoryType($type)) {
+            $data['code'] = !empty($row['category_code']) ? (string) $row['category_code'] : (string) $this->getNextCategoryCode();
+        }
+
+        // Pass the data to the request so the rules are prepared for the category type
+        Validator::validate($data, (new CategoryRequest([], $data))->rules());
 
         $category = $this->dispatch(new CreateCategory($data));
 
