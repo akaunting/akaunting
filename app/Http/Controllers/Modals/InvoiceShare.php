@@ -48,7 +48,7 @@ class InvoiceShare extends Controller
         }
 
         try {
-            route($signed_route, [$this->document->id, 'company_id' => company_id()]);
+            route($signed_route, [$invoice->id, 'company_id' => company_id()]);
 
             $signedUrl = URL::signedRoute($signed_route, [$invoice->id]);
         } catch (\Exception $e) {
