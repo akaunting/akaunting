@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Banking;
 
+use App\Events\Api\ResourceShowing;
 use App\Http\Resources\Auth\Owner;
 use App\Http\Resources\Banking\Account;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -16,7 +17,7 @@ class Reconciliation extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $resources = [
             'id' => $this->id,
             'company_id' => $this->company_id,
             'account_id' => $this->account_id,
@@ -31,5 +32,14 @@ class Reconciliation extends JsonResource
             'owner' => Owner::from($this->owner),
             'account' => new Account($this->account),
         ];
+
+        $event = new ResourceShowing($this->resource);
+        event($event);
+
+        if (! empty($event->resources)) {
+            $resources = array_merge($resources, $event->resources);
+        }
+
+        return $resources;
     }
 }

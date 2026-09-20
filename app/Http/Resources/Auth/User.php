@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Auth;
 
+use App\Events\Api\ResourceShowing;
 use App\Http\Resources\Auth\Owner;
 use App\Http\Resources\Auth\Role;
 use App\Http\Resources\Common\Company;
@@ -17,7 +18,7 @@ class User extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $resources = [
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
@@ -32,5 +33,14 @@ class User extends JsonResource
             'companies' => [static::$wrap => Company::collection($this->companies)],
             'roles' => [static::$wrap => Role::collection($this->roles)],
         ];
+
+        $event = new ResourceShowing($this->resource);
+        event($event);
+
+        if (! empty($event->resources)) {
+            $resources = array_merge($resources, $event->resources);
+        }
+
+        return $resources;
     }
 }

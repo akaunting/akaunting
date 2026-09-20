@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Setting;
 
+use App\Events\Api\ResourceShowing;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Setting extends JsonResource
@@ -14,11 +15,20 @@ class Setting extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $resources = [
             'id' => $this->id,
             'company_id' => $this->company_id,
             'key' => $this->key,
             'value' => $this->value,
         ];
+
+        $event = new ResourceShowing($this->resource);
+        event($event);
+
+        if (! empty($event->resources)) {
+            $resources = array_merge($resources, $event->resources);
+        }
+
+        return $resources;
     }
 }

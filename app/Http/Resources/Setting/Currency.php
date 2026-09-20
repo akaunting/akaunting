@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Setting;
 
+use App\Events\Api\ResourceShowing;
 use App\Http\Resources\Auth\Owner;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,7 +16,7 @@ class Currency extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $resources = [
             'id' => $this->id,
             'company_id' => $this->company_id,
             'name' => $this->name,
@@ -32,5 +33,14 @@ class Currency extends JsonResource
             'created_from' => $this->created_from,
             'owner' => Owner::from($this->owner),
         ];
+
+        $event = new ResourceShowing($this->resource);
+        event($event);
+
+        if (! empty($event->resources)) {
+            $resources = array_merge($resources, $event->resources);
+        }
+
+        return $resources;
     }
 }
