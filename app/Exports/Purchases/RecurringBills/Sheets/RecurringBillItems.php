@@ -10,7 +10,7 @@ class RecurringBillItems extends Export implements WithParentSheet
 {
     public function collection()
     {
-        return Model::with('document', 'item')->billRecurring()->collectForExport($this->ids, null, 'document_id');
+        return Model::with('document', 'item', 'category')->billRecurring()->collectForExport($this->ids, null, 'document_id');
     }
 
     public function map($model): array
@@ -25,6 +25,7 @@ class RecurringBillItems extends Export implements WithParentSheet
         $model->item_name = $model->item->name;
         $model->item_description = $model->item->description;
         $model->item_type = $model->item->type;
+        $model->category_name = $model->category->name;
 
         return parent::map($model);
     }
@@ -36,6 +37,7 @@ class RecurringBillItems extends Export implements WithParentSheet
             'item_name',
             'item_description',
             'item_type',
+            'category_name',
             'quantity',
             'discount_type',
             'discount_rate',

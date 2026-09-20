@@ -6,6 +6,7 @@ use App\Abstracts\Import;
 use App\Http\Requests\Document\DocumentItem as Request;
 use App\Models\Document\Document;
 use App\Models\Document\DocumentItem as Model;
+use App\Models\Setting\Category;
 
 class RecurringInvoiceItems extends Import
 {
@@ -55,6 +56,8 @@ class RecurringInvoiceItems extends Import
 
             $row['name'] = $row['item_name'];
         }
+
+        $row['category_id'] = $this->getCategoryId($row, Category::INCOME_TYPE);
 
         $row['description'] = !empty($row['item_description']) ? $row['item_description'] : '';
 

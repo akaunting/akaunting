@@ -6,6 +6,7 @@ use App\Abstracts\Import;
 use App\Http\Requests\Document\DocumentItem as Request;
 use App\Models\Document\Document;
 use App\Models\Document\DocumentItem as Model;
+use App\Models\Setting\Category;
 
 class BillItems extends Import
 {
@@ -31,7 +32,7 @@ class BillItems extends Import
         if (self::hasRow($row)) {
             return;
         }
-        
+
         return new Model($row);
     }
 
@@ -52,6 +53,8 @@ class BillItems extends Import
 
             $row['name'] = $row['item_name'];
         }
+
+        $row['category_id'] = $this->getCategoryId($row, Category::EXPENSE_TYPE);
 
         $row['description'] = !empty($row['item_description']) ? $row['item_description'] : '';
 
