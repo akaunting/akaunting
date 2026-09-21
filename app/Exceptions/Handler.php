@@ -362,6 +362,8 @@ class Handler extends ExceptionHandler
             $code = $exception->status;
         } elseif ($exception instanceof HttpExceptionInterface) {
             $code = $exception->getStatusCode();
+        } elseif ($exception instanceof AuthenticationException) {
+            $code = 401;
         } else {
             // By default throw 500
             $code = 500;
