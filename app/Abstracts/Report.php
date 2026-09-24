@@ -636,24 +636,42 @@ abstract class Report
         return $this->model->settings->$name ?? $default;
     }
 
+    protected function getDefaultFieldSelection(array $field, string $fallback = ''): string
+    {
+        return $field['selected'] ?? $fallback;
+    }
+
+    public function getFieldValue(string $name, ?string $field_function = null): mixed
+    {
+        $function = $field_function ?: 'get' . ucfirst($name) . 'Field';
+
+        return $this->getSearchStringValue(
+            name: $name,
+            default: $this->getSetting(
+                name: $name,
+                default: method_exists($this, $function) ? $this->getDefaultFieldSelection($this->{$function}()) : '',
+            ),
+        );
+    }
+
     public function getBasis()
     {
-        return $this->getSearchStringValue('basis', $this->getSetting('basis', $this->getDefaultFieldSelection($this->getBasisField())));
+        return $this->getFieldValue('basis');
     }
 
     public function getPeriod()
     {
-        return $this->getSearchStringValue('period', $this->getSetting('period', $this->getDefaultFieldSelection($this->getPeriodField())));
+        return $this->getFieldValue('period');
     }
 
     public function getGroup()
     {
-        return $this->getSearchStringValue('group', $this->getSetting('group', $this->getDefaultFieldSelection($this->getGroupField())));
+        return $this->getFieldValue('group');
     }
 
     public function getDiscount()
     {
-        return $this->getSearchStringValue('discount');
+        return $this->getFieldValue('discount');
     }
 
     public function getFields()
@@ -680,11 +698,6 @@ abstract class Report
                 'required' => 'required',
             ],
         ];
-    }
-
-    protected function getDefaultFieldSelection(array $field, string $fallback = ''): string
-    {
-        return $field['selected'] ?? $fallback;
     }
 
     public function getPeriodField()

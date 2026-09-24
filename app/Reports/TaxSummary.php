@@ -38,7 +38,7 @@ class TaxSummary extends Report
 
     public function setTables()
     {
-        $withholding = ($this->getSetting('withholding') == 'yes') ? 'withholding' : 'notWithholding';
+        $withholding = ($this->getFieldValue('withholding') == 'yes') ? 'withholding' : 'notWithholding';
 
         $taxes = Tax::enabled()->$withholding()->notRate(0)->orderBy('name')->pluck('name')->toArray();
 

@@ -224,7 +224,7 @@ class ProfitLoss extends Report
 
     public function showPercentage(): bool
     {
-        return $this->getSearchStringValue('show_percentage', $this->getSetting('show_percentage')) === 'yes';
+        return $this->getFieldValue('show_percentage', 'getPercentageField') === 'yes';
     }
 
     public function getPercentageOfIncome(string $date, float|int $cell_value): ?string
