@@ -26,6 +26,10 @@ class UpdateDocument extends Job implements ShouldUpdate
         $has_items = $this->request->has('items');
 
         if ($has_items) {
+            // Read afresh: a copy loaded earlier can be stale, e.g. read before the lines were created, and both
+            // the DocumentUpdating listeners and deleteRelationships() act on the loaded copy
+            $this->model->load(['items', 'item_taxes', 'totals']);
+
             $this->preserveExistingTaxRates();
         }
 
