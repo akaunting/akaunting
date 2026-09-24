@@ -42,7 +42,7 @@ return [
     'KH' => 'Kamboçya',
     'CM' => 'Kamerun',
     'CA' => 'Kanada',
-    'CV' => 'Cape Verde',
+    'CV' => 'Cabo Verde',
     'BQ' => 'Karayip Hollandası',
     'KY' => 'Cayman Adaları',
     'CF' => 'Orta Afrika Cumhuriyeti',

@@ -9,6 +9,7 @@ return [
         'not_user_company'  => 'Hata: Bu şirketi değiştirme yetkiniz yok!',
         'delete_active'     => 'Hata: Etkin şirketi silemezsiniz. Lütfen, önce başka bir şirkete geçin!',
         'disable_active'    => 'Hata: Etkin şirketi devre dışı bırakamazsınız. Lütfen, önce başka bir şirkete geçin!',
+        'country_immutable' => 'Bu şirket için seçilen ülke, belirlendikten sonra değiştirilemez.',
     ],
 
     'form_description' => [
@@ -18,5 +19,7 @@ return [
     ],
 
     'skip_step'             => 'Bu adımı atla',
+
+    'country_warning'       => 'Bu şirket için bir ülke seçip kaydettiğinizde, daha sonra değiştiremezsiniz. Lütfen dikkatli seçin.',
 
 ];
