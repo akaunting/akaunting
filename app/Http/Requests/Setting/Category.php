@@ -13,6 +13,8 @@ class Category extends FormRequest
      */
     public function rules()
     {
+        $company_id = (int) $this->request->get('company_id', company_id());
+
         $types = collect(config('type.category'))->keys();
 
         $type = $this->request->get('type');
@@ -25,6 +27,7 @@ class Category extends FormRequest
             'code' => $code,
             'type' => 'required|string|in:' . $types->implode(','),
             'color' => 'required|string|colour',
+            'parent_id' => 'nullable|integer|exists:categories,id,company_id,' . company_id() . ',deleted_at,NULL',
         ];
     }
 }

@@ -40,13 +40,15 @@ class Item extends FormRequest
             $purchase_price .= $this->maxSizePrice($this->request->get('purchase_price'));
         }
 
+        $company_id = (int) $this->request->get('company_id', company_id());
+
         return [
             'type'              => 'required|string|in:product,service',
             'name'              => 'required|string|max:255',
             'sale_price'        => $sale_price . '|regex:/^(?=.*?[0-9])[0-9.,]+$/',
             'purchase_price'    => $purchase_price . '|regex:/^(?=.*?[0-9])[0-9.,]+$/',
             'tax_ids'           => 'nullable|array',
-            'category_id'       => 'nullable|integer',
+            'category_id'       => 'nullable|integer|exists:categories,id,company_id,' . $company_id . ',deleted_at,NULL',
             'enabled'           => 'integer|boolean',
             'picture'           => $picture,
         ];

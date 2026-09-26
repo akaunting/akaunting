@@ -13,9 +13,11 @@ class Transfer extends FormRequest
      */
     public function rules()
     {
+        $company_id = (int) $this->request->get('company_id', company_id());
+
         return [
-            'from_account_id' => 'required|integer',
-            'to_account_id' => 'required|integer',
+            'from_account_id' => 'required|integer|exists:accounts,id,company_id,' . $company_id . ',deleted_at,NULL',
+            'to_account_id' => 'required|integer|exists:accounts,id,company_id,' . $company_id . ',deleted_at,NULL',
             'amount' => 'required|amount',
             'transferred_at' => 'required|date_format:Y-m-d',
             'payment_method' => 'required|string|payment_method',

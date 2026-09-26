@@ -13,11 +13,13 @@ class DocumentItemTax extends FormRequest
      */
     public function rules()
     {
+        $company_id = (int) $this->request->get('company_id', company_id());
+
         return [
             'type' => 'required|string',
-            'document_id' => 'required|integer',
-            'document_item_id' => 'required|integer',
-            'tax_id' => 'required|integer',
+            'document_id' => 'required|integer|exists:documents,id,company_id,' . $company_id . ',deleted_at,NULL',
+            'document_item_id' => 'required|integer|exists:document_items,id,company_id,' . $company_id . ',deleted_at,NULL',
+            'tax_id' => 'required|integer|exists:taxes,id,company_id,' . $company_id . ',deleted_at,NULL',
             'name' => 'required|string',
             'amount' => 'required',
         ];

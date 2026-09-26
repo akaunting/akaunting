@@ -37,6 +37,19 @@ class TransfersTest extends FeatureTestCase
         $this->assertFlashLevel('success');
     }
 
+    public function testItShouldNotCreateTransferWithInvalidAccounts()
+    {
+        $request = $this->getRequest();
+        $request['from_account_id'] = 99999;
+        $request['to_account_id'] = 99999;
+
+        $this->withExceptionHandling()
+            ->loginAs()
+            ->postJson(route('transfers.store'), $request)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['from_account_id', 'to_account_id']);
+    }
+
     public function testItShouldSeeTransferUpdatePage()
     {
         $transfer = $this->dispatch(new CreateTransfer($this->getRequest()));

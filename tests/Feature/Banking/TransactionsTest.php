@@ -8,6 +8,7 @@ use App\Jobs\Document\CreateDocument;
 use App\Notifications\Banking\Transaction as Notification;
 use App\Models\Banking\Transaction;
 use App\Models\Document\Document;
+use App\Models\Setting\Category;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Notification as NotificationFacade;
@@ -91,6 +92,31 @@ class TransactionsTest extends FeatureTestCase
         $transaction = Transaction::where('number', $request['number'])->firstOrFail();
 
         $this->assertSame('2025-12-22', $transaction->paid_at->format('Y-m-d'));
+    }
+
+    public function testItShouldNotCreateTransactionWithInvalidRelationsThroughApi()
+    {
+        $category = Category::factory()->income()->enabled()->create();
+        $category->delete();
+
+        $request = $this->getRequest();
+        $request['account_id'] = 99999;
+        $request['category_id'] = $category->id;
+        $request['contact_id'] = 99999;
+
+        $this->withExceptionHandling()
+            ->withHeaders([
+                'Authorization' => 'Basic ' . base64_encode('test@company.com:123456'),
+            ])
+            ->postJson(route('api.transactions.store'), $request)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors([
+                'account_id' => trans('validation.exists', ['attribute' => 'account id']),
+                'category_id' => trans('validation.exists', ['attribute' => 'category id']),
+                'contact_id' => trans('validation.exists', ['attribute' => 'contact id']),
+            ]);
+
+        $this->assertDatabaseMissing('transactions', ['number' => $request['number']]);
     }
 
     public function testItShouldCreateTransactionWithRecurring()
