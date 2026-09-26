@@ -101,4 +101,11 @@ return [
     ],
 
     'empty_attachments'         => 'Bu :type belgesine eklenmiş dosya bulunmamaktadır.',
+
+    'tax_rate' => [
+        'changed_title'         => 'Bu kayıt oluşturulduktan sonra vergi oranları değişti',
+        'changed_description'   => 'Aşağıdaki tutarlar, kayıt oluşturulurken uygulanan oranlara göre hesaplanmıştır. Kaydetmek bu tutarları değiştirmez.',
+        'recalculate'           => 'Vergileri güncel oranlarla yeniden hesapla',
+        'charged_at'            => 'Bu tutar, kayıt oluşturulurken uygulanan oranı (:rate) kullanır. Güncellemek için yukarıdaki yeniden hesaplama seçeneğini işaretleyin.',
+    ],
 ];

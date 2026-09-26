@@ -195,6 +195,7 @@ return [
     'accounting'            => 'Muhasebe',
     'sort'                  => 'Sıralama',
     'width'                 => 'Genişlik',
+    'limit'                 => 'Limit',
     'month'                 => 'Ay',
     'year'                  => 'Yıl',
     'type_item_name'        => 'Ürün/Hizmet ismi yazın',
