@@ -256,8 +256,7 @@
                         }, this);
 
                         args +=  multiple_values + ' ';
-                    }
-                    else {
+                    } else {
                         args += this.selected_options[index].key + ':' + this.selected_values[index].key + ' ';
                     }
 
@@ -271,6 +270,18 @@
                 Cookies.set('search-string', search_string, expires);
 
                 if (redirect) {
+                    // Keep other active query params (e.g. limit, sort, direction) so they aren't reset by a new search.
+                    let current_params = new URLSearchParams(window.location.search);
+
+                    current_params.forEach(function (value, key) {
+                        if (['search', 'list_records', 'page'].includes(key)) {
+                            return;
+                        }
+
+                        args += sign + key + '=' + encodeURIComponent(value);
+                        sign = '&';
+                    });
+
                     window.location = path + args;
                 }
             },
