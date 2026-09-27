@@ -27,8 +27,8 @@ return [
 
     'periods' => [
         'overdue_1_30'          => 'Vencido hace 1-30 días',
-        'overdue_30_60'         => 'Vencido hace 30-60 días',
-        'overdue_60_90'         => 'Vencido hace 60-90 días',
-        'overdue_90_un'         => 'Vencido hace más de 90 días',
+        'overdue_31_60'         => 'Vencido hace 31-60 días',
+        'overdue_61_90'         => 'Vencido hace 61-90 días',
+        'overdue_91_un'         => 'Vencido hace más de 90 días',
     ],
 ];

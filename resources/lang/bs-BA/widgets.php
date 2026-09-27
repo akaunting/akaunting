@@ -27,8 +27,8 @@ return [
 
     'periods' => [
         'overdue_1_30'          => '1-30 dana kašnjenja',
-        'overdue_30_60'         => '30-60 dana kašnjenja',
-        'overdue_60_90'         => '60-90 dana kašnjenja',
-        'overdue_90_un'         => '> 90 dana kašnjenja',
+        'overdue_31_60'         => '31-60 dana kašnjenja',
+        'overdue_61_90'         => '61-90 dana kašnjenja',
+        'overdue_91_un'         => '> 90 dana kašnjenja',
     ],
 ];

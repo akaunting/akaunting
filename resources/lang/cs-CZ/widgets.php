@@ -27,8 +27,8 @@ return [
 
     'periods' => [
         'overdue_1_30'          => '1–30 dnů po splatnosti',
-        'overdue_30_60'         => '30–60 dnů po splatnosti',
-        'overdue_60_90'         => '60–90 dnů po splatnosti',
-        'overdue_90_un'         => 'více než 90 dnů po splatnosti',
+        'overdue_31_60'         => '31–60 dnů po splatnosti',
+        'overdue_61_90'         => '61–90 dnů po splatnosti',
+        'overdue_91_un'         => 'více než 90 dnů po splatnosti',
     ],
 ];

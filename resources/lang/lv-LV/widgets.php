@@ -27,8 +27,8 @@ return [
 
     'periods' => [
         'overdue_1_30'          => 'Nokavēts 1-30 dienas',
-        'overdue_30_60'         => 'Nokavēts 30-60 dienas',
-        'overdue_60_90'         => '60-90 dienas nokavēts',
-        'overdue_90_un'         => '> 90 dienas nokavēts',
+        'overdue_31_60'         => 'Nokavēts 31-60 dienas',
+        'overdue_61_90'         => '61-90 dienas nokavēts',
+        'overdue_91_un'         => '> 90 dienas nokavēts',
     ],
 ];

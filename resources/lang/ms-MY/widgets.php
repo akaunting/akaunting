@@ -27,8 +27,8 @@ return [
 
     'periods' => [
         'overdue_1_30'          => 'Terlambat 1-30 hari',
-        'overdue_30_60'         => 'Terlambat 30-60 hari',
-        'overdue_60_90'         => 'Terlambat 60-90 hari',
-        'overdue_90_un'         => 'Terlambat 90 hari lebih',
+        'overdue_31_60'         => 'Terlambat 31-60 hari',
+        'overdue_61_90'         => 'Terlambat 61-90 hari',
+        'overdue_91_un'         => 'Terlambat 90 hari lebih',
     ],
 ];

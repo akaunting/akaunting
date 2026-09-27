@@ -27,8 +27,8 @@ return [
 
     'periods' => [
         'overdue_1_30'          => '1-30 dni po terminie',
-        'overdue_30_60'         => '30-60 dni po terminie',
-        'overdue_60_90'         => '60-90 dni po terminie',
-        'overdue_90_un'         => '> 90 dni po terminie',
+        'overdue_31_60'         => '31-60 dni po terminie',
+        'overdue_61_90'         => '61-90 dni po terminie',
+        'overdue_91_un'         => '> 90 dni po terminie',
     ],
 ];

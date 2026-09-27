@@ -27,8 +27,8 @@ return [
 
     'periods' => [
         'overdue_1_30'          => '1-30 dies de venciment',
-        'overdue_30_60'         => '30-60 dies de venciment',
-        'overdue_60_90'         => '60-90 dies de venciment',
-        'overdue_90_un'         => '> 90 dies de venciment',
+        'overdue_31_60'         => '31-60 dies de venciment',
+        'overdue_61_90'         => '61-90 dies de venciment',
+        'overdue_91_un'         => '> 90 dies de venciment',
     ],
 ];

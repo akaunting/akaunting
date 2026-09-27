@@ -27,8 +27,8 @@ return [
 
     'periods' => [
         'overdue_1_30'          => '1-30 dias de atraso',
-        'overdue_30_60'         => '30-60 dias de atraso',
-        'overdue_60_90'         => '60-90 dias de atraso',
-        'overdue_90_un'         => '> 90 dias de atraso',
+        'overdue_31_60'         => '31-60 dias de atraso',
+        'overdue_61_90'         => '61-90 dias de atraso',
+        'overdue_91_un'         => '> 90 dias de atraso',
     ],
 ];

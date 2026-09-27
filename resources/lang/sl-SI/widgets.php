@@ -27,8 +27,8 @@ return [
 
     'periods' => [
         'overdue_1_30'          => '1-30 dni od zapadlosti računa',
-        'overdue_30_60'         => '30-60 dni od zapadlosti računa',
-        'overdue_60_90'         => '60-90 dni od zapadlosti računa',
-        'overdue_90_un'         => 'več kot 90 dni od zapadlosti računa',
+        'overdue_31_60'         => '31-60 dni od zapadlosti računa',
+        'overdue_61_90'         => '61-90 dni od zapadlosti računa',
+        'overdue_91_un'         => 'več kot 90 dni od zapadlosti računa',
     ],
 ];

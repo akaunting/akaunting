@@ -27,8 +27,8 @@ return [
 
     'periods' => [
         'overdue_1_30'          => 'Forfalt 1-30 dager',
-        'overdue_30_60'         => 'Forfalt 30-60 dager',
-        'overdue_60_90'         => 'Forfalt 60-90 dager',
-        'overdue_90_un'         => 'Forfalt > 90 dager',
+        'overdue_31_60'         => 'Forfalt 31-60 dager',
+        'overdue_61_90'         => 'Forfalt 61-90 dager',
+        'overdue_91_un'         => 'Forfalt > 90 dager',
     ],
 ];
