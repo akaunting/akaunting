@@ -63,6 +63,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Maximum List Limit
+    |--------------------------------------------------------------------------
+    |
+    | The highest number of records a request may ask for in a single page.
+    | Requests asking for more are capped to this value, so one page can
+    | not exhaust the memory. It applies to API requests only.
+    |
+    */
+
+    'list_limit' => env('API_LIST_LIMIT', 100),
+
+    /*
+    |--------------------------------------------------------------------------
     | Default API Domain
     |--------------------------------------------------------------------------
     |
