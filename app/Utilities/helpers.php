@@ -55,6 +55,18 @@ if (! function_exists('company_date')) {
     }
 }
 
+if (! function_exists('list_limit')) {
+    /**
+     * Get the page size of a listing, capped by the configured maximum for api callers.
+     */
+    function list_limit(): int
+    {
+        $limit = (int) request()->get('limit', setting('default.list_limit', '25'));
+
+        return request()->isApi() ? min($limit, (int) config('api.list_limit')) : $limit;
+    }
+}
+
 if (! function_exists('show_widget')) {
     /**
      * Show a widget.

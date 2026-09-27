@@ -121,14 +121,7 @@ abstract class Model extends Eloquent implements Ownable
         $request->merge(['sort' => $request_sort]);
         // This line disabled because broken sortable issue.
         //$request->offsetUnset('direction');
-        $limit = (int) $request->get('limit', setting('default.list_limit', '25'));
-
-        // Api callers may ask for any page size, so the configured maximum is applied
-        if ($request->isApi()) {
-            $limit = min($limit, (int) config('api.list_limit'));
-        }
-
-        return $query->paginate($limit);
+        return $query->paginate(list_limit());
     }
 
     public function scopeUsingSearchString(Builder $query, string|null $string = null)

@@ -41,9 +41,8 @@ class Permission extends LaratrustPermission
         $request = request();
 
         $search = $request->get('search');
-        $limit = (int) $request->get('limit', setting('default.list_limit', '25'));
 
-        return $query->usingSearchString($search)->sortable($sort)->paginate($limit);
+        return $query->usingSearchString($search)->sortable($sort)->paginate(list_limit());
     }
 
     /**

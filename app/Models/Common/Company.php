@@ -443,9 +443,7 @@ class Company extends Eloquent implements Ownable
             return $query->get();
         }
 
-        $limit = (int) $request->get('limit', setting('default.list_limit', '25'));
-
-        return $query->paginate($limit);
+        return $query->paginate(list_limit());
     }
 
     /**
