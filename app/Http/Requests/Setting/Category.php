@@ -23,7 +23,7 @@ class Category extends FormRequest
         $code = $code_hidden ? 'nullable|string' : 'required|string';
 
         return [
-            'name' => 'required|string',
+            'name' => 'required|string|max:255',
             'code' => $code,
             'type' => 'required|string|in:' . $types->implode(','),
             'color' => 'required|string|colour',

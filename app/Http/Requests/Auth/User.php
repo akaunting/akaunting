@@ -70,7 +70,7 @@ class User extends FormRequest
         $password = $change_password ? '|confirmed' : '';
 
         return [
-            'name'              => 'required|string',
+            'name'              => 'required|string|max:255',
             'email'             => $email,
             'current_password'  => 'required_if:change_password,true' . $current_password,
             'password'          => 'required_if:change_password,true' . $password,
