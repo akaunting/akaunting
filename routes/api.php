@@ -39,7 +39,6 @@ Route::group(['as' => 'api.'], function () {
     Route::apiResource('contacts', 'Common\Contacts');
 
     // Documents
-    Route::get('documents/{document}/received', 'Document\Documents@received')->name('documents.received');
     Route::apiResource('documents', 'Document\Documents', ['middleware' => ['date.format', 'money', 'dropzone']]);
     Route::apiResource('documents.transactions', 'Document\DocumentTransactions', ['middleware' => ['date.format', 'money', 'dropzone']]);
 
