@@ -151,6 +151,7 @@ class Categories extends Controller
     public function edit(Category $category)
     {
         $type_disabled = (Category::where('type', $category->type)->count() == 1) ?: false;
+        $type_locked = $category->isTypeLocked();
 
         $edited_category_id = $category->id;
 
@@ -194,7 +195,7 @@ class Categories extends Controller
 
         $parent_categories = $categories[$category->type] ?? [];
 
-        return view('settings.categories.edit', compact('category', 'types', 'type_disabled', 'categories', 'parent_categories', 'type_group', 'hide_code_types'));
+        return view('settings.categories.edit', compact('category', 'types', 'type_disabled', 'type_locked', 'categories', 'parent_categories', 'type_group', 'hide_code_types'));
     }
 
     /**

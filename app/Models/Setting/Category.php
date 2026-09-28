@@ -356,6 +356,16 @@ class Category extends Model
         )));
     }
 
+    /**
+     * Whether the type can no longer be changed: a default category keeps its type, and so does a
+     * category of a type flagged with "lock_type" (i.e. Double Entry ties bank/cash and tax
+     * categories to a bank account and a tax).
+     */
+    public function isTypeLocked(): bool
+    {
+        return $this->isDefaultCategory() || ! empty(config('type.category.' . $this->type . '.lock_type'));
+    }
+
     public function getDefaultCategoryLabelAttribute(): ?string
     {
         if (! $this->isDefaultCategory()) {

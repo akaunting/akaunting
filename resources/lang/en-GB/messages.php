@@ -31,6 +31,7 @@ return [
         'transfer_category' => 'Error: Can not delete the transfer <b>:type</b> category!',
         'transfer_transaction' => 'Error: You are not allowed to change/delete the transaction because it belongs to a transfer!',
         'change_type'       => 'Error: Can not change the type because it has :text related!',
+        'locked_type'       => 'Error: Can not change the type of <b>:name</b>!',
         'invalid_apikey'    => 'Error: The API Key entered is invalid!',
         'empty_apikey'      => 'Error: You have not entered your API Key! <a href=":url" class="font-bold underline underline-offset-4">Click here</a> to enter your API Key.',
         'import_column'     => 'Error: :message Column name: :column. Line number: :line.',

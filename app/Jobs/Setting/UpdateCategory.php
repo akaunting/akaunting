@@ -30,11 +30,19 @@ class UpdateCategory extends Job implements ShouldUpdate
      */
     public function authorize(): void
     {
+        $type_changed = $this->request->has('type') && ($this->request->get('type') != $this->model->type);
+
+        if ($type_changed && $this->model->isTypeLocked()) {
+            $message = trans('messages.error.locked_type', ['name' => $this->model->name]);
+
+            throw new \Exception($message);
+        }
+
         if (! $relationships = $this->getRelationships()) {
             return;
         }
 
-        if ($this->request->has('type') && ($this->request->get('type') != $this->model->type)) {
+        if ($type_changed) {
             $message = trans('messages.error.change_type', ['text' => implode(', ', $relationships)]);
 
             throw new \Exception($message);
