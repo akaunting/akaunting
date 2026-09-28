@@ -265,7 +265,7 @@ class Accounts extends Controller
             'account_id'    => $account->id,
         ];
 
-        $report = Reports::getClassInstance('App\Reports\IncomeExpenseSummary');
+        $report = Reports::getClassInstance('App\Reports\IncomeExpenseSummary', false);
 
         if (empty($report) || empty($report->model)) {
             $message = trans('accounts.create_report');
@@ -275,7 +275,10 @@ class Accounts extends Controller
             return redirect()->route('reports.create');
         }
 
-        return redirect()->route('reports.show', $report->model->id)->withInput($data);
+        // In the search string rather than flashed, so refresh, print, reload and bookmarks keep the filter
+        $search = collect($data)->map(fn ($value, $key) => $key . ':' . $value)->implode(' ');
+
+        return redirect()->route('reports.show', ['report' => $report->model->id, 'search' => $search]);
     }
 
     public function currency()

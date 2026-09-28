@@ -9,7 +9,9 @@ use App\Jobs\Common\CreateReport;
 use App\Jobs\Common\DeleteReport;
 use App\Jobs\Common\UpdateReport;
 use App\Models\Common\Report;
+use App\Utilities\ReportCache;
 use App\Utilities\Reports as Utility;
+use Illuminate\Http\RedirectResponse;
 
 class Reports extends Controller
 {
@@ -20,7 +22,7 @@ class Reports extends Controller
     {
         // Add CRUD permission check
         $this->middleware('permission:create-common-reports')->only('create', 'store', 'duplicate', 'import');
-        $this->middleware('permission:read-common-reports')->only('index', 'show', 'export', 'print', 'pdf', 'fields');
+        $this->middleware('permission:read-common-reports')->only('index', 'show', 'export', 'print', 'pdf', 'clear', 'fields');
         $this->middleware('permission:update-common-reports')->only('edit', 'update', 'enable', 'disable');
         $this->middleware('permission:delete-common-reports')->only('destroy');
     }
@@ -107,7 +109,7 @@ class Reports extends Controller
             abort(403);
         }
 
-        $class = Utility::getClassInstance($report);
+        $class = ReportCache::getClassInstance($report);
 
         return $class->show();
     }
@@ -251,7 +253,7 @@ class Reports extends Controller
             abort(403);
         }
 
-        return Utility::getClassInstance($report)->print();
+        return ReportCache::getClassInstance($report)->print();
     }
 
     /**
@@ -266,7 +268,7 @@ class Reports extends Controller
             abort(403);
         }
 
-        return Utility::getClassInstance($report)->pdf();
+        return ReportCache::getClassInstance($report)->pdf();
     }
 
     /**
@@ -281,7 +283,27 @@ class Reports extends Controller
             abort(403);
         }
 
-        return Utility::getClassInstance($report)->export();
+        return ReportCache::getClassInstance($report)->export();
+    }
+
+    /**
+     * Rebuild the cached copy of the report and show it again.
+     *
+     * @param  Report $report
+     * @return RedirectResponse
+     */
+    public function clear(Report $report): RedirectResponse
+    {
+        if (Utility::cannotShow($report->class)) {
+            abort(403);
+        }
+
+        ReportCache::clear($report->company_id, $report->id);
+
+        // The raw query string, as the page had it before load() folded its keys into search
+        $query = request()->getQueryString();
+
+        return redirect(route('reports.show', $report->id) . ($query ? '?' . $query : ''));
     }
 
     /**

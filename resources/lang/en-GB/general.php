@@ -202,6 +202,7 @@ return [
     'no_data'               => 'No data',
     'no_matching_data'      => 'No matching data',
     'clear_cache'           => 'Clear Cache',
+    'refresh'               => 'Refresh',
     'go_to_dashboard'       => 'Go to dashboard',
     'create_first_invoice'  => 'Create your first invoice',
     'is'                    => 'is',

@@ -53,7 +53,7 @@ class Report extends JsonResource
             return [];
         }
 
-        $unset_attributes = ['model', 'views', 'loaded', 'column_name_width', 'column_value_width'];
+        $unset_attributes = ['model', 'views', 'loaded', 'cacheable', 'cached_at', 'column_name_width', 'column_value_width'];
 
         foreach ($unset_attributes as $attribute) {
             unset($report->$attribute);

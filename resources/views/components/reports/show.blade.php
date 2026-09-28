@@ -10,6 +10,12 @@
     ></x-slot>
 
     <x-slot name="buttons">
+        @stack('button_refresh_start')
+
+        <x-reports.refresh :report="$class" />
+
+        @stack('button_refresh_end')
+
         @stack('button_print_start')
 
         <x-link href="{{ url($class->getUrl('print')) }}" target="_blank">

@@ -41,5 +41,6 @@ return [
     ],
 
     'percentage_of_income'          => 'Show % of Income',
+    'last_updated'                  => 'Last updated on :date at :time',
 
 ];

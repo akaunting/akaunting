@@ -5,6 +5,7 @@ namespace App\Jobs\Common;
 use App\Abstracts\Job;
 use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Common\Report;
+use App\Utilities\ReportCache;
 
 class UpdateReport extends Job implements ShouldUpdate
 {
@@ -20,6 +21,9 @@ class UpdateReport extends Job implements ShouldUpdate
         \DB::transaction(function () {
             $this->model->update($this->request->all());
         });
+
+        // The cached copies were built with the old settings
+        ReportCache::clear($this->model->company_id, $this->model->id);
 
         return $this->model;
     }

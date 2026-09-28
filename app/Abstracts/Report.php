@@ -64,6 +64,18 @@ abstract class Report
 
     public $loaded = false;
 
+    /**
+     * Whether the report pages may serve this report from the cache (App\Utilities\ReportCache).
+     * Null caches it only when it renders the core show view, which carries the refresh button;
+     * false never does, for output that depends on something outside the database, such as an API.
+     */
+    public $cacheable = null;
+
+    /**
+     * When the served copy was built, or null when it was loaded live and not cached.
+     */
+    public $cached_at = null;
+
     public $bar_formatter_type = 'money';
 
     public $donut_formatter_type = 'percent';
