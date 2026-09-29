@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Common;
 
+use App\Events\Report\DataLoaded;
 use App\Events\Report\DataLoading;
 use App\Jobs\Auth\CreateUser;
 use App\Jobs\Banking\CreateTransaction;
@@ -10,6 +11,7 @@ use App\Jobs\Common\UpdateReport;
 use App\Models\Banking\Transaction;
 use App\Models\Common\Company;
 use App\Models\Common\Report;
+use App\Models\Setting\Category;
 use App\Reports\ProfitLoss;
 use App\Traits\Permissions;
 use App\Utilities\Date;
@@ -73,6 +75,40 @@ class ReportsTest extends FeatureTestCase
 
         $this->assertNotEmpty($html);
         $this->assertStringNotContainsString('Invalid amount', $html);
+    }
+
+    public function testItShouldRefreshProfitAfterAppsAdjustTheReport()
+    {
+        $model = Report::where('class', ProfitLoss::class)->firstOrFail();
+
+        $before = new ProfitLoss($model);
+
+        // An app adding its amounts on DataLoaded, as CreditDebitNotes and Expenses do
+        Event::listen(DataLoaded::class, function (DataLoaded $event) {
+            if (! $event->class instanceof ProfitLoss) {
+                return;
+            }
+
+            $date = array_key_first($event->class->footer_totals[Category::INCOME_TYPE]);
+
+            $event->class->footer_totals[Category::INCOME_TYPE][$date] += 100;
+            $event->class->footer_totals[Category::DIRECT_COST_TYPE][$date] += 30;
+        });
+
+        $after = new ProfitLoss($model);
+        $date = array_key_first($after->net_profit);
+
+        $this->assertEqualsWithDelta($before->gross_profit[$date] + 70, $after->gross_profit[$date], 0.001);
+        $this->assertEqualsWithDelta($before->net_profit[$date] + 70, $after->net_profit[$date], 0.001);
+
+        // Loading the same report again gives the same profit, not the sum of both loads
+        $gross_profit = $after->gross_profit;
+        $net_profit = $after->net_profit;
+
+        $after->load();
+
+        $this->assertEquals($gross_profit, $after->gross_profit);
+        $this->assertEquals($net_profit, $after->net_profit);
     }
 
     public function testItShouldServeRepeatVisitsAndOutputsFromTheCache()

@@ -47,6 +47,18 @@ class ProfitLoss extends Report
         ];
     }
 
+    /**
+     * Gross and Net profit come from the footer totals as the DataLoaded listeners leave them: the parent
+     * fires DataLoaded event after setData(), and that is where apps add their amounts to the report.
+     */
+    public function loadData()
+    {
+        parent::loadData();
+
+        $this->setGrossProfit();
+        $this->setNetProfit();
+    }
+
     public function setData()
     {
         switch ($this->getBasis()) {
@@ -122,9 +134,6 @@ class ProfitLoss extends Report
 
                 break;
         }
-
-        $this->setGrossProfit();
-        $this->setNetProfit();
     }
 
     public function getTransactionQuery(string $type): Builder
@@ -145,6 +154,9 @@ class ProfitLoss extends Report
 
     public function setGrossProfit(): void
     {
+        // Built afresh, so another load() of the same report does not add to the last one
+        $this->gross_profit = [];
+
         foreach ($this->dates as $date) {
             $income = $this->footer_totals[Category::INCOME_TYPE][$date] ?? 0;
             $direct_costs = $this->footer_totals[Category::DIRECT_COST_TYPE][$date] ?? 0;
@@ -155,6 +167,9 @@ class ProfitLoss extends Report
 
     public function setNetProfit(): void
     {
+        // Built afresh, so another load() of the same report does not add to the last one
+        $this->net_profit = [];
+
         foreach ($this->footer_totals as $table => $dates) {
             if (! in_array($table, [Category::INCOME_TYPE, Category::DIRECT_COST_TYPE, Category::EXPENSE_TYPE])) {
                 continue;
