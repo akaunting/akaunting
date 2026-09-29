@@ -16,8 +16,8 @@
         @foreach($rows as $date => $cell_value)
             <td class="{{ $class->column_value_width }} py-2 ltr:text-right rtl:text-left text-alignment-right text-black-400 text-xs">
                 @if ($class->has_money)
-                    @if (!$is_print && $cell_value != 0)
-                        <a href="{!! $class->getDrillDownUrl($date, $id) !!}" class="hover:underline text-black">{{ money($cell_value) }}</a>
+                    @if (!$is_print && $cell_value != 0 && ($drill_down_url = $class->getDrillDownUrl($date, $id)))
+                        <a href="{!! $drill_down_url !!}" class="hover:underline text-black">{{ money($cell_value) }}</a>
                     @else
                         {{ money($cell_value) }}
                     @endif
@@ -89,8 +89,8 @@
             @foreach ($rows as $date => $cell_value)
                 <td class="{{ $class->column_value_width }} py-2 ltr:text-right rtl:text-left text-alignment-right text-black-400 text-xs">
                     @if ($class->has_money)
-                        @if (! $is_print && $cell_value != 0)
-                            <a href="{!! $class->getDrillDownUrl($date, $id) !!}" class="hover:underline text-black">{{ money($cell_value) }}</a>
+                        @if (! $is_print && $cell_value != 0 && ($drill_down_url = $class->getDrillDownUrl($date, $id)))
+                            <a href="{!! $drill_down_url !!}" class="hover:underline text-black">{{ money($cell_value) }}</a>
                         @else
                             {{ money($cell_value) }}
                         @endif

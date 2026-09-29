@@ -250,6 +250,16 @@ class ProfitLoss extends Report
     {
         $group = $this->getGroup();
 
+        // Contacts are searched by contact_id; a group the transaction list has no column for (a module's
+        // item group, say) gets no link, where its unknown token would be dropped and list every transaction
+        $column = in_array($group, ['customer', 'vendor', 'contact'])
+            ? 'contact_id'
+            : $group . '_id';
+
+        if (! in_array($column, $this->getTransactionSearchColumns(), true)) {
+            return '';
+        }
+
         try {
             [$date_start, $date_end] = $this->getDateRangeForDrillDown($date);
 
@@ -257,7 +267,7 @@ class ProfitLoss extends Report
             $search = implode(
                 separator: ' ',
                 array: [
-                    "{$group}_id:{$id}",
+                    "{$column}:{$id}",
                     "paid_at>={$date_start}",
                     "paid_at<={$date_end}",
                 ],
@@ -266,10 +276,24 @@ class ProfitLoss extends Report
             // A period label that can't be parsed back into a date range must not
             // break the whole report render — fall back to a link filtered by
             // category only (no date range) instead of throwing.
-            $search = "{$group}_id:{$id}";
+            $search = "{$column}:{$id}";
         }
 
         return route('transactions.index') . '?list_records=all&search=' . $search;
+    }
+
+    /**
+     * The columns the transaction list can be searched by (config/search-string.php).
+     */
+    private function getTransactionSearchColumns(): array
+    {
+        $columns = config('search-string.' . Transaction::class . '.columns', []);
+
+        return array_map(
+            fn ($key, $value) => is_int($key) ? $value : $key,
+            array_keys($columns),
+            $columns,
+        );
     }
 
     private function getDateRangeForDrillDown(string $date): array
