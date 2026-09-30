@@ -15,7 +15,7 @@ trait SiteApi
 
     protected static function siteApiRequest($method, $path, $extra_data = [])
     {
-        $client = new Client(['verify' => false, 'base_uri' => static::$base_uri]);
+        $client = new Client(['base_uri' => static::$base_uri]);
 
         $headers['headers'] = [
             'Authorization' => 'Bearer ' . Info::getApiKey(),
