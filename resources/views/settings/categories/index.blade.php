@@ -80,6 +80,7 @@
                                 <x-index.bulkaction.single
                                     id="{{ $item->id }}"
                                     name="{{ $item->name }}"
+                                    enabled="{{ $item->enabled }}"
                                     :disabled="$item->isTransferCategory() || $item->isDefaultCategory()"
                                 />
                             </x-table.td>

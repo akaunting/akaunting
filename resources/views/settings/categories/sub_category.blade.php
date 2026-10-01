@@ -60,6 +60,7 @@
             <x-index.bulkaction.single
                 id="{{ $sub_category->id }}"
                 name="{{ $sub_category->name }}"
+                enabled="{{ $sub_category->enabled }}"
                 :disabled="$sub_category->isDefaultCategory()"
             />
         </x-table.td>
