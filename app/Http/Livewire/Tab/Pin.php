@@ -78,15 +78,11 @@ class Pin extends Component
             $pins = json_decode($pins, true);
         }
 
-        foreach ($pins as $key => $pinned_id) {
-            if ($pinned_id != $tab) {
-                continue;
-            }
+        // Pins are keyed by list type and lists share tab names (unpaid, draft, all), so remove this list's pin only
+        if (isset($pins[$this->type]) && ($pins[$this->type] == $tab)) {
+            unset($pins[$this->type]);
 
-            unset($pins[$key]);
             $this->pinned = false;
-
-            break;
         }
 
         setting(['favorites.tab.' . user()->id => json_encode($pins)])->save();
