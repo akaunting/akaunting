@@ -12,6 +12,7 @@ use App\Jobs\Banking\CreateTransaction;
 use App\Jobs\Common\CreateCompany;
 use App\Jobs\Common\UpdateReport;
 use App\Listeners\Report\AddIncomeCategories;
+use App\Listeners\Report\AddIncomeExpenseCategories;
 use App\Models\Banking\Transaction;
 use App\Models\Common\Company;
 use App\Models\Common\Contact;
@@ -339,12 +340,12 @@ class ReportsTest extends FeatureTestCase
         $child = Category::factory()->income()->enabled()->create(['name' => 'Garages', 'parent_id' => $parent->id]);
         $sibling = Category::factory()->income()->enabled()->create(['name' => 'Services']);
 
-        $tree = function (string $search) {
+        $tree = function (string $search, string $report = IncomeSummary::class, string $listener = AddIncomeCategories::class) {
             $this->setRequest(['search' => $search]);
 
-            $class = new IncomeSummary(new Report([
-                'class' => IncomeSummary::class,
-                'name' => 'Income Summary by category',
+            $class = new $report(new Report([
+                'class' => $report,
+                'name' => 'Report by category',
                 'settings' => ['group' => 'category', 'period' => 'monthly', 'basis' => 'cash'],
             ]), false);
 
@@ -353,7 +354,7 @@ class ReportsTest extends FeatureTestCase
             $class->setDates();
 
             // The core listener alone: with Double-Entry enabled the module builds every category's row itself
-            (new AddIncomeCategories())->handleRowsShowing(new RowsShowing($class));
+            (new $listener())->handleRowsShowing(new RowsShowing($class));
 
             return [array_keys($class->row_names['income']), $class->row_tree_nodes['income']];
         };
@@ -374,6 +375,14 @@ class ReportsTest extends FeatureTestCase
 
         $this->assertSame([$child->id], $rows);
         $this->assertSame([$child->id => null], $nodes);
+
+        // Profit & Loss narrows its rows too, so Double-Entry's tree of the kept categories, merged into core's,
+        // lists each of them once
+        [$rows, $nodes] = $tree('not category_id:' . $parent->id, ProfitLoss::class, AddIncomeExpenseCategories::class);
+
+        $this->assertNotContains($parent->id, $rows);
+        $this->assertContains($sibling->id, $rows);
+        $this->assertArrayHasKey($child->id, $nodes);
 
         // See performance opens Income vs Expense on the account, without the year no report reads
         $account_id = setting('default.account');

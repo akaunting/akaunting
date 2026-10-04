@@ -70,7 +70,7 @@ class AddIncomeExpenseCategories extends Listener
 
         $types = array_merge($this->getIncomeCategoryTypes(), $this->getExpenseAndDirectCostCategoryTypes());
         $categories = Category::type($types)->orderBy('name')->get();
-        $rows = $categories->pluck('name', 'id')->toArray();
+        $rows = $this->filterRowsBySearchString($categories->pluck('name', 'id')->toArray(), 'category_id');
 
         $this->setRowNamesAndValuesForCategories($event, $rows, $categories);
 
