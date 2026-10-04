@@ -31,6 +31,12 @@ class AddContacts extends Listener
         $event->class->filters['contacts'] = $this->getContacts(limit: true);
         $event->class->filters['routes']['contacts'] = ['contacts.index', 'search=enabled:1'];
         $event->class->filters['multiple']['contacts'] = true;
+        $event->class->filters['operators']['contacts'] = [
+            'equal'     => true,
+            'not_equal' => true,
+            'multiple'  => true,
+            'range'     => false,
+        ];
     }
 
     /**
@@ -60,17 +66,7 @@ class AddContacts extends Listener
             return;
         }
 
-        $all_contacts = $this->getContacts();
-
-        if ($contact_ids = $this->getSearchStringValue('contact_id')) {
-            $contacts = explode(',', $contact_ids);
-
-            $rows = collect($all_contacts)->filter(function ($value, $key) use ($contacts) {
-                return in_array($key, $contacts);
-            });
-        } else {
-            $rows = $all_contacts;
-        }
+        $rows = $this->filterRowsBySearchString($this->getContacts(), 'contact_id');
 
         $this->setRowNamesAndValues($event, $rows);
     }

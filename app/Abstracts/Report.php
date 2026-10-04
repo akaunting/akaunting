@@ -13,10 +13,14 @@ use App\Events\Report\RowsShowing;
 use App\Events\Report\TotalCalculating;
 use App\Events\Report\TotalCalculated;
 use App\Exports\Common\Reports as Export;
+use App\Models\Banking\Account;
+use App\Models\Common\Contact;
+use App\Models\Common\Item;
 use App\Models\Common\Report as Model;
 use App\Models\Document\Document;
 use App\Models\Document\DocumentItem;
 use App\Models\Setting\Category;
+use App\Models\Setting\Tax;
 use App\Traits\Charts;
 use App\Traits\DateTime;
 use App\Traits\SearchString;
@@ -29,6 +33,11 @@ use Illuminate\Support\Str;
 abstract class Report
 {
     use Charts, DateTime, SearchString, Translations;
+
+    /**
+     * The keys of $filters that describe the chips instead of being one.
+     */
+    public const FILTER_METADATA = ['keys', 'names', 'types', 'routes', 'multiple', 'defaults', 'operators'];
 
     public $model;
 
@@ -61,6 +70,12 @@ abstract class Report
     public $footer_totals = [];
 
     public $filters = [];
+
+    /**
+     * The chips as this load applied them, [[label, value], ...], which Print, PDF and Excel list above the report.
+     * Filled by load() rather than when rendering, as a queued Excel export renders without the request.
+     */
+    public $applied_filters = [];
 
     public $loaded = false;
 
@@ -134,6 +149,7 @@ abstract class Report
         $this->setFilters();
         $this->setRows();
         $this->loadData();
+        $this->setAppliedFilters();
         $this->setColumnWidth();
         $this->setChartLabelFormatter();
 
@@ -391,6 +407,7 @@ abstract class Report
             'show'                      => 'components.reports.show',
             'print'                     => 'components.reports.print',
             'filter'                    => 'components.reports.filter',
+            'applied'                   => 'components.reports.applied',
 
             'detail'                    => 'components.reports.detail',
             'detail.content.header'     => 'components.reports.detail.content.header',
@@ -456,6 +473,326 @@ abstract class Report
     public function setFilters()
     {
         event(new FilterShowing($this));
+    }
+
+    public function setAppliedFilters(): void
+    {
+        $this->applied_filters = $this->getAppliedFilters();
+    }
+
+    /**
+     * The chips the listeners registered, name => values, without the metadata kept beside them in $filters.
+     */
+    public function getFilterChips(): array
+    {
+        return array_filter(
+            array: array_diff_key($this->filters, array_flip(static::FILTER_METADATA)),
+            callback: 'is_array',
+        );
+    }
+
+    /**
+     * The search string key a chip filters on: the one its listener set, contact_id for customers and vendors,
+     * otherwise its singular name with _id, so categories filters category_id.
+     */
+    public function getFilterKey(string $name): string
+    {
+        if (! empty($this->filters['keys'][$name])) {
+            return $this->filters['keys'][$name];
+        }
+
+        if (in_array($name, ['customers', 'vendors'])) {
+            return 'contact_id';
+        }
+
+        return Str::singular($name) . '_id';
+    }
+
+    /**
+     * The chip's label: the one its listener set, otherwise the reports or general translation of its name.
+     */
+    public function getFilterLabel(string $name): string
+    {
+        if (! empty($this->filters['names'][$name])) {
+            return $this->filters['names'][$name];
+        }
+
+        $key = (trans('reports.' . $name) != 'reports.' . $name) ? 'reports.' . $name : 'general.' . $name;
+        $label = trans($key);
+
+        if (! is_string($label)) {
+            return $name;
+        }
+
+        return str_contains($label, '|')
+            ? trans_choice($key, 1)
+            : $label;
+    }
+
+    /**
+     * Each chip with the value the report used: the search string's, else the chip's default, else the saved
+     * setting; a filter nobody chose is left out. Then the saved preferences that have no chip and differ from
+     * the report's default, and what else the search string narrows the data by, such as free text.
+     */
+    public function getAppliedFilters(): array
+    {
+        $fields = collect($this->getFields())
+            ->filter(fn ($field) => is_array($field) && ! empty($field['name']))
+            ->keyBy('name')
+            ->all();
+
+        $keys = [];
+        $rows = [];
+
+        foreach ($this->getFilterChips() as $name => $values) {
+            $key = $this->getFilterKey($name);
+            $keys[] = $key;
+
+            $value = ($key == 'date_range')
+                ? $this->getAppliedDateRange()
+                : $this->getAppliedFilterValue($name, $key, $values, $fields[$key] ?? null);
+
+            if ($value === '') {
+                continue;
+            }
+
+            // Dates first, then the chips of one value, then the lists
+            $order = match (true) {
+                ($key == 'date_range') || $this->isDateValue((string) array_key_first($values)) => 0,
+                ! $this->isMultipleFilter($name) => 1,
+                default => 2,
+            };
+
+            $rows[$order][] = [$this->getFilterLabel($name), $value];
+        }
+
+        foreach (array_diff_key($fields, array_flip($keys)) as $name => $field) {
+            $value = $this->getSetting($name, $field['selected'] ?? '');
+
+            if (! is_scalar($value) || ((string) $value === (string) ($field['selected'] ?? ''))) {
+                continue;
+            }
+
+            $rows[3][] = [$field['title'] ?? $name, $this->getAppliedValueText((string) $value, $field['values'][$value] ?? $value)];
+        }
+
+        // year: is the dead token old See performance links carry, which no report reads
+        if ($terms = $this->getAppliedSearchTerms(array_merge($keys, array_keys($fields), ['year']))) {
+            $rows[4][] = [trans('general.search'), $terms];
+        }
+
+        ksort($rows);
+
+        return array_merge(...$rows);
+    }
+
+    /**
+     * The window the report covers, as dates only: the chip names its presets after the window requested rather
+     * than today, so a past quarter's dates would be named This Quarter.
+     */
+    protected function getAppliedDateRange(): string
+    {
+        [$start, $end] = $this->getStartAndEndDates($this->year);
+
+        return trans('reports.applied_filters.dates', [
+            'start' => company_date($start),
+            'end' => company_date($end)],
+        );
+    }
+
+    /**
+     * The names of the value a chip applied, after "is not" when the search string excluded it.
+     */
+    protected function getAppliedFilterValue(string $name, string $key, array $values, ?array $field): string
+    {
+        [$value, $exclude] = $this->getAppliedFilterChoice($name, $key, $values, $field);
+
+        if ($value === '') {
+            return '';
+        }
+
+        // The whole value first, as one value can hold a comma: Unpaid is "sent,viewed,partial"
+        if (array_key_exists($value, $values)) {
+            $text = $this->getAppliedValueText($value, $values[$value]);
+        } else {
+            $ids = explode(',', $value);
+            $names = $this->getFilterValueNames($key, array_diff($ids, array_keys($values)));
+
+            $text = implode(', ', array_map(
+                fn ($id) => $this->getAppliedValueText($id, $values[$id] ?? $names[$id] ?? $id),
+                $ids,
+            ));
+        }
+
+        return $exclude
+            ? trans('reports.applied_filters.excluded', ['values' => $text])
+            : $text;
+    }
+
+    /**
+     * The value a chip applied, [value, excluded]: the search string's, else the chip's default, else, for a chip
+     * of one value, the report's saved setting of the same name. Empty when a filter has nothing chosen.
+     */
+    protected function getAppliedFilterChoice(
+        string $name,
+        string $key,
+        array $values,
+        ?array $field,
+    ): array {
+        $search = request('search');
+        $search = ' ' . (is_string($search) ? $search : '') . ' ';
+
+        // "Is not" only where the chip declares that its report honours it; elsewhere a report reads the value alone
+        $excludable = ($this->filters['operators'][$name]['not_equal'] ?? false) === true;
+
+        // A value holding a space spans two terms of the search string, as Overdue's "partial,sent,viewed
+        // due_at<=today" does, so it is looked for whole, the longest first
+        $spanning = array_filter(array_map('strval', array_keys($values)), fn ($value) => str_contains($value, ' '));
+        usort($spanning, fn ($a, $b) => strlen($b) <=> strlen($a));
+
+        foreach ($spanning as $value) {
+            if (str_contains($search, ' ' . $key . ':' . $value . ' ')) {
+                return [
+                    $value,
+                    $excludable && str_contains($search, ' not ' . $key . ':' . $value . ' '),
+                ];
+            }
+        }
+
+        // A chip that always has a value, as a setting does, takes the search string's only where the report would
+        $setting = ! $this->isMultipleFilter($name) && (isset($this->filters['defaults'][$name]) || $field);
+
+        $value = $this->getSearchStringValue($key);
+
+        if (is_string($value) && ($value !== '') && (! $setting || $this->isFilterValue($value, $values))) {
+            return [
+                $value,
+                $excludable && ($this->getSearchStringOperator($key) == '!='),
+            ];
+        }
+
+        if (! empty($this->filters['defaults'][$name])) {
+            return [
+                (string) $this->filters['defaults'][$name],
+                false,
+            ];
+        }
+
+        $value = $field ? $this->getSetting($key, $field['selected'] ?? '') : '';
+
+        return [
+            ($setting && is_scalar($value)) ? (string) $value : '',
+            false,
+        ];
+    }
+
+    /**
+     * Whether a chip of one value takes the value: it is one of the chip's, or a date for a chip of dates.
+     */
+    protected function isFilterValue(string $value, array $values): bool
+    {
+        return array_key_exists($value, $values)
+            || ($this->isDateValue((string) array_key_first($values)) && $this->isDateValue($value));
+    }
+
+    /**
+     * What else the search string narrows the data by, word for word: free text and the terms of no chip or
+     * setting of the report, of which the given keys are.
+     */
+    protected function getAppliedSearchTerms(array $keys): string
+    {
+        $search = request('search');
+
+        if (! is_string($search) || (trim($search) === '')) {
+            return '';
+        }
+
+        // A chip's value that spans two terms, as Overdue's does, belongs to the chip
+        foreach ($this->getFilterChips() as $name => $values) {
+            foreach (array_keys($values) as $value) {
+                if (! str_contains((string) $value, ' ')) {
+                    continue;
+                }
+
+                $term = $this->getFilterKey($name) . ':' . $value;
+                $search = str_replace(['not ' . $term, $term], '', $search);
+            }
+        }
+
+        preg_match_all('/"[^"]*"|\S+/', $search, $matches);
+
+        $terms = [];
+        $negated = false;
+
+        foreach ($matches[0] as $term) {
+            if ($term === 'not') {
+                $negated = true;
+
+                continue;
+            }
+
+            $key = preg_match('/^(\w+)(>=|<=|>|<|=|:)/', $term, $parts) ? $parts[1] : null;
+
+            if (! in_array($key, $keys, true)) {
+                $terms[] = ($negated ? 'not ' : '') . $term;
+            }
+
+            $negated = false;
+        }
+
+        // AddSearchString appends the request's other keys on each query, so a term can repeat
+        return implode(' ', array_unique($terms));
+    }
+
+    /**
+     * A value's label, with the date when the value is one, as for an as-of preset such as End of Last Month.
+     */
+    protected function getAppliedValueText(string $value, mixed $label): string
+    {
+        $label = is_scalar($label) ? (string) $label : $value;
+
+        if (! $this->isDateValue($value)) {
+            return $label;
+        }
+
+        $date = company_date($value);
+
+        return in_array($label, [$value, $date])
+            ? $date
+            : trans('reports.applied_filters.named_date', ['name' => $label, 'date' => $date]);
+    }
+
+    /**
+     * The names of chosen ids a chip's values miss, since a chip lists only the first values of a long list.
+     */
+    protected function getFilterValueNames(string $key, array $ids): array
+    {
+        $ids = array_filter($ids, 'is_numeric');
+
+        $query = match ($key) {
+            'account_id'                        => Account::query(),
+            'category_id', 'item_category_id'   => Category::query()->withSubCategory(),
+            'contact_id'                        => Contact::query(),
+            'item_id'                           => Item::query(),
+            'tax_id'                            => Tax::query(),
+            default                             => null,
+        };
+
+        if (empty($ids) || is_null($query)) {
+            return [];
+        }
+
+        return $query->whereIn('id', $ids)->pluck('name', 'id')->all();
+    }
+
+    protected function isMultipleFilter(string $name): bool
+    {
+        return ! empty($this->filters['multiple'][$name]) || ! empty($this->filters['operators'][$name]['multiple']);
+    }
+
+    protected function isDateValue(string $value): bool
+    {
+        return preg_match('/^(\d{4})-(\d{1,2})-(\d{1,2})$/', $value, $parts) && checkdate((int) $parts[2], (int) $parts[3], (int) $parts[1]);
     }
 
     public function setGroups()

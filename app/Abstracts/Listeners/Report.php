@@ -249,6 +249,31 @@ abstract class Report
         }
     }
 
+    /**
+     * Keep the rows the search string chose for the key: those ids, or
+     * every other row when "not" excludes them.
+     */
+    public function filterRowsBySearchString(
+        array $rows,
+        string $key,
+        string $input = '',
+    ): array {
+        $value = $this->getSearchStringValue($key, '', $input);
+
+        if (! is_string($value) || $value === '') {
+            return $rows;
+        }
+
+        $ids = explode(',', $value);
+        $exclude = $this->getSearchStringOperator($key, '=', $input) == '!=';
+
+        return array_filter(
+            array: $rows,
+            callback: fn ($id) => in_array($id, $ids) !== $exclude,
+            mode: ARRAY_FILTER_USE_KEY,
+        );
+    }
+
     public function setRowNamesAndValues($event, $rows)
     {
         $nodes = [];
@@ -286,18 +311,20 @@ abstract class Report
         $nodes = [];
 
         // Load all categories once and walk the tree in memory (avoids the per-node N+1).
-        $all = Category::withSubCategory()->orderBy('name')->getWithoutChildren();
+        $all = Category::query()->withSubCategory()->orderBy('name')->getWithoutChildren();
 
         $keyed = $all->keyBy('id');
 
-        $this->preloaded_sub_categories = $all->groupBy('parent_id');
+        // Only the given categories are nested, so a chip-filtered list keeps its rows and its tree in step:
+        // a category whose parent was left out is listed on its own, and a child that was left out is not nested
+        $given = array_fill_keys(collect($categories)->keys()->all(), true);
+
+        $this->preloaded_sub_categories = $all->filter(fn ($category) => isset($given[$category->id]))->groupBy('parent_id');
 
         foreach ($categories as $id => $name) {
             $category = $keyed->get($id);
 
-            if (is_null($category) || ! is_null($category->parent_id)) {
-                unset($categories[$id]);
-
+            if (is_null($category) || isset($given[$category->parent_id])) {
                 continue;
             }
 

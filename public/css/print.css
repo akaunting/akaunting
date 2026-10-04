@@ -893,6 +893,43 @@ html[dir="ltr"] .rp-float-right {
 html[dir="rtl"] .rp-float-right {
     float: left;
 }
+
+/* The applied chips, components/reports/applied.blade.php */
+.rp-applied {
+    width: auto;
+    margin: 12px 0 4px 0;
+    font-size: 12px;
+}
+
+.rp-applied th,
+.rp-applied td {
+    padding: 2px 0;
+    vertical-align: top;
+}
+
+.rp-applied th {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+html[dir="ltr"] .rp-applied th {
+    text-align: left;
+    padding-right: 16px;
+}
+
+html[dir="rtl"] .rp-applied th {
+    text-align: right;
+    padding-left: 16px;
+}
+
+/* dompdf does not mirror table columns, so in a PDF the value keeps the left side and the table the left margin */
+html[dir="rtl"] .rp-applied {
+    margin-left: auto;
+}
+
+html[dir="rtl"] .rp-applied td {
+    padding-left: 16px;
+}
 /*--Print Reports Finish--*/
 
 .clearfix:after {

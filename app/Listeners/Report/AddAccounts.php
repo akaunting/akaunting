@@ -32,6 +32,12 @@ class AddAccounts extends Listener
         $event->class->filters['accounts'] = $this->getAccounts(true);
         $event->class->filters['routes']['accounts'] = ['accounts.index', 'search=enabled:1'];
         $event->class->filters['multiple']['accounts'] = true;
+        $event->class->filters['operators']['accounts'] = [
+            'equal'     => true,
+            'not_equal' => true,
+            'multiple'  => true,
+            'range'     => false,
+        ];
     }
 
     /**
@@ -76,17 +82,7 @@ class AddAccounts extends Listener
             return;
         }
 
-        $all_accounts = $this->getAccounts();
-
-        if ($account_ids = $this->getSearchStringValue('account_id')) {
-            $accounts = explode(',', $account_ids);
-
-            $rows = collect($all_accounts)->filter(function ($value, $key) use ($accounts) {
-                return in_array($key, $accounts);
-            });
-        } else {
-            $rows = $all_accounts;
-        }
+        $rows = $this->filterRowsBySearchString($this->getAccounts(), 'account_id');
 
         $this->setRowNamesAndValues($event, $rows);
     }

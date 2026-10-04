@@ -10,7 +10,6 @@ use App\Jobs\Banking\UpdateAccount;
 use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
 use App\Models\Banking\Transfer;
-use App\Utilities\Date;
 use App\Utilities\Reports;
 use App\Models\Setting\Currency;
 
@@ -259,8 +258,8 @@ class Accounts extends Controller
 
     public function seePerformance(Account $account)
     {
+        // No dates: the report opens on the current financial year
         $data = [
-            'year'          => Date::now()->year,
             'basis'         => 'accrual',
             'account_id'    => $account->id,
         ];

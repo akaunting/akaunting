@@ -29,6 +29,12 @@ class AddIncomeCategories extends Listener
         $event->class->filters['categories'] = $this->getIncomeCategories(limit: true);
         $event->class->filters['routes']['categories'] = ['categories.index', 'search=type:' . $this->getIncomeCategoryTypes('string') . ' enabled:1'];
         $event->class->filters['multiple']['categories'] = true;
+        $event->class->filters['operators']['categories'] = [
+            'equal'     => true,
+            'not_equal' => true,
+            'multiple'  => true,
+            'range'     => false,
+        ];
     }
 
     /**
@@ -58,17 +64,7 @@ class AddIncomeCategories extends Listener
             return;
         }
 
-        $all_categories = $this->getIncomeCategories();
-
-        if ($category_ids = $this->getSearchStringValue('category_id')) {
-            $categories = explode(',', $category_ids);
-
-            $rows = collect($all_categories)->filter(function ($value, $key) use ($categories) {
-                return in_array($key, $categories);
-            });
-        } else {
-            $rows = $all_categories;
-        }
+        $rows = $this->filterRowsBySearchString($this->getIncomeCategories(), 'category_id');
 
         $this->setRowNamesAndValues($event, $rows);
 

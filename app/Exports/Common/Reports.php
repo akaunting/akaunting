@@ -24,7 +24,11 @@ class Reports implements FromView, ShouldAutoSize, WithTitle
 
     public function view(): View
     {
-        return view($this->view, ['class' => $this->class, 'print' => true]);
+        return view('components.reports.export', [
+            'class' => $this->class,
+            'print' => true,
+            'report_view' => $this->view,
+        ]);
     }
 
     public function title(): string

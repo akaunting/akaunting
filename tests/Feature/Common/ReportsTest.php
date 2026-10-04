@@ -2,20 +2,32 @@
 
 namespace Tests\Feature\Common;
 
+use App\Abstracts\Report as ReportClass;
 use App\Events\Report\DataLoaded;
 use App\Events\Report\DataLoading;
+use App\Events\Report\RowsShowing;
+use App\Exports\Common\Reports as ReportExport;
 use App\Jobs\Auth\CreateUser;
 use App\Jobs\Banking\CreateTransaction;
 use App\Jobs\Common\CreateCompany;
 use App\Jobs\Common\UpdateReport;
+use App\Listeners\Report\AddIncomeCategories;
 use App\Models\Banking\Transaction;
 use App\Models\Common\Company;
+use App\Models\Common\Contact;
 use App\Models\Common\Report;
 use App\Models\Setting\Category;
+use App\Reports\IncomeExpenseSummary;
+use App\Reports\IncomeSummary;
 use App\Reports\ProfitLoss;
 use App\Traits\Permissions;
 use App\Utilities\Date;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Facade;
+use Maatwebsite\Excel\Excel as ExcelType;
+use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use Tests\Feature\FeatureTestCase;
 
 class ReportsTest extends FeatureTestCase
@@ -284,6 +296,210 @@ class ReportsTest extends FeatureTestCase
 
         $this->assertSame(1, $loads[$theirs->id]);
         $this->assertSame(3, $loads[$mine->id]);
+    }
+
+    public function testItShouldKeepEveryOtherRowWhenAChipExcludesOne()
+    {
+        $this->loginAs();
+
+        $alpha = Contact::factory()->customer()->enabled()->create(['name' => 'Alpha Stores']);
+        $beta = Contact::factory()->customer()->enabled()->create(['name' => 'Beta Stores']);
+
+        foreach ([[$alpha, 100], [$beta, 40]] as [$contact, $amount]) {
+            $this->dispatch(new CreateTransaction(Transaction::factory()->income()->raw([
+                'contact_id' => $contact->id,
+                'amount' => $amount,
+                'paid_at' => '2026-05-10 10:00:00',
+            ])));
+        }
+
+        $model = new Report([
+            'class' => IncomeExpenseSummary::class,
+            'name' => 'Income vs Expense by contact',
+            'settings' => ['group' => 'contact', 'period' => 'monthly', 'basis' => 'cash'],
+        ]);
+
+        $window = ['start_date' => '2026-05-01', 'end_date' => '2026-05-31'];
+
+        // "Is not" used to keep the left-out contact's row only, which the search string had emptied
+        $report = $this->loadReport($model, $window + ['search' => 'not contact_id:' . $alpha->id]);
+
+        $this->assertArrayNotHasKey($alpha->id, $report->row_values['income']);
+        $this->assertEquals(['May 2026' => 40], $report->row_values['income'][$beta->id]);
+        $this->assertEquals(['May 2026' => 40], $report->footer_totals['income']);
+
+        $report = $this->loadReport($model, $window + ['search' => 'contact_id:' . $alpha->id]);
+
+        $this->assertSame([$alpha->id], array_keys($report->row_values['income']));
+        $this->assertEquals(['May 2026' => 100], $report->footer_totals['income']);
+
+        // A category is left out on its own, as the search string leaves out its records: a sub-category whose
+        // parent is left out keeps its row and is listed at the top of the tree, where it can be seen
+        $parent = Category::factory()->income()->enabled()->create(['name' => 'Rentals']);
+        $child = Category::factory()->income()->enabled()->create(['name' => 'Garages', 'parent_id' => $parent->id]);
+        $sibling = Category::factory()->income()->enabled()->create(['name' => 'Services']);
+
+        $tree = function (string $search) {
+            $this->setRequest(['search' => $search]);
+
+            $class = new IncomeSummary(new Report([
+                'class' => IncomeSummary::class,
+                'name' => 'Income Summary by category',
+                'settings' => ['group' => 'category', 'period' => 'monthly', 'basis' => 'cash'],
+            ]), false);
+
+            $class->setYear();
+            $class->setTables();
+            $class->setDates();
+
+            // The core listener alone: with Double-Entry enabled the module builds every category's row itself
+            (new AddIncomeCategories())->handleRowsShowing(new RowsShowing($class));
+
+            return [array_keys($class->row_names['income']), $class->row_tree_nodes['income']];
+        };
+
+        [$rows, $nodes] = $tree('not category_id:' . $parent->id);
+
+        $this->assertNotContains($parent->id, $rows);
+        $this->assertContains($child->id, $rows);
+        $this->assertContains($sibling->id, $rows);
+        $this->assertArrayHasKey($child->id, $nodes);
+
+        [$rows, $nodes] = $tree('category_id:' . $parent->id);
+
+        $this->assertSame([$parent->id], $rows);
+        $this->assertSame([$parent->id => null], $nodes);
+
+        [$rows, $nodes] = $tree('category_id:' . $child->id);
+
+        $this->assertSame([$child->id], $rows);
+        $this->assertSame([$child->id => null], $nodes);
+
+        // See performance opens Income vs Expense on the account, without the year no report reads
+        $account_id = setting('default.account');
+        $performance = Report::where('class', IncomeExpenseSummary::class)->firstOrFail();
+
+        $this->loginAs()
+            ->get(route('accounts.see-performance', $account_id))
+            ->assertRedirect(route('reports.show', ['report' => $performance->id, 'search' => 'basis:accrual account_id:' . $account_id]));
+    }
+
+    public function testItShouldListTheAppliedChipsAbovePrintPdfAndExcel()
+    {
+        // A fixed clock, so the default window is a known financial year
+        $this->travelTo(Date::parse('2026-06-15 10:00:00'));
+        $this->loginAs();
+
+        // Ten contacts ahead of Zulu by name, so the chip's first values miss it and its name is looked up
+        foreach (range(1, 10) as $number) {
+            Contact::factory()->customer()->enabled()->create(['name' => 'Aardvark ' . $number]);
+        }
+
+        $zulu = Contact::factory()->customer()->enabled()->create(['name' => 'Zulu Traders']);
+
+        $model = Report::where('class', ProfitLoss::class)->firstOrFail();
+        $query = ['search' => 'basis:cash not contact_id:' . $zulu->id . ' "rent"', 'start_date' => '2026-03-01', 'end_date' => '2026-03-31'];
+        $excluded = trans('reports.applied_filters.excluded', ['values' => 'Zulu Traders']);
+
+        $report = $this->loadReport($model, $query);
+
+        $this->assertArrayNotHasKey($zulu->id, $report->filters['contacts']);
+
+        // The window, the chips of one value with the saved group and period, the lists, then the free text,
+        // which narrows the data too
+        $this->assertSame([
+            [trans('reports.date_range'), trans('reports.applied_filters.dates', ['start' => company_date('2026-03-01'), 'end' => company_date('2026-03-31')])],
+            [trans('general.group_by'), trans_choice('general.categories', 1)],
+            [trans('general.basis'), trans('general.cash')],
+            [trans('general.period'), trans('general.quarterly')],
+            [trans_choice('general.contacts', 1), $excluded],
+            [trans('general.search'), '"rent"'],
+        ], $report->applied_filters);
+
+        // A value the report rejects gives way to the setting it uses
+        $this->setRequest(['search' => 'basis:foo']);
+
+        $this->assertContains([trans('general.basis'), trans('general.accrual')], $report->getAppliedFilters());
+
+        // "Is not" is printed only where the chip declares that its report honours it; elsewhere the value is
+        $report->filters['staff'] = [7 => 'Sam Staff'];
+        $report->filters['names']['staff'] = 'Staff member';
+
+        $this->setRequest(['search' => 'not staff_id:7']);
+
+        $this->assertContains(['Staff member', 'Sam Staff'], $report->getAppliedFilters());
+
+        // With no dates the window is the financial year, and a saved preference with no chip is listed when it
+        // differs from the report's default
+        $model->settings = array_merge((array) $model->settings, ['show_percentage' => 'yes']);
+
+        $defaults = $this->loadReport($model, [])->applied_filters;
+
+        $this->assertSame([trans('reports.date_range'), trans('reports.applied_filters.dates', ['start' => company_date('2026-01-01'), 'end' => company_date('2026-12-31')])], $defaults[0]);
+        $this->assertContains([trans('reports.percentage_of_income'), trans('general.yes')], $defaults);
+
+        $model->refresh();
+
+        $this->loginAs()
+            ->get(route('reports.print', [$model->id] + $query))
+            ->assertOk()
+            ->assertSeeInOrder([$model->name, $excluded, trans('reports.net_profit')]);
+
+        $this->loginAs()->get(route('reports.pdf', [$model->id] + $query))->assertOk();
+
+        // A queued export is unserialised in a worker without the request, so the chips come from the load
+        $report = unserialize(serialize($this->loadReport($model, $query)));
+        $this->setRequest();
+
+        $file = tempnam(sys_get_temp_dir(), 'report');
+
+        try {
+            file_put_contents($file, Excel::raw(new ReportExport($report->views[$report->type], $report), ExcelType::XLSX));
+
+            $sheet = IOFactory::load($file)->getActiveSheet();
+        } finally {
+            unlink($file);
+        }
+
+        $rows = array_filter(
+            $sheet->toArray(null, false, false, true),
+            fn (array $row) => ! empty(array_filter($row, fn ($value) => ! in_array($value, [null, ''], true))),
+        );
+
+        $first = array_key_first($rows);
+        $cells = array_column($rows, 'B', 'A');
+
+        $this->assertSame(trans('reports.date_range'), $rows[$first]['A']);
+        $this->assertSame($excluded, $cells[trans_choice('general.contacts', 1)] ?? null);
+        $this->assertSame('"rent"', $cells[trans('general.search')] ?? null);
+
+        // A value spans the period columns, so a long one does not widen the first of them
+        $this->assertNotEmpty(preg_grep('/^B' . $first . ':/', $sheet->getMergeCells()));
+
+        // A report that lists its chips itself leaves the list out
+        $report->views['applied'] = null;
+
+        $this->assertStringNotContainsString('rp-applied', view($report->views['print'], ['print' => true])->with('class', $report)->render());
+    }
+
+    /**
+     * Load the report as a page request with this query would.
+     */
+    protected function loadReport(Report $model, array $query): ReportClass
+    {
+        $this->setRequest($query);
+
+        return new $model->class($model);
+    }
+
+    /**
+     * Bind a report page request with this query, as the queue worker binds an empty one.
+     */
+    protected function setRequest(array $query = []): void
+    {
+        app()->instance('request', Request::create('/' . company_id() . '/common/reports', 'GET', $query));
+
+        Facade::clearResolvedInstance('request');
     }
 
     /**

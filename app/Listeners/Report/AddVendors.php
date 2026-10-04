@@ -30,6 +30,12 @@ class AddVendors extends Listener
         $event->class->filters['vendors'] = $this->getVendors(true);
         $event->class->filters['routes']['vendors'] = ['vendors.index', 'search=enabled:1'];
         $event->class->filters['multiple']['vendors'] = true;
+        $event->class->filters['operators']['vendors'] = [
+            'equal'     => true,
+            'not_equal' => true,
+            'multiple'  => true,
+            'range'     => false,
+        ];
     }
 
     /**
@@ -100,17 +106,8 @@ class AddVendors extends Listener
             return;
         }
 
-        $all_vendors = $this->getVendors();
-
-        if ($vendor_ids = $this->getSearchStringValue('vendor_id')) {
-            $vendors = explode(',', $vendor_ids);
-
-            $rows = collect($all_vendors)->filter(function ($value, $key) use ($vendors) {
-                return in_array($key, $vendors);
-            });
-        } else {
-            $rows = $all_vendors;
-        }
+        // The vendor chip sends contact_id, as every contact chip does
+        $rows = $this->filterRowsBySearchString($this->getVendors(), 'contact_id');
 
         $this->setRowNamesAndValues($event, $rows);
     }

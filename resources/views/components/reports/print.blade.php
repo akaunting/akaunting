@@ -8,6 +8,10 @@
 
         {{ setting('company.name') }}
 
+        @if (! empty($class->views['applied']))
+            @include($class->views['applied'])
+        @endif
+
         @include($class->views[$class->type])
     </x-slot>
 </x-layouts.print>
