@@ -334,6 +334,27 @@ class ReportsTest extends FeatureTestCase
         $this->assertSame([$alpha->id], array_keys($report->row_values['income']));
         $this->assertEquals(['May 2026' => 100], $report->footer_totals['income']);
 
+        // "Is not" keeps the records without a contact, which SQL's != and NOT IN alone never match, so "is" and
+        // "is not" make up the whole (App\Utilities\SearchStringColumns)
+        $this->dispatch(new CreateTransaction(Transaction::factory()->income()->raw([
+            'contact_id' => null,
+            'amount' => 25,
+            'paid_at' => '2026-05-12 10:00:00',
+        ])));
+
+        $by_category = new Report([
+            'class' => IncomeExpenseSummary::class,
+            'name' => 'Income vs Expense by category',
+            'settings' => ['group' => 'category', 'period' => 'monthly', 'basis' => 'cash'],
+        ]);
+
+        $total = fn (string $search) => array_sum($this->loadReport($by_category, $window + ['search' => $search])->footer_totals['income']);
+
+        $this->assertEquals(165, $total(''));
+        $this->assertEquals(100, $total('contact_id:' . $alpha->id));
+        $this->assertEquals(65, $total('not contact_id:' . $alpha->id));
+        $this->assertEquals(25, $total('not contact_id:' . $alpha->id . ',' . $beta->id));
+
         // A category is left out on its own, as the search string leaves out its records: a sub-category whose
         // parent is left out keeps its row and is listed at the top of the tree, where it can be seen
         $parent = Category::factory()->income()->enabled()->create(['name' => 'Rentals']);
@@ -446,6 +467,13 @@ class ReportsTest extends FeatureTestCase
 
         $this->assertSame([trans('reports.date_range'), trans('reports.applied_filters.dates', ['start' => company_date('2026-01-01'), 'end' => company_date('2026-12-31')])], $defaults[0]);
         $this->assertContains([trans('reports.percentage_of_income'), trans('general.yes')], $defaults);
+
+        // A field the options bar changes per run prints the value of the run, not the saved one
+        $this->assertNotContains([trans('reports.percentage_of_income'), trans('general.yes')], $this->loadReport($model, ['search' => 'show_percentage:no'])->applied_filters);
+
+        $model->settings = array_merge((array) $model->settings, ['show_percentage' => 'no']);
+
+        $this->assertContains([trans('reports.percentage_of_income'), trans('general.yes')], $this->loadReport($model, ['search' => 'show_percentage:yes'])->applied_filters);
 
         $model->refresh();
 

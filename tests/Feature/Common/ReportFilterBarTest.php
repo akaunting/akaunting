@@ -30,7 +30,7 @@ class ReportFilterBarTest extends FeatureTestCase
         $category = Category::factory()->income()->enabled()->create(['name' => 'Rent received']);
 
         $controls = $this->getControls(ProfitLoss::class, [
-            // The dates win over a date_range: token, which core does not read; year: is dead
+            // The dates win over a date_range: term, which no report reads and Update drops; year: is dead
             'search' => 'basis:cash period:monthly not category_id:' . $category->id . ' "rent" year:2026 date_range:2026-01-01-to-2026-03-31',
             'start_date' => '2026-04-01',
             'end_date' => '2026-06-30',
@@ -55,8 +55,8 @@ class ReportFilterBarTest extends FeatureTestCase
         $this->assertSame(['ids' => [(string) $category->id], 'not' => true], $filters['category_id']['value']);
         $this->assertSame(['ids' => [], 'not' => false], $filters['contact_id']['value']);
 
-        // The free text and the date_range: token, which only DoubleEntry reads, stay word for word
-        $this->assertSame(['"rent"', 'date_range:2026-01-01-to-2026-03-31'], $controls['extras']);
+        // Only the free text stays word for word
+        $this->assertSame(['"rent"'], $controls['extras']);
 
         $this->assertSame([trans('reports.date_range'), company_date('2026-04-01') . ' – ' . company_date('2026-06-30')], $controls['summary'][0]);
         $this->assertSame([$controls['strip'][1]['label'], trans('general.cash')], $controls['summary'][1]);
@@ -91,22 +91,28 @@ class ReportFilterBarTest extends FeatureTestCase
         $this->assertFalse($this->getControls(ProfitLoss::class, [])['has_query']);
 
         // Overdue's value spans two terms and stays one; a negated amount is no bound the readers take, while a
-        // negated setting is read past, as getFieldValue() does; as_of:yesterday is a date to its readers
+        // negated setting is read past, as getFieldValue() does; as_of:yesterday is a date to its readers, and a
+        // single date of any key sits in the as_of slot
         $overdue = 'partial,sent,viewed due_at<=today';
+        $prepared = null;
 
         $controls = $this->getControls(ProfitLoss::class, [
             'search' => 'not status:' . $overdue . ' not min_amount:100 max_amount:500 not basis:cash as_of:yesterday',
-        ], function (ReportClass $report) use ($overdue) {
+        ], function (ReportClass $report) use ($overdue, &$prepared) {
             $report->filters['statuses'] = ['paid' => 'Paid', $overdue => 'Overdue'];
             $report->filters['min_amounts'] = [];
             $report->filters['max_amounts'] = [];
             $report->filters['as_of'] = [];
+            $report->filters['report_at'] = ['2026-03-31' => 'End of Last Quarter'];
             $report->filters['keys'] = array_merge($report->filters['keys'] ?? [], [
                 'statuses' => 'status',
                 'min_amounts' => 'min_amount',
                 'max_amounts' => 'max_amount',
                 'as_of' => 'as_of',
+                'report_at' => 'report_at',
             ]);
+
+            $prepared = $report;
         });
 
         $filters = collect($controls['filters'])->keyBy('key');
@@ -116,7 +122,11 @@ class ReportFilterBarTest extends FeatureTestCase
         $this->assertSame(['min' => '', 'max' => '500'], $filters['amount']['value']);
         $this->assertSame('cash', $strip['basis']['value']);
         $this->assertSame('2026-06-14', $strip['as_of']['value']);
+        $this->assertSame(['date_range', 'as_of', 'report_at', 'basis', 'period', 'group'], $strip->keys()->all());
         $this->assertSame(['not status:' . $overdue, 'not min_amount:100'], $controls['extras']);
+
+        // Print, PDF and Excel state the same date
+        $this->assertContains([$prepared->getFilterLabel('as_of'), company_date('2026-06-14')], $prepared->getAppliedFilters());
 
         // Shown by its filter, the value that spans two terms is the filter's alone
         $controls = $this->getControls(ProfitLoss::class, ['search' => 'status:' . $overdue . ' "rent"'], function (ReportClass $report) use ($overdue) {

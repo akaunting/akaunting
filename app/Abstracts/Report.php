@@ -141,15 +141,12 @@ abstract class Report
 
     public function __construct(Model $model = null, $load_data = true)
     {
-        $this->setGroups();
-
-        if (!$model) {
-            return;
-        }
-
+        // Set first, so the GroupShowing listeners of setGroups() can tell which report row this is
         $this->model = $model;
 
-        if (!$load_data) {
+        $this->setGroups();
+
+        if (!$model || !$load_data) {
             return;
         }
 
@@ -557,8 +554,9 @@ abstract class Report
 
     /**
      * Each chip with the value the report used: the search string's, else the chip's default, else the saved
-     * setting; a filter nobody chose is left out. Then the saved preferences that have no chip and differ from
-     * the report's default, and what else the search string narrows the data by, such as free text.
+     * setting; a filter nobody chose is left out. Then the settings that have no chip and differ from the report's
+     * default, as this run applied those the options bar changes per run (placement) and as saved otherwise, and
+     * what else the search string narrows the data by, such as free text.
      */
     public function getAppliedFilters(): array
     {
@@ -590,13 +588,18 @@ abstract class Report
         }
 
         foreach (array_diff_key($fields, array_flip($keys)) as $name => $field) {
-            $value = $this->getSetting($name, $field['selected'] ?? '');
+            $values = (isset($field['values']) && is_array($field['values'])) ? $field['values'] : [];
+
+            // A field the options bar changes per run prints the value of this run, as the bar shows it
+            $value = (in_array($field['placement'] ?? null, ['strip', 'display'], true) && ! empty($values))
+                ? $this->getFilterBarChoice($name, $name, $values, $field)
+                : $this->getSetting($name, $field['selected'] ?? '');
 
             if (! is_scalar($value) || ((string) $value === (string) ($field['selected'] ?? ''))) {
                 continue;
             }
 
-            $rows[3][] = [$field['title'] ?? $name, $this->getAppliedValueText((string) $value, $field['values'][$value] ?? $value)];
+            $rows[3][] = [$field['title'] ?? $name, $this->getAppliedValueText((string) $value, $values[$value] ?? $value)];
         }
 
         // year: is the dead token old See performance links carry, which no report reads
@@ -653,8 +656,9 @@ abstract class Report
     }
 
     /**
-     * The value a chip applied, [value, excluded]: the search string's, else the chip's default, else, for a chip
-     * of one value, the report's saved setting of the same name. Empty when a filter has nothing chosen.
+     * The value a chip applied, [value, excluded]: a single date as its readers parse it; else the search string's,
+     * else the chip's default, else, for a chip of one value, the report's saved setting of the same name. Empty
+     * when a filter has nothing chosen.
      */
     protected function getAppliedFilterChoice(
         string $name,
@@ -662,6 +666,14 @@ abstract class Report
         array $values,
         ?array $field,
     ): array {
+        // A single date is the one its readers parse, as_of:yesterday included, as the options bar shows it
+        if (! $this->isMultipleFilter($name) && (($key == 'as_of') || $this->hasOnlyDateValues($values))) {
+            return [
+                $this->getFilterBarDate($name, $key),
+                false,
+            ];
+        }
+
         $search = request('search');
         $search = ' ' . (is_string($search) ? $search : '') . ' ';
 
@@ -994,9 +1006,9 @@ abstract class Report
                 'label' => $label,
                 'presets' => $this->getFilterBarRangePresets($values),
                 'value' => ['start' => $start, 'end' => $end],
-                // Update writes the window as start_date and end_date; a date_range: or report_at token, which only
-                // DoubleEntry reads, stays in the search as it is
-                'owns' => [],
+                // Update writes the window as start_date and end_date, so a date_range: term, which no report reads,
+                // is dropped
+                'owns' => [$key],
             ]];
         }
 
@@ -1306,8 +1318,7 @@ abstract class Report
 
     /**
      * The window a date range control shows: the one core reads, the request's dates, else the financial year. A
-     * report that reads its window elsewhere overrides it, as DoubleEntry will for its date_range: and report_at
-     * tokens.
+     * report that reads its window elsewhere overrides it.
      */
     protected function getFilterBarDates(): array
     {
@@ -1333,8 +1344,9 @@ abstract class Report
     }
 
     /**
-     * The date a single-date control shows: the search string's, parsed as its readers parse it, so as_of:yesterday
-     * is a date too (AgedDocuments::resolveAsOf()), else the listener's default, else today.
+     * The date a single-date control shows and Print, PDF and Excel state: the search string's, parsed as its
+     * readers parse it, so as_of:yesterday is a date too (AgedDocuments::resolveAsOf()), else the listener's
+     * default, else today.
      */
     protected function getFilterBarDate(string $name, string $key): string
     {
@@ -1418,15 +1430,16 @@ abstract class Report
     }
 
     /**
-     * The controls of a section in the bar's order: the keys it lists first, then the others in the order the
-     * listeners registered them, the column picker last.
+     * The controls of a section in the bar's order: by the keys it lists, else by kind, so a single date of any key
+     * takes the as_of slot; then the others in the order the listeners registered them, the column picker last.
      */
     protected function sortFilterBarControls(string $section, array $controls): array
     {
         $order = array_flip(static::FILTER_BAR_ORDER[$section]);
 
+        // By key, else by kind, so a single date of any key takes the as_of slot
         $rank = fn (array $control) => [
-            $order[$control[1]['key']] ?? (($control[1]['key'] == 'columns') ? PHP_INT_MAX : PHP_INT_MAX - 1),
+            $order[$control[1]['key']] ?? $order[$control[1]['kind']] ?? (($control[1]['key'] == 'columns') ? PHP_INT_MAX : PHP_INT_MAX - 1),
             $control[0],
         ];
 
