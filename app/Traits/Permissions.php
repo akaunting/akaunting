@@ -458,45 +458,62 @@ trait Permissions
         } else {
             $route = app(Route::class);
 
-            // Get the controller array
-            $arr = array_reverse(explode('\\', explode('@', $route->getAction()['uses'])[0]));
-
-            $controller = '';
-
-            // Add module
-            if (isset($arr[3]) && isset($arr[4])) {
-                if (strtolower($arr[4]) == 'modules') {
-                    $controller .= Str::kebab($arr[3]) . '-';
-                } elseif (isset($arr[5]) && (strtolower($arr[5]) == 'modules')) {
-                    $controller .= Str::kebab($arr[4]) . '-';
-                }
-            }
-
-            // Add folder
-            if (! in_array(strtolower($arr[1]), ['api', 'controllers'])) {
-                $controller .= Str::kebab($arr[1]) . '-';
-            }
-
-            // Add file
-            $controller .= Str::kebab($arr[0]);
+            $controller = $this->getControllerPermissionName($route->getAction()['uses']);
 
             // Skip ACL
             $skip = ['portal-dashboard'];
             if (in_array($controller, $skip)) {
                 return;
             }
-
-            // App\Http\Controllers\FooBar                  -->> foo-bar
-            // App\Http\Controllers\FooBar\Main             -->> foo-bar-main
-            // Modules\Blog\Http\Controllers\Posts          -->> blog-posts
-            // Modules\Blog\Http\Controllers\Portal\Posts   -->> blog-portal-posts
         }
 
+        $crud = [
+            'create' => ['create', 'store', 'duplicate', 'import'],
+            'read' => ['index', 'show', 'edit', 'export'],
+            'update' => ['update', 'enable', 'disable', 'markSent', 'markCancelled', 'markReceived', 'markApproved', 'markRefused', 'restoreInvoice', 'restoreBill', 'end'],
+            'delete' => ['destroy'],
+        ];
+
         // Add CRUD permission check
-        $this->middleware('permission:create-' . $controller)->only('create', 'store', 'duplicate', 'import');
-        $this->middleware('permission:read-' . $controller)->only('index', 'show', 'edit', 'export');
-        $this->middleware('permission:update-' . $controller)->only('update', 'enable', 'disable', 'markSent', 'markCancelled', 'markReceived', 'markApproved', 'markRefused', 'restoreInvoice', 'restoreBill', 'end');
-        $this->middleware('permission:delete-' . $controller)->only('destroy');
+        $this->middleware('permission:create-' . $controller)->only($crud['create']);
+        $this->middleware('permission:read-' . $controller)->only($crud['read']);
+        $this->middleware('permission:update-' . $controller)->only($crud['update']);
+        $this->middleware('permission:delete-' . $controller)->only($crud['delete']);
+    }
+
+    /**
+     * The controller part of the CRUD permission names a controller action is gated by.
+     *
+     * App\Http\Controllers\FooBar                  -->> foo-bar
+     * App\Http\Controllers\FooBar\Main             -->> foo-bar-main
+     * Modules\Blog\Http\Controllers\Posts          -->> blog-posts
+     * Modules\Blog\Http\Controllers\Portal\Posts   -->> blog-portal-posts
+     */
+    public function getControllerPermissionName(string $uses): string
+    {
+        // Get the controller array
+        $arr = array_reverse(explode('\\', explode('@', $uses)[0]));
+
+        $controller = '';
+
+        // Add module
+        if (isset($arr[3]) && isset($arr[4])) {
+            if (strtolower($arr[4]) == 'modules') {
+                $controller .= Str::kebab($arr[3]) . '-';
+            } elseif (isset($arr[5]) && (strtolower($arr[5]) == 'modules')) {
+                $controller .= Str::kebab($arr[4]) . '-';
+            }
+        }
+
+        // Add folder
+        if (! in_array(strtolower($arr[1]), ['api', 'controllers'])) {
+            $controller .= Str::kebab($arr[1]) . '-';
+        }
+
+        // Add file
+        $controller .= Str::kebab($arr[0]);
+
+        return $controller;
     }
 
     public function canAccessMenuItem($title, $permissions)

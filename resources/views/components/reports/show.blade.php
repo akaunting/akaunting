@@ -75,7 +75,10 @@
 
             @include($class->views['filter'])
 
-            @include($class->views[$class->type])
+            {{-- The report options bar marks it busy while Update loads the next page --}}
+            <div id="report-content">
+                @include($class->views[$class->type])
+            </div>
         </div>
     </x-slot>
 

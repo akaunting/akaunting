@@ -76,7 +76,7 @@ trait DateTime
     public function getFinancialWeek($year = null, $date = null): CarbonPeriod
     {
         $today = Date::today();
-        $financial_weeks = $this->getFinancialWeeks($year, $date);
+        $financial_weeks = $this->getFinancialPeriodsOfYear('Weeks', 53, $year, $date);
 
         foreach ($financial_weeks as $week) {
             if ($today->lessThan($week->getStartDate()) || $today->greaterThan($week->getEndDate())) {
@@ -98,7 +98,7 @@ trait DateTime
     public function getFinancialMonth($year = null, $date = null): CarbonPeriod
     {
         $today = Date::today();
-        $financial_months = $this->getFinancialMonths($year, $date);
+        $financial_months = $this->getFinancialPeriodsOfYear('Months', 12, $year, $date);
 
         foreach ($financial_months as $month) {
             if ($today->lessThan($month->getStartDate()) || $today->greaterThan($month->getEndDate())) {
@@ -120,7 +120,7 @@ trait DateTime
     public function getFinancialQuarter($year = null, $date = null): CarbonPeriod
     {
         $today = Date::today();
-        $financial_quarters = $this->getFinancialQuarters($year, $date);
+        $financial_quarters = $this->getFinancialPeriodsOfYear('Quarters', 4, $year, $date);
 
         foreach ($financial_quarters as $quarter) {
             if ($today->lessThan($quarter->getStartDate()) || $today->greaterThan($quarter->getEndDate())) {
@@ -137,6 +137,34 @@ trait DateTime
         }
 
         return $this_quarter;
+    }
+
+    /**
+     * The weeks, months or quarters of a whole financial year, to find the one today falls in.
+     *
+     * Not getFinancialWeeks() and the like: they stop at the request's end date for the report columns, so a
+     * past window would leave today out and name its first period This Quarter, This Month or This Week.
+     */
+    protected function getFinancialPeriodsOfYear(
+        string $unit,
+        int $count,
+        $year = null,
+        $date = null,
+    ): array {
+        $start = $this->getFinancialStart($year, $date);
+
+        $periods = [];
+
+        $function = 'add' . $unit;
+
+        for ($i = 0; $i < $count; $i++) {
+            $periods[] = CarbonPeriod::create(
+                $start->copy()->{$function}($i),
+                $start->copy()->{$function}($i + 1)->subDay()->endOfDay(),
+            );
+        }
+
+        return $periods;
     }
 
     public function getFinancialYear($year = null, $date = null): CarbonPeriod
@@ -239,19 +267,19 @@ trait DateTime
             ],
             trans('general.date_range.previous_week') => [
                 'start' => $financial_week->copy()->getStartDate()->subWeek()->toDateString(),
-                'end' => $financial_week->copy()->getEndDate()->subWeek()->toDateString(),
+                'end' => $financial_week->copy()->getStartDate()->subDay()->toDateString(),
             ],
             trans('general.date_range.previous_month') => [
                 'start' => $financial_month->copy()->getStartDate()->subMonth()->toDateString(),
-                'end' => $financial_month->copy()->getEndDate()->subMonth()->endOfMonth()->toDateString(),
+                'end' => $financial_month->copy()->getStartDate()->subDay()->toDateString(),
             ],
             trans('general.date_range.previous_quarter') => [
                 'start' => $financial_quarter->copy()->getStartDate()->subQuarter()->toDateString(),
-                'end' => $financial_quarter->copy()->getEndDate()->subQuarter()->toDateString(),
+                'end' => $financial_quarter->copy()->getStartDate()->subDay()->toDateString(),
             ],
             trans('general.date_range.previous_year') => [
                 'start' => $financial_year->copy()->getStartDate()->subYear()->toDateString(),
-                'end' => $financial_year->copy()->getEndDate()->subYear()->toDateString(),
+                'end' => $financial_year->copy()->getStartDate()->subDay()->toDateString(),
             ],
         ];
 

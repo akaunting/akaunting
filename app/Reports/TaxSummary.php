@@ -219,6 +219,8 @@ class TaxSummary extends Report
                 'no' => trans('general.no'),
             ],
             'selected' => 'no',
+            // Read through getFieldValue(), so the report options bar may change it per run
+            'placement' => 'display',
             'attributes' => [
                 'required' => 'required',
             ],

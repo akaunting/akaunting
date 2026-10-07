@@ -15,6 +15,8 @@ import Global from './../../mixins/global';
 import Form from './../../plugins/form';
 import BulkAction from './../../plugins/bulk-action';
 
+import ReportFilter from './../../components/Reports/ReportFilter';
+
 // plugin setup
 Vue.use(DashboardPlugin);
 
@@ -24,6 +26,10 @@ const app = new Vue({
     mixins: [
         Global,
     ],
+
+    components: {
+        ReportFilter,
+    },
 
     data: function () {
         return {
