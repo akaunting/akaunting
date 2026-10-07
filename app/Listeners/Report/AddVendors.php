@@ -3,7 +3,6 @@
 namespace App\Listeners\Report;
 
 use App\Abstracts\Listeners\Report as Listener;
-use App\Events\Report\FilterApplying;
 use App\Events\Report\FilterShowing;
 use App\Events\Report\GroupApplying;
 use App\Events\Report\GroupShowing;
@@ -66,32 +65,6 @@ class AddVendors extends Listener
         }
 
         $this->applyVendorGroup($event);
-    }
-
-    /**
-     * Handle filter applying event.
-     *
-     * @param  $event
-     * @return void
-     */
-    public function handleFilterApplying(FilterApplying $event)
-    {
-        if ($this->skipThisClass($event)) {
-            return;
-        }
-
-        $model_type = $event->args['model_type'] ?? 'bill';
-        if (! in_array($model_type, ['bill', 'expense'])) {
-            return;
-        }
-
-        if ($vendor_ids = $this->getSearchStringValue('vendor_id')) {
-            $where = $this->getSearchStringOperator('vendor_id') == '!='
-                ? 'whereNotIn'
-                : 'whereIn';
-
-            $event->model->{$where}('contact_id', array_map('intval', explode(',', $vendor_ids)));
-        }
     }
 
     /**
