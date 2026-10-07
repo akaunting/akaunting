@@ -3,7 +3,9 @@
 namespace Tests\Feature\Common;
 
 use App\Abstracts\Report as ReportClass;
+use App\Events\Report\FilterShowing;
 use App\Jobs\Auth\CreateUser;
+use App\Listeners\Report\AddAsOf;
 use App\Models\Common\Contact;
 use App\Models\Common\Report;
 use App\Models\Setting\Category;
@@ -103,13 +105,13 @@ class ReportFilterBarTest extends FeatureTestCase
             $report->filters['min_amounts'] = [];
             $report->filters['max_amounts'] = [];
             $report->filters['as_of'] = [];
-            $report->filters['report_at'] = ['2026-03-31' => 'End of Last Quarter'];
+            $report->filters['closed_at'] = ['2026-03-31' => 'End of Last Quarter'];
             $report->filters['keys'] = array_merge($report->filters['keys'] ?? [], [
                 'statuses' => 'status',
                 'min_amounts' => 'min_amount',
                 'max_amounts' => 'max_amount',
                 'as_of' => 'as_of',
-                'report_at' => 'report_at',
+                'closed_at' => 'closed_at',
             ]);
 
             $prepared = $report;
@@ -122,7 +124,7 @@ class ReportFilterBarTest extends FeatureTestCase
         $this->assertSame(['min' => '', 'max' => '500'], $filters['amount']['value']);
         $this->assertSame('cash', $strip['basis']['value']);
         $this->assertSame('2026-06-14', $strip['as_of']['value']);
-        $this->assertSame(['date_range', 'as_of', 'report_at', 'basis', 'period', 'group'], $strip->keys()->all());
+        $this->assertSame(['date_range', 'as_of', 'closed_at', 'basis', 'period', 'group'], $strip->keys()->all());
         $this->assertSame(['not status:' . $overdue, 'not min_amount:100'], $controls['extras']);
 
         // Print, PDF and Excel state the same date
@@ -229,6 +231,77 @@ class ReportFilterBarTest extends FeatureTestCase
         $this->assertSame(['start' => '2026-04-01', 'end' => '2026-04-30'], $shortcuts[trans('general.date_range.previous_month')]);
         $this->assertSame(['start' => '2026-05-07', 'end' => '2026-05-13'], $shortcuts[trans('general.date_range.previous_week')]);
         $this->assertSame(['start' => '2025-01-01', 'end' => '2025-12-31'], $shortcuts[trans('general.date_range.previous_year')]);
+
+        // A year from April named by its end: on 15 November 2026 this year is the one to 31 March 2027, named 2027,
+        // and a report with no dates opens on it and its quarters
+        $this->travelTo(Date::parse('2026-11-15'));
+
+        $this->loginAs();
+
+        setting(['localisation.financial_start' => '01-04', 'localisation.financial_denote' => 'ends']);
+
+        $this->setRequest();
+
+        $shortcuts = (new class { use DateTime; })->getDatePickerShortcuts();
+
+        $this->assertSame(['start' => '2026-04-01', 'end' => '2027-03-31'], $shortcuts[trans('general.date_range.this_year')]);
+        $this->assertSame(['start' => '2026-10-01', 'end' => '2026-12-31'], $shortcuts[trans('general.date_range.this_quarter')]);
+        $this->assertSame(['start' => '2025-04-01', 'end' => '2026-03-31'], $shortcuts[trans('general.date_range.previous_year')]);
+
+        $report = new ProfitLoss(Report::where('class', ProfitLoss::class)->first());
+
+        $this->assertSame(2027, $report->year);
+        $this->assertSame(['2026-04-01', '2027-03-31'], array_map(fn ($date) => $date->toDateString(), $report->getStartAndEndDates($report->year)));
+        $this->assertSame(['2026-04-01', '2026-07-01', '2026-10-01', '2027-01-01'], array_map(fn ($quarter) => $quarter->getStartDate()->toDateString(), $report->getFinancialQuarters($report->year)));
+
+        $range = collect($report->getFilterControls()['strip'])->firstWhere('key', 'date_range');
+
+        $this->assertSame(['start' => '2026-04-01', 'end' => '2027-03-31'], $range['value']);
+    }
+
+    public function testItShouldOfferTheAsOfDateWithFinancialYearPresets()
+    {
+        // In the first month of a year from April, named by its end: last month, last quarter and last year all end
+        // on 31 March, and the bar lists each
+        $this->travelTo(Date::parse('2026-04-15 10:00:00'));
+
+        $this->loginAs();
+
+        setting(['localisation.financial_start' => '01-04', 'localisation.financial_denote' => 'ends']);
+
+        // As an App lists its reports
+        $listener = new class extends AddAsOf {
+            protected $classes = [ProfitLoss::class];
+        };
+
+        $controls = $this->getControls(ProfitLoss::class, ['search' => 'as_of:yesterday'], fn (ReportClass $report) => $listener->handleFilterShowing(new FilterShowing($report)));
+
+        $as_of = collect($controls['strip'])->firstWhere('key', 'as_of');
+
+        $this->assertSame(['date_range', 'as_of', 'basis', 'period', 'group'], array_column($controls['strip'], 'key'));
+        $this->assertSame('as_of', $as_of['kind']);
+        $this->assertSame(trans('reports.as_of'), $as_of['label']);
+        $this->assertSame('2026-04-14', $as_of['value']);
+
+        // The applied date is no preset
+        $this->assertSame([
+            ['date' => '2026-04-15', 'label' => trans('general.date_range.today')],
+            ['date' => '2026-04-30', 'label' => trans('reports.as_of_presets.end_of_this_month')],
+            ['date' => '2026-03-31', 'label' => trans('reports.as_of_presets.end_of_last_month')],
+            ['date' => '2026-06-30', 'label' => trans('reports.as_of_presets.end_of_this_financial_quarter')],
+            ['date' => '2026-03-31', 'label' => trans('reports.as_of_presets.end_of_last_financial_quarter')],
+            ['date' => '2027-03-31', 'label' => trans('reports.as_of_presets.end_of_this_financial_year')],
+            ['date' => '2026-03-31', 'label' => trans('reports.as_of_presets.end_of_last_financial_year')],
+        ], $as_of['presets']);
+
+        // The report reads the end of that day, else of today
+        $report = new ProfitLoss(Report::where('class', ProfitLoss::class)->first(), false);
+
+        foreach (['as_of:2026-06-30' => '2026-06-30 23:59:59', 'as_of:yesterday' => '2026-04-14 23:59:59', 'as_of:junk' => '2026-04-15 23:59:59', '' => '2026-04-15 23:59:59'] as $search => $date) {
+            $this->setRequest(['search' => $search]);
+
+            $this->assertSame($date, $report->getAsOfDate()->toDateTimeString(), $search);
+        }
     }
 
     /**

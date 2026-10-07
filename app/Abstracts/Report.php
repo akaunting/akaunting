@@ -40,7 +40,7 @@ abstract class Report
     /**
      * The keys of $filters that describe the chips instead of being one.
      */
-    public const FILTER_METADATA = ['keys', 'names', 'types', 'routes', 'multiple', 'defaults', 'operators', 'resets', 'models'];
+    public const FILTER_METADATA = ['keys', 'names', 'types', 'routes', 'multiple', 'defaults', 'operators', 'resets', 'models', 'presets'];
 
     /**
      * The order of the report options bar's strip, display options and filters, by search string key; keys not
@@ -411,9 +411,16 @@ abstract class Report
         }
     }
 
+    /**
+     * The year getFinancialYear() and the period columns take: the one the financial year holding the start date,
+     * or today, is named after. A financial year denoted by its end that starts after 1 January is named after the
+     * calendar year it ends in, so the calendar year of the date would give the year before.
+     */
     public function setYear()
     {
-        $this->year = request()->filled('start_date') ? Date::parse(request('start_date'))->year : Date::now()->year;
+        $date = request()->filled('start_date') ? Date::parse(request('start_date')) : Date::now();
+
+        $this->year = $this->getFinancialYearName($date);
     }
 
     public function setViews()
@@ -1017,7 +1024,7 @@ abstract class Report
                 'key' => $key,
                 'kind' => 'as_of',
                 'label' => $label,
-                'presets' => $this->getFilterBarDatePresets($values),
+                'presets' => $this->filters['presets'][$name] ?? $this->getFilterBarDatePresets($values),
                 'value' => $this->getFilterBarDate($name, $key),
                 'owns' => [$key],
             ]];
@@ -1344,12 +1351,16 @@ abstract class Report
     }
 
     /**
-     * The date a single-date control shows and Print, PDF and Excel state: the search string's, parsed as its
-     * readers parse it, so as_of:yesterday is a date too (AgedDocuments::resolveAsOf()), else the listener's
-     * default, else today.
+     * The date a single-date control shows and Print, PDF and Excel state: for As of, the one the report applies
+     * (getAsOfDate(), which a report may also read from older terms); else the search string's, parsed as
+     * getAsOfDate() parses it, else the listener's default, else today.
      */
     protected function getFilterBarDate(string $name, string $key): string
     {
+        if ($key == 'as_of') {
+            return $this->getAsOfDate()->toDateString();
+        }
+
         $date = $this->getSearchStringValue($key);
 
         if (is_string($date) && ($date !== '') && ($parsed = rescue(fn () => Date::parse($date)->toDateString(), null, false))) {
@@ -1741,6 +1752,21 @@ abstract class Report
     public function getDiscount()
     {
         return $this->getFieldValue('discount');
+    }
+
+    /**
+     * The end of the day a report of balances is drawn up as of: the search string's as_of, a date or a word such
+     * as yesterday, else today. App\Listeners\Report\AddAsOf offers it on the report options bar.
+     */
+    public function getAsOfDate(): Date
+    {
+        $value = $this->getSearchStringValue('as_of');
+
+        $date = (is_string($value) && ($value !== ''))
+            ? rescue(fn () => Date::parse(Date::parse($value)->toDateString()), null, false)
+            : null;
+
+        return ($date ?? Date::today())->endOfDay();
     }
 
     public function getFields()

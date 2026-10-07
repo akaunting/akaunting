@@ -4,6 +4,7 @@ return [
 
     'years'                         => 'Year|Years',
     'date_range'                    => 'Date Range',
+    'as_of'                         => 'As of',
     'preferences'                   => 'Preference|Preferences',
     'profit_loss'                   => 'Profit & Loss',
     'income_summary'                => 'Income Summary',
@@ -23,6 +24,15 @@ return [
 
     'income_expense_description'    => 'Get an overview of your income and expenses.',
     'accounting_description'        => 'Get a clear picture of how your business is doing.',
+
+    'as_of_presets' => [
+        'end_of_this_month'                 => 'End of This Month',
+        'end_of_last_month'                 => 'End of Last Month',
+        'end_of_this_financial_quarter'     => 'End of This Financial Quarter',
+        'end_of_last_financial_quarter'     => 'End of Last Financial Quarter',
+        'end_of_this_financial_year'        => 'End of This Financial Year',
+        'end_of_last_financial_year'        => 'End of Last Financial Year',
+    ],
 
     'form_description' => [
         'general'                   => 'Here you can enter the general information of report such as name, type, description, etc.',

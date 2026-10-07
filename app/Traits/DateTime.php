@@ -53,8 +53,16 @@ trait DateTime
         return [$start, $end];
     }
 
+    /**
+     * The start of the financial year named after a year: the calendar year it starts in, or, when the financial
+     * year is denoted by its end, the one it ends in. With no year, the financial year that holds the date or today.
+     */
     public function getFinancialStart($year = null, $date = null): Date
     {
+        if (is_null($year)) {
+            return $this->getFinancialStartOf(is_null($date) ? Date::now() : Date::parse($date));
+        }
+
         $start_of_year = Date::now()->startOfYear();
 
         $setting = explode('-', setting('localisation.financial_start'));
@@ -71,6 +79,33 @@ trait DateTime
         }
 
         return $financial_start;
+    }
+
+    /**
+     * The start of the financial year that holds a date. The calendar year of the date does not name that year
+     * when it is denoted by its end and starts after 1 January: on or past this calendar year's start, the date
+     * falls in the year named after the next calendar year, so the year after the named one is taken.
+     */
+    public function getFinancialStartOf(Date $date): Date
+    {
+        $start = $this->getFinancialStart($date->year, $date);
+
+        if ($start->copy()->addYear()->lessThanOrEqualTo($date)) {
+            $start->addYear();
+        }
+
+        return $start;
+    }
+
+    /**
+     * The year the financial year that holds a date is named after, which getFinancialStart() and
+     * getFinancialYear() take: the calendar year it starts in, or the one it ends in when it is denoted by its end.
+     */
+    public function getFinancialYearName(Date $date): int
+    {
+        $start = $this->getFinancialStartOf($date);
+
+        return (setting('localisation.financial_denote') == 'ends') ? $start->copy()->addYear()->subDay()->year : $start->year;
     }
 
     public function getFinancialWeek($year = null, $date = null): CarbonPeriod
