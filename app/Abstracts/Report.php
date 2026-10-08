@@ -1519,8 +1519,6 @@ abstract class Report
 
         return array_merge(is_array($fallback) ? $fallback : [], is_array($texts) ? $texts : [], [
             'customise' => trans('general.customize'),
-            'from' => trans('general.from'),
-            'to' => trans('general.to'),
             'custom' => trans('general.date_range.custom'),
             'no_matching_data' => trans('general.no_matching_data'),
         ]);

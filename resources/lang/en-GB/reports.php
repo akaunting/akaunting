@@ -90,6 +90,8 @@ return [
         'others'                    => 'Others',
         'any'                       => 'Any',
         'date'                      => 'Date',
+        'from'                      => 'From',
+        'to'                        => 'To',
         'enter_dates'               => 'Enter both dates.',
         'date_order'                => 'From must be on or before To.',
         'enter_date'                => 'Enter a date.',

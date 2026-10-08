@@ -202,6 +202,7 @@ return [
     'no_data'               => 'Veri yok',
     'no_matching_data'      => 'Eşleşen veri yok',
     'clear_cache'           => 'Önbelleği Temizle',
+    'refresh'               => 'Yenile',
     'go_to_dashboard'       => 'Kontrol Paneline Git',
     'create_first_invoice'  => 'İlk faturanızı oluşturun',
     'is'                    => 'eşit',
