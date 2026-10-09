@@ -22,7 +22,7 @@
         <div class="relative flex items-center ltr:mr-4 rtl:ml-4" v-if="bulk_action.count">
             @foreach ($actions as $key => $action)
                 @if (! empty($action['icon']))
-                    <div>
+                    <div v-if="bulk_action.canShow('{{ $key }}')">
                         <x-tooltip id="{{ $key }}" placement="top" message="{{ trans($action['name']) }}">
                             <x-button @click="onChangeBulkAction('{{ $key }}')"
                                 id="index-bulk-actions-{{ $key }}"
@@ -37,7 +37,7 @@
                         </x-tooltip>
                     </div>
                 @else
-                    <div>
+                    <div v-if="bulk_action.canShow('{{ $key }}')">
                         <x-tooltip id="{{ $key }}" placement="top" message="{{ trans($action['name']) }}">
                             <x-button @click="onChangeBulkAction('{{ $key }}')"
                                 id="index-bulk-actions-{{ $key }}"

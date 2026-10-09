@@ -1,4 +1,4 @@
-@props(['id', 'name'])
+@props(['id', 'name', 'enabled' => null])
 
 @stack($name . '_input_start')
 
@@ -7,9 +7,12 @@
         id="bulk-action-{{ $id }}"
         class="rounded-sm text-purple border-gray-300 cursor-pointer disabled:bg-gray-200 focus:outline-none focus:ring-transparent"
         @if (!empty($attributes['disabled']))
-        :disabled="{{ ($attributes['disabled']) ? true : false }}"
+        :disabled="{{ $attributes['disabled'] ? true : false }}"
         @else
         data-bulk-action="{{ $id }}"
+        @endif
+        @if (!is_null($enabled))
+        data-enabled="{{ $enabled ? 'true' : 'false' }}"
         @endif
         :value="{{ $id }}"
         v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : 'bulk_action.selected' }}"

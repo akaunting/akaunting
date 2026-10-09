@@ -24,6 +24,10 @@ export default class BulkAction {
         this['selected'] = [];
         // Select all items
         this['select_all'] = false;
+        // Every selected record is enabled
+        this['all_enabled'] = false;
+        // Every selected record is disabled
+        this['all_disabled'] = false;
     }
 
     // Change checkbox status
@@ -32,6 +36,8 @@ export default class BulkAction {
         this.select_all = false;
 
         this.count = this.selected.length;
+
+        this.selectStatus();
 
         if (this.count == document.querySelectorAll('[data-bulk-action]').length) {
             this.select_all = true;
@@ -59,6 +65,58 @@ export default class BulkAction {
         }
 
         this.count = this.selected.length;
+        this.selectStatus();
+    }
+
+    // Evaluate whether enable / disable buttons should be shown based on the
+    // enabled state of the selected records. Hiding only applies when every
+    // selected record reports a data-enabled state (other pages keep both).
+    selectStatus() {
+        let enabled = 0;
+        let disabled = 0;
+        let with_state = 0;
+
+        for (let input of document.querySelectorAll('[data-bulk-action]')) {
+            let value = input.getAttribute('value');
+
+            // The checkbox binds :value as a number but getAttribute() returns a
+            // string, so compare loosely to match both.
+            if (! this.selected.some(selected => String(selected) === value)) {
+                continue;
+            }
+
+            let state = input.getAttribute('data-enabled');
+
+            if (state === null) {
+                continue;
+            }
+
+            with_state++;
+
+            if (state === 'true') {
+                enabled++;
+            } else {
+                disabled++;
+            }
+        }
+
+        const apply = (with_state > 0) && (with_state === this.selected.length);
+
+        this.all_enabled = apply && (disabled === 0);
+        this.all_disabled = apply && (enabled === 0);
+    }
+
+    // Whether a bulk action button should be displayed for the current selection.
+    canShow(type) {
+        if (type === 'enable') {
+            return ! this.all_enabled;
+        }
+
+        if (type === 'disable') {
+            return ! this.all_disabled;
+        }
+
+        return true;
     }
 
     change(type) {

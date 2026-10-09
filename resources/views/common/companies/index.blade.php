@@ -69,7 +69,7 @@
                         <x-table.tr href="{{ route('companies.edit', $item->id) }}">
                             <x-table.td kind="bulkaction">
                                 @if ((company_id() != $item->id))
-                                    <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" />
+                                    <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" enabled="{{ $item->enabled }}" />
                                 @else
                                     <x-index.bulkaction.single id="{{ $item->id }}" name="{{ $item->name }}" disabled="true" />
                                 @endif
