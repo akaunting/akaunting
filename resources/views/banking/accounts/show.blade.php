@@ -102,6 +102,13 @@
         <x-show.container>
             <x-show.summary>
                 <x-show.summary.left>
+                    <x-slot name="avatar">
+                        @stack('avatar_input_start')
+                        @stack('avatar_input_end')
+                    </x-slot>
+
+                    @stack('profile_input_start')
+                    @stack('profile_input_end')
                 </x-show.summary.left>
 
                 <x-show.summary.right>
@@ -177,6 +184,17 @@
                     @stack('default_account_input_end')
 
                     @stack('bank_name_input_start')
+                    @if ($account->bank_name)
+                        <div class="flex flex-col text-sm mb-5">
+                            <div class="font-medium">
+                                {{ trans('accounts.bank_name') }}
+                            </div>
+
+                            <span>
+                                {{ $account->bank_name }}
+                            </span>
+                        </div>
+                    @endif
                     @stack('bank_name_input_end')
 
                     @stack('bank_phone_input_start')
