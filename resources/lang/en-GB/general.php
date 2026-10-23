@@ -340,6 +340,7 @@ return [
         'bills' => 'Bills can be one time or recurring. They indicate what you owe your vendors for the products or services you purchase.',
         'payments' => 'Payment is a paid expense transaction. It can be an independent record (i.e. food receipt) or attached to a bill.',
         'vendors' => 'Vendors are required if you want to create bills. You can see the balance you owe and filter reports by the vendor.',
+        'accounts' => 'Accounts hold your money: in the bank, in cash or on a credit card. Every income, expense and transfer is recorded against one of them.',
         'transfers' => 'Transfers allow you to move money from one account to another, whether they use the same currency or not.',
         'transactions' => 'Transactions allow you to create records of your incomes or expenses. Payments of invoices/bills are also listed here.',
         'taxes' => 'Taxes are used to apply extra fees to invoices and bills. Your financials are affected by these regulatory taxes.',

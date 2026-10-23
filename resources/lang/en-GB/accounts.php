@@ -17,6 +17,14 @@ return [
     'create_report'         => 'If you want to see account performance. You can create Income vs Expense report instance.',
     'banks'                 => 'Bank|Banks',
     'credit_cards'          => 'Credit Card|Credit Cards',
+    'reconcile_items'       => 'Reconcile :count Item|Reconcile :count Items',
+    'continue_reconciliation' => 'Continue Reconciliation',
+    'earlier_unreconciled'  => ':count Earlier Transaction|:count Earlier Transactions',
+    'earlier_unreconciled_description' => 'Dated on or before your last reconciliation (:date) and not reconciled, so the next reconciliation does not include it. Reconcile that period again to take it in.',
+    'statement_balance'     => 'Statement Balance',
+    'import_statement'      => 'Import a Bank Statement',
+    'balance_history'       => 'Balance · :days Days',
+    'balance_history_label' => 'Balance of :account over the last :days days, from :start to :end',
 
     'form_description' => [
         'general'           => 'Use credit card type for negative opening balance. The number is essential to reconcile accounts correctly. Default account will record all transactions if not selected otherwise.',

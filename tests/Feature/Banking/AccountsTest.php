@@ -24,6 +24,52 @@ class AccountsTest extends FeatureTestCase
             ->assertSeeText(trans('general.title.new', ['type' => trans_choice('general.accounts', 1)]));
     }
 
+    /**
+     * Every action the list offers is followed the way the browser follows it, because one of
+     * them used to answer with the JSON the background requests are given and left the page
+     * showing it.
+     */
+    public function testItShouldFollowEveryLineActionOfTheList()
+    {
+        // Signed in first: the urls the actions carry are built with the company of the page
+        $this->loginAs();
+
+        $account = Account::factory()->enabled()->create();
+
+        foreach ($account->line_actions as $action) {
+            // The delete is asked for in the background, from its own confirmation
+            if (empty($action['url'])) {
+                continue;
+            }
+
+            $response = $this->get($action['url']);
+
+            $this->assertContains(
+                $response->getStatusCode(),
+                [200, 302],
+                $action['url'] . ' answered with ' . $response->getStatusCode()
+            );
+
+            $this->assertStringNotContainsString(
+                'application/json',
+                (string) $response->headers->get('content-type'),
+                $action['url'] . ' answered a page with JSON'
+            );
+        }
+    }
+
+    public function testItShouldDisableAccountFromTheList()
+    {
+        $this->loginAs();
+
+        $account = Account::factory()->enabled()->create();
+
+        $this->get(route('accounts.disable', $account->id))
+            ->assertRedirect();
+
+        $this->assertDatabaseHas('accounts', ['id' => $account->id, 'enabled' => 0]);
+    }
+
     public function testItShouldCreateAccount()
     {
         $request = $this->getRequest();

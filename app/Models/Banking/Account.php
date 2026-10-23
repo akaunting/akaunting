@@ -210,6 +210,72 @@ class Account extends Model
         ];
 
         $actions[] = [
+            'type' => 'divider',
+        ];
+
+        $actions[] = [
+            'title' => trans_choice('general.incomes', 1),
+            'icon' => 'trending_up',
+            'url' => route('accounts.create-income', $this->id),
+            'permission' => 'create-banking-transactions',
+            'attributes' => [
+                'id' => 'index-line-actions-new-income-account-' . $this->id,
+            ],
+        ];
+
+        $actions[] = [
+            'title' => trans_choice('general.expenses', 1),
+            'icon' => 'trending_down',
+            'url' => route('accounts.create-expense', $this->id),
+            'permission' => 'create-banking-transactions',
+            'attributes' => [
+                'id' => 'index-line-actions-new-expense-account-' . $this->id,
+            ],
+        ];
+
+        $actions[] = [
+            'title' => trans_choice('general.transfers', 1),
+            'icon' => 'swap_horiz',
+            'url' => route('accounts.create-transfer', $this->id),
+            'permission' => 'create-banking-transfers',
+            'attributes' => [
+                'id' => 'index-line-actions-new-transfer-account-' . $this->id,
+            ],
+        ];
+
+        $actions[] = [
+            'type' => 'divider',
+        ];
+
+        $actions[] = [
+            'title' => trans('accounts.see_performance'),
+            'icon' => 'insights',
+            'url' => route('accounts.see-performance', $this->id),
+            'permission' => 'read-banking-accounts',
+            'attributes' => [
+                'id' => 'index-line-actions-performance-account-' . $this->id,
+            ],
+        ];
+
+        $can_disable = $this->id != setting('default.account') && ! ($this->transactions_count ?? $this->transactions()->count());
+
+        if (! $this->enabled || $can_disable) {
+            $actions[] = [
+                'title' => $this->enabled ? trans('general.disable') : trans('general.enable'),
+                'icon' => $this->enabled ? 'visibility_off' : 'visibility',
+                'url' => route($this->enabled ? 'accounts.disable' : 'accounts.enable', $this->id),
+                'permission' => 'update-banking-accounts',
+                'attributes' => [
+                    'id' => 'index-line-actions-' . ($this->enabled ? 'disable' : 'enable') . '-account-' . $this->id,
+                ],
+            ];
+        }
+
+        $actions[] = [
+            'type' => 'divider',
+        ];
+
+        $actions[] = [
             'type' => 'delete',
             'icon' => 'delete',
             'route' => 'accounts.destroy',

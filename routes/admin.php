@@ -130,6 +130,7 @@ Route::group(['prefix' => 'banking'], function () {
     Route::get('accounts/{account}/create-income', 'Banking\Accounts@createIncome')->name('accounts.create-income');
     Route::get('accounts/{account}/create-expense', 'Banking\Accounts@createExpense')->name('accounts.create-expense');
     Route::get('accounts/{account}/create-transfer', 'Banking\Accounts@createTransfer')->name('accounts.create-transfer');
+    Route::get('accounts/{account}/import-transactions', 'Banking\Accounts@importTransactions')->name('accounts.import-transactions');
     Route::get('accounts/{account}/see-performance', 'Banking\Accounts@seePerformance')->name('accounts.see-performance');
     Route::get('accounts/{account}/enable', 'Banking\Accounts@enable')->name('accounts.enable');
     Route::get('accounts/{account}/disable', 'Banking\Accounts@disable')->name('accounts.disable');
