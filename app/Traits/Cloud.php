@@ -22,10 +22,30 @@ trait Cloud
         ]);
     }
 
+    /**
+     * Whether the company has Bank Feeds, so that accounts are offered a bank connection
+     * rather than the app itself.
+     */
+    public function hasCloudBankFeeds(): bool
+    {
+        return $this->moduleIsEnabled('bank-feeds');
+    }
+
+    /**
+     * Whether the user can connect a bank from here, so that a new account starts at the bank
+     * connection rather than the form for an account kept by hand.
+     */
+    public function canConnectCloudBankFeeds(): bool
+    {
+        return $this->hasCloudBankFeeds() && (bool) user()?->can('create-bank-feeds-bank-connections');
+    }
+
     public function getCloudBankFeedsUrl($location = 'widget')
     {
-        if ($this->moduleIsEnabled('bank-feeds')) {
-            return route('bank-feeds.bank-connections.index');
+        if ($this->hasCloudBankFeeds()) {
+            return $this->canConnectCloudBankFeeds()
+                ? route('bank-feeds.bank-connections.create')
+                : route('accounts.index');
         }
 
         return route('apps.app.show', [
