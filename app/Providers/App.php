@@ -51,5 +51,31 @@ class App extends Provider
                 report("Attempted to lazy load [{$relation}] on model [{$class}].");
             }
         });
+
+        $this->reportUnsafeUploadProgress();
+    }
+
+    /**
+     * Upload progress is a confirmed attack path of CVE-2026-109619 and has to be switched off in
+     * php.ini or the FPM pool, which apply before the request is parsed. By the time this code runs
+     * PHP has already parsed the request, so the app can only make a missing setting visible, once a day.
+     *
+     * @return void
+     */
+    protected function reportUnsafeUploadProgress()
+    {
+        if ($this->app->runningInConsole() || ! filter_var(ini_get('session.upload_progress.enabled'), FILTER_VALIDATE_BOOLEAN)) {
+            return;
+        }
+
+        $key = 'security.upload_progress_reported';
+
+        if (cache()->has($key)) {
+            return;
+        }
+
+        cache()->put($key, true, now()->addDay());
+
+        report('session.upload_progress.enabled is on for web requests: set it to 0 in php.ini or the FPM pool and restart PHP (CVE-2026-109619).');
     }
 }
