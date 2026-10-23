@@ -24,6 +24,47 @@ class AccountsTest extends FeatureTestCase
             ->assertSeeText(trans('general.title.new', ['type' => trans_choice('general.accounts', 1)]));
     }
 
+    public function testItShouldSeeBankFeedsOfferWhileTheAppIsMissing()
+    {
+        $this->withoutBankFeeds();
+
+        $this->loginAs()
+            ->get(route('accounts.create'))
+            ->assertStatus(200)
+            ->assertSeeText(trans('accounts.bank_feed.action'))
+            ->assertDontSeeText(trans('accounts.form_description.general'));
+    }
+
+    public function testItShouldSeeAccountCreatePageWhileTheBankFeedIsSkipped()
+    {
+        $this->withoutBankFeeds();
+
+        $this->loginAs()
+            ->get(route('accounts.create', ['without_bank_feed' => 1]))
+            ->assertStatus(200)
+            ->assertSeeText(trans('general.title.new', ['type' => trans_choice('general.accounts', 1)]))
+            ->assertSeeText(trans('accounts.form_description.general'));
+    }
+
+    /**
+     * Report the app as missing for the rest of the test.
+     *
+     * The activator counts every app as enabled while running in the console, so the app is
+     * taken out of the repository the offer asks instead.
+     */
+    private function withoutBankFeeds(): void
+    {
+        $repository = app('module');
+
+        $fake = \Mockery::mock($repository);
+
+        $fake->shouldReceive('get')->andReturnUsing(
+            fn ($alias) => $alias === 'bank-feeds' ? null : $repository->get($alias)
+        );
+
+        $this->app->instance('module', $fake);
+    }
+
     /**
      * Every action the list offers is followed the way the browser follows it, because one of
      * them used to answer with the JSON the background requests are given and left the page

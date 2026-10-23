@@ -10,11 +10,14 @@ use App\Jobs\Banking\UpdateAccount;
 use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
 use App\Models\Banking\Transfer;
+use App\Traits\Cloud;
 use App\Utilities\Reports;
 use App\Models\Setting\Currency;
 
 class Accounts extends Controller
 {
+    use Cloud;
+
     /**
      * Instantiate a new controller instance.
      */
@@ -78,13 +81,21 @@ class Accounts extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * An account that could keep itself up to date should not be typed in by hand without the
+     * option having been seen. While the app that connects banks is missing, the page offers it
+     * in place of the form, the way an empty list offers what can be added to it, and the form
+     * is behind "add without bank feed". With the app installed, the app takes the page over.
+     *
      * @return Response
      */
     public function create()
     {
         $currency = Currency::where('code', '=', default_currency())->first();
 
-        return view('banking.accounts.create', compact('currency'));
+        // Without Bank Feeds the page offers it before the form for an account kept by hand
+        $bank_feed_offer = ! $this->hasCloudBankFeeds();
+
+        return view('banking.accounts.create', compact('currency', 'bank_feed_offer'));
     }
 
     /**

@@ -21,7 +21,7 @@
                 @stack($button['stack'] . '_start')
                 @endif
                     <li class="border-b p-2 hover:bg-gray-100">
-                        <x-link href="{{ $button['url']}}" class="flex items-center justify-between text-xs" override="class">
+                        <x-link href="{{ $button['url']}}" class="flex items-center justify-between text-xs" override="class" {{ $attributes->merge($button['attributes'] ?? []) }}>
                             <div class="truncate">
                                 <div class="flex items-center">
                                     <h2 class="relative">
