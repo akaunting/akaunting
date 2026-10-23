@@ -95,14 +95,20 @@ trait Charts
         return $chart;
     }
 
-    public function getChartLabelFormatter($type = 'money', $position = null)
+    /**
+     * The money labels are written in the company's currency unless another one is named, for a
+     * chart of an account kept in a currency of its own.
+     */
+    public function getChartLabelFormatter($type = 'money', $position = null, $currency_code = null)
     {
+        $currency = currency($currency_code);
+
         $label = '';
-        $decimal_mark = str_replace("'", "\\'", currency()->getDecimalMark());
-        $thousands_separator = str_replace("'", "\\'", currency()->getThousandsSeparator());
-        $symbol = str_replace("'", "\\'", currency()->getSymbol());
-        $symbol_first = str_replace("'", "\\'", currency()->isSymbolFirst());
-        $precision = str_replace("'", "\\'", currency()->getPrecision());
+        $decimal_mark = str_replace("'", "\\'", $currency->getDecimalMark());
+        $thousands_separator = str_replace("'", "\\'", $currency->getThousandsSeparator());
+        $symbol = str_replace("'", "\\'", $currency->getSymbol());
+        $symbol_first = str_replace("'", "\\'", $currency->isSymbolFirst());
+        $precision = str_replace("'", "\\'", $currency->getPrecision());
         $percent_position = $position ?: setting('localisation.percent_position');
 
         switch ($type) {
