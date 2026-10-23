@@ -127,24 +127,6 @@ class Accounts extends Controller
     }
 
     /**
-     * Duplicate the specified resource.
-     *
-     * @param  Account $account
-     *
-     * @return Response
-     */
-    public function duplicate(Account $account)
-    {
-        $clone = $account->duplicate();
-
-        $message = trans('messages.success.duplicated', ['type' => trans_choice('general.accounts', 1)]);
-
-        flash($message)->success();
-
-        return redirect()->route('accounts.edit', $clone->id);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  Account  $account

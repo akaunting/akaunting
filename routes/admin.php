@@ -134,7 +134,6 @@ Route::group(['prefix' => 'banking'], function () {
     Route::get('accounts/{account}/see-performance', 'Banking\Accounts@seePerformance')->name('accounts.see-performance');
     Route::get('accounts/{account}/enable', 'Banking\Accounts@enable')->name('accounts.enable');
     Route::get('accounts/{account}/disable', 'Banking\Accounts@disable')->name('accounts.disable');
-    Route::get('accounts/{account}/duplicate', 'Banking\Accounts@duplicate')->name('accounts.duplicate');
     Route::resource('accounts', 'Banking\Accounts', ['middleware' => ['date.format', 'money']]);
 
     Route::post('transactions/import', 'Banking\Transactions@import')->name('transactions.import');

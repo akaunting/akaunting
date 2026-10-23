@@ -86,16 +86,6 @@
 
             <x-dropdown.divider />
 
-            @stack('duplicate_button_start')
-
-            @can('create-banking-accounts')
-            <x-dropdown.link href="{{ route('accounts.duplicate', $account->id) }}" id="show-more-actions-duplicate-account">
-                {{ trans('general.duplicate') }}
-            </x-dropdown.link>
-            @endcan
-
-            <x-dropdown.divider />
-
             @stack('delete_button_start')
 
             @can('delete-banking-accounts')
