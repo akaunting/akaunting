@@ -29,6 +29,19 @@ const app = new Vue({
         return {
             form: new Form('account'),
             bulk_action: new BulkAction('accounts'),
+            without_bank_feed: {
+                modal: false,
+            },
         }
+    },
+
+    methods: {
+        onWithoutBankFeed() {
+            this.without_bank_feed.modal = true;
+        },
+
+        closeWithoutBankFeed() {
+            this.without_bank_feed.modal = false;
+        },
     },
 });

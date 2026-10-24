@@ -340,6 +340,7 @@ return [
         'bills' => 'Faturalar tek seferlik veya tekrarlı olabilir. Tedarikçilerinizden satın aldığınız ürün veya hizmetleri kolaylıkla takip edebilirsiniz.',
         'payments' => 'Ödeme, gerçekleşmiş bir gider işlemidir. Tamamen bağımsız (yemek fişi gibi) veya bir gider faturasına bağlı olabilir.',
         'vendors' => 'Gider faturası oluşturmak için tedarikçiler zorunludur. Onlara olan borç bakiyenizi görüntüleyebilir ve filtreleyebilirsiniz.',
+        'accounts' => 'Hesaplar paranızın bulunduğu yerlerdir: banka, kasa ya da kredi kartı. Her gelir, gider ve transfer bunlardan birine kaydedilir.',
         'transfers' => 'Transferler, hesaplar arası para geçişi için kullanılır. Hesapların para birimleri aynı veya farklı olabilir.',
         'transactions' => 'İşlemler, gelir veya gider kayıtları oluşturmanıza olanak tanır. Gelir/gider faturalarının ödemeleri de burada listelenir.',
         'taxes' => 'Vergiler, gelir veya gider faturalarına ek maliyet eklemek için kullanılır. Mali tablolarınız da bu doğrultuda etkilenir.',

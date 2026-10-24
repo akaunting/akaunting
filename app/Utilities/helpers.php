@@ -477,11 +477,130 @@ if (! function_exists('calculation_to_quantity')) {
             throw new \InvalidArgumentException('Invalid mathematical expression.');
         }
 
+        // The expression comes straight from the item row of a document form, so it is
+        // capped in size and evaluated by a small parser here instead of eval(): user
+        // input never reaches the PHP compiler, and deep nesting cannot exhaust the stack.
+        if (strlen($quantity) > 255) {
+            throw new \InvalidArgumentException('Invalid mathematical expression.');
+        }
+
         $quantity = str_replace(',', '.', $quantity);
         $quantity = str_ireplace('x', '*', $quantity);
 
+        // "++" and "--" are matched as tokens of their own so that "2++2" stays an
+        // error, as it was when PHP parsed the expression, while "2 + +2" is allowed.
+        preg_match_all('/\s*(\*\*|\+\+|--|\d+(?:\.\d*)?|\.\d+|[-+*\/()])\s*/', $quantity, $matches);
+
+        if (implode('', $matches[0]) !== $quantity) {
+            throw new \InvalidArgumentException('Invalid mathematical expression.');
+        }
+
+        $tokens = $matches[1];
+        $position = 0;
+        $depth = 0;
+
+        $fail = function () {
+            throw new \InvalidArgumentException('Invalid mathematical expression.');
+        };
+
+        $peek = function () use (&$tokens, &$position) {
+            return $tokens[$position] ?? null;
+        };
+
+        $expression = $unary = null;
+
+        $primary = function () use (&$tokens, &$position, &$depth, &$expression, $peek, $fail) {
+            $token = $peek();
+
+            if ($token === '(') {
+                if (++$depth > 32) {
+                    $fail();
+                }
+
+                $position++;
+                $value = $expression();
+
+                if ($peek() !== ')') {
+                    $fail();
+                }
+
+                $position++;
+                $depth--;
+
+                return $value;
+            }
+
+            if ($token === null || ! is_numeric($token)) {
+                $fail();
+            }
+
+            $position++;
+
+            return str_contains($token, '.') ? (float) $token : (int) $token;
+        };
+
+        // Same precedence as PHP: "**" binds tighter than a unary sign and is right associative.
+        $power = function () use (&$position, &$unary, $primary, $peek) {
+            $base = $primary();
+
+            if ($peek() === '**') {
+                $position++;
+
+                return $base ** $unary();
+            }
+
+            return $base;
+        };
+
+        $unary = function () use (&$position, &$unary, $power, $peek) {
+            $token = $peek();
+
+            if ($token === '-' || $token === '+') {
+                $position++;
+                $value = $unary();
+
+                return $token === '-' ? -$value : +$value;
+            }
+
+            return $power();
+        };
+
+        $term = function () use (&$position, $unary, $peek) {
+            $value = $unary();
+
+            while (in_array($peek(), ['*', '/'], true)) {
+                $operator = $peek();
+                $position++;
+                $right = $unary();
+
+                $value = $operator === '*' ? $value * $right : $value / $right;
+            }
+
+            return $value;
+        };
+
+        $expression = function () use (&$position, $term, $peek) {
+            $value = $term();
+
+            while (in_array($peek(), ['+', '-'], true)) {
+                $operator = $peek();
+                $position++;
+                $right = $term();
+
+                $value = $operator === '+' ? $value + $right : $value - $right;
+            }
+
+            return $value;
+        };
+
         try {
-            $result = eval('return ' . $quantity . ';');
+            $result = $expression();
+
+            if ($position !== count($tokens)) {
+                $fail();
+            }
+        } catch (\InvalidArgumentException $e) {
+            throw $e;
         } catch (\Throwable $e) {
             throw new \InvalidArgumentException('Error evaluating the expression: ' . $e->getMessage());
         }
