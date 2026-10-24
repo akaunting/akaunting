@@ -14,7 +14,7 @@ Online accounting software designed for small businesses and freelancers. Akaunt
 
 ## Requirements
 
-* PHP 8.1 or higher
+* PHP 8.2 or higher
 * Node.js 18 or 20 (the asset pipeline does not build on Node 21+ yet)
 * Database (e.g.: MariaDB, MySQL, PostgreSQL, SQLite)
 * Web Server (eg: Apache, Nginx, IIS)
