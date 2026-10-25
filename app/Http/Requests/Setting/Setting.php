@@ -21,8 +21,8 @@ class Setting extends FormRequest
         switch ($prefix) {
             case 'company':
                 $logo = 'mimes:' . config('filesystems.mimes')
-                        . '|between:0,' . config('filesystems.max_size') * 1024
-                        . '|dimensions:max_width=' . config('filesystems.max_width') . ',max_height=' . config('filesystems.max_height');
+                    . '|between:0,' . config('filesystems.max_size') * 1024
+                    . '|dimensions:max_width=' . config('filesystems.max_width') . ',max_height=' . config('filesystems.max_height');
 
                 $rules = [
                     'name'  => 'required|string',

@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="sm:col-span-3">
-                            <x-form.group.file name="logo" label="{{ trans('settings.company.logo') }}" :value="setting('company.logo')" not-required />
+                            <x-form.group.file name="logo" label="{{ trans('settings.company.logo') }}" :value="setting('company.logo')" resize-options='{"maxWidth":1000,"maxHeight":1000,"crop":true,"aspectRatio":1}' not-required />
                         </div>
                     </x-slot>
                 </x-form.section>

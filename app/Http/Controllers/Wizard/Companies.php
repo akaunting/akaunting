@@ -101,7 +101,7 @@ class Companies extends Controller
              if (in_array($real_key, $file_keys)) {
                 // Upload attachment
                 if ($request->file($key)) {
-                    $media = $this->getMedia($request->file($key), 'settings');
+                    $media = $this->getMedia($request->file($key), 'settings', null, null, $real_key === 'company.logo', $key);
 
                     $company->attachMedia($media, Str::snake($real_key));
 

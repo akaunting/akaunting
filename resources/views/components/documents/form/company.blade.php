@@ -34,7 +34,7 @@
         <div class="sm:col-span-2">
             @if (! $hideLogo)
                 <x-form.input.hidden name="company_logo" data-field="setting" />
-                <x-form.group.file name="company_logo" label="{{ trans('settings.company.logo') }}" :value="setting('company.logo')" not-required data-field="setting" />
+                <x-form.group.file name="company_logo" label="{{ trans('settings.company.logo') }}" :value="setting('company.logo')" resize-options='{"maxWidth":1000,"maxHeight":1000,"crop":true,"aspectRatio":1}' not-required data-field="setting" />
             @endif
         </div>
 

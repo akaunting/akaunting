@@ -86,7 +86,7 @@ class UpdateCompany extends Job implements ShouldUpdate
             }
 
             if ($this->request->file('logo')) {
-                $company_logo = $this->getMedia($this->request->file('logo'), 'settings', $this->model->id);
+                $company_logo = $this->getMedia($this->request->file('logo'), 'settings', $this->model->id, null, true, 'logo');
 
                 if ($company_logo) {
                     $this->model->attachMedia($company_logo, 'company_logo');

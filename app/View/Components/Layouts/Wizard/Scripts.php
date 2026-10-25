@@ -86,6 +86,8 @@ class Scripts extends Component
                 'logo' => trans('settings.company.logo'),
                 'skip' => trans('companies.skip_step'),
                 'save' => trans('general.save'),
+                'crop_cancel' => trans('general.cancel'),
+                'crop_apply' => trans('general.confirm'),
                 'country' => trans_choice('general.countries', 1),
                 'country_warning' => trans('companies.country_warning'),
                 'country_immutable' => trans('companies.error.country_immutable'),
