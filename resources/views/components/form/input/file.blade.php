@@ -1,6 +1,8 @@
 <akaunting-dropzone-file-upload
     text-drop-file="{{ trans('general.form.drop_file') }}"
     text-choose-file="{{ trans('general.form.choose_file') }}"
+    text-cancel-crop="{{ trans('general.cancel') }}"
+    text-apply-crop="{{ trans('general.confirm') }}"
 
     @if (! empty($attributes['dropzone-class']))
     class="{{ $attributes['dropzone-class'] }}"
@@ -28,6 +30,10 @@
 
     @if (! empty($attributes['url']))
     url="{{ $attributes['url'] }}"
+    @endif
+
+    @if (! empty($attributes['resize-options']))
+    :resize-options="{{ $attributes['resize-options'] }}"
     @endif
 
     @if (! empty($value))

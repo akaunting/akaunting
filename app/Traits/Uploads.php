@@ -7,10 +7,12 @@ use App\Utilities\Date;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
 use MediaUploader;
+use Image;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait Uploads
 {
-    public function getMedia($file, $folder = 'settings', $company_id = null, $allowed_mimes = null)
+    public function getMedia($file, $folder = 'settings', $company_id = null, $allowed_mimes = null, bool $normalize_image = false, string $error_field = 'file')
     {
         $path = '';
 
@@ -18,22 +20,90 @@ trait Uploads
             return $path;
         }
 
-        $this->validateUploadedFile($file, $allowed_mimes);
+        $this->validateUploadedFile($file, $allowed_mimes, $error_field);
+
+        $normalized_file = $normalize_image ? $this->normalizeImageUpload($file, $error_field) : $file;
 
         $path = $this->getMediaFolder($folder, $company_id);
 
-        $file_name = $this->getMediaFileName($file);
+        $file_name = $this->getMediaFileName($normalized_file);
 
-        return MediaUploader::makePrivate()
-                            ->beforeSave(function(MediaModel $media) {
-                                $media->company_id = company_id();
-                                $media->created_from = source_name();
-                                $media->created_by = user_id();
-                            })
-                            ->fromSource($file)
-                            ->toDirectory($path)
-                            ->useFilename($file_name)
-                            ->upload();
+        try {
+            return MediaUploader::makePrivate()
+                                ->beforeSave(function(MediaModel $media) {
+                                    $media->company_id = company_id();
+                                    $media->created_from = source_name();
+                                    $media->created_by = user_id();
+                                })
+                                ->fromSource($normalized_file)
+                                ->toDirectory($path)
+                                ->useFilename($file_name)
+                                ->upload();
+        } finally {
+            if ($normalized_file !== $file) {
+                @unlink($normalized_file->getPathname());
+            }
+        }
+    }
+
+    protected function normalizeImageUpload($file, string $error_field)
+    {
+        if (! Str::startsWith((string) $file->getMimeType(), 'image/')) {
+            return $file;
+        }
+
+        $temporary_file = null;
+        $preserve_temporary_file = false;
+
+        try {
+            $max_width = (int) config('filesystems.max_width');
+            $max_height = (int) config('filesystems.max_height');
+            $image = Image::make($file)->orientate();
+
+            if ($image->width() === $image->height() && $image->width() <= $max_width && $image->height() <= $max_height) {
+                return $file;
+            }
+
+            $extension = Str::lower($this->extension($file));
+            $format = in_array($extension, ['jpg', 'jpeg'], true) ? 'jpg' : $extension;
+            $temporary_path = tempnam(sys_get_temp_dir(), 'akaunting_logo_');
+
+            if ($temporary_path === false) {
+                throw new \RuntimeException('Unable to create a temporary logo file.');
+            }
+
+            $temporary_file = $temporary_path . '.' . $extension;
+
+            if (! rename($temporary_path, $temporary_file)) {
+                @unlink($temporary_path);
+
+                throw new \RuntimeException('Unable to prepare a temporary logo file.');
+            }
+
+            $size = min($max_width, $max_height, $image->width(), $image->height());
+
+            $image->fit($size, $size, function ($constraint) {
+                $constraint->upsize();
+            })->save($temporary_file, $format === 'png' ? 9 : 90);
+
+            $preserve_temporary_file = true;
+
+            return new UploadedFile(
+                $temporary_file,
+                $file->getClientOriginalName(),
+                $file->getMimeType(),
+                null,
+                true,
+            );
+        } catch (\Throwable $exception) {
+            throw ValidationException::withMessages([
+                $error_field => trans('validation.image', ['attribute' => trans('settings.company.logo')]),
+            ]);
+        } finally {
+            if ($temporary_file && ! $preserve_temporary_file && is_file($temporary_file)) {
+                @unlink($temporary_file);
+            }
+        }
     }
 
     public function importMedia($file, $folder = 'settings', $company_id = null, $disk = null, $allowed_mimes = null)
@@ -180,7 +250,7 @@ trait Uploads
         return (string)$file->guessExtension();
     }
 
-    protected function validateUploadedFile($file, $allowed_mimes = null): void
+    protected function validateUploadedFile($file, $allowed_mimes = null, string $error_field = 'file'): void
     {
         $mimes = implode(',', $this->getAllowedMimes($allowed_mimes));
         $maxSize = (int) config('filesystems.max_size') * 1024;
@@ -192,7 +262,7 @@ trait Uploads
 
         if ($validator->fails()) {
             throw ValidationException::withMessages([
-                'file' => $validator->errors()->first('file'),
+                $error_field => $validator->errors()->first('file'),
             ]);
         }
     }

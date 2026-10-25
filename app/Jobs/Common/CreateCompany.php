@@ -92,7 +92,7 @@ class CreateCompany extends Job implements HasOwner, HasSource, ShouldCreate
     protected function updateSettings(): void
     {
         if ($this->request->file('logo')) {
-            $company_logo = $this->getMedia($this->request->file('logo'), 'settings', $this->model->id);
+            $company_logo = $this->getMedia($this->request->file('logo'), 'settings', $this->model->id, null, true, 'logo');
 
             if ($company_logo) {
                 $this->model->attachMedia($company_logo, 'company_logo');

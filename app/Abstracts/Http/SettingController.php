@@ -94,7 +94,7 @@ abstract class SettingController extends Controller
             if (in_array($real_key, $this->file_keys)) {
                 // Upload attachment
                 if ($request->file($key)) {
-                    $media = $this->getMedia($request->file($key), 'settings');
+                    $media = $this->getMedia($request->file($key), 'settings', null, null, $real_key === 'company.logo', $key);
 
                     $company->attachMedia($media, Str::snake($real_key));
 

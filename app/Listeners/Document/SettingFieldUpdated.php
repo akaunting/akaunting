@@ -59,7 +59,7 @@ class SettingFieldUpdated
 
             foreach ($files as $key => $value) {
                 // Upload attachment    
-                $media = $this->getMedia($value, 'settings');
+                $media = $this->getMedia($value, 'settings', null, null, $key == 'company_logo', 'setting.' . $key);
 
                 $real_key = $type . '.' . $key;
 

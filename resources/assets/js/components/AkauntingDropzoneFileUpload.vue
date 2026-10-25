@@ -1,5 +1,5 @@
 <template>
-    <div :id="'dropzone-' + _uid" class="dropzone dz-clickable" :class="[preview == 'single' ? 'dropzone-single': 'dropzone-multiple', singleWidthClasses ? 'w-full': 'sm:w-37']">
+    <div :id="'dropzone-' + _uid" class="dropzone dz-clickable" :class="[preview == 'single' ? 'dropzone-single': 'dropzone-multiple', singleWidthClasses ? 'w-full': 'sm:w-37', {'crop-active': cropVisible}]">
         <div class="fallback">
             <div class="custom-file">
                 <input type="file" class="custom-file-input" :id="'projectCoverUploads' + _uid" :multiple="multiple">
@@ -58,11 +58,26 @@
                 <div class="text-red text-sm mt-1 block" data-dz-errormessage></div>
             </li>
         </ul>
+
+        <div v-if="cropVisible" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+            <div class="w-full max-w-3xl rounded-lg bg-white p-4 shadow-xl">
+                <div class="mb-4 flex h-96 items-center justify-center overflow-hidden bg-gray-100">
+                    <img ref="cropImage" :src="cropUrl" class="block max-h-full max-w-full">
+                </div>
+
+                <div class="flex items-center justify-end space-x-2 rtl:space-x-reverse">
+                    <button type="button" class="px-6 py-1.5 hover:bg-gray-200 rounded-lg disabled:opacity-50" :disabled="cropProcessing" @click="cancelCrop">{{ textCancelCrop }}</button>
+                    <button type="button" class="relative flex items-center justify-center bg-green hover:bg-green-700 text-white px-6 py-1.5 text-base rounded-lg disabled:bg-green-100" :disabled="cropProcessing" @click="applyCrop">{{ textApplyCrop }}</button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 import Dropzone from 'dropzone';
+import Cropper from 'cropperjs';
+import 'cropperjs/dist/cropper.css';
 
 Dropzone.autoDiscover = false;
 
@@ -79,6 +94,16 @@ export default {
             type: String,
             default: 'Choose File',
             description: 'Choose file text'
+        },
+        textCancelCrop: {
+            type: String,
+            default: 'Cancel',
+            description: 'Cancel crop text'
+        },
+        textApplyCrop: {
+            type: String,
+            default: 'Apply',
+            description: 'Apply crop text'
         },
         options: {
             type: [Object, Array],
@@ -109,6 +134,10 @@ export default {
             type: Array,
             default: () => ([])
         },
+        resizeOptions: {
+            type: Object,
+            default: null
+        },
     },
 
     model: {
@@ -120,10 +149,226 @@ export default {
         return {
             files: [],
             configurations: this.options,
+            cropper: null,
+            cropFile: null,
+            cropUrl: '',
+            cropVisible: false,
+            cropProcessing: false,
         }
     },
 
     methods: {
+        addFile(file) {
+            if (this.resizeOptions && this.resizeOptions.crop && file instanceof File && file.type.startsWith('image/') && !file.isCropped) {
+                if (this.cropVisible || this.cropProcessing) {
+                    this.dropzone.removeFile(file);
+
+                    return;
+                }
+
+                this.openCropper(file);
+
+                return;
+            }
+
+            this.processFile(file);
+        },
+
+        removeExistingCropFiles(file) {
+            this.files.slice().forEach((existingFile) => {
+                if (existingFile === file) {
+                    return;
+                }
+
+                if (this.dropzone.files.includes(existingFile)) {
+                    this.dropzone.removeFile(existingFile);
+
+                    return;
+                }
+
+                if (existingFile.previewElement) {
+                    existingFile.previewElement.remove();
+                }
+            });
+
+            this.files = [];
+            this.$emit('change', this.configurations.maxFiles == 1 ? null : []);
+        },
+
+        openCropper(file) {
+            this.cropFile = file;
+            this.cropUrl = URL.createObjectURL(file);
+            this.cropVisible = true;
+            this.$emit('crop-state', true);
+
+            this.$nextTick(() => {
+                this.cropper = new Cropper(this.$refs.cropImage, {
+                    aspectRatio: this.resizeOptions.aspectRatio || 1,
+                    autoCropArea: 1,
+                    responsive: true,
+                    viewMode: 1,
+                });
+            });
+        },
+
+        cancelCrop() {
+            if (this.cropProcessing) {
+                return;
+            }
+
+            const file = this.cropFile;
+
+            this.closeCropper(true);
+            this.$emit('crop-state', false);
+
+            if (file && this.dropzone) {
+                this.dropzone.removeFile(file);
+            }
+        },
+
+        closeCropper(clearFile = false) {
+            if (this.cropper) {
+                this.cropper.destroy();
+                this.cropper = null;
+            }
+
+            if (this.cropUrl) {
+                URL.revokeObjectURL(this.cropUrl);
+            }
+
+            this.cropUrl = '';
+            this.cropVisible = false;
+
+            if (clearFile) {
+                this.cropFile = null;
+            }
+        },
+
+        applyCrop() {
+            if (!this.cropper || !this.cropFile) {
+                return;
+            }
+
+            const file = this.cropFile;
+            const canvas = this.cropper.getCroppedCanvas();
+            const outputType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+            const extension = outputType === 'image/png' ? 'png' : 'jpg';
+            const filename = file.name.replace(/\.[^/.]+$/, '') + '.' + extension;
+            this.cropProcessing = true;
+
+            canvas.toBlob((blob) => {
+                if (!blob) {
+                    this.cropProcessing = false;
+                    this.closeCropper(true);
+                    this.$emit('crop-state', false);
+
+                    return;
+                }
+
+                const croppedFile = new File([blob], filename, {
+                    type: outputType,
+                    lastModified: file.lastModified,
+                });
+
+                croppedFile.isCropped = true;
+
+                if (this.dropzone) {
+                    this.removeExistingCropFiles(file);
+                    this.dropzone.removeFile(file);
+                    this.dropzone.addFile(croppedFile);
+                }
+            }, outputType, this.resizeOptions.quality || 0.9);
+        },
+
+        async resizeFile(file) {
+            if (!this.resizeOptions || !(file instanceof File) || !file.type.startsWith('image/')) {
+                return file;
+            }
+
+            const maxWidth = this.resizeOptions.maxWidth || 1000;
+            const maxHeight = this.resizeOptions.maxHeight || 1000;
+            const quality = this.resizeOptions.quality || 0.9;
+            const imageUrl = URL.createObjectURL(file);
+
+            try {
+                const image = await new Promise((resolve, reject) => {
+                    const element = new Image();
+
+                    element.onload = () => resolve(element);
+                    element.onerror = reject;
+                    element.src = imageUrl;
+                });
+
+                if (image.width <= maxWidth && image.height <= maxHeight) {
+                    return file;
+                }
+
+                const scale = Math.min(maxWidth / image.width, maxHeight / image.height);
+                const canvas = document.createElement('canvas');
+                canvas.width = Math.round(image.width * scale);
+                canvas.height = Math.round(image.height * scale);
+
+                const context = canvas.getContext('2d');
+                context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+                const blob = await new Promise((resolve) => {
+                    canvas.toBlob(resolve, file.type, quality);
+                });
+
+                if (!blob) {
+                    return file;
+                }
+
+                return new File([blob], file.name, {
+                    type: file.type,
+                    lastModified: file.lastModified,
+                });
+            } catch (error) {
+                return file;
+            } finally {
+                URL.revokeObjectURL(imageUrl);
+            }
+        },
+
+        async processFile(file) {
+            try {
+                const finalFile = await this.resizeFile(file);
+
+                this.files.push(finalFile);
+
+                if (this.configurations.maxFiles == 1) {
+                    this.$emit('change', finalFile);
+                } else {
+                    this.$emit('change', this.files);
+                }
+
+                if (file.type.indexOf("image") == -1) {
+                    let ext = file.name.split('.').pop();
+
+                    file.previewElement.querySelector("[data-dz-thumbnail]").classList.add("hidden");
+                    file.previewElement.querySelector("[data-dz-name]").classList.remove("hidden");
+
+                    if (ext == "pdf") {
+                        file.previewElement.querySelector("[data-dz-thumbnail-pdf]").classList.remove("hidden");
+                    } else if ((ext.indexOf("doc") != -1) || (ext.indexOf("docx") != -1)) {
+                        file.previewElement.querySelector("[data-dz-thumbnail-word]").classList.remove("hidden");
+                    } else if ((ext.indexOf("xls") != -1) || (ext.indexOf("xlsx") != -1)) {
+                        file.previewElement.querySelector("[data-dz-thumbnail-excel]").classList.remove("hidden");
+                    } else {
+                        file.previewElement.querySelector("[data-dz-thumbnail-image]").classList.remove("hidden");
+                    }
+                }
+
+                this.onMaxFilesReached(this);
+            } finally {
+                if (file.isCropped) {
+                    this.closeCropper(true);
+                    this.cropProcessing = false;
+                    this.$emit('crop-state', false);
+                }
+            }
+        },
+
         async initDropzone() {
             let self = this;
             let preview = this.preview == 'single' ? this.$refs.previewSingle : this.$refs.previewMultiple;
@@ -132,7 +377,9 @@ export default {
                 this.configurations.maxFiles = 1;
             }
 
-            if (this.configurations.acceptedFiles === undefined) {
+            if (this.resizeOptions && this.resizeOptions.crop) {
+                this.configurations.acceptedFiles = 'image/jpeg,image/png';
+            } else if (this.configurations.acceptedFiles === undefined) {
                 this.configurations.acceptedFiles = 'image/*';
             }
 
@@ -148,32 +395,7 @@ export default {
                     let dropzone = this;
 
                     dropzone.on('addedfile', function (file) {
-                        self.files.push(file);
-
-                        if (self.configurations.maxFiles == 1) {
-                            self.$emit('change', file);
-                        } else {
-                            self.$emit('change', self.files);
-                        }
-
-                        if (file.type.indexOf("image") == -1) {
-                            let ext = file.name.split('.').pop();
-
-                            file.previewElement.querySelector("[data-dz-thumbnail]").classList.add("hidden");
-                            file.previewElement.querySelector("[data-dz-name]").classList.remove("hidden");
-
-                            if (ext == "pdf") {
-                                file.previewElement.querySelector("[data-dz-thumbnail-pdf]").classList.remove("hidden");
-                            } else if ((ext.indexOf("doc") != -1) || (ext.indexOf("docx") != -1)) {
-                                file.previewElement.querySelector("[data-dz-thumbnail-word]").classList.remove("hidden");
-                            } else if ((ext.indexOf("xls") != -1) || (ext.indexOf("xlsx") != -1)) {
-                                file.previewElement.querySelector("[data-dz-thumbnail-excel]").classList.remove("hidden");
-                            } else {
-                                file.previewElement.querySelector("[data-dz-thumbnail-image]").classList.remove("hidden");
-                            }
-                        }
-
-                        self.onMaxFilesReached(self);
+                        self.addFile(file);
                     }),
  
                     dropzone.on('removedfile', function (file) {
@@ -191,6 +413,10 @@ export default {
                     }),
 
                     dropzone.on('maxfilesexceeded', function(file) {
+                        if (self.resizeOptions && self.resizeOptions.crop) {
+                            return;
+                        }
+
                         this.removeAllFiles('notCancel');
                         this.addFile(file);
                     }),
@@ -251,6 +477,11 @@ export default {
         this.initDropzone();
     },
 
+        beforeDestroy() {
+            this.closeCropper(true);
+            this.$emit('crop-state', false);
+        },
+
     watch: {
         attachments: function (attachments) {
             attachments.forEach((attachment) => {
@@ -288,5 +519,14 @@ export default {
 <style>
     .avatar.hidden {
         display: none;
+    }
+
+    .dropzone.crop-active .dz-preview [data-dz-remove] {
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .dropzone.crop-active .dz-preview {
+        z-index: 0;
     }
 </style>
