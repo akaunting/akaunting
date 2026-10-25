@@ -72,18 +72,11 @@
                             ></report-switch>
 
                             <template v-else>
-                                <label :for="controlId(control)" class="block mb-1 text-sm font-medium text-black truncate">
+                                <label :for="controlId(control)" class="block text-sm font-medium text-black truncate">
                                     {{ control.label }}<template v-if="changedText(control)"><span class="inline-block w-1.5 h-1.5 ms-1.5 align-middle rounded-full bg-purple" aria-hidden="true"></span><span class="sr-only">{{ ' ' + changedText(control) }}</span></template>
                                 </label>
 
-                                <select
-                                    :id="controlId(control)"
-                                    :value="staged[control.key]"
-                                    class="h-9 w-full ps-3 pe-10 rounded-lg border border-light-gray bg-white text-sm focus:border-purple focus:ring-2 focus:ring-purple-200 rtl:bg-[position:left_0.5rem_center]"
-                                    @change="setValue(control.key, $event.target.value)"
-                                >
-                                    <option v-for="option in control.options" :key="option[0]" :value="option[0]">{{ option[1] }}</option>
-                                </select>
+                                <report-select :id="controlId(control)" :value="staged[control.key]" :options="control.options" @input="setValue(control.key, $event)"></report-select>
                             </template>
                         </div>
                     </template>
@@ -232,18 +225,11 @@
                                 ></report-switch>
 
                                 <template v-else>
-                                    <label :for="controlId(control)" class="block mb-1 text-sm font-medium text-black truncate">
+                                    <label :for="controlId(control)" class="block text-sm font-medium text-black truncate">
                                         {{ control.label }}<template v-if="changedText(control)"><span class="inline-block w-1.5 h-1.5 ms-1.5 align-middle rounded-full bg-purple" aria-hidden="true"></span><span class="sr-only">{{ ' ' + changedText(control) }}</span></template>
                                     </label>
 
-                                    <select
-                                        :id="controlId(control)"
-                                        :value="staged[control.key]"
-                                        class="h-9 w-full ps-3 pe-10 rounded-lg border border-light-gray bg-white text-sm focus:border-purple focus:ring-2 focus:ring-purple-200 rtl:bg-[position:left_0.5rem_center]"
-                                        @change="setValue(control.key, $event.target.value)"
-                                    >
-                                        <option v-for="option in control.options" :key="option[0]" :value="option[0]">{{ option[1] }}</option>
-                                    </select>
+                                    <report-select :id="controlId(control)" :value="staged[control.key]" :options="control.options" @input="setValue(control.key, $event)"></report-select>
                                 </template>
                             </div>
                         </template>
@@ -315,6 +301,7 @@ import ReportAmount from './ReportAmount';
 import ReportChecklist from './ReportChecklist';
 import ReportColumns from './ReportColumns';
 import ReportDate from './ReportDate';
+import ReportSelect from './ReportSelect';
 import ReportSwitch from './ReportSwitch';
 
 import {
@@ -372,6 +359,7 @@ export default {
         ReportChecklist,
         ReportColumns,
         ReportDate,
+        ReportSelect,
         ReportSwitch,
     },
 

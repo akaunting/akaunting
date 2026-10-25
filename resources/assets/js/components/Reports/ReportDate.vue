@@ -2,20 +2,11 @@
     <!-- Its cells sit in the strip's grid: a date range takes three (preset, From, To), a single date two -->
     <div class="contents">
         <div class="min-w-0" :class="{'col-span-2': phone}">
-            <label :for="idBase + '-preset'" class="block mb-1 text-sm font-medium text-black truncate">
+            <label :for="idBase + '-preset'" class="block text-sm font-medium text-black truncate">
                 {{ control.label }}<template v-if="changed"><span class="inline-block w-1.5 h-1.5 ms-1.5 align-middle rounded-full bg-purple" aria-hidden="true"></span><span class="sr-only">{{ ' ' + changed }}</span></template>
             </label>
 
-            <select
-                :id="idBase + '-preset'"
-                :value="presetValue"
-                class="h-9 w-full ps-3 pe-10 rounded-lg border border-light-gray bg-white text-sm focus:border-purple focus:ring-2 focus:ring-purple-200 rtl:bg-[position:left_0.5rem_center]"
-                @change="choose($event.target.value)"
-            >
-                <option v-for="(preset, index) in presets" :key="index" :value="String(index)">{{ preset.label }}</option>
-
-                <option value="custom">{{ texts.custom }}</option>
-            </select>
+            <report-select :id="idBase + '-preset'" :value="presetValue" :options="presetOptions" @input="choose"></report-select>
         </div>
 
         <div
@@ -25,15 +16,22 @@
             :class="{'col-span-2': phone && ! isRange}"
             @keydown.enter="submit($event, end)"
         >
-            <label :for="idBase + '-' + end" class="block mb-1 text-sm font-medium text-black truncate">{{ labels[end] }}</label>
+            <label :for="idBase + '-' + end" class="block text-sm font-medium text-black truncate">{{ labels[end] }}</label>
 
-            <flat-picker
-                :ref="end"
-                :value="dateOf(end) || null"
-                :config="configs[end]"
-                class="h-9 w-full px-3 rounded-lg border border-light-gray bg-white text-sm focus:border-purple focus:ring-2 focus:ring-purple-200 aria-[invalid=true]:border-red"
-                @input="change(end, $event)"
-            ></flat-picker>
+            <!-- Akaunting's date input (AkauntingDate): its classes and its calendar icon -->
+            <div class="relative">
+                <flat-picker
+                    :ref="end"
+                    :value="dateOf(end) || null"
+                    :config="configs[end]"
+                    class="w-full text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple aria-[invalid=true]:border-red"
+                    @input="change(end, $event)"
+                ></flat-picker>
+
+                <span class="absolute ltr:right-2 rtl:left-2 bottom-2 text-light-gray pointer-events-none" aria-hidden="true">
+                    <span class="material-icons w-4 h-5 text-sm">calendar_today</span>
+                </span>
+            </div>
         </div>
 
         <p v-if="error" :id="idBase + '-error'" role="alert" class="col-span-full -mt-1 text-xs text-red">{{ error }}</p>
@@ -43,6 +41,8 @@
 <script>
 import flatPicker from 'vue-flatpickr-component';
 import 'flatpickr/dist/flatpickr.css';
+
+import ReportSelect from './ReportSelect';
 
 import { normalize, presetIndex } from './state';
 
@@ -55,6 +55,7 @@ export default {
 
     components: {
         flatPicker,
+        ReportSelect,
     },
 
     props: {
@@ -134,6 +135,11 @@ export default {
 
         presets() {
             return Array.isArray(this.control.presets) ? this.control.presets : [];
+        },
+
+        // By index, as presets may share dates, then Custom
+        presetOptions() {
+            return this.presets.map((preset, index) => [String(index), preset.label]).concat([['custom', this.texts.custom]]);
         },
 
         current() {

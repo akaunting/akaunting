@@ -18,7 +18,7 @@
             :placeholder="searchLabel"
             :aria-label="searchLabel"
             :aria-describedby="hint ? idBase + '-hint' : null"
-            class="h-9 w-full px-3 rounded-lg border border-light-gray bg-white text-sm focus:border-purple focus:ring-2 focus:ring-purple-200"
+            class="w-full text-sm px-3 py-2.5 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple"
             @keydown="onSearchKeydown"
         >
 

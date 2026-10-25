@@ -4,7 +4,7 @@
 
         <div class="grid grid-cols-2 gap-x-4">
             <div v-for="end in ends" :key="end" class="min-w-0">
-                <label :for="idBase + '-' + end" class="block mb-1 text-sm font-medium text-black">
+                <label :for="idBase + '-' + end" class="block text-sm font-medium text-black">
                     {{ (end === 'min') ? texts.from : texts.to }}
                 </label>
 
@@ -16,7 +16,7 @@
                     inputmode="decimal"
                     autocomplete="off"
                     :value="current[end]"
-                    class="h-9 w-full px-3 rounded-lg border border-light-gray bg-white text-sm focus:border-purple focus:ring-2 focus:ring-purple-200 aria-[invalid=true]:border-red"
+                    class="w-full text-sm px-3 py-2.5 mt-1 rounded-lg border border-light-gray text-black placeholder-light-gray bg-white disabled:bg-gray-200 focus:outline-none focus:ring-transparent focus:border-purple aria-[invalid=true]:border-red"
                     :aria-invalid="error ? 'true' : null"
                     :aria-describedby="error ? idBase + '-error' : null"
                     @input="change(end, $event.target.value)"
