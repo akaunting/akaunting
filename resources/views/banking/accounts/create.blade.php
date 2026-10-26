@@ -77,7 +77,13 @@
                 description="{{ trans('accounts.bank_feed.description') }}"
                 :buttons="[
                     [
-                        'url' => route('apps.app.show', 'bank-feeds'),
+                        'url' => route('apps.app.show', [
+                            'alias'         => 'bank-feeds',
+                            'utm_source'    => 'account_create',
+                            'utm_medium'    => 'app',
+                            'utm_campaign'  => 'bank_feeds',
+                            'utm_content'   => 'empty_page',
+                        ]),
                         'permission' => 'read-modules-home',
                         'text' => trans('accounts.bank_feed.action'),
                         'description' => trans('accounts.bank_feed.action_description'),
@@ -98,6 +104,7 @@
                 :show="without_bank_feed.modal"
                 @cancel="closeWithoutBankFeed"
                 title="{{ trans('accounts.bank_feed.add_without') }}"
+                modal-dialog-class="max-w-screen-sm"
             >
                 <template #modal-body>
                     <div class="px-5 text-sm">
@@ -116,7 +123,13 @@
                             </ul>
 
                             @can('read-modules-home')
-                                <x-link href="{{ route('apps.app.show', 'bank-feeds') }}" class="inline-block mt-3 font-medium text-purple hover:underline" override="class">
+                                <x-link href="{{ route('apps.app.show', [
+                                    'alias'         => 'bank-feeds',
+                                    'utm_source'    => 'account_create',
+                                    'utm_medium'    => 'app',
+                                    'utm_campaign'  => 'bank_feeds',
+                                    'utm_content'   => 'manual_modal',
+                                ]) }}" class="inline-block mt-3 font-medium text-purple hover:underline" override="class">
                                     {{ trans('accounts.bank_feed.action') }}
                                 </x-link>
                             @endcan
@@ -145,7 +158,9 @@
                         </button>
 
                         <x-link href="{{ route('accounts.create', ['without_bank_feed' => 1]) }}" class="px-6 py-1.5 bg-green hover:bg-green-700 text-white rounded-lg" override="class">
-                            {{ trans('accounts.bank_feed.manual.continue') }}
+                            <x-link.loading>
+                                {{ trans('accounts.bank_feed.manual.continue') }}
+                            </x-link.loading>
                         </x-link>
                     </div>
                 </template>
