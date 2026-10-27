@@ -34,7 +34,7 @@
         "element-ui": "^2.15.13",
         "es6-promise": "^4.2.8",
         "express": "^4.19.2",
-        "flatpickr": "^4.6.13",
+        "flatpickr": "npm:flatpickr-ce@^4.7.0",
         "fuse.js": "^6.6.2",
         "glightbox": "^3.2.0",
         "json-schema": ">=0.4.0",
