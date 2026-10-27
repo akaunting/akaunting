@@ -203,7 +203,7 @@ if (! function_exists('running_in_install')) {
      */
     function running_in_install(): bool
     {
-        return request_is_install() && env('APP_INSTALLED', false) == false;
+        return request_is_install() && config('app.installed', false) == false;
     }
 }
 

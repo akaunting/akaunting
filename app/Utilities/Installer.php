@@ -213,7 +213,7 @@ class Installer
             'DB_PORT'       =>  $port,
             'DB_DATABASE'   =>  $database,
             'DB_USERNAME'   =>  $username,
-            'DB_PASSWORD'   =>  '"' . $password . '"',
+            'DB_PASSWORD'   =>  $password,
             'DB_PREFIX'     =>  $prefix,
         ]);
 
@@ -308,12 +308,14 @@ class Installer
         foreach ($data as $data_key => $data_value) {
             $updated = false;
 
+            $line = $data_key . '=' . static::formatEnvValue($data_value);
+
             foreach ($env as $env_key => $env_value) {
                 $entry = explode('=', $env_value, 2);
 
                 // Check if new or old key
                 if ($entry[0] == $data_key) {
-                    $env[$env_key] = $data_key . '=' . $data_value;
+                    $env[$env_key] = $line;
                     $updated = true;
                 } else {
                     $env[$env_key] = $env_value;
@@ -322,7 +324,7 @@ class Installer
 
             // Lets create if not available
             if (!$updated) {
-                $env[] = $data_key . '=' . $data_value;
+                $env[] = $line;
             }
         }
 
@@ -331,5 +333,26 @@ class Installer
         file_put_contents(base_path('.env'), $env);
 
         return true;
+    }
+
+    /**
+     * Format a raw value for a .env line.
+     *
+     * Plain values are written as they are. Anything else is double quoted, with
+     * line breaks flattened and \, " and $ escaped, so the value can neither end
+     * its line and append keys (dotenv keeps the last duplicate) nor expand
+     * another variable such as ${APP_KEY}.
+     */
+    public static function formatEnvValue($value): string
+    {
+        $value = (string) $value;
+
+        if (preg_match('/\A[\w.,:\/@+=%~-]*\z/', $value)) {
+            return $value;
+        }
+
+        $value = str_replace(["\r\n", "\r", "\n"], ' ', $value);
+
+        return '"' . str_replace(['\\', '"', '$'], ['\\\\', '\\"', '\\$'], $value) . '"';
     }
 }

@@ -178,6 +178,6 @@ abstract class SettingController extends Controller
             return;
         }
 
-        Installer::updateEnv([$key => '"' . $value . '"']);
+        Installer::updateEnv([$key => $value]);
     }
 }
