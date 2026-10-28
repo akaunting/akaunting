@@ -1,6 +1,6 @@
-<livewire:menu.favorite 
-    title="{{ $title }}"
-    icon="{{ $icon }}"
+<livewire:menu.favorite
+    :title="$title"
+    :icon="$icon"
     :route="$route"
-    url="{{ $url }}"
+    :url="$url"
 />
