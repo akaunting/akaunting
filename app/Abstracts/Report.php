@@ -354,7 +354,8 @@ abstract class Report
 
         $pdf->setPaper('A4', 'landscape');
 
-        $file_name = $this->model->name . ' - ' . company()->name . '.pdf';
+        // Slashes are not allowed in the Content-Disposition filename
+        $file_name = str_replace(['/', '\\'], '-', $this->model->name . ' - ' . company()->name) . '.pdf';
 
         return $pdf->download($file_name);
     }
