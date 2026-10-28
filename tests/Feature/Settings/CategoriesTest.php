@@ -4,6 +4,7 @@ namespace Tests\Feature\Settings;
 
 use App\Jobs\Setting\CreateCategory;
 use App\Models\Setting\Category;
+use Illuminate\Support\Facades\DB;
 use Tests\Feature\FeatureTestCase;
 
 class CategoriesTest extends FeatureTestCase
@@ -96,6 +97,30 @@ class CategoriesTest extends FeatureTestCase
         $this->assertFlashLevel('success');
 
         $this->assertSoftDeleted('categories', $request);
+    }
+
+    public function testItShouldGetNextCategoryCodeInOneQuery()
+    {
+        $parents = Category::factory()->count(3)->enabled()->sequence(
+            ['code' => '90000'],
+            ['code' => '90005'],
+            ['code' => 'ABC'],
+        )->create();
+
+        Category::factory()->enabled()->create([
+            'code' => '99999',
+            'parent_id' => $parents->first()->id,
+        ]);
+
+        DB::enableQueryLog();
+
+        $code = (new Category)->getNextCategoryCode();
+
+        $queries = DB::getQueryLog();
+        DB::disableQueryLog();
+
+        $this->assertEquals(90006, $code);
+        $this->assertCount(1, $queries);
     }
 
     public function getRequest()
