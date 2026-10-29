@@ -50,8 +50,8 @@ export default {
 
         dataName: {
             type: String,
-            default: '',
-            description: "Modal header title"
+            default: null,
+            description: "Name attribute of the date input"
         },
 
         placeholder: {

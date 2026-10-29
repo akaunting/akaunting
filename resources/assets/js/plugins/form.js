@@ -19,7 +19,12 @@ export default class Form {
             var name = form_element.getAttribute('name');
             var type = form_element.getAttribute('type');
 
-            if (name == 'method') {
+            // Widgets inside the form render inputs of their own without a name
+            // attribute (flatpickr's altInput, element-ui's select search box).
+            // getAttribute() returns null for those, which would become a "null"
+            // or "" property here and then a nameless multipart part, which
+            // strict parsers and WAFs reject with HTTP 400 (RFC 7578 4.2).
+            if (name === null || name === '' || name == 'method') {
                 continue;
             }
 
@@ -191,7 +196,8 @@ export default class Form {
         for (let form_element of document.getElementById(form_id).getElementsByTagName("textarea")) {
             var name = form_element.getAttribute('name');
 
-            if (name == 'method') {
+            // See the input loop above: nameless elements are not form fields.
+            if (name === null || name === '' || name == 'method') {
                 continue;
             }
 
@@ -278,7 +284,8 @@ export default class Form {
         for (let form_element of document.getElementById(form_id).getElementsByTagName("select")) {
             var name = form_element.getAttribute('name');
 
-            if (name == 'method') {
+            // See the input loop above: nameless elements are not form fields.
+            if (name === null || name === '' || name == 'method') {
                 continue;
             }
 
