@@ -294,7 +294,7 @@ class Category extends Model
         $request = request();
 
         if (!empty($ids)) {
-            $query->whereIn($id_field, (array) $ids);
+            $query->whereIn($this->qualifyColumn($id_field), (array) $ids);
         }
 
         $search = $request->get('search');
