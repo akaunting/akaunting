@@ -58807,12 +58807,32 @@
             "decimal_mark": ".",
             "thousands_separator": ","
         },
+        "VED": {
+            "name": "Dijital Bol\u00edvar",
+            "code": 926,
+            "precision": 2,
+            "subunit": 100,
+            "symbol": "Bs D",
+            "symbol_first": true,
+            "decimal_mark": ",",
+            "thousands_separator": "."
+        },
         "VEF": {
             "name": "Bolivar",
             "code": 937,
             "precision": 2,
             "subunit": 100,
             "symbol": "Bs F",
+            "symbol_first": true,
+            "decimal_mark": ",",
+            "thousands_separator": "."
+        },
+        "VES": {
+            "name": "Bol\u00edvar Soberano",
+            "code": 928,
+            "precision": 2,
+            "subunit": 100,
+            "symbol": "Bs S",
             "symbol_first": true,
             "decimal_mark": ",",
             "thousands_separator": "."
