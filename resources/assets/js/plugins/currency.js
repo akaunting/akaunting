@@ -4,11 +4,16 @@ import config from './../../../../public/money.json';
 export default class Currency {
     constructor(currency) {
         this.currencies = {};
-        this.currency = (typeof currency == String) ? currency.trim().toUpperCase() : 'USD';
+
+        this.currency = (typeof currency === 'string') ? currency.trim().toUpperCase() : 'USD';
+
         this.currencies = this.getCurrencies();
-       
+
+        // Unknown codes keep falling back to USD, as they always did before the typeof fix
         if (! Object.keys(this.currencies).includes(this.currency)) {
-            throw new Error('Invalid currency "' + this.currency + '"');
+            console.warn('Invalid currency "' + this.currency + '", falling back to USD');
+
+            this.currency = 'USD';
         }
 
         let attributes = this.currencies[this.currency];
@@ -28,8 +33,52 @@ export default class Currency {
         this.currencies = currencies;
     }
 
-    getCurrencies() {       
-        return Object.keys(this.currencies).length ? this.currencies : config['currencies'];
+    getCurrencies() {
+        if (Object.keys(this.currencies).length) {
+            return this.currencies;
+        }
+
+        let currencies = Object.assign({}, config['currencies']);
+
+        // Company settings override the bundled defaults, the same way
+        // App\Utilities\Overrider::loadCurrencies() does on the server
+        this.getCompanyCurrencies().forEach(function (currency) {
+            if (! currency || typeof currency.code !== 'string') {
+                return;
+            }
+
+            let code = currency.code.trim().toUpperCase();
+            let attributes = Object.assign({}, currencies[code] || { code: code });
+
+            ['name', 'precision', 'symbol', 'symbol_first', 'decimal_mark', 'thousands_separator'].forEach(function (key) {
+                if (currency[key] !== undefined && currency[key] !== null) {
+                    attributes[key] = currency[key];
+                }
+            });
+
+            attributes['precision'] = parseInt(attributes['precision'], 10) || 0;
+
+            currencies[code] = attributes;
+        });
+
+        return currencies;
+    }
+
+    // Reads the currency lists the layouts already print, nothing new is injected
+    getCompanyCurrencies() {
+        if (typeof window === 'undefined') {
+            return [];
+        }
+
+        let company_currencies = [];
+
+        [window.all_currencies, window.document_currencies].forEach(function (list) {
+            if (list && typeof list === 'object') {
+                company_currencies = company_currencies.concat(Object.values(list));
+            }
+        });
+
+        return company_currencies;
     }
 
     getConfig() {
