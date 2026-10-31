@@ -22,7 +22,7 @@ class Versions
 
         $url = 'https://api.github.com/repos/akaunting/akaunting/releases';
 
-        $http = new \GuzzleHttp\Client(['verify' => false]);
+        $http = new \GuzzleHttp\Client(['verify' => \Composer\CaBundle\CaBundle::getSystemCaRootBundlePath()]);
 
         $json = $http->get($url, ['timeout' => 30])->getBody()->getContents();
 

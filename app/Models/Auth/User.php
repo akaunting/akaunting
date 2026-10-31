@@ -121,7 +121,7 @@ class User extends Authenticatable implements HasLocalePreference
                 // Check for gravatar
                 $url = 'https://www.gravatar.com/avatar/' . md5(strtolower($this->getAttribute('email'))) . '?size=90&d=404';
 
-                $client = new \GuzzleHttp\Client(['verify' => false]);
+                $client = new \GuzzleHttp\Client(['verify' => \Composer\CaBundle\CaBundle::getSystemCaRootBundlePath()]);
 
                 $client->request('GET', $url)->getBody()->getContents();
 

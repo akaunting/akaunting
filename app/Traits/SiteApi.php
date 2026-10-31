@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use Akaunting\Version\Version;
 use App\Utilities\Info;
+use Composer\CaBundle\CaBundle;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
@@ -15,7 +16,7 @@ trait SiteApi
 
     protected static function siteApiRequest($method, $path, $extra_data = [])
     {
-        $client = new Client(['base_uri' => static::$base_uri]);
+        $client = new Client(['verify' => CaBundle::getSystemCaRootBundlePath(), 'base_uri' => static::$base_uri]);
 
         $headers['headers'] = [
             'Authorization' => 'Bearer ' . Info::getApiKey(),
