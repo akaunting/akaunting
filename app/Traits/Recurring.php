@@ -172,23 +172,35 @@ trait Recurring
 
     public function getRecurringVirtualLimit()
     {
+        $started_at = Date::parse($this->started_at);
+        $today = Date::today();
+
         switch ($this->frequency) {
             case 'yearly':
-                $limit = '2';
+                $limit = 2;
+                $elapsed = $started_at->diffInYears($today);
                 break;
             case 'monthly':
-                $limit = '24';
+                $limit = 24;
+                $elapsed = $started_at->diffInMonths($today);
                 break;
             case 'weekly':
-                $limit = '104';
+                $limit = 104;
+                $elapsed = $started_at->diffInWeeks($today);
                 break;
             case 'daily':
             default;
-                $limit = '732';
+                $limit = 732;
+                $elapsed = $started_at->diffInDays($today);
                 break;
         }
 
-        return $limit;
+        // The limit counts from the start date, so add the periods already passed or old schedules end on their own
+        if ($started_at->lessThan($today)) {
+            $limit += (int) ceil($elapsed / max((int) $this->interval, 1)) + 1;
+        }
+
+        return max($limit, (int) $this->limit_count);
     }
 
     public function getNextRecurring()
