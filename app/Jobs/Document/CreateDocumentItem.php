@@ -190,6 +190,7 @@ class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreat
         $document_item->item_taxes = false;
         $document_item->inclusives = false;
         $document_item->compounds = false;
+        $document_item->global_discount = $global_discount ?? 0;
 
         if (!empty($item_taxes)) {
             $document_item->item_taxes = $item_taxes;
