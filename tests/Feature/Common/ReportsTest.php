@@ -13,6 +13,7 @@ use App\Jobs\Common\CreateCompany;
 use App\Jobs\Common\UpdateReport;
 use App\Listeners\Report\AddIncomeCategories;
 use App\Listeners\Report\AddIncomeExpenseCategories;
+use App\Models\Auth\Permission;
 use App\Models\Banking\Transaction;
 use App\Models\Common\Company;
 use App\Models\Common\Contact;
@@ -21,7 +22,6 @@ use App\Models\Setting\Category;
 use App\Reports\IncomeExpenseSummary;
 use App\Reports\IncomeSummary;
 use App\Reports\ProfitLoss;
-use App\Traits\Permissions;
 use App\Utilities\Date;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
@@ -33,8 +33,6 @@ use Tests\Feature\FeatureTestCase;
 
 class ReportsTest extends FeatureTestCase
 {
-    use Permissions;
-
     public function testItShouldShowProfitLossReportWhenSettingsAreMissing()
     {
         $report = Report::create([
@@ -194,9 +192,20 @@ class ReportsTest extends FeatureTestCase
         $this->travelTo(Date::parse('2026-09-28 10:00:00'));
         $this->loginAs();
 
-        $role = $this->createRole('profit-loss-reader');
-        $this->attachPermission($role, 'read-admin-panel');
-        $this->attachPermission($role, 'read-reports-profit-loss');
+        // Plain models, not the Permissions trait: using the core trait here loads it before a module
+        // like Cloud declares its own App\Traits\Permissions, and the app then fails to boot
+        $role = role_model_class()::create([
+            'name' => 'profit-loss-reader',
+            'display_name' => 'Profit Loss Reader',
+            'description' => 'Profit Loss Reader',
+        ]);
+
+        foreach (['read-admin-panel', 'read-reports-profit-loss'] as $name) {
+            $role->attachPermission(Permission::firstOrCreate(['name' => $name], [
+                'display_name' => $name,
+                'description' => $name,
+            ]));
+        }
 
         $reader = $this->dispatch(new CreateUser(array_merge(user_model_class()::factory()->raw(), [
             'enabled' => 1,
