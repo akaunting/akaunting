@@ -100,15 +100,43 @@ class DocumentTaxRateTest extends FeatureTestCase
         $this->assertEquals(30, $item_tax->amount);
     }
 
+    public function testItKeepsTheStoredRateForEveryTaxType(): void
+    {
+        foreach (['inclusive', 'fixed', 'compound', 'withholding'] as $type) {
+            $tax = $this->createTax(10, $type);
+
+            $invoice = $this->createInvoice($tax);
+
+            $before = $invoice->item_taxes()->first();
+
+            $tax->update(['rate' => 25]);
+
+            $this->dispatch(new UpdateDocument($invoice, $this->getRequest($tax, $invoice)));
+
+            $after = $invoice->refresh()->item_taxes()->first();
+
+            $this->assertEquals(10, $after->rate, $type);
+            $this->assertEquals($before->amount, $after->amount, $type);
+
+            // Positive control: recalculating does change the rate, so "unchanged" above means something
+            $request = $this->getRequest($tax, $invoice);
+            $request['recalculate_taxes'] = '1';
+
+            $this->dispatch(new UpdateDocument($invoice, $request));
+
+            $this->assertEquals(25, $invoice->refresh()->item_taxes()->first()->rate, $type);
+        }
+    }
+
     // -------------------------------------------------------------------------
     // Helpers
     // -------------------------------------------------------------------------
 
-    private function createTax(float $rate): Tax
+    private function createTax(float $rate, string $type = 'normal'): Tax
     {
         return Tax::factory()->enabled()->create([
             'rate' => $rate,
-            'type' => 'normal',
+            'type' => $type,
         ]);
     }
 
