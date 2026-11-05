@@ -78,6 +78,13 @@ class Invoices extends BulkAction
         foreach ($invoices as $invoice) {
             try {
                 $discount = $invoice->totals->where('code', 'discount')->makeHidden('title')->pluck('amount')->first();
+                $discount_type = ! empty($discount) ? 'fixed' : null;
+
+                // Send back the stored rate and type, as the edit form does, so a percentage stays a percentage
+                if (! empty($discount) && ((float) $invoice->discount_rate > 0)) {
+                    $discount = $invoice->discount_rate;
+                    $discount_type = $invoice->discount_type;
+                }
 
                 // for extra total rows..
                 $totals = $invoice->totals()->whereNotIn('code', ['sub_total', 'total', 'tax', 'discount'])->get()->toArray();
@@ -87,6 +94,7 @@ class Invoices extends BulkAction
                     'uploaded_attachment' => $invoice->attachment,
                     'category_id' => ($request->get('category_id')) ?? $invoice->category_id,
                     'discount' => $discount,
+                    'discount_type' => $discount_type,
                     'totals' => $totals,
                 ])->except([
 

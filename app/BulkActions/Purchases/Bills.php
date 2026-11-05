@@ -72,6 +72,13 @@ class Bills extends BulkAction
         foreach ($bills as $bill) {
             try {
                 $discount = $bill->totals->where('code', 'discount')->makeHidden('title')->pluck('amount')->first();
+                $discount_type = ! empty($discount) ? 'fixed' : null;
+
+                // Send back the stored rate and type, as the edit form does, so a percentage stays a percentage
+                if (! empty($discount) && ((float) $bill->discount_rate > 0)) {
+                    $discount = $bill->discount_rate;
+                    $discount_type = $bill->discount_type;
+                }
 
                 // for extra total rows..
                 $totals = $bill->totals()->whereNotIn('code', ['sub_total', 'total', 'tax', 'discount'])->get()->toArray();
@@ -81,6 +88,7 @@ class Bills extends BulkAction
                     'uploaded_attachment' => $bill->attachment,
                     'category_id' => ($request->get('category_id')) ?? $bill->category_id,
                     'discount' => $discount,
+                    'discount_type' => $discount_type,
                     'totals' => $totals,
                 ])->except([
 
