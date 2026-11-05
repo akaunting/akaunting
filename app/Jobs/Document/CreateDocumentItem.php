@@ -88,8 +88,19 @@ class CreateDocumentItem extends Job implements HasOwner, HasSource, ShouldCreat
             }
 
             if (isset($inclusives)) {
+                // The price carries every inclusive tax at once, so the amount without them
+                // is found with the rates added up. Taking each rate out of the full price
+                // on its own charges the same money twice.
+                $inclusive_rate_total = 0;
+
                 foreach ($inclusives as $inclusive) {
-                    $tax_amount = $item_discounted_amount - ($item_discounted_amount / (1 + $charged_rates[$inclusive->id] / 100));
+                    $inclusive_rate_total += $charged_rates[$inclusive->id];
+                }
+
+                $amount_without_inclusives = $item_discounted_amount / (1 + $inclusive_rate_total / 100);
+
+                foreach ($inclusives as $inclusive) {
+                    $tax_amount = $amount_without_inclusives * ($charged_rates[$inclusive->id] / 100);
 
                     $item_taxes[] = $doc_params + [
                         'tax_id' => $inclusive->id,
