@@ -98,6 +98,13 @@ class UpdateTransfer extends Job implements ShouldUpdate
 
     public function authorize(): void
     {
+        // Same check as in UpdateTransaction, for both transactions of the transfer
+        if ($this->model->expense_transaction?->reconciled || $this->model->income_transaction?->reconciled) {
+            $message = trans('messages.warning.reconciled_tran');
+
+            throw new \Exception($message);
+        }
+
         foreach (['from', 'to'] as $type) {
             $account_id = $this->request->get($type . '_account_id');
 
