@@ -535,9 +535,15 @@ const app = new Vue({
                 }, this);
 
                 if (inclusives.length) {
+                    // The price carries every inclusive tax at once, so the amount without
+                    // them is found with the rates added up. Taking each rate out of the
+                    // full price on its own charges the same money twice.
+                    let inclusive_rate_total = inclusives.reduce((total, inclusive) => total + parseFloat(inclusive.tax_rate), 0);
+                    let amount_without_inclusives = item.grand_total / (1 + inclusive_rate_total / 100);
+
                     inclusives.forEach(function(inclusive) {
                         item.tax_ids[inclusive.tax_index].name = inclusive.tax_name;
-                        item.tax_ids[inclusive.tax_index].price = this.numberFormat(item.grand_total - (item.grand_total / (1 + inclusive.tax_rate / 100)), this.currency.precision);
+                        item.tax_ids[inclusive.tax_index].price = this.numberFormat(amount_without_inclusives * (inclusive.tax_rate / 100), this.currency.precision);
 
                         inclusive_tax_total += item.tax_ids[inclusive.tax_index].price;
 
@@ -589,14 +595,23 @@ const app = new Vue({
                 item.grand_total += total_tax_amount;
 
                 if (compounds.length) {
+                    // A compound tax is charged on the price and the other taxes, not on
+                    // another compound tax, so every compound is worked out on the same
+                    // amount. Charging one on top of the other would also make each row
+                    // depend on the order the taxes happen to be in.
+                    let amount_before_compounds = item.grand_total;
+                    let compound_tax_total = 0;
+
                     compounds.forEach(function(compound) {
                         item.tax_ids[compound.tax_index].name = compound.tax_name;
-                        item.tax_ids[compound.tax_index].price = this.numberFormat((item.grand_total / 100) * compound.tax_rate, this.currency.precision);
+                        item.tax_ids[compound.tax_index].price = this.numberFormat((amount_before_compounds / 100) * compound.tax_rate, this.currency.precision);
+
+                        compound_tax_total += item.tax_ids[compound.tax_index].price;
 
                         totals_taxes = this.calculateTotalsTax(totals_taxes, compound.tax_id, compound.tax_name, item.tax_ids[compound.tax_index].price);
-
-                        item.grand_total += item.tax_ids[compound.tax_index].price;
                     }, this);
+
+                    item.grand_total += compound_tax_total;
                 }
 
                 if (inclusives.length) {

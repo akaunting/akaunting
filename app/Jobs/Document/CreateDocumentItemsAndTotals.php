@@ -19,8 +19,6 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
 
     protected $document;
 
-    protected $inclusive_discount_difference = 0;
-
     public function __construct(Document $document, $request)
     {
         $this->document = $document;
@@ -32,7 +30,7 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
     {
         $precision = currency($this->document->currency_code)->getPrecision();
 
-        list($sub_total, $actual_total, $discount_amount_total, $taxes) = $this->createItems();
+        list($sub_total, $actual_total, $discount_amount_total, $taxes, $inclusive_discount_difference) = $this->createItems();
 
         $sort_order = 1;
 
@@ -75,7 +73,7 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
             if ($this->request['discount_type'] === 'percentage') {
                 //$discount_total = ($sub_total - $discount_amount_total) * ($this->request['discount'] / 100);
                 $discount_total = $sub_total * ($this->request['discount'] / 100);
-                $discount_total += $this->inclusive_discount_difference;
+                $discount_total += $inclusive_discount_difference;
             } else {
                 $discount_total = $this->request['discount'];
             }
@@ -163,12 +161,12 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
 
     protected function createItems(): array
     {
-        $sub_total = $actual_total = $discount_amount = $discount_amount_total = 0;
+        $sub_total = $actual_total = $discount_amount = $discount_amount_total = $inclusive_discount_difference = 0;
 
         $taxes = [];
 
         if (empty($this->request['items'])) {
-            return [$sub_total, $actual_total, $discount_amount_total, $taxes];
+            return [$sub_total, $actual_total, $discount_amount_total, $taxes, $inclusive_discount_difference];
         }
 
         if (! empty($this->request['discount']) && $this->request['discount_type'] !== 'percentage') {
@@ -245,7 +243,7 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
             if ($is_percentage && ! empty($document_item->inclusives)) {
                 $percentage_of_line = $item_amount * ($this->request['discount'] / 100);
 
-                $this->inclusive_discount_difference += $document_item->global_discount - $percentage_of_line;
+                $inclusive_discount_difference += $document_item->global_discount - $percentage_of_line;
             }
 
             if (! $document_item->item_taxes) {
@@ -269,13 +267,13 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
         if (! empty($this->request['discount'])) {
             if ($this->request['discount_type'] === 'percentage') {
                 $actual_total -= ($sub_total * ($this->request['discount'] / 100));
-                $actual_total -= $this->inclusive_discount_difference;
+                $actual_total -= $inclusive_discount_difference;
             } else {
                 $actual_total -= $this->request['discount'];
             }
         }
 
-        return [$sub_total, $actual_total, $discount_amount_total, $taxes];
+        return [$sub_total, $actual_total, $discount_amount_total, $taxes, $inclusive_discount_difference];
     }
 
     public function fixedDiscountCalculate()
