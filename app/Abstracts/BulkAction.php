@@ -6,7 +6,10 @@ use App\Jobs\Common\CreateMediableForDownload;
 use App\Jobs\Common\CreateZipForDownload;
 use App\Jobs\Common\DeleteContact;
 use App\Jobs\Common\UpdateContact;
+use App\Jobs\Document\UpdateDocument;
 use App\Jobs\Banking\DeleteTransaction;
+use App\Models\Common\Contact;
+use App\Models\Setting\Currency;
 use App\Traits\Jobs;
 use App\Traits\Relationships;
 use App\Traits\Translations;
@@ -218,6 +221,66 @@ abstract class BulkAction
         foreach ($items as $item) {
             $item->delete();
         }
+    }
+
+    public function updateDocuments($request)
+    {
+        // What the modal picked is the same for every selected document, so it is read once
+        $changes = $this->getDocumentChanges($request);
+
+        foreach ($this->getSelectedRecords($request) as $document) {
+            try {
+                // Only the fields the modal changed are sent. Without items the document is not
+                // worked out again, so its lines, discount and totals stay as they were saved,
+                // and a field left empty is dropped by getUpdateRequest() and not changed
+                $request->merge([
+                    'uploaded_attachment' => $document->attachment,
+                ]);
+
+                // Merged after the empty fields are dropped: a contact without an email has to
+                // clear the email of the contact it replaces, not leave it on the document
+                $this->dispatch(new UpdateDocument($document, $this->getUpdateRequest($request)->merge($changes)));
+            } catch (\Exception $e) {
+                flash($e->getMessage())->error()->important();
+            }
+        }
+    }
+
+    /**
+     * What a document copies from the contact and the currency the modal picked, as the
+     * edit form fills them in.
+     */
+    public function getDocumentChanges($request): array
+    {
+        $changes = [];
+
+        if ($request->get('contact_id')) {
+            $contact = Contact::findOrFail($request->get('contact_id'));
+
+            // The document keeps its own copy of the contact, printed on it; the same fields
+            // UpdateContact copies to recurring documents
+            $changes += [
+                'contact_name' => $contact->name,
+                'contact_email' => $contact->email,
+                'contact_tax_number' => $contact->tax_number,
+                'contact_phone' => $contact->phone,
+                'contact_address' => $contact->address,
+                'contact_city' => $contact->city,
+                'contact_state' => $contact->state,
+                'contact_zip_code' => $contact->zip_code,
+                'contact_country' => $contact->country,
+            ];
+        }
+
+        if ($request->get('currency_code')) {
+            $currency = Currency::where('code', $request->get('currency_code'))->firstOrFail();
+
+            // A new currency without its rate keeps the old one, and every report then converts
+            // the document at the rate of a currency it is not in
+            $changes['currency_rate'] = $currency->rate;
+        }
+
+        return $changes;
     }
 
     public function disableContacts($request)
