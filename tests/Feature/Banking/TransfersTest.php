@@ -3,6 +3,7 @@
 namespace Tests\Feature\Banking;
 
 use App\Exports\Banking\Transfers as Export;
+use App\Jobs\Banking\CreateReconciliation;
 use App\Jobs\Banking\CreateTransfer;
 use App\Models\Banking\Transfer;
 use Illuminate\Http\UploadedFile;
@@ -179,6 +180,131 @@ class TransfersTest extends FeatureTestCase
         $request['to_account_id'] = 999999;
 
         $this->dispatch(new CreateTransfer($request));
+    }
+
+    public function testItShouldNotUpdateReconciledTransfer()
+    {
+        $request = $this->getRequest();
+        $request['amount'] = 100;
+
+        $transfer = $this->dispatch(new CreateTransfer($request));
+
+        // Only the expense transaction is reconciled
+        $this->reconcile($transfer, ['expense_transaction']);
+
+        $request['amount'] = 150;
+
+        $this->loginAs()
+            ->patch(route('transfers.update', $transfer->id), $request)
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('danger');
+
+        $this->assertEquals(100, $transfer->expense_transaction->fresh()->amount);
+        $this->assertEquals(100, $transfer->income_transaction->fresh()->amount);
+    }
+
+    public function testItShouldNotDeleteReconciledTransfer()
+    {
+        $request = $this->getRequest();
+        $request['amount'] = 100;
+
+        $transfer = $this->dispatch(new CreateTransfer($request));
+
+        // Only the income transaction is reconciled
+        $this->reconcile($transfer, ['income_transaction']);
+
+        $this->loginAs()
+            ->delete(route('transfers.destroy', $transfer->id))
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('danger');
+
+        $this->assertNotSoftDeleted($transfer);
+        $this->assertNotSoftDeleted($transfer->expense_transaction);
+        $this->assertNotSoftDeleted($transfer->income_transaction);
+    }
+
+    public function testItShouldNotDeleteReconciledTransferInBulk()
+    {
+        $request = $this->getRequest();
+        $request['amount'] = 100;
+
+        $transfer = $this->dispatch(new CreateTransfer($request));
+
+        // Only the expense transaction is reconciled
+        $this->reconcile($transfer, ['expense_transaction']);
+
+        $this->loginAs()
+            ->post(
+                route('bulk-actions.action', ['group' => 'banking', 'type' => 'transfers']),
+                ['handle' => 'delete', 'selected' => [$transfer->id]]
+            )
+            ->assertStatus(200);
+
+        $this->assertNotSoftDeleted($transfer);
+        $this->assertNotSoftDeleted($transfer->expense_transaction);
+        $this->assertNotSoftDeleted($transfer->income_transaction);
+    }
+
+    public function testItShouldNotUpdateOrDeleteReconciledTransferThroughApi()
+    {
+        $request = $this->getRequest();
+        $request['amount'] = 100;
+
+        $transfer = $this->dispatch(new CreateTransfer($request));
+
+        // Only the income transaction is reconciled
+        $this->reconcile($transfer, ['income_transaction']);
+
+        $request['amount'] = 150;
+
+        // UpdateTransfer throws here; only the stored amounts are checked
+        $this->withExceptionHandling()
+            ->withHeaders([
+                'Authorization' => 'Basic ' . base64_encode('test@company.com:123456'),
+            ])
+            ->patchJson(route('api.transfers.update', $transfer->id), $request);
+
+        $this->assertEquals(100, $transfer->expense_transaction->fresh()->amount);
+        $this->assertEquals(100, $transfer->income_transaction->fresh()->amount);
+
+        $this->withHeaders([
+                'Authorization' => 'Basic ' . base64_encode('test@company.com:123456'),
+            ])
+            ->deleteJson(route('api.transfers.destroy', $transfer->id))
+            ->assertStatus(401);
+
+        $this->assertNotSoftDeleted($transfer);
+        $this->assertNotSoftDeleted($transfer->expense_transaction);
+        $this->assertNotSoftDeleted($transfer->income_transaction);
+    }
+
+    protected function reconcile(Transfer $transfer, array $legs = ['expense_transaction', 'income_transaction']): void
+    {
+        foreach (['expense_transaction', 'income_transaction'] as $leg) {
+            $transaction = $transfer->$leg;
+
+            if (! in_array($leg, $legs)) {
+                $this->assertEquals(0, $transaction->fresh()->reconciled);
+
+                continue;
+            }
+
+            $this->dispatch(new CreateReconciliation([
+                'company_id' => $this->company->id,
+                'account_id' => $transaction->account_id,
+                'currency_code' => $transaction->currency_code,
+                'opening_balance' => 0,
+                'closing_balance' => 0,
+                'started_at' => $transaction->paid_at->toDateString(),
+                'ended_at' => $transaction->paid_at->toDateString(),
+                'reconcile' => 1,
+                'transactions' => [$transaction->type . '_' . $transaction->id => 1],
+            ]));
+
+            $this->assertEquals(1, $transaction->fresh()->reconciled);
+        }
     }
 
     public function getRequest()
