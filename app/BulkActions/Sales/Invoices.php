@@ -6,7 +6,6 @@ use App\Abstracts\BulkAction;
 use App\Models\Document\Document;
 use App\Jobs\Document\DeleteDocument;
 use App\Jobs\Common\CreateZipForDownload;
-use App\Jobs\Document\UpdateDocument;
 use App\Events\Document\DocumentCreated;
 use App\Events\Document\DocumentCancelled;
 use App\Events\Document\DocumentMarkedSent;
@@ -73,30 +72,7 @@ class Invoices extends BulkAction
 
     public function update($request)
     {
-        $invoices = $this->getSelectedRecords($request);
-
-        foreach ($invoices as $invoice) {
-            try {
-                $discount = $invoice->totals->where('code', 'discount')->makeHidden('title')->pluck('amount')->first();
-
-                // for extra total rows..
-                $totals = $invoice->totals()->whereNotIn('code', ['sub_total', 'total', 'tax', 'discount'])->get()->toArray();
-
-                $request->merge([
-                    'items' => $invoice->items->toArray(),
-                    'uploaded_attachment' => $invoice->attachment,
-                    'category_id' => ($request->get('category_id')) ?? $invoice->category_id,
-                    'discount' => $discount,
-                    'totals' => $totals,
-                ])->except([
-
-                ]);
-
-                $this->dispatch(new UpdateDocument($invoice, $this->getUpdateRequest($request)));
-            } catch (\Exception $e) {
-                flash($e->getMessage())->error()->important();
-            }
-        }
+        $this->updateDocuments($request);
     }
 
     public function sent($request)
