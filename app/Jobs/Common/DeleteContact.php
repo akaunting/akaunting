@@ -5,6 +5,7 @@ namespace App\Jobs\Common;
 use App\Abstracts\Job;
 use App\Events\Common\ContactDeleted;
 use App\Events\Common\ContactDeleting;
+use App\Exceptions\Job\NotAllowed;
 use App\Interfaces\Job\ShouldDelete;
 use App\Jobs\Auth\DeleteUser;
 use App\Traits\Contacts;
@@ -42,7 +43,7 @@ class DeleteContact extends Job implements ShouldDelete
         if ($relationships = $this->getRelationships()) {
             $message = trans('messages.warning.deleted', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
 
-            throw new \Exception($message);
+            throw new NotAllowed($message);
         }
     }
 

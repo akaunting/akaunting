@@ -2,14 +2,14 @@
 
 namespace App\Exceptions\Settings;
 
-use Exception;
+use App\Exceptions\Job\NotAllowed;
 use Throwable;
 
-class LastCategoryDelete extends Exception
+class LastCategoryDelete extends NotAllowed
 {
     /*
-        100000000   => Akaunting charecters 
-        800         => Setting category menu number  
+        100000000   => Akaunting charecters
+        800         => Setting category menu number
         40          => CRUD (last item)
         1           => First authorized exception
 

@@ -5,6 +5,7 @@ namespace App\Jobs\Common;
 use App\Abstracts\Job;
 use App\Events\Common\ContactUpdated;
 use App\Events\Common\ContactUpdating;
+use App\Exceptions\Job\NotAllowed;
 use App\Interfaces\Job\ShouldUpdate;
 use App\Jobs\Auth\CreateUser;
 use App\Jobs\Common\CreateContactPersons;
@@ -61,7 +62,7 @@ class UpdateContact extends Job implements ShouldUpdate
         if (($this->request->has('enabled') && ! $this->request->get('enabled')) && ($relationships = $this->getRelationships())) {
             $message = trans('messages.warning.disabled', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
 
-            throw new \Exception($message);
+            throw new NotAllowed($message);
         }
     }
 

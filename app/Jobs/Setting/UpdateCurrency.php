@@ -5,6 +5,7 @@ namespace App\Jobs\Setting;
 use App\Abstracts\Job;
 use App\Events\Setting\CurrencyUpdated;
 use App\Events\Setting\CurrencyUpdating;
+use App\Exceptions\Job\NotAllowed;
 use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Setting\Currency;
 
@@ -48,13 +49,13 @@ class UpdateCurrency extends Job implements ShouldUpdate
         if ($this->model->code != $this->request->get('code')) {
             $message = trans('messages.warning.disable_code', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
 
-            throw new \Exception($message);
+            throw new NotAllowed($message);
         }
 
         if ($this->request->has('enabled') && ! $this->request->get('enabled')) {
             $message = trans('messages.warning.disable_code', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
 
-            throw new \Exception($message);
+            throw new NotAllowed($message);
         }
     }
 

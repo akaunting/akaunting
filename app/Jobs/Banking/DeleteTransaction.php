@@ -5,6 +5,7 @@ namespace App\Jobs\Banking;
 use App\Abstracts\Job;
 use App\Events\Banking\TransactionDeleting;
 use App\Events\Banking\TransactionDeleted;
+use App\Exceptions\Job\NotAllowed;
 use App\Interfaces\Job\ShouldDelete;
 
 class DeleteTransaction extends Job implements ShouldDelete
@@ -34,11 +35,11 @@ class DeleteTransaction extends Job implements ShouldDelete
         if ($this->model->reconciled) {
             $message = trans('messages.warning.reconciled_tran');
 
-            throw new \Exception($message);
+            throw new NotAllowed($message);
         }
 
         if ($this->model->isTransferTransaction()) {
-            throw new \Exception(trans('messages.error.transfer_transaction'));
+            throw new NotAllowed(trans('messages.error.transfer_transaction'));
         }
     }
 }

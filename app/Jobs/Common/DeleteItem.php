@@ -5,6 +5,7 @@ namespace App\Jobs\Common;
 use App\Abstracts\Job;
 use App\Events\Common\ItemDeleted;
 use App\Events\Common\ItemDeleting;
+use App\Exceptions\Job\NotAllowed;
 use App\Interfaces\Job\ShouldDelete;
 
 class DeleteItem extends Job implements ShouldDelete
@@ -34,7 +35,7 @@ class DeleteItem extends Job implements ShouldDelete
         if ($relationships = $this->getRelationships()) {
             $message = trans('messages.warning.deleted', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
 
-            throw new \Exception($message);
+            throw new NotAllowed($message);
         }
     }
 

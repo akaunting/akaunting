@@ -2,9 +2,9 @@
 
 namespace App\Exceptions\Common;
 
-use Exception;
+use App\Exceptions\Job\NotAllowed;
 
-class LastDashboard extends Exception
+class LastDashboard extends NotAllowed
 {
     //
 }

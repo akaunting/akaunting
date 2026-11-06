@@ -5,6 +5,7 @@ namespace App\Jobs\Document;
 use App\Abstracts\Job;
 use App\Events\Document\DocumentCreated;
 use App\Events\Document\DocumentCreating;
+use App\Exceptions\Job\NotAllowed;
 use App\Interfaces\Job\HasOwner;
 use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
@@ -62,7 +63,7 @@ class CreateDocument extends Job implements HasOwner, HasSource, ShouldCreate
     {
         $limit = $this->getAnyActionLimitOfPlan();
         if (! $limit->action_status && ! empty($this->request['type']) && ($this->request['type'] == 'invoice')) {
-            throw new \Exception($limit->message);
+            throw new NotAllowed($limit->message);
         }
     }
 }

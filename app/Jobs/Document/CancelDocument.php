@@ -3,6 +3,7 @@
 namespace App\Jobs\Document;
 
 use App\Abstracts\Job;
+use App\Exceptions\Job\NotAllowed;
 use App\Models\Document\Document;
 use Illuminate\Support\Str;
 
@@ -44,7 +45,7 @@ class CancelDocument extends Job
             $type = Str::plural($this->model->type);
             $message = trans('messages.warning.reconciled_doc', ['type' => trans_choice("general.$type", 1)]);
 
-            throw new \Exception($message);
+            throw new NotAllowed($message);
         }
     }
 }

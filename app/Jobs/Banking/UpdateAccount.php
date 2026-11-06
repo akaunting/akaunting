@@ -5,6 +5,7 @@ namespace App\Jobs\Banking;
 use App\Abstracts\Job;
 use App\Events\Banking\AccountUpdating;
 use App\Events\Banking\AccountUpdated;
+use App\Exceptions\Job\NotAllowed;
 use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Banking\Account;
 
@@ -43,7 +44,7 @@ class UpdateAccount extends Job implements ShouldUpdate
 
             $message = trans('messages.warning.disabled', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
 
-            throw new \Exception($message);
+            throw new NotAllowed($message);
         }
 
         if (! $relationships) {
@@ -53,7 +54,7 @@ class UpdateAccount extends Job implements ShouldUpdate
         if ($this->model->currency_code != $this->request->get('currency_code')) {
             $message = trans('messages.warning.disable_code', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
 
-            throw new \Exception($message);
+            throw new NotAllowed($message);
         }
     }
 

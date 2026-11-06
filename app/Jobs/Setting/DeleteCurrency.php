@@ -5,6 +5,7 @@ namespace App\Jobs\Setting;
 use App\Abstracts\Job;
 use App\Events\Setting\CurrencyDeleted;
 use App\Events\Setting\CurrencyDeleting;
+use App\Exceptions\Job\NotAllowed;
 use App\Interfaces\Job\ShouldDelete;
 
 class DeleteCurrency extends Job implements ShouldDelete
@@ -32,7 +33,7 @@ class DeleteCurrency extends Job implements ShouldDelete
         if ($relationships = $this->getRelationships()) {
             $message = trans('messages.warning.deleted', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
 
-            throw new \Exception($message);
+            throw new NotAllowed($message);
         }
     }
 

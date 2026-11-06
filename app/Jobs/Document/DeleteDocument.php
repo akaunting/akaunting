@@ -5,6 +5,7 @@ namespace App\Jobs\Document;
 use App\Abstracts\Job;
 use App\Events\Document\DocumentDeleted;
 use App\Events\Document\DocumentDeleting;
+use App\Exceptions\Job\NotAllowed;
 use App\Interfaces\Job\ShouldDelete;
 use App\Observers\Transaction;
 use Illuminate\Support\Str;
@@ -45,7 +46,7 @@ class DeleteDocument extends Job implements ShouldDelete
             $type = Str::plural($this->model->type);
             $message = trans('messages.warning.reconciled_doc', ['type' => trans_choice("general.$type", 1)]);
 
-            throw new \Exception($message);
+            throw new NotAllowed($message);
         }
     }
 }

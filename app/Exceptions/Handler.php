@@ -5,6 +5,8 @@ namespace App\Exceptions;
 use Akaunting\Money\Exceptions\UnexpectedAmountException;
 use App\Events\Email\InvalidEmailDetected;
 use App\Exceptions\Http\Resource as ResourceException;
+use App\Exceptions\Job\NotAllowed as JobNotAllowed;
+use App\Exceptions\Job\NotFound as JobNotFound;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -36,7 +38,9 @@ class Handler extends ExceptionHandler
      * @var array<int, class-string<\Throwable>>
      */
     protected $dontReport = [
-        //
+        // A job saying no is an answer, not a fault, so it does not belong in the log
+        JobNotAllowed::class,
+        JobNotFound::class,
     ];
 
     /**
@@ -364,6 +368,12 @@ class Handler extends ExceptionHandler
             $code = $exception->getStatusCode();
         } elseif ($exception instanceof AuthenticationException) {
             $code = 401;
+        } elseif ($exception instanceof JobNotFound) {
+            $code = 404;
+        } elseif ($exception instanceof JobNotAllowed) {
+            // The request was understood and the credentials are fine: the answer is no.
+            // 401 would send a client off to authenticate again over something else.
+            $code = 403;
         } else {
             // By default throw 500
             $code = 500;

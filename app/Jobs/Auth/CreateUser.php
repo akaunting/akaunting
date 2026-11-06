@@ -5,6 +5,7 @@ namespace App\Jobs\Auth;
 use App\Abstracts\Job;
 use App\Events\Auth\UserCreated;
 use App\Events\Auth\UserCreating;
+use App\Exceptions\Job\NotAllowed;
 use App\Interfaces\Job\HasOwner;
 use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
@@ -94,7 +95,7 @@ class CreateUser extends Job implements HasOwner, HasSource, ShouldCreate
     {
         $limit = $this->getAnyActionLimitOfPlan();
         if (! $limit->action_status) {
-            throw new \Exception($limit->message);
+            throw new NotAllowed($limit->message);
         }
     }
 

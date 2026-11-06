@@ -5,6 +5,7 @@ namespace App\Jobs\Banking;
 use App\Abstracts\Job;
 use App\Events\Banking\TransactionSplitted;
 use App\Events\Banking\TransactionSplitting;
+use App\Exceptions\Job\NotFound;
 use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Document\Document;
 use App\Traits\Transactions;
@@ -48,11 +49,11 @@ class SplitTransaction extends Job implements ShouldUpdate
     {
         foreach ($this->request->items as $item) {
             if (empty($item['document_id'])) {
-                throw new \Exception(trans('messages.error.not_found', ['type' => trans_choice('general.documents', 1)]));
+                throw new NotFound(trans('messages.error.not_found', ['type' => trans_choice('general.documents', 1)]));
             }
 
             if (! Document::find($item['document_id'])) {
-                throw new \Exception(trans('messages.error.not_found', ['type' => trans_choice('general.documents', 1)]));
+                throw new NotFound(trans('messages.error.not_found', ['type' => trans_choice('general.documents', 1)]));
             }
         }
     }

@@ -5,6 +5,7 @@ namespace App\Jobs\Banking;
 use App\Abstracts\Job;
 use App\Events\Banking\TransferCreated;
 use App\Events\Banking\TransferCreating;
+use App\Exceptions\Job\NotFound;
 use App\Interfaces\Job\HasOwner;
 use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
@@ -105,7 +106,7 @@ class CreateTransfer extends Job implements HasOwner, HasSource, ShouldCreate
             $account_id = $this->request->get($type . '_account_id');
 
             if (empty($account_id) || ! Account::find($account_id)) {
-                throw new \Exception(trans('messages.error.not_found', ['type' => trans_choice('general.accounts', 1)]));
+                throw new NotFound(trans('messages.error.not_found', ['type' => trans_choice('general.accounts', 1)]));
             }
         }
     }

@@ -6,6 +6,7 @@ use App\Abstracts\Job;
 use App\Events\Document\PaidAmountCalculated;
 use App\Events\Document\DocumentUpdated;
 use App\Events\Document\DocumentUpdating;
+use App\Exceptions\Job\NotAllowed;
 use App\Interfaces\Job\ShouldUpdate;
 use App\Jobs\Document\CreateDocumentItemsAndTotals;
 use App\Models\Document\Document;
@@ -179,12 +180,12 @@ class UpdateDocument extends Job implements ShouldUpdate
                 $type = Str::plural($this->model->type);
                 $message = trans('messages.warning.contact_change', ['type' => trans_choice("general.$type", 1)]);
 
-                throw new \Exception($message);
+                throw new NotAllowed($message);
             } else if ($this->model->transactions()->isReconciled()->exists()) {
                 $type = Str::plural($this->model->type);
                 $message = trans('messages.warning.reconciled_doc', ['type' => trans_choice("general.$type", 1)]);
 
-                throw new \Exception($message);
+                throw new NotAllowed($message);
             }
         }
     }

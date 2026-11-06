@@ -5,6 +5,7 @@ namespace App\Jobs\Banking;
 use App\Abstracts\Job;
 use App\Events\Banking\TransferUpdated;
 use App\Events\Banking\TransferUpdating;
+use App\Exceptions\Job\NotFound;
 use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
@@ -109,7 +110,7 @@ class UpdateTransfer extends Job implements ShouldUpdate
             $account_id = $this->request->get($type . '_account_id');
 
             if (empty($account_id) || ! Account::find($account_id)) {
-                throw new \Exception(trans('messages.error.not_found', ['type' => trans_choice('general.accounts', 1)]));
+                throw new NotFound(trans('messages.error.not_found', ['type' => trans_choice('general.accounts', 1)]));
             }
         }
     }

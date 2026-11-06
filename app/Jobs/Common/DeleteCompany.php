@@ -5,6 +5,7 @@ namespace App\Jobs\Common;
 use App\Abstracts\Job;
 use App\Events\Common\CompanyDeleted;
 use App\Events\Common\CompanyDeleting;
+use App\Exceptions\Job\NotAllowed;
 use App\Interfaces\Job\ShouldDelete;
 use App\Traits\Users;
 
@@ -53,14 +54,14 @@ class DeleteCompany extends Job implements ShouldDelete
         if ($this->model->id == $this->current_company_id) {
             $message = trans('companies.error.delete_active');
 
-            throw new \Exception($message);
+            throw new NotAllowed($message);
         }
 
         // Check if user can access company
         if ($this->isNotUserCompany($this->model->id)) {
             $message = trans('companies.error.not_user_company');
 
-            throw new \Exception($message);
+            throw new NotAllowed($message);
         }
     }
 

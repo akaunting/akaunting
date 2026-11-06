@@ -5,6 +5,7 @@ namespace App\Jobs\Banking;
 use App\Abstracts\Job;
 use App\Events\Banking\TransactionUpdated;
 use App\Events\Banking\TransactionUpdating;
+use App\Exceptions\Job\NotAllowed;
 use App\Interfaces\Job\ShouldUpdate;
 use App\Jobs\Banking\CreateTransactionTaxes;
 use App\Models\Banking\Transaction;
@@ -67,11 +68,11 @@ class UpdateTransaction extends Job implements ShouldUpdate
         if ($this->model->reconciled) {
             $message = trans('messages.warning.reconciled_tran');
 
-            throw new \Exception($message);
+            throw new NotAllowed($message);
         }
 
         if ($this->model->isTransferTransaction()) {
-            throw new \Exception(trans('messages.error.transfer_transaction'));
+            throw new NotAllowed(trans('messages.error.transfer_transaction'));
         }
     }
 }

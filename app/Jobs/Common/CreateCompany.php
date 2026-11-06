@@ -6,6 +6,7 @@ use Akaunting\Money\Currency as MoneyCurrency;
 use App\Abstracts\Job;
 use App\Events\Common\CompanyCreated;
 use App\Events\Common\CompanyCreating;
+use App\Exceptions\Job\NotAllowed;
 use App\Interfaces\Job\HasOwner;
 use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
@@ -58,7 +59,7 @@ class CreateCompany extends Job implements HasOwner, HasSource, ShouldCreate
     {
         $limit = $this->getAnyActionLimitOfPlan();
         if (! $limit->action_status) {
-            throw new \Exception($limit->message);
+            throw new NotAllowed($limit->message);
         }
     }
 

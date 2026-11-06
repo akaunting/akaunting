@@ -5,6 +5,7 @@ namespace App\Jobs\Auth;
 use App\Abstracts\Job;
 use App\Events\Auth\UserUpdated;
 use App\Events\Auth\UserUpdating;
+use App\Exceptions\Job\NotAllowed;
 use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Common\Company;
 use Illuminate\Support\Facades\Artisan;
@@ -105,7 +106,7 @@ class UpdateUser extends Job implements ShouldUpdate
         if (($this->request->get('enabled', 1) == 0) && ($this->model->id == user()->id)) {
             $message = trans('auth.error.self_disable');
 
-            throw new \Exception($message);
+            throw new NotAllowed($message);
         }
 
         // Can't unassigned company, The company must be assigned at least one user.
@@ -129,7 +130,7 @@ class UpdateUser extends Job implements ShouldUpdate
                 if ($errors) {
                     $message = implode('\n', $errors);
 
-                    throw new \Exception($message);
+                    throw new NotAllowed($message);
                 }
             }
         }
