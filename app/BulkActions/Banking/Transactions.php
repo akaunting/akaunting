@@ -5,6 +5,7 @@ namespace App\BulkActions\Banking;
 use App\Abstracts\BulkAction;
 use App\Exports\Banking\Transactions as Export;
 use App\Jobs\Banking\UpdateTransaction;
+use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
 use App\Traits\Transactions as TransactionsTrait;
 
@@ -91,6 +92,21 @@ class Transactions extends BulkAction
     public function update($request)
     {
         $transactions = $this->getSelectedRecords($request);
+
+        // When no account is picked, the modal still sends the currency of the account of one of
+        // the selected transactions and a rate of 1. A transaction is in the currency of its
+        // account, so the currency and its rate change only with the account, and are taken from it
+        $request->offsetUnset('currency_code');
+        $request->offsetUnset('currency_rate');
+
+        if ($request->get('account_id')) {
+            $account = Account::with('currency')->findOrFail($request->get('account_id'));
+
+            $request->merge([
+                'currency_code' => $account->currency_code,
+                'currency_rate' => $account->currency->rate,
+            ]);
+        }
 
         foreach ($transactions as $transaction) {
             try {
