@@ -19,7 +19,7 @@ return [
     'requirements' => [
         'enabled'           => ':feature etkin olmalıdır!',
         'disabled'          => ':feature devre dışı bırakılmalıdır!',
-        'extension'         => ':extension eklendisi kurulmalı ve yüklenmelidir!',
+        'extension'         => ':extension eklentisi kurulmalı ve yüklenmelidir!',
         'directory'         => ':directory dizini yazılabilir olmalıdır!',
         'executable'        => 'PHP CLI çalıştırıcısı bulunamadı veya çalışmıyor veya sürümü :php_version ve üstü değil. Lütfen, hosting firmanızdan PHP_BINARY veya PHP_PATH ortam değerlerini doğru ayarlamasını isteyin.',
         'npm'               => '<b>Eksik JavaScript dosyaları!</b> <br><br><span><em class="underline">npm install</em> ve <em class="underline">npm run dev</em> komutlarını çalıştırmalısınız.</span>',
