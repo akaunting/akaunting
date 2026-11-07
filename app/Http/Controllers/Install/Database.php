@@ -19,7 +19,8 @@ class Database extends Controller
             'host'      => env('DB_HOST'    , 'localhost'),
             'username'  => env('DB_USERNAME', ''),
             'password'  => env('DB_PASSWORD', ''),
-            'database'  => env('DB_DATABASE', ''),
+            // The Docker image documents DB_NAME, so fall back to it to pre-fill the form
+            'database'  => env('DB_DATABASE', env('DB_NAME', '')),
         ]);
     }
 
