@@ -8,6 +8,7 @@ use App\Jobs\Banking\UpdateTransaction;
 use App\Models\Banking\Account;
 use App\Models\Banking\Transaction;
 use App\Traits\Transactions as TransactionsTrait;
+use Illuminate\Support\Str;
 
 class Transactions extends BulkAction
 {
@@ -96,20 +97,38 @@ class Transactions extends BulkAction
         // When no account is picked, the modal still sends the currency of the account of one of
         // the selected transactions and a rate of 1. A transaction is in the currency of its
         // account, so the currency and its rate change only with the account, and are taken from it
-        $request->offsetUnset('currency_code');
-        $request->offsetUnset('currency_rate');
+        $account = null;
 
         if ($request->get('account_id')) {
             $account = Account::with('currency')->findOrFail($request->get('account_id'));
-
-            $request->merge([
-                'currency_code' => $account->currency_code,
-                'currency_rate' => $account->currency->rate,
-            ]);
         }
 
         foreach ($transactions as $transaction) {
             try {
+                $request->offsetUnset('currency_code');
+                $request->offsetUnset('currency_rate');
+
+                // A transaction that stays in the same currency keeps the rate it was entered with
+                if ($account && $transaction->currency_code != $account->currency_code) {
+                    // The amount of a document payment is what the document counts as paid,
+                    // so it can not be moved to an account in another currency
+                    if ($transaction->document_id) {
+                        $type = Str::plural($transaction->document->type ?? 'document');
+
+                        flash(trans('messages.warning.disable_code', [
+                            'name' => $transaction->number,
+                            'text' => strtolower(trans_choice("general.$type", 1)),
+                        ]))->error()->important();
+
+                        continue;
+                    }
+
+                    $request->merge([
+                        'currency_code' => $account->currency_code,
+                        'currency_rate' => $account->currency->rate,
+                    ]);
+                }
+
                 $request->merge([
                     'type' => $transaction->type,
                     'uploaded_attachment' => $transaction->attachment,
