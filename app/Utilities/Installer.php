@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 /**
@@ -48,8 +49,8 @@ class Installer
             $requirements[] = trans('install.requirements.enabled', ['feature' => 'proc_close']);
         }
 
-        if (!class_exists('PDO')) {
-            $requirements[] = trans('install.requirements.extension', ['extension' => 'MySQL PDO']);
+        if ($db_driver_error = static::checkDbDriver()) {
+            $requirements[] = $db_driver_error;
         }
 
         if (!extension_loaded('bcmath')) {
@@ -128,6 +129,23 @@ class Installer
     }
 
     /**
+     * Check if PHP can talk to the configured database.
+     *
+     * @return string|null The error message, if the PDO driver of the connection is missing.
+     */
+    public static function checkDbDriver()
+    {
+        $connection = config('database.default', 'mysql');
+        $driver = config("database.connections.$connection.driver", $connection);
+
+        if (class_exists('PDO') && in_array($driver, DB::availableDrivers())) {
+            return null;
+        }
+
+        return trans('install.requirements.extension', ['extension' => 'pdo_' . $driver]);
+    }
+
+    /**
      * Create a default .env file.
      *
      * @return void
@@ -194,6 +212,9 @@ class Installer
         try {
             DB::connection('install_test')->getPdo();
         } catch (\Exception $e) {
+            // Only the message, the arguments in the stack trace can hold the password
+            Log::error('Installer could not connect to the database: ' . $e->getMessage());
+
             return false;
         }
 

@@ -69,6 +69,12 @@ class Install extends Command
         Session::put(self::OPT_LOCALE, $this->locale);
         app()->setLocale($this->locale);
 
+        if ($db_driver_error = Installer::checkDbDriver()) {
+            $this->error('Error: ' . $db_driver_error);
+
+            return self::CMD_ERROR;
+        }
+
         $this->prompt();
 
         // Create the .env file
