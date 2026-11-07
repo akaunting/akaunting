@@ -50,7 +50,7 @@ class ExpenseSummary extends Report
             default:
                 // Bills
                 $bills = $this->applyFilters(
-                    model: Document::bill()->with('recurring', 'transactions', 'items')->accrued(),
+                    model: Document::bill()->with('recurring', 'totals', 'transactions', 'items')->accrued(),
                     args: ['date_field' => 'issued_at', 'model_type' => 'bill'],
                 )->get();
                 Recurring::reflect($bills, 'issued_at');
