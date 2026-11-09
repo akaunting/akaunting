@@ -40,12 +40,14 @@ class InvoiceLogoSizeTest extends FeatureTestCase
 
     public function testItShouldNotSaveALogoSizeOfZero()
     {
-        $this->loginAs()
-            ->patch(route('settings.invoice.update'), [
+        $this->withExceptionHandling()
+            ->loginAs()
+            ->patchJson(route('settings.invoice.update'), [
                 '_prefix'           => 'invoice',
                 'logo_size_width'   => '0',
                 'logo_size_height'  => '128',
             ])
-            ->assertSessionHasErrors('logo_size_width');
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['logo_size_width']);
     }
 }
