@@ -55,6 +55,13 @@ class Setting extends FormRequest
             $rules['number_next'] = 'required|integer';
         }
 
+        // The logo is resized to these, and an image cannot be 0 pixels wide
+        foreach (['logo_size_width', 'logo_size_height'] as $logo_size) {
+            if ($this->request->has($logo_size)) {
+                $rules[$logo_size] = 'nullable|integer|min:1|max:1000';
+            }
+        }
+
         if ($this->request->has('color')) {
             $rules['color'] = 'required|string|colour';
         }

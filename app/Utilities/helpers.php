@@ -612,3 +612,28 @@ if (! function_exists('calculation_to_quantity')) {
         return $result;
     }
 }
+
+if (! function_exists('invoice_logo_size')) {
+    /**
+     * The width and height the logo is resized to on documents and transactions.
+     *
+     * A setting that is not a positive number, like a 0 or a field saved empty, falls back to
+     * the default: GD cannot make an image 0 pixels wide, and the invoice page failed on it.
+     *
+     * @return array{0: int, 1: int}
+     */
+    function invoice_logo_size(): array
+    {
+        $size = [];
+
+        foreach (['width', 'height'] as $side) {
+            $value = setting('invoice.logo_size_' . $side);
+
+            $size[] = (is_numeric($value) && (int) $value > 0)
+                ? (int) $value
+                : (int) config('setting.fallback.invoice.logo_size_' . $side, 128);
+        }
+
+        return $size;
+    }
+}

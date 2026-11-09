@@ -525,8 +525,7 @@ abstract class Show extends Component
 
         try {
             $image = Image::cache(function($image) use ($media, $path) {
-                $width = setting('invoice.logo_size_width');
-                $height = setting('invoice.logo_size_height');
+                [$width, $height] = invoice_logo_size();
 
                 if ($media) {
                     $image->make($media->contents())->resize($width, $height)->encode();
@@ -534,15 +533,14 @@ abstract class Show extends Component
                     $image->make($path)->resize($width, $height)->encode();
                 }
             });
-        } catch (NotReadableException | \Exception $e) {
+        } catch (NotReadableException | \Throwable $e) {
             Log::info('Company ID: ' . company_id() . ' components/transactionshow.php exception.');
             Log::info($e->getMessage());
 
             $path = base_path('public/img/company.png');
 
             $image = Image::cache(function($image) use ($path) {
-                $width = setting('invoice.logo_size_width');
-                $height = setting('invoice.logo_size_height');
+                [$width, $height] = invoice_logo_size();
 
                 $image->make($path)->resize($width, $height)->encode();
             });
