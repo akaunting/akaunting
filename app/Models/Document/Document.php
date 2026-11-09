@@ -28,6 +28,12 @@ class Document extends Model
     public const BILL_TYPE = 'bill';
     public const BILL_RECURRING_TYPE = 'bill-recurring';
 
+    /**
+     * A document in one of these is not in the books: a draft is not issued yet and a cancelled one no
+     * longer is. Every other status counts, including one a module or the API stores.
+     */
+    public const NOT_ACCRUED_STATUSES = ['draft', 'cancelled'];
+
     protected $table = 'documents';
 
     protected $appends = ['attachment', 'amount_without_tax', 'discount', 'paid', 'received_at', 'status_label', 'sent_at', 'reconciled', 'contact_location'];
@@ -238,7 +244,15 @@ class Document extends Model
 
     public function scopeAccrued(Builder $query): Builder
     {
-        return $query->whereNotIn($this->qualifyColumn('status'), ['draft', 'cancelled']);
+        return $query->whereNotIn($this->qualifyColumn('status'), static::NOT_ACCRUED_STATUSES);
+    }
+
+    /**
+     * In the books and not paid yet, so something is still owed on it.
+     */
+    public function scopeOutstanding(Builder $query): Builder
+    {
+        return $query->accrued()->notPaid();
     }
 
     public function scopePaid(Builder $query): Builder
@@ -285,6 +299,22 @@ class Document extends Model
                     ->whereHas('recurring', function (Builder $query) {
                         $query->whereNull('deleted_at');
                     });
+    }
+
+    /**
+     * The scopeAccrued() of one document.
+     */
+    public function isAccrued(): bool
+    {
+        return ! in_array($this->status, static::NOT_ACCRUED_STATUSES, true);
+    }
+
+    /**
+     * The scopeOutstanding() of one document.
+     */
+    public function isOutstanding(): bool
+    {
+        return $this->isAccrued() && ($this->status !== 'paid');
     }
 
     /**
@@ -747,7 +777,7 @@ class Document extends Model
                 'type' => 'divider',
             ];
 
-            if (! in_array($this->status, ['cancelled', 'draft'])) {
+            if ($this->isAccrued()) {
                 try {
                     $actions[] = [
                         'title' => trans('documents.actions.cancel'),

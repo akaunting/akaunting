@@ -87,7 +87,7 @@ class Bills extends BulkAction
         $bills = $this->getSelectedRecords($request);
 
         foreach ($bills as $bill) {
-            if (in_array($bill->status, ['cancelled', 'draft'])) {
+            if (! $bill->isAccrued()) {
                 continue;
             }
 

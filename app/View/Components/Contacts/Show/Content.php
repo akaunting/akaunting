@@ -46,8 +46,8 @@ class Content extends Component
         $today = Date::today()->toDateString();
 
         foreach ($this->documents as $item) {
-            // Already in transactions, or a draft that nothing is owed on yet
-            if (in_array($item->status, ['paid', 'cancelled', 'draft'])) {
+            // Nothing is owed on a draft, a cancelled or a paid one, as in the list of contacts
+            if (! $item->isOutstanding()) {
                 continue;
             }
 

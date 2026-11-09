@@ -271,7 +271,7 @@ class Contact extends Model
 
         $collection = $this->isCustomer() ? 'invoices' : 'bills';
 
-        $this->$collection->whereIn('status', ['sent', 'received', 'viewed', 'partial'])->each(function ($item) use (&$amount) {
+        $this->$collection->filter->isOutstanding()->each(function ($item) use (&$amount) {
             $amount += $this->convertToDefault($item->amount_due, $item->currency_code, $item->currency_rate);
         });
 
@@ -285,7 +285,7 @@ class Contact extends Model
 
         $collection = $this->isCustomer() ? 'invoices' : 'bills';
 
-        $this->$collection->whereIn('status', ['sent', 'received', 'viewed', 'partial'])->where('due_at', '>=', $today)->each(function ($item) use (&$amount) {
+        $this->$collection->filter->isOutstanding()->where('due_at', '>=', $today)->each(function ($item) use (&$amount) {
             $amount += $this->convertToDefault($item->amount_due, $item->currency_code, $item->currency_rate);
         });
 
@@ -299,7 +299,7 @@ class Contact extends Model
 
         $collection = $this->isCustomer() ? 'invoices' : 'bills';
 
-        $this->$collection->whereIn('status', ['sent', 'received', 'viewed', 'partial'])->where('due_at', '<', $today)->each(function ($item) use (&$amount) {
+        $this->$collection->filter->isOutstanding()->where('due_at', '<', $today)->each(function ($item) use (&$amount) {
             $amount += $this->convertToDefault($item->amount_due, $item->currency_code, $item->currency_rate);
         });
 
