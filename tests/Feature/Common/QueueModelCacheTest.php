@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Common;
 
-use Illuminate\Contracts\Queue\Job;
+use Illuminate\Queue\Jobs\SyncJob;
 use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Support\Facades\Cache;
 use Tests\Feature\FeatureTestCase;
@@ -53,8 +53,13 @@ class QueueModelCacheTest extends FeatureTestCase
 
     private function processJob(string $connection = 'redis'): void
     {
-        $job = \Mockery::mock(Job::class);
-        $job->shouldReceive('payload')->andReturn([]);
+        // Other listeners read the job's name, so a real job rather than a mock
+        $job = new SyncJob(app(), json_encode([
+            'uuid'          => 'queue-model-cache-test',
+            'displayName'   => 'QueueModelCacheTest',
+            'job'           => 'QueueModelCacheTest',
+            'data'          => [],
+        ]), $connection, 'default');
 
         event(new JobProcessing($connection, $job));
     }
