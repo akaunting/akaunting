@@ -28,6 +28,11 @@ class CreateDocument extends Job implements HasOwner, HasSource, ShouldCreate
         // Disable this lines for global discount issue fixed ( https://github.com/akaunting/akaunting/issues/2797 )
         if (! empty($this->request['discount'])) {
             $this->request['discount_rate'] = $this->request['discount'];
+
+            // A discount without a type is worked out as an amount, so it is stored as one
+            if (empty($this->request['discount_type'])) {
+                $this->request['discount_type'] = 'fixed';
+            }
         }
 
         event(new DocumentCreating($this->request));

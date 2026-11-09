@@ -82,6 +82,7 @@ fabric.properties
 /.vscode
 /.claude
 /.vagrant
+/.docs
 Homestead.json
 Homestead.yaml
 npm-debug.log

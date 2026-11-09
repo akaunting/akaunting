@@ -40,6 +40,11 @@ class UpdateDocument extends Job implements ShouldUpdate
         // Disable this lines for global discount issue fixed ( https://github.com/akaunting/akaunting/issues/2797 )
         if ($this->request->has('discount')) {
             $this->request['discount_rate'] = $this->request['discount'];
+
+            // A discount without a type is worked out as an amount, so it is stored as one
+            if (! empty($this->request['discount']) && empty($this->request['discount_type'])) {
+                $this->request['discount_type'] = 'fixed';
+            }
         }
 
         event(new DocumentUpdating($this->model, $this->request));
