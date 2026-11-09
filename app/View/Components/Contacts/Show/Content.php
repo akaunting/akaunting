@@ -46,8 +46,8 @@ class Content extends Component
         $today = Date::today()->toDateString();
 
         foreach ($this->documents as $item) {
-            // Already in transactions
-            if ($item->status == 'paid' || $item->status == 'cancelled') {
+            // Already in transactions, or a draft that nothing is owed on yet
+            if (in_array($item->status, ['paid', 'cancelled', 'draft'])) {
                 continue;
             }
 
