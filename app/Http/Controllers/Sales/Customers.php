@@ -45,7 +45,7 @@ class Customers extends Controller
             ->with([
                 'media',
                 'invoices.histories',
-                'invoices.totals',
+                'invoices.totals.item_taxes',
                 'invoices.transactions',
                 'invoices.media'
             ])
