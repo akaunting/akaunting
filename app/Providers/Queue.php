@@ -62,7 +62,12 @@ class Queue extends Provider
         // A worker runs job after job in one process, and the model cache keeps its entries in
         // that process when its store is "array", so each job left its cached queries behind
         // for the next and the worker's memory only grew. Every job starts with an empty one.
-        app('events')->listen(JobProcessing::class, function () {
+        app('events')->listen(JobProcessing::class, function ($event) {
+            // A job run in place (the sync connection) is part of the request or command around it
+            if ($event->connectionName === 'sync') {
+                return;
+            }
+
             $this->flushModelCache();
         });
 

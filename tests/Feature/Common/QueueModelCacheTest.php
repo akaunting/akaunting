@@ -39,11 +39,23 @@ class QueueModelCacheTest extends FeatureTestCase
         $this->assertSame('value', Cache::store('array')->get('kept-for-the-next-job'));
     }
 
-    private function processJob(): void
+    public function testItShouldLeaveTheModelCacheAloneForAJobRunInPlace()
+    {
+        config(['cache.default' => 'file', 'laravel-model-caching.store' => 'array']);
+
+        Cache::store('array')->put('cached-by-the-request', 'value', 60);
+
+        // A job dispatched on the sync connection runs inside the request or command around it
+        $this->processJob('sync');
+
+        $this->assertSame('value', Cache::store('array')->get('cached-by-the-request'));
+    }
+
+    private function processJob(string $connection = 'redis'): void
     {
         $job = \Mockery::mock(Job::class);
         $job->shouldReceive('payload')->andReturn([]);
 
-        event(new JobProcessing('redis', $job));
+        event(new JobProcessing($connection, $job));
     }
 }
