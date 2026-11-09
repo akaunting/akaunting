@@ -42,6 +42,24 @@ class ContactSummaryTest extends FeatureTestCase
         $this->assertSummary($vendor, 'vendor', 40, 30);
     }
 
+    /**
+     * Cancelled and paid ones are left out too. A status a module or the API stores is in the books,
+     * as in the reports and widgets, so the page and the list both count it.
+     */
+    public function testItCountsTheSameDocumentsOnThePageAndInTheList(): void
+    {
+        $customer = Contact::factory()->customer()->enabled()->create();
+
+        $this->createDocument('invoice', $customer, 'cancelled', 500, '-20 days');
+        $this->createDocument('invoice', $customer, 'paid', 300, '+20 days');
+        $this->createDocument('invoice', $customer, 'viewed', 40, '-20 days');
+        $this->createDocument('invoice', $customer, 'partial', 30, '+20 days');
+        $this->createDocument('invoice', $customer, 'issued', 7, '-20 days');
+
+        $this->assertSummary($customer, 'customer', 47, 30);
+        $this->assertEquals(77, $customer->fresh()->unpaid);
+    }
+
     protected function assertSummary(Contact $contact, string $type, float $overdue, float $open): void
     {
         $this->loginAs();
