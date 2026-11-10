@@ -12,6 +12,7 @@ return [
     'recurring_expense'     => 'Повтарящ се разход',
     'included_tax'          => 'Включен ДДС',
     'connected'             => 'Свързано',
+    'connect_message'       => 'Данъците за този :type не бяха изчислени по време на свързването. Данъците не могат да бъдат свързани.',
 
     'form_description' => [
         'general'           => 'Тук можете да въведете общата информация за транзакцията като дата, сума, описание и др.',
@@ -47,5 +48,12 @@ return [
     'sticky' => [
         'description'       => 'Преглеждате как вашият клиент ще види уеб версията на вашето плащане.',
     ],
+
+    'messages' => [
+        'update_document_transaction' => 'Можете да актуализирате тази транзакция. Отидете в документа и я редактирайте там.',
+        'create_document_transaction_error' => 'Тази крайна точка не може да бъде добавена към документ. Използвайте {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions',
+        'update_document_transaction_error' => 'Тази крайна точка не може да бъде актуализирана към документ. Използвайте {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions/{akaunting_transaction_id}',
+        'delete_document_transaction_error' => 'Тази крайна точка не може да бъде изтрита от документ. Използвайте {{akaunting_url}}/documents/{{akaunting_document_id}}/transactions/{akaunting_transaction_id}',
+    ]
 
 ];

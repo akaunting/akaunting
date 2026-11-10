@@ -2,7 +2,7 @@
 
 return [
 
-    'api_key'               => 'API Key',
+    'api_key'               => 'API ключ',
     'my_apps'               => 'Моите приложения',
     'checkout'              => 'Поръчка',
     'documentation'         => 'Документация',
@@ -11,7 +11,6 @@ return [
     'tiles'                 => 'Списък',
     'item'                  => 'Детайли за приложението',
     'pre_sale'              => 'Предварителна продажба',
-    'no_apps'               => 'Вижте най-професионалните приложения за вашия бизнес и ги вземете на най-добра цена.',
     'learn_more'            => 'Научете повече',
     'see_apps'              => 'Разгледайте приложенията',
     'no_apps_marketing'     => 'Направете своя бизнес професионално',
@@ -61,7 +60,6 @@ return [
     'added'                 => 'Добавено',
     'updated'               => 'Обновено',
     'compatibility'         => 'Съвместимост',
-    'documentation'         => 'Документация',
     'view'                  => 'Преглед',
     'back'                  => 'Назад',
 
@@ -74,7 +72,6 @@ return [
     'updated_2'             => ':module е обновен',
     'enabled'               => ':module включен',
     'disabled'              => ':module изключен',
-    'per_month'             => 'на месец',
     'pre_sale_uninstall'    => 'Не пропускайте намалената цена за предварителната продажба!',
     'pre_sale_install'      => 'Ще имате приложението след края на предварителната продажба.',
 
@@ -104,8 +101,8 @@ return [
         'unzip'             => 'Не е възможно да се разархивира :module',
         'file_copy'         => 'Не е възможно да се копират файловете на :module',
         'finish'            => 'Не е възможно да се приключи инсталацията на :module',
-        'disable_protected' => ':module is required by Akaunting, so it cannot be disabled.',
-        'uninstall_protected' => ':module is required by Akaunting, so it cannot be uninstalled.',
+        'disable_protected' => ':module е необходим на Akaunting, затова не може да бъде деактивиран.',
+        'uninstall_protected' => ':module е необходим на Akaunting, затова не може да бъде деинсталиран.',
     ],
 
     'warning' => [

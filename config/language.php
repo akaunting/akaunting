@@ -138,6 +138,7 @@ return [
     */
     'allowed' => [
         'ar-SA',
+        'bg-BG',
         'de-DE',
         'el-GR',
         'en-AU',

@@ -85,6 +85,8 @@ return [
         'default'                       => 'По подразбиране',
         'classic'                       => 'Класически',
         'modern'                        => 'Модерен',
+        'logo_size_width'               => 'Ширина на логото',
+        'logo_size_height'              => 'Височина на логото',
         'hide' => [
             'item_name'                 => 'Скрий името на продукта',
             'item_description'          => 'Скрий описанието на продукта',
@@ -127,8 +129,7 @@ return [
 
     'email' => [
         'description'                   => 'Промени протокола при изпращане и имейл бланките',
-        'search_keywords'               => 'email, send, protocol, smtp, host, password
-',
+        'search_keywords'               => 'имейл, изпращане, протокол, smtp, хост, парола',
         'protocol'                      => 'Протокол',
         'php'                           => 'PHP Mail',
         'smtp' => [
@@ -143,7 +144,7 @@ return [
         'sendmail'                      => 'Sendmail',
         'sendmail_path'                 => 'Път към Sendmail',
         'log'                           => 'Лог имейли',
-        'email_service'                 => 'Email Service',
+        'email_service'                 => 'Имейл услуга',
         'email_templates'               => 'Имейл шаблони',
 
         'form_description' => [
@@ -152,8 +153,7 @@ return [
 
         'templates' => [
             'description'               => 'Променете email шаблоните',
-            'search_keywords'           => 'имейл, шаблон, относно, тяло, tag
-',
+            'search_keywords'           => 'имейл, шаблон, относно, тяло, етикет',
             'subject'                   => 'Тема',
             'body'                      => 'Текст',
             'tags'                      => '<strong>Възможни тагове:</strong> :tag_list',
@@ -175,8 +175,7 @@ return [
     'scheduling' => [
         'name'                          => 'График на дейностите',
         'description'                   => 'Автоматични напомняния и повтарящи се плащания',
-        'search_keywords'               => 'automatic, reminder, recurring, cron, command
-',
+        'search_keywords'               => 'автоматично, напомняне, повтарящ се, cron, команда',
         'send_invoice'                  => 'Изпрати напомняне за фактура',
         'invoice_days'                  => 'Изпрати след забавени дни',
         'send_bill'                     => 'Изпрати напомняне за фактура',

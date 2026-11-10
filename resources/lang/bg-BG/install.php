@@ -21,8 +21,8 @@ return [
         'disabled'          => ':feature трябва да бъде дезактивирана!',
         'extension'         => ':extension разширението трябва да бъде заредено!',
         'directory'         => ':directory директорията трябва да е с разрешение за промяна!',
-        'executable'        => 'The PHP CLI executable file is not working! Please, ask your hosting company to set PHP_BINARY or PHP_PATH environment variable correctly.',
-        'npm'               => '<b>Missing JavaScript files !</b> <br><br><span>You should run <em class="underline">npm install</em> and <em class="underline">npm run dev</em> commands.</span>', 
+        'executable'        => 'Изпълнимият файл на PHP CLI не е зададен/не работи или версията му не е :php_version или по-нова! Моля, помолете хостинг компанията си да зададе правилно променливата на средата PHP_BINARY или PHP_PATH.',
+        'npm'               => '<b>Липсват JavaScript файлове!</b> <br><br><span>Трябва да изпълните командите <em class="underline">npm install</em> и <em class="underline">npm run dev</em>.</span>',
     ],
 
     'database' => [
