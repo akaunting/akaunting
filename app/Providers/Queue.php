@@ -23,6 +23,26 @@ class Queue extends Provider
     }
 
     /**
+     * Empty the model cache, when it is kept in memory. A store shared between processes is
+     * left alone, as what one job cached there is still valid for the next, and so is the
+     * application's own cache store: jobs may read there what an earlier one put.
+     */
+    protected function flushModelCache(): void
+    {
+        $store = config('laravel-model-caching.store');
+
+        if (empty($store) || $store === config('cache.default')) {
+            return;
+        }
+
+        if (config('cache.stores.' . $store . '.driver') !== 'array') {
+            return;
+        }
+
+        app('cache')->store($store)->flush();
+    }
+
+    /**
      * Bootstrap any application services.
      *
      * @return void
@@ -37,6 +57,18 @@ class Queue extends Provider
             }
 
             return ['company_id' => $company_id];
+        });
+
+        // A worker runs job after job in one process, and the model cache keeps its entries in
+        // that process when its store is "array", so each job left its cached queries behind
+        // for the next and the worker's memory only grew. Every job starts with an empty one.
+        app('events')->listen(JobProcessing::class, function ($event) {
+            // A job run in place (the sync connection) is part of the request or command around it
+            if ($event->connectionName === 'sync') {
+                return;
+            }
+
+            $this->flushModelCache();
         });
 
         app('events')->listen(JobProcessing::class, function ($event) {
