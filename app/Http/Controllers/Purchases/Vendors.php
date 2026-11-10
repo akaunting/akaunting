@@ -44,7 +44,7 @@ class Vendors extends Controller
         $vendors = Contact::with([
                 'media',
                 'bills.histories',
-                'bills.totals',
+                'bills.totals.item_taxes',
                 'bills.transactions',
                 'bills.media'
             ])

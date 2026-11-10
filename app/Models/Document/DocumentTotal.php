@@ -18,9 +18,23 @@ class DocumentTotal extends Model
 
     protected $fillable = ['company_id', 'type', 'document_id', 'code', 'name', 'amount', 'sort_order', 'created_from', 'created_by'];
 
+    /**
+     * Only there for the title, which is serialized with every total.
+     */
+    protected $hidden = ['item_taxes'];
+
     public function document()
     {
         return $this->belongsTo('App\Models\Document\Document')->withoutGlobalScope('App\Scopes\Document');
+    }
+
+    /**
+     * The item taxes of the same document, where the title reads the rate a tax was charged at.
+     * A list eager loads them, so it does not query once per tax total.
+     */
+    public function item_taxes()
+    {
+        return $this->hasMany('App\Models\Document\DocumentItemTax', 'document_id', 'document_id');
     }
 
     public function scopeType(Builder $query, string $type)
@@ -79,9 +93,11 @@ class DocumentTotal extends Model
 
                 // Prefer the rate this document was charged at, so changing a tax
                 // rate later does not rewrite what an existing document shows.
-                $percent = DocumentItemTax::where('document_id', $this->document_id)
-                    ->where('name', $title)
-                    ->value('rate');
+                $percent = $this->relationLoaded('item_taxes')
+                    ? $this->item_taxes->firstWhere('name', $title)?->rate
+                    : DocumentItemTax::where('document_id', $this->document_id)
+                        ->where('name', $title)
+                        ->value('rate');
 
                 if (empty($percent) && ! empty($tax->rate)) {
                     $percent = $tax->rate;
