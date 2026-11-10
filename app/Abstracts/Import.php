@@ -38,7 +38,7 @@ abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRow
 
     public $columns = [];
     
-    public $has_row = [];
+    public $has_row = null;
 
     public function __construct()
     {
@@ -263,24 +263,20 @@ abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRow
             return false;
         }
 
-        /*  This function is called for each row. 
-            This check is done in order not to query again for each row. 
-            When the model to which the query is thrown changes, the new query should be discarded. 
+        /*  This function is called for each row, so the rows of the model are read once per import (once per chunk
+            on the queue) rather than once per row. The check here before compared the collection it read with the
+            model class, which never held, so the whole table was read again for every row.
         */
-        if (! $this->has_row || ! $this->has_row instanceof $this->model) {
+        if ($this->has_row === null) {
             $this->has_row = $this->model::withoutEvents(function () {
-                if ($this->with_trashed) {
-                    // This query should be used if there is no deleted_at field in the table or if the deleted data is to be retrieved.
-                    return $this->model::withTrashed()->get($this->columns)->each(function ($data) {
-                        $data->setAppends([]);
-                        $data->unsetRelations();
-                    });
-                } else {
-                    return $this->model::get($this->columns)->each(function ($data) {
-                        $data->setAppends([]);
-                        $data->unsetRelations();
-                    });
-                }
+                // withTrashed() should be used if there is no deleted_at field in the table or if the deleted data is to be retrieved.
+                $query = $this->with_trashed ? $this->model::withTrashed() : $this->model::query();
+
+                // The relations are dropped before the rows are compared, so the ones a model loads by default are not loaded
+                return $query->setEagerLoads([])->get($this->columns)->each(function ($data) {
+                    $data->setAppends([]);
+                    $data->unsetRelations();
+                })->toArray();
             });
         }
 
@@ -291,6 +287,13 @@ abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRow
             $search_value[$key] = isset($row[$key]) ? $row[$key] : null;
         }
 
-        return in_array($search_value, $this->has_row->toArray());
+        if (in_array($search_value, $this->has_row)) {
+            return true;
+        }
+
+        // The import saves this row before it reads the next one, so a row repeated in the file is still skipped
+        $this->has_row[] = $search_value;
+
+        return false;
     }
 }
