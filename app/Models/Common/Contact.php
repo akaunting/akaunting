@@ -160,6 +160,11 @@ class Contact extends Model
         return $this->hasMany('App\Models\Banking\Transaction');
     }
 
+    public function transaction_recurring()
+    {
+        return $this->transactions()->isRecurring();
+    }
+
     public function user()
     {
         return $this->belongsTo('App\Models\Auth\User', 'user_id', 'id');

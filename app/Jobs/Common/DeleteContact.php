@@ -51,12 +51,15 @@ class DeleteContact extends Job implements ShouldDelete
     {
         $rels = [
             'transactions' => 'transactions',
+            'transaction_recurring' => 'recurring_transactions',
         ];
 
         if ($this->isCustomer()) {
             $rels['invoices'] = 'invoices';
+            $rels['invoice_recurring'] = 'recurring_invoices';
         } else {
             $rels['bills'] = 'bills';
+            $rels['bill_recurring'] = 'recurring_bills';
         }
 
         return $this->countRelationships($this->model, $rels);

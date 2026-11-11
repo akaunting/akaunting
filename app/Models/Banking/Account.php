@@ -66,6 +66,11 @@ class Account extends Model
         return $this->hasMany('App\Models\Banking\Transaction');
     }
 
+    public function transaction_recurring()
+    {
+        return $this->transactions()->isRecurring();
+    }
+
     public function reconciliations()
     {
         return $this->hasMany('App\Models\Banking\Reconciliation');
