@@ -54,6 +54,7 @@ class UpdateTax extends Job implements ShouldUpdate
             'items' => 'items',
             'invoice_items' => 'invoices',
             'bill_items' => 'bills',
+            'transactions' => 'transactions',
         ];
 
         return $this->countRelationships($this->model, $rels);
