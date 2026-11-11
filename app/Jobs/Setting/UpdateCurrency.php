@@ -64,6 +64,7 @@ class UpdateCurrency extends Job implements ShouldUpdate
         $rels = [
             'accounts' => 'accounts',
             'customers' => 'customers',
+            'vendors' => 'vendors',
             'invoices' => 'invoices',
             'bills' => 'bills',
             'transactions' => 'transactions',

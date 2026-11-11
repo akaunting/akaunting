@@ -42,6 +42,7 @@ class DeleteCurrency extends Job implements ShouldDelete
         $rels = [
             'accounts' => 'accounts',
             'customers' => 'customers',
+            'vendors' => 'vendors',
             'invoices' => 'invoices',
             'bills' => 'bills',
             'transactions' => 'transactions',
