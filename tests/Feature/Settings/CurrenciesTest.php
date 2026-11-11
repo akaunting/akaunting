@@ -3,6 +3,7 @@
 namespace Tests\Feature\Settings;
 
 use App\Jobs\Setting\CreateCurrency;
+use App\Models\Common\Contact;
 use App\Models\Setting\Currency;
 use Tests\Feature\FeatureTestCase;
 
@@ -86,6 +87,56 @@ class CurrenciesTest extends FeatureTestCase
         $this->assertSoftDeleted('currencies', [
             'code' => $request['code'],
         ]);
+    }
+
+    public function testItShouldNotDeleteCurrencyUsedByVendor()
+    {
+        $currency = $this->createCurrencyUsedByVendor();
+
+        $this->loginAs()
+            ->delete(route('currencies.destroy', $currency->id))
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('danger');
+
+        $this->assertNotSoftDeleted($currency);
+    }
+
+    public function testItShouldNotDisableCurrencyUsedByVendor()
+    {
+        $currency = $this->createCurrencyUsedByVendor();
+
+        $this->loginAs()
+            ->get(route('currencies.disable', $currency->id))
+            ->assertStatus(200)
+            ->assertJson(['success' => false]);
+
+        $this->assertTrue($currency->fresh()->enabled);
+    }
+
+    public function testItShouldNotChangeCodeOfCurrencyUsedByVendor()
+    {
+        $currency = $this->createCurrencyUsedByVendor();
+
+        $request = $this->getRequest();
+        $request['name'] = $currency->name;
+
+        $this->loginAs()
+            ->patch(route('currencies.update', $currency->id), $request)
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('danger');
+
+        $this->assertEquals($currency->code, $currency->fresh()->code);
+    }
+
+    public function createCurrencyUsedByVendor(): Currency
+    {
+        $currency = $this->dispatch(new CreateCurrency($this->getRequest()));
+
+        Contact::factory()->vendor()->enabled()->create(['currency_code' => $currency->code]);
+
+        return $currency;
     }
 
     public function getRequest()
