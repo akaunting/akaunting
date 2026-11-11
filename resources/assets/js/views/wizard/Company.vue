@@ -79,7 +79,7 @@
                                     </div>
 
                                     <div class="sm:col-span-3">
-                                        <base-input not-required :label="translations.company.country" :error="onFailErrorGet('country')">
+                                        <base-input :label="translations.company.country" :error="onFailErrorGet('country')">
                                             <el-select v-model="company.country" filterable :disabled="country">
                                                 <el-option
                                                     v-for="(country, index) in sortedCountries"
