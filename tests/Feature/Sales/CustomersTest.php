@@ -3,8 +3,13 @@
 namespace Tests\Feature\Sales;
 
 use App\Exports\Sales\Customers\Customers as Export;
+use App\Jobs\Banking\CreateTransaction;
 use App\Jobs\Common\CreateContact;
+use App\Jobs\Document\CreateDocument;
+use App\Jobs\Document\DeleteDocument;
+use App\Models\Banking\Transaction;
 use App\Models\Common\Contact;
+use App\Models\Document\Document;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
@@ -142,6 +147,79 @@ class CustomersTest extends FeatureTestCase
     {
         $this->assertTrue(true);
         //TODO : This will write after done invoice and revenues tests.
+    }
+
+    public function testItShouldNotDeleteCustomerUsedByRecurringInvoice()
+    {
+        $customer = $this->createCustomerUsedByRecurringInvoice();
+
+        $this->loginAs()
+            ->delete(route('customers.destroy', $customer->id))
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('danger');
+
+        $this->assertNotSoftDeleted($customer);
+    }
+
+    public function testItShouldNotDisableCustomerUsedByRecurringInvoice()
+    {
+        $customer = $this->createCustomerUsedByRecurringInvoice();
+
+        $response = $this->loginAs()
+            ->get(route('customers.disable', $customer->id))
+            ->assertStatus(200)
+            ->assertJson(['success' => false]);
+
+        $this->assertStringContainsString('recurring invoice', $response->json('message'));
+
+        $this->assertEquals(1, $customer->fresh()->enabled);
+    }
+
+    public function testItShouldNotDeleteCustomerUsedByRecurringIncome()
+    {
+        $customer = $this->dispatch(new CreateContact($this->getRequest()));
+
+        $request = Transaction::factory()->income()->recurring()->raw();
+        $request['contact_id'] = $customer->id;
+
+        $this->dispatch(new CreateTransaction($request));
+
+        $this->loginAs()
+            ->delete(route('customers.destroy', $customer->id))
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('danger');
+
+        $this->assertNotSoftDeleted($customer);
+    }
+
+    public function testItShouldDeleteCustomerOfDeletedRecurringInvoice()
+    {
+        $customer = $this->createCustomerUsedByRecurringInvoice();
+
+        $this->dispatch(new DeleteDocument($customer->invoice_recurring()->first()));
+
+        $this->loginAs()
+            ->delete(route('customers.destroy', $customer->id))
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('success');
+
+        $this->assertSoftDeleted($customer);
+    }
+
+    public function createCustomerUsedByRecurringInvoice(): Contact
+    {
+        $customer = $this->dispatch(new CreateContact($this->getRequest()));
+
+        $request = Document::factory()->invoice()->items()->recurring()->raw();
+        $request['contact_id'] = $customer->id;
+        $request['contact_name'] = $customer->name;
+
+        $this->dispatch(new CreateDocument($request));
+
+        return $customer;
     }
 
     public function testItShouldExportCustomers()

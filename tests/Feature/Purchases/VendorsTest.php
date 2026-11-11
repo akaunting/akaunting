@@ -4,7 +4,9 @@ namespace Tests\Feature\Purchases;
 
 use App\Exports\Purchases\Vendors as Export;
 use App\Jobs\Common\CreateContact;
+use App\Jobs\Document\CreateDocument;
 use App\Models\Common\Contact;
+use App\Models\Document\Document;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
@@ -122,6 +124,46 @@ class VendorsTest extends FeatureTestCase
         $this->assertFlashLevel('success');
 
         $this->assertSoftDeleted('contacts', $request);
+    }
+
+    public function testItShouldNotDeleteVendorUsedByRecurringBill()
+    {
+        $vendor = $this->createVendorUsedByRecurringBill();
+
+        $this->loginAs()
+            ->delete(route('vendors.destroy', $vendor->id))
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('danger');
+
+        $this->assertNotSoftDeleted($vendor);
+    }
+
+    public function testItShouldNotDisableVendorUsedByRecurringBill()
+    {
+        $vendor = $this->createVendorUsedByRecurringBill();
+
+        $response = $this->loginAs()
+            ->get(route('vendors.disable', $vendor->id))
+            ->assertStatus(200)
+            ->assertJson(['success' => false]);
+
+        $this->assertStringContainsString('recurring bill', $response->json('message'));
+
+        $this->assertEquals(1, $vendor->fresh()->enabled);
+    }
+
+    public function createVendorUsedByRecurringBill(): Contact
+    {
+        $vendor = $this->dispatch(new CreateContact($this->getRequest()));
+
+        $request = Document::factory()->bill()->items()->recurring()->raw();
+        $request['contact_id'] = $vendor->id;
+        $request['contact_name'] = $vendor->name;
+
+        $this->dispatch(new CreateDocument($request));
+
+        return $vendor;
     }
 
     public function testItShouldExportVendors()

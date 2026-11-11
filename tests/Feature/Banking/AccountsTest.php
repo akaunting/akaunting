@@ -3,7 +3,12 @@
 namespace Tests\Feature\Banking;
 
 use App\Jobs\Banking\CreateAccount;
+use App\Jobs\Banking\CreateTransaction;
+use App\Jobs\Banking\DeleteTransaction;
+use App\Jobs\Setting\CreateCurrency;
 use App\Models\Banking\Account;
+use App\Models\Banking\Transaction;
+use App\Models\Setting\Currency;
 use Tests\Feature\FeatureTestCase;
 
 class AccountsTest extends FeatureTestCase
@@ -167,6 +172,66 @@ class AccountsTest extends FeatureTestCase
         $this->assertFlashLevel('success');
 
         $this->assertSoftDeleted('accounts', $request);
+    }
+
+    public function testItShouldNotDeleteAccountUsedByRecurringTransaction()
+    {
+        $account = $this->createAccountUsedByRecurringTransaction();
+
+        $this->loginAs()
+            ->delete(route('accounts.destroy', $account->id))
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('danger');
+
+        $this->assertNotSoftDeleted($account);
+    }
+
+    public function testItShouldNotChangeCurrencyOfAccountUsedByRecurringTransaction()
+    {
+        $account = $this->createAccountUsedByRecurringTransaction();
+
+        $currency = $this->dispatch(new CreateCurrency(Currency::factory()->enabled()->raw()));
+
+        $request = $this->getRequest();
+        $request['name'] = $account->name;
+        $request['currency_code'] = $currency->code;
+
+        $this->loginAs()
+            ->patch(route('accounts.update', $account->id), $request)
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('danger');
+
+        $this->assertEquals($account->currency_code, $account->fresh()->currency_code);
+    }
+
+    public function testItShouldDeleteAccountOfDeletedRecurringTransaction()
+    {
+        $account = $this->createAccountUsedByRecurringTransaction();
+
+        $this->dispatch(new DeleteTransaction($account->transaction_recurring()->first()));
+
+        $this->loginAs()
+            ->delete(route('accounts.destroy', $account->id))
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('success');
+
+        $this->assertSoftDeleted($account);
+    }
+
+    public function createAccountUsedByRecurringTransaction(): Account
+    {
+        $account = $this->dispatch(new CreateAccount($this->getRequest()));
+
+        $request = Transaction::factory()->expense()->recurring()->raw();
+        $request['account_id'] = $account->id;
+        $request['currency_code'] = $account->currency_code;
+
+        $this->dispatch(new CreateTransaction($request));
+
+        return $account;
     }
 
     public function testItShouldShowAccount()
