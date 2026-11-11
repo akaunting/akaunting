@@ -64,6 +64,11 @@ class Tax extends Model
         return $this->document_items()->where('document_item_taxes.type', Document::INVOICE_TYPE);
     }
 
+    public function transactions()
+    {
+        return $this->hasMany('App\Models\Banking\TransactionTax');
+    }
+
     public function scopeName($query, $name)
     {
         return $query->where('name', '=', $name);

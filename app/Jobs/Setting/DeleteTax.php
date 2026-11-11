@@ -43,6 +43,7 @@ class DeleteTax extends Job implements ShouldDelete
             'items' => 'items',
             'invoice_items' => 'invoices',
             'bill_items' => 'bills',
+            'transactions' => 'transactions',
         ];
 
         return $this->countRelationships($this->model, $rels);
