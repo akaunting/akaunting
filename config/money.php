@@ -1057,6 +1057,17 @@ return [
             'thousands_separator' => ',',
         ],
 
+        'MRU' => [
+            'name'                => 'Ouguiya',
+            'code'                => 929,
+            'precision'           => 2,
+            'subunit'             => 5,
+            'symbol'              => 'UM',
+            'symbol_first'        => false,
+            'decimal_mark'        => '.',
+            'thousands_separator' => ',',
+        ],
+
         'MUR' => [
             'name'                => 'Mauritius Rupee',
             'code'                => 480,
@@ -1409,6 +1420,17 @@ return [
             'thousands_separator' => ',',
         ],
 
+        'SLE' => [
+            'name'                => 'Leone',
+            'code'                => 925,
+            'precision'           => 2,
+            'subunit'             => 100,
+            'symbol'              => 'Le',
+            'symbol_first'        => false,
+            'decimal_mark'        => '.',
+            'thousands_separator' => ',',
+        ],
+
         'SLL' => [
             'name'                => 'Leone',
             'code'                => 694,
@@ -1456,6 +1478,17 @@ return [
         'STD' => [
             'name'                => 'Dobra',
             'code'                => 678,
+            'precision'           => 2,
+            'subunit'             => 100,
+            'symbol'              => 'Db',
+            'symbol_first'        => false,
+            'decimal_mark'        => '.',
+            'thousands_separator' => ',',
+        ],
+
+        'STN' => [
+            'name'                => 'Dobra',
+            'code'                => 930,
             'precision'           => 2,
             'subunit'             => 100,
             'symbol'              => 'Db',
@@ -1762,6 +1795,17 @@ return [
             'thousands_separator' => ',',
         ],
 
+        'XCG' => [
+            'name'                => 'Caribbean Guilder',
+            'code'                => 532,
+            'precision'           => 2,
+            'subunit'             => 100,
+            'symbol'              => 'Cg.',
+            'symbol_first'        => true,
+            'decimal_mark'        => ',',
+            'thousands_separator' => '.',
+        ],
+
         'XDR' => [
             'name'                => 'SDR (Special Drawing Right)',
             'code'                => 960,
@@ -1824,6 +1868,17 @@ return [
             'subunit'             => 100,
             'symbol'              => 'ZK',
             'symbol_first'        => false,
+            'decimal_mark'        => '.',
+            'thousands_separator' => ',',
+        ],
+
+        'ZWG' => [
+            'name'                => 'Zimbabwe Gold',
+            'code'                => 924,
+            'precision'           => 2,
+            'subunit'             => 100,
+            'symbol'              => 'ZiG',
+            'symbol_first'        => true,
             'decimal_mark'        => '.',
             'thousands_separator' => ',',
         ],
