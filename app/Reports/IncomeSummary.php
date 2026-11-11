@@ -50,7 +50,7 @@ class IncomeSummary extends Report
             default:
                 // Invoices
                 $invoices = $this->applyFilters(
-                    model: Document::invoice()->with('recurring', 'transactions', 'items')->accrued(),
+                    model: Document::invoice()->with('recurring', 'totals', 'transactions', 'items')->accrued(),
                     args: ['date_field' => 'issued_at', 'model_type' => 'invoice'],
                 )->get();
                 Recurring::reflect($invoices, 'issued_at');

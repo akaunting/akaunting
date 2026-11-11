@@ -11,6 +11,7 @@ use App\Jobs\Auth\CreateUser;
 use App\Jobs\Banking\CreateTransaction;
 use App\Jobs\Common\CreateCompany;
 use App\Jobs\Common\UpdateReport;
+use App\Jobs\Document\CreateDocument;
 use App\Listeners\Report\AddIncomeCategories;
 use App\Listeners\Report\AddIncomeExpenseCategories;
 use App\Models\Auth\Permission;
@@ -18,7 +19,10 @@ use App\Models\Banking\Transaction;
 use App\Models\Common\Company;
 use App\Models\Common\Contact;
 use App\Models\Common\Report;
+use App\Models\Document\Document;
 use App\Models\Setting\Category;
+use App\Models\Setting\Tax;
+use App\Reports\ExpenseSummary;
 use App\Reports\IncomeExpenseSummary;
 use App\Reports\IncomeSummary;
 use App\Reports\ProfitLoss;
@@ -526,6 +530,79 @@ class ReportsTest extends FeatureTestCase
         $report->views['applied'] = null;
 
         $this->assertStringNotContainsString('rp-applied', view($report->views['print'], ['print' => true])->with('class', $report)->render());
+    }
+
+    public function testItShouldTakeTheTotalDiscountOffTheDocumentItems()
+    {
+        $this->loginAs();
+
+        $categories = [
+            'invoice' => Category::factory()->income()->enabled()->count(2)->create(),
+            'bill' => Category::factory()->expense()->enabled()->count(2)->create(),
+        ];
+
+        $inclusive = Tax::factory()->enabled()->inclusive()->create(['rate' => 10]);
+
+        // Each document has a 10% discount on the total. In May: lines of 150 and 50 without taxes, the
+        // document comes to 180. In June: one line of 110 with a 10% inclusive tax, the document comes to 99,
+        // 9 of it tax, so 90 before taxes.
+        $documents = [
+            '2026-05-10' => [180, [[150, 0, []], [50, 1, []]]],
+            '2026-06-10' => [99, [[110, 0, [$inclusive->id]]]],
+        ];
+
+        foreach (['invoice' => 'sent', 'bill' => 'received'] as $type => $status) {
+            foreach ($documents as $date => [$amount, $lines]) {
+                $request = Document::factory()->$type()->items()->raw([
+                    'issued_at' => $date . ' 10:00:00',
+                    'due_at' => $date . ' 10:00:00',
+                    'status' => $status,
+                    'category_id' => $categories[$type][0]->id,
+                    'discount' => 10,
+                    'discount_type' => 'percentage',
+                ]);
+
+                $line = ['quantity' => 1] + $request['items'][0];
+
+                $request['items'] = array_map(fn ($l) => [
+                    'price' => $l[0],
+                    'category_id' => $categories[$type][$l[1]]->id,
+                    'tax_ids' => $l[2],
+                ] + $line, $lines);
+
+                $document = $this->dispatch(new CreateDocument($request));
+
+                $this->assertEquals($amount, $document->amount);
+            }
+        }
+
+        $reports = [
+            IncomeSummary::class => ['income' => 'invoice'],
+            ExpenseSummary::class => ['expense' => 'bill'],
+            IncomeExpenseSummary::class => ['income' => 'invoice', 'expense' => 'bill'],
+            ProfitLoss::class => [Category::INCOME_TYPE => 'invoice', Category::EXPENSE_TYPE => 'bill'],
+        ];
+
+        foreach ($reports as $class => $tables) {
+            $report = $this->loadReport(new Report([
+                'class' => $class,
+                'name' => 'By category',
+                'settings' => ['group' => 'category', 'period' => 'monthly', 'basis' => 'accrual'],
+            ]), ['start_date' => '2026-05-01', 'end_date' => '2026-06-30']);
+
+            foreach ($tables as $table => $type) {
+                // The discount of 20 is shared out by the line totals, 15 and 5
+                $rows = $report->row_values[$table];
+
+                $this->assertEqualsWithDelta(135, $rows[$categories[$type][0]->id]['May 2026'], 0.001, $class);
+                $this->assertEqualsWithDelta(45, $rows[$categories[$type][1]->id]['May 2026'], 0.001, $class);
+                $this->assertEqualsWithDelta(180, $report->footer_totals[$table]['May 2026'], 0.001, $class);
+
+                // The line of 110 is stored at 101, before the discount of 11 and without the tax of 9
+                $this->assertEqualsWithDelta(90, $rows[$categories[$type][0]->id]['Jun 2026'], 0.001, $class);
+                $this->assertEqualsWithDelta(90, $report->footer_totals[$table]['Jun 2026'], 0.001, $class);
+            }
+        }
     }
 
     /**
