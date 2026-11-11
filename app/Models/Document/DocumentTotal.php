@@ -74,14 +74,14 @@ class DocumentTotal extends Model
 
                 break;
             case 'tax':
+                $item_tax = $this->getChargedItemTax();
+
                 // Still needed below to tell a fixed tax from a percentage one
-                $tax = Tax::where('name', $title)->first();
+                $tax = $item_tax ? Tax::find($item_tax->tax_id) : Tax::where('name', $title)->first();
 
                 // Prefer the rate this document was charged at, so changing a tax
                 // rate later does not rewrite what an existing document shows.
-                $percent = DocumentItemTax::where('document_id', $this->document_id)
-                    ->where('name', $title)
-                    ->value('rate');
+                $percent = $item_tax?->rate;
 
                 if (empty($percent) && ! empty($tax->rate)) {
                     $percent = $tax->rate;
@@ -103,5 +103,37 @@ class DocumentTotal extends Model
         }
 
         return $title;
+    }
+
+    /**
+     * The line tax this tax total was made from.
+     *
+     * A total keeps only the tax name, and two taxes can share a name, so the name
+     * alone can point at the other tax. Totals are written one per tax, in the order
+     * the taxes first appear on the lines (CreateDocumentItemsAndTotals), so the n-th
+     * total of a name belongs to the n-th tax of that name on the lines.
+     */
+    protected function getChargedItemTax(): ?DocumentItemTax
+    {
+        $item_taxes = DocumentItemTax::where('document_id', $this->document_id)
+            ->where('name', $this->name)
+            ->orderBy('id')
+            ->get(['id', 'tax_id', 'rate'])
+            ->unique('tax_id')
+            ->values();
+
+        if ($item_taxes->count() < 2) {
+            return $item_taxes->first();
+        }
+
+        $position = static::where('document_id', $this->document_id)
+            ->where('code', 'tax')
+            ->where('name', $this->name)
+            ->orderBy('sort_order')
+            ->orderBy('id')
+            ->pluck('id')
+            ->search($this->id);
+
+        return $item_taxes->get((int) $position) ?? $item_taxes->first();
     }
 }
