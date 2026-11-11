@@ -4,6 +4,7 @@ namespace Tests\Feature\Auth;
 
 use App\Jobs\Auth\CreateUser;
 use App\Notifications\Auth\Invitation;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Notification;
 use Tests\Feature\FeatureTestCase;
 
@@ -97,6 +98,29 @@ class UsersTest extends FeatureTestCase
         $this->assertFlashLevel('success');
 
         $this->assertDatabaseHas('users', $this->getAssertRequest($request));
+    }
+
+    public function testItShouldKeepPictureOfUserWhenDisabling()
+    {
+        $request = $this->getRequest();
+
+        $user = $this->dispatch(new CreateUser($request));
+
+        $request['picture'] = UploadedFile::fake()->image('picture.png', 100, 100);
+
+        $this->loginAs()
+            ->patch(route('users.update', $user->id), $request)
+            ->assertOk();
+
+        $this->assertTrue($user->fresh()->hasMedia('picture'));
+
+        $this->loginAs()
+            ->get(route('users.disable', $user->id))
+            ->assertOk()
+            ->assertJson(['success' => true]);
+
+        $this->assertFalse((bool) $user->fresh()->enabled);
+        $this->assertTrue($user->fresh()->hasMedia('picture'));
     }
 
     public function testItShouldDeleteUser()

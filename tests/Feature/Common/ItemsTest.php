@@ -5,6 +5,7 @@ namespace Tests\Feature\Common;
 use App\Exports\Common\Items as Export;
 use App\Jobs\Common\CreateItem;
 use App\Models\Common\Item;
+use App\Models\Setting\Tax;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
@@ -83,6 +84,82 @@ class ItemsTest extends FeatureTestCase
         $this->assertFlashLevel('success');
 
         $this->assertDatabaseHas('items', $request);
+    }
+
+    public function testItShouldKeepTaxesAndPictureOfItemWhenDisablingAndEnabling()
+    {
+        $item = $this->createItemWithTaxAndPicture();
+
+        $this->loginAs()
+            ->get(route('items.disable', $item->id))
+            ->assertStatus(200)
+            ->assertJson(['success' => true]);
+
+        $this->assertFalse($item->fresh()->enabled);
+        $this->assertCount(1, $item->taxes()->get());
+        $this->assertTrue($item->fresh()->hasMedia('picture'));
+
+        $this->loginAs()
+            ->get(route('items.enable', $item->id))
+            ->assertStatus(200)
+            ->assertJson(['success' => true]);
+
+        $this->assertTrue($item->fresh()->enabled);
+        $this->assertCount(1, $item->taxes()->get());
+        $this->assertTrue($item->fresh()->hasMedia('picture'));
+    }
+
+    public function testItShouldKeepTaxesAndPictureOfItemInBulkEdit()
+    {
+        $item = $this->createItemWithTaxAndPicture();
+
+        $type = ($item->type == 'product') ? 'service' : 'product';
+
+        $this->loginAs()
+            ->post(
+                route('bulk-actions.action', ['group' => 'common', 'type' => 'items']),
+                ['handle' => 'update', 'selected' => [$item->id], 'type' => $type]
+            )
+            ->assertStatus(200);
+
+        $this->assertEquals($type, $item->fresh()->type);
+        $this->assertCount(1, $item->taxes()->get());
+        $this->assertTrue($item->fresh()->hasMedia('picture'));
+    }
+
+    public function testItShouldRemoveTaxesOfItemSavedWithoutTaxes()
+    {
+        $item = $this->createItemWithTaxAndPicture();
+
+        $request = $this->getRequest();
+
+        $this->loginAs()
+            ->patch(route('items.update', $item->id), $request)
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('success');
+
+        $this->assertCount(0, $item->taxes()->get());
+    }
+
+    public function createItemWithTaxAndPicture(): Item
+    {
+        $tax = Tax::factory()->enabled()->create();
+
+        $request = $this->getRequest();
+        $request['tax_ids'] = [$tax->id];
+        $request['picture'] = UploadedFile::fake()->image('picture.png', 100, 100);
+
+        $this->loginAs()
+            ->post(route('items.store'), $request)
+            ->assertStatus(200);
+
+        $item = Item::where('name', $request['name'])->first();
+
+        $this->assertCount(1, $item->taxes()->get());
+        $this->assertTrue($item->hasMedia('picture'));
+
+        return $item;
     }
 
     public function testItShouldDeleteItem()

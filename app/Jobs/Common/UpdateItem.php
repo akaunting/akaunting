@@ -34,19 +34,31 @@ class UpdateItem extends Job implements ShouldUpdate
                 $media = $this->getMedia($this->request->file('picture'), 'items');
 
                 $this->model->attachMedia($media, 'picture');
-            } elseif ($this->request->isNotApi() && ! $this->request->file('picture') && $this->model->picture) {
+            } elseif ($this->isWholeRecord() && $this->request->isNotApi() && ! $this->request->file('picture') && $this->model->picture) {
                 $this->deleteMediaModel($this->model, 'picture', $this->request);
             } elseif ($this->request->isApi() && $this->request->has('remove_picture') && $this->model->picture) {
                 $this->deleteMediaModel($this->model, 'picture', $this->request);
             }
 
-            $this->deleteRelationships($this->model, ['taxes']);
+            if ($this->isWholeRecord() || $this->request->hasAny(['tax_ids', 'tax_id'])) {
+                $this->deleteRelationships($this->model, ['taxes']);
 
-            $this->dispatch(new CreateItemTaxes($this->model, $this->request));
+                $this->dispatch(new CreateItemTaxes($this->model, $this->request));
+            }
         });
 
         event(new ItemUpdated($this->model, $this->request));
 
         return $this->model;
+    }
+
+    /**
+     * The forms and the API send the whole item, its name included. Enabling, disabling and the bulk
+     * edit send only what they change, so the taxes are kept unless they are sent, and the picture
+     * unless another one is.
+     */
+    protected function isWholeRecord(): bool
+    {
+        return $this->request->has('name');
     }
 }
