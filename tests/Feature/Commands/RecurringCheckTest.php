@@ -4,8 +4,10 @@ namespace Tests\Feature\Commands;
 
 use App\Jobs\Banking\CreateTransaction;
 use App\Jobs\Document\CreateDocument;
+use App\Listeners\Update\V33\Version332;
 use App\Models\Banking\Transaction;
 use App\Models\Document\Document;
+use App\Models\Document\DocumentItemTax;
 use App\Notifications\Sale\Invoice as InvoiceNotification;
 use App\Utilities\Date;
 use Illuminate\Support\Facades\Notification;
@@ -80,6 +82,59 @@ class RecurringCheckTest extends FeatureTestCase
         $this->assertDatabaseCount('documents', 1);
 
         Notification::assertNotSentTo($this->user, InvoiceNotification::class);
+    }
+
+    public function testItShouldCreateRecurringInvoicesWithItemTaxesOfInvoiceType(): void
+    {
+        Notification::fake();
+
+        $template = $this->dispatch(new CreateDocument($this->getInvoiceRequest('count')));
+
+        Date::setTestNow(Date::today());
+
+        $this->artisan('recurring:check');
+
+        // The command forgets the current company once it is done
+        $this->company->makeCurrent();
+
+        $invoices = Document::invoice()->where('parent_id', $template->id)->get();
+
+        $this->assertCount($this->recurring_count, $invoices);
+
+        foreach ($invoices as $invoice) {
+            $this->assertCount(1, $invoice->item_taxes);
+            $this->assertEquals(Document::INVOICE_TYPE, $invoice->item_taxes->first()->type);
+        }
+
+        // The invoice export reads the item taxes by type
+        $this->assertEquals($this->recurring_count, DocumentItemTax::invoice()->whereIn('document_id', $invoices->pluck('id'))->count());
+
+        $this->assertEquals(Document::INVOICE_RECURRING_TYPE, $template->item_taxes()->first()->type);
+    }
+
+    public function testItShouldUpdateItemTaxesOfInvoicesAlreadyCreatedFromTemplate(): void
+    {
+        Notification::fake();
+
+        $template = $this->dispatch(new CreateDocument($this->getInvoiceRequest('count')));
+
+        Date::setTestNow(Date::today());
+
+        $this->artisan('recurring:check');
+
+        // The command forgets the current company once it is done
+        $this->company->makeCurrent();
+
+        $invoices = Document::invoice()->where('parent_id', $template->id)->pluck('id');
+
+        // What the recurring check left before 3.3.2
+        DocumentItemTax::whereIn('document_id', $invoices)->update(['type' => Document::INVOICE_RECURRING_TYPE]);
+
+        (new Version332())->updateRecurringDocumentItemTaxes();
+
+        $this->assertEquals($this->recurring_count, DocumentItemTax::invoice()->whereIn('document_id', $invoices)->count());
+
+        $this->assertEquals(Document::INVOICE_RECURRING_TYPE, $template->item_taxes()->first()->type);
     }
 
     public function testItShouldCreateCorrectNumberOfRecurringExpensesByCount(): void

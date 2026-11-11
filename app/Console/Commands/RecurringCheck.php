@@ -225,7 +225,8 @@ class RecurringCheck extends Command
         $model->created_from = 'core::recurring';
         $model->save();
 
-        $this->updateRelationTypes($model, $template->cloneable_relations);
+        // The taxes of the items are cloned along with the items and carry the template's type as well
+        $this->updateRelationTypes($model, array_merge($template->cloneable_relations, ['item_taxes']));
 
         return $model;
     }
