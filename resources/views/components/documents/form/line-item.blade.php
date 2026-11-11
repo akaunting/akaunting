@@ -21,7 +21,7 @@
                         @stack('move_td_start')
 
                         <td class="align-top" style="width:24px; height:100px; color: #8898aa;">
-                            <div class="handle mt-2 hidden lg:block cursor-move">
+                            <div class="handle hidden lg:block cursor-move" :class="row.item_id ? 'mt-2' : 'mt-4'">
                                 <span class="w-6 material-icons mt-0.5">list</span>
                             </div>
                         </td>
