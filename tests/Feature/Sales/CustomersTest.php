@@ -4,7 +4,9 @@ namespace Tests\Feature\Sales;
 
 use App\Exports\Sales\Customers\Customers as Export;
 use App\Jobs\Common\CreateContact;
+use App\Jobs\Document\CreateDocument;
 use App\Models\Common\Contact;
+use App\Models\Document\Document;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
@@ -142,6 +144,76 @@ class CustomersTest extends FeatureTestCase
     {
         $this->assertTrue(true);
         //TODO : This will write after done invoice and revenues tests.
+    }
+
+    public function testItShouldKeepContactPersonsAndLogoOfCustomerWhenDisablingAndEnabling()
+    {
+        $customer = $this->createCustomerWithContactPersonAndLogo();
+
+        $this->loginAs()
+            ->get(route('customers.disable', $customer->id))
+            ->assertStatus(200)
+            ->assertJson(['success' => true]);
+
+        $this->assertEquals(0, $customer->fresh()->enabled);
+        $this->assertCount(1, $customer->contact_persons()->get());
+        $this->assertTrue($customer->fresh()->hasMedia('logo'));
+
+        $this->loginAs()
+            ->get(route('customers.enable', $customer->id))
+            ->assertStatus(200)
+            ->assertJson(['success' => true]);
+
+        $this->assertEquals(1, $customer->fresh()->enabled);
+        $this->assertCount(1, $customer->contact_persons()->get());
+        $this->assertTrue($customer->fresh()->hasMedia('logo'));
+    }
+
+    public function testItShouldKeepContactPersonsAndRecurringInvoicesOfCustomerInBulkEdit()
+    {
+        $customer = $this->createCustomerWithContactPersonAndLogo();
+
+        $request = Document::factory()->invoice()->items()->recurring()->raw();
+        $request['contact_id'] = $customer->id;
+        $request['contact_name'] = $customer->name;
+
+        $recurring_invoice = $this->dispatch(new CreateDocument($request));
+
+        $this->loginAs()
+            ->post(
+                route('bulk-actions.action', ['group' => 'sales', 'type' => 'customers']),
+                ['handle' => 'update', 'selected' => [$customer->id], 'country' => 'TR']
+            )
+            ->assertStatus(200);
+
+        $this->assertEquals('TR', $customer->fresh()->country);
+        $this->assertCount(1, $customer->contact_persons()->get());
+        $this->assertTrue($customer->fresh()->hasMedia('logo'));
+
+        $recurring_invoice = Document::invoiceRecurring()->find($recurring_invoice->id);
+
+        $this->assertEquals($customer->name, $recurring_invoice->contact_name);
+        $this->assertEquals('TR', $recurring_invoice->contact_country);
+    }
+
+    public function createCustomerWithContactPersonAndLogo(): Contact
+    {
+        $request = $this->getRequest();
+        $request['contact_persons'] = [
+            ['name' => $this->faker->name, 'email' => $this->faker->freeEmail, 'phone' => $this->faker->phoneNumber],
+        ];
+        $request['logo'] = UploadedFile::fake()->image('logo.png', 100, 100);
+
+        $this->loginAs()
+            ->post(route('customers.store'), $request)
+            ->assertStatus(200);
+
+        $customer = Contact::where('email', $request['email'])->first();
+
+        $this->assertCount(1, $customer->contact_persons()->get());
+        $this->assertTrue($customer->hasMedia('logo'));
+
+        return $customer;
     }
 
     public function testItShouldExportCustomers()

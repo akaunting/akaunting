@@ -34,7 +34,7 @@ class UpdateContact extends Job implements ShouldUpdate
                 $media = $this->getMedia($this->request->file('logo'), Str::plural($this->model->type));
 
                 $this->model->attachMedia($media, 'logo');
-            } elseif ($this->request->isNotApi() && ! $this->request->file('logo') && $this->model->logo) {
+            } elseif ($this->isWholeRecord() && $this->request->isNotApi() && ! $this->request->file('logo') && $this->model->logo) {
                 $this->deleteMediaModel($this->model, 'logo', $this->request);
             } elseif ($this->request->isApi() && $this->request->has('remove_logo') && $this->model->logo) {
                 $this->deleteMediaModel($this->model, 'logo', $this->request);
@@ -42,9 +42,11 @@ class UpdateContact extends Job implements ShouldUpdate
 
             $this->updateRecurringDocument();
 
-            $this->deleteRelationships($this->model, ['contact_persons']);
+            if ($this->isWholeRecord() || $this->request->has('contact_persons')) {
+                $this->deleteRelationships($this->model, ['contact_persons']);
 
-            $this->dispatch(new CreateContactPersons($this->model, $this->request));
+                $this->dispatch(new CreateContactPersons($this->model, $this->request));
+            }
 
             $this->model->update($this->request->all());
         });
@@ -92,21 +94,36 @@ class UpdateContact extends Job implements ShouldUpdate
 
     public function updateRecurringDocument(): void
     {
+        $fields = [
+            'name' => 'contact_name',
+            'email' => 'contact_email',
+            'tax_number' => 'contact_tax_number',
+            'phone' => 'contact_phone',
+            'address' => 'contact_address',
+            'city' => 'contact_city',
+            'state' => 'contact_state',
+            'zip_code' => 'contact_zip_code',
+            'country' => 'contact_country',
+        ];
+
+        // Only what is sent, as enabling, disabling and the bulk edit send few of these, if any
+        $data = [];
+
+        foreach ($fields as $field => $column) {
+            if ($this->request->has($field)) {
+                $data[$column] = $this->request->get($field);
+            }
+        }
+
+        if (empty($data)) {
+            return;
+        }
+
         $recurring = $this->model->document_recurring;
 
         if ($recurring) {
             foreach ($recurring as $recur) {
-                $recur->update([
-                    'contact_name' => $this->request['name'],
-                    'contact_email' => $this->request['email'],
-                    'contact_tax_number' => $this->request['tax_number'],
-                    'contact_phone' => $this->request['phone'],
-                    'contact_address' => $this->request['address'],
-                    'contact_city' => $this->request['city'],
-                    'contact_state' => $this->request['state'],
-                    'contact_zip_code' => $this->request['zip_code'],
-                    'contact_country' => $this->request['country'],
-                ]);
+                $recur->update($data);
             }
         }
     }
@@ -124,5 +141,15 @@ class UpdateContact extends Job implements ShouldUpdate
         }
 
         return $this->countRelationships($this->model, $rels);
+    }
+
+    /**
+     * The forms and the API send the whole contact, its name included. Enabling, disabling and the
+     * bulk edit send only what they change, so the contact persons are kept unless they are sent,
+     * and the logo unless another one is.
+     */
+    protected function isWholeRecord(): bool
+    {
+        return $this->request->has('name');
     }
 }
