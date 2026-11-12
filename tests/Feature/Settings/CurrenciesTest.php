@@ -114,6 +114,20 @@ class CurrenciesTest extends FeatureTestCase
         $this->assertTrue($currency->fresh()->enabled);
     }
 
+    public function testItShouldEnableCurrencyUsedByVendor()
+    {
+        $currency = $this->createCurrencyUsedByVendor();
+
+        $currency->update(['enabled' => false]);
+
+        $this->loginAs()
+            ->get(route('currencies.enable', $currency->id))
+            ->assertStatus(200)
+            ->assertJson(['success' => true]);
+
+        $this->assertTrue($currency->fresh()->enabled);
+    }
+
     public function testItShouldNotChangeCodeOfCurrencyUsedByVendor()
     {
         $currency = $this->createCurrencyUsedByVendor();
