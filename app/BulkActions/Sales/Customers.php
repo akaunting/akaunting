@@ -62,13 +62,14 @@ class Customers extends BulkAction
 
     public function update($request)
     {
-        $customers = $this->getSelectedRecords($request);
+        $customers = $this->getSelectedRecords($request, 'contact_persons');
 
         foreach ($customers as $customer) {
             try {
                 $request->merge([
                     'uploaded_logo' => $customer->logo,
-                ]); // so that the update job keeps the logo
+                    'contact_persons' => $customer->contact_persons->map->only(['name', 'email', 'phone'])->all(),
+                ]); // so that the update job keeps the logo and the contact persons
 
                 $this->dispatch(new UpdateContact($customer, $this->getUpdateRequest($request)));
             } catch (\Exception $e) {

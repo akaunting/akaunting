@@ -5,6 +5,7 @@ namespace Tests\Feature\Purchases;
 use App\Exports\Purchases\Vendors as Export;
 use App\Jobs\Common\CreateContact;
 use App\Models\Common\Contact;
+use App\Models\Document\Document;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
@@ -170,6 +171,42 @@ class VendorsTest extends FeatureTestCase
                 return $export->collection()->count() === $select_count;
             }
         );
+    }
+
+    public function testItShouldKeepContactPersonsAndRecurringBillsOnBulkUpdate()
+    {
+        $vendor = $this->dispatch(new CreateContact(array_merge($this->getRequest(), [
+            'contact_persons' => [
+                ['name' => 'Jane Doe', 'email' => 'jane@example.com', 'phone' => ''],
+            ],
+        ])));
+
+        $bill = Document::create(array_merge(Document::factory()->bill()->raw(), [
+            'type' => Document::BILL_RECURRING_TYPE,
+            'contact_id' => $vendor->id,
+            'contact_name' => $vendor->name,
+            'contact_email' => $vendor->email,
+            'contact_phone' => $vendor->phone,
+        ]));
+
+        $this->loginAs()
+            ->post(route('bulk-actions.action', ['group' => 'purchases', 'type' => 'vendors']), [
+                'handle' => 'update',
+                'selected' => [$vendor->id],
+                'currency_code' => '',
+                'country' => 'TR',
+            ])
+            ->assertStatus(200);
+
+        $this->assertEquals('TR', $vendor->fresh()->country);
+        $this->assertEquals(['Jane Doe'], $vendor->fresh()->contact_persons->pluck('name')->all());
+
+        $bill = $bill->fresh();
+
+        $this->assertEquals($vendor->name, $bill->contact_name);
+        $this->assertEquals($vendor->email, $bill->contact_email);
+        $this->assertEquals($vendor->phone, $bill->contact_phone);
+        $this->assertEquals('TR', $bill->contact_country);
     }
 
     public function testItShouldImportVendors()

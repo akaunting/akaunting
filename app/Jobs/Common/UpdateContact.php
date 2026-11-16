@@ -40,13 +40,13 @@ class UpdateContact extends Job implements ShouldUpdate
                 $this->deleteMediaModel($this->model, 'logo', $this->request);
             }
 
-            $this->updateRecurringDocument();
-
             $this->deleteRelationships($this->model, ['contact_persons']);
 
             $this->dispatch(new CreateContactPersons($this->model, $this->request));
 
             $this->model->update($this->request->all());
+
+            $this->updateRecurringDocument();
         });
 
         event(new ContactUpdated($this->model, $this->request));
@@ -95,17 +95,18 @@ class UpdateContact extends Job implements ShouldUpdate
         $recurring = $this->model->document_recurring;
 
         if ($recurring) {
+            // Copied from the updated contact, a request that leaves a field out keeps its value.
             foreach ($recurring as $recur) {
                 $recur->update([
-                    'contact_name' => $this->request['name'],
-                    'contact_email' => $this->request['email'],
-                    'contact_tax_number' => $this->request['tax_number'],
-                    'contact_phone' => $this->request['phone'],
-                    'contact_address' => $this->request['address'],
-                    'contact_city' => $this->request['city'],
-                    'contact_state' => $this->request['state'],
-                    'contact_zip_code' => $this->request['zip_code'],
-                    'contact_country' => $this->request['country'],
+                    'contact_name' => $this->model->name,
+                    'contact_email' => $this->model->email,
+                    'contact_tax_number' => $this->model->tax_number,
+                    'contact_phone' => $this->model->phone,
+                    'contact_address' => $this->model->address,
+                    'contact_city' => $this->model->city,
+                    'contact_state' => $this->model->state,
+                    'contact_zip_code' => $this->model->zip_code,
+                    'contact_country' => $this->model->country,
                 ]);
             }
         }
