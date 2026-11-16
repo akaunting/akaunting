@@ -4,6 +4,8 @@ namespace Tests\Feature\Banking;
 
 use App\Jobs\Banking\CreateAccount;
 use App\Models\Banking\Account;
+use App\Models\Banking\Transaction;
+use App\Models\Setting\Currency;
 use Tests\Feature\FeatureTestCase;
 
 class AccountsTest extends FeatureTestCase
@@ -154,6 +156,60 @@ class AccountsTest extends FeatureTestCase
         $this->assertDatabaseHas('accounts', $request);
     }
 
+    public function testItShouldNotChangeCurrencyOfAccountWithTransactions()
+    {
+        $account = $this->createAccountWithTransaction();
+
+        $currency = Currency::factory()->enabled()->create();
+
+        $request = $this->getRequest();
+        $request['currency_code'] = $currency->code;
+
+        $this->loginAs()
+            ->patch(route('accounts.update', $account->id), $request)
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('danger');
+
+        $this->assertEquals($account->currency_code, $account->fresh()->currency_code);
+    }
+
+    public function testItShouldDisableAccountWithTransactions()
+    {
+        $account = $this->createAccountWithTransaction();
+
+        $this->loginAs()
+            ->get(route('accounts.disable', $account->id))
+            ->assertRedirect();
+
+        $this->assertFalse($account->fresh()->enabled);
+    }
+
+    public function testItShouldEnableAccountWithTransactions()
+    {
+        $account = $this->createAccountWithTransaction(false);
+
+        $this->loginAs()
+            ->get(route('accounts.enable', $account->id))
+            ->assertRedirect();
+
+        $this->assertTrue($account->fresh()->enabled);
+    }
+
+    public function testItShouldBulkDisableAccountsWithTransactions()
+    {
+        $account = $this->createAccountWithTransaction();
+
+        $this->loginAs()
+            ->post(
+                route('bulk-actions.action', ['group' => 'banking', 'type' => 'accounts']),
+                ['handle' => 'disable', 'selected' => [$account->id]]
+            )
+            ->assertStatus(200);
+
+        $this->assertFalse($account->fresh()->enabled);
+    }
+
     public function testItShouldDeleteAccount()
     {
         $request = $this->getRequest();
@@ -225,5 +281,19 @@ class AccountsTest extends FeatureTestCase
     public function getRequest()
     {
         return Account::factory()->enabled()->raw();
+    }
+
+    public function createAccountWithTransaction(bool $enabled = true): Account
+    {
+        $account = $this->dispatch(new CreateAccount($this->getRequest()));
+
+        Transaction::factory()->income()->create([
+            'account_id' => $account->id,
+            'currency_code' => $account->currency_code,
+        ]);
+
+        $account->update(['enabled' => $enabled]);
+
+        return $account;
     }
 }

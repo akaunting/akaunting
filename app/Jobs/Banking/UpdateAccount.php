@@ -51,7 +51,7 @@ class UpdateAccount extends Job implements ShouldUpdate
             return;
         }
 
-        if ($this->model->currency_code != $this->request->get('currency_code')) {
+        if ($this->request->has('currency_code') && ($this->request->get('currency_code') != $this->model->currency_code)) {
             $message = trans('messages.warning.disable_code', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
 
             throw new NotAllowed($message);
