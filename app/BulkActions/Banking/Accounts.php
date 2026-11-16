@@ -60,11 +60,6 @@ class Accounts extends BulkAction
 
         foreach ($accounts as $account) {
             try {
-                $request->merge([
-                    'enabled' => $account->enabled,
-                    'currency_code' => ($request->get('currency_code')) ?? $account->currency_code,
-                ]); // for update job authorize..
-
                 $this->dispatch(new UpdateAccount($account, $this->getUpdateRequest($request)));
             } catch (\Exception $e) {
                 flash($e->getMessage())->error()->important();

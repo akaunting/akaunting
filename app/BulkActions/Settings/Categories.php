@@ -65,10 +65,6 @@ class Categories extends BulkAction
 
         foreach ($categories as $category) {
             try {
-                $request->merge([
-                    'enabled' => $category->enabled,
-                ]); // for update job authorize..
-
                 $this->dispatch(new UpdateCategory($category, $this->getUpdateRequest($request)));
             } catch (\Exception $e) {
                 flash($e->getMessage())->error()->important();

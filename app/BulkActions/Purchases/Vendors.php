@@ -67,9 +67,8 @@ class Vendors extends BulkAction
         foreach ($vendors as $vendor) {
             try {
                 $request->merge([
-                    'enabled' => $vendor->enabled,
                     'uploaded_logo' => $vendor->logo,
-                ]); // for update job authorize..
+                ]); // so that the update job keeps the logo
 
                 $this->dispatch(new UpdateContact($vendor, $this->getUpdateRequest($request)));
             } catch (\Exception $e) {

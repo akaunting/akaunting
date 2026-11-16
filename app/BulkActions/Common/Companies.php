@@ -70,10 +70,6 @@ class Companies extends BulkAction
                     continue;
                 }
 
-                $request->merge([
-                    'enabled' => $company->enabled,
-                ]); // for update job authorize..
-
                 $this->dispatch(new UpdateCompany($company, $this->getUpdateRequest($request), company_id()));
             } catch (\Exception $e) {
                 flash($e->getMessage())->error()->important();

@@ -210,6 +210,54 @@ class AccountsTest extends FeatureTestCase
         $this->assertFalse($account->fresh()->enabled);
     }
 
+    public function testItShouldBulkUpdateAccountsInDifferentCurrencies()
+    {
+        $first = $this->createAccountWithTransaction();
+
+        $currency = Currency::factory()->enabled()->create();
+
+        $second = $this->dispatch(new CreateAccount(array_merge($this->getRequest(), ['currency_code' => $currency->code])));
+
+        Transaction::factory()->income()->create([
+            'account_id' => $second->id,
+            'currency_code' => $second->currency_code,
+        ]);
+
+        $this->loginAs()
+            ->post(route('bulk-actions.action', ['group' => 'banking', 'type' => 'accounts']), [
+                'handle' => 'update',
+                'selected' => [$first->id, $second->id],
+                'type' => '',
+                'currency_code' => '',
+                'bank_name' => 'Bulk Bank',
+                'bank_phone' => '',
+                'bank_address' => '',
+            ])
+            ->assertStatus(200);
+
+        $this->assertEquals('Bulk Bank', $first->fresh()->bank_name);
+        $this->assertEquals('Bulk Bank', $second->fresh()->bank_name);
+        $this->assertEquals($first->currency_code, $first->fresh()->currency_code);
+        $this->assertEquals($currency->code, $second->fresh()->currency_code);
+    }
+
+    public function testItShouldNotEnableDisabledAccountWithBulkUpdate()
+    {
+        $account = $this->createAccountWithTransaction(false);
+
+        $this->loginAs()
+            ->post(route('bulk-actions.action', ['group' => 'banking', 'type' => 'accounts']), [
+                'handle' => 'update',
+                'selected' => [$account->id],
+                'currency_code' => '',
+                'bank_name' => 'Bulk Bank',
+            ])
+            ->assertStatus(200);
+
+        $this->assertEquals('Bulk Bank', $account->fresh()->bank_name);
+        $this->assertFalse($account->fresh()->enabled);
+    }
+
     public function testItShouldDeleteAccount()
     {
         $request = $this->getRequest();

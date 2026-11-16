@@ -84,9 +84,8 @@ class Users extends BulkAction
         foreach ($users as $user) {
             try {
                 $request->merge([
-                    'enabled' => $user->enabled,
                     'uploaded_logo' => $user->logo,
-                ]); //
+                ]); // so that the update job keeps the logo
 
                 $this->dispatch(new UpdateUser($user, $this->getUpdateRequest($request)));
             } catch (\Exception $e) {

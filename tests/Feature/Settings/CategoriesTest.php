@@ -80,6 +80,24 @@ class CategoriesTest extends FeatureTestCase
         $this->assertDatabaseHas('categories', $request);
     }
 
+    public function testItShouldNotEnableDisabledCategoryWithBulkUpdate()
+    {
+        $category = $this->dispatch(new CreateCategory(array_merge($this->getRequest(), ['type' => 'income', 'enabled' => 0])));
+
+        $this->loginAs()
+            ->post(route('bulk-actions.action', ['group' => 'settings', 'type' => 'categories']), [
+                'handle' => 'update',
+                'selected' => [$category->id],
+                'type' => 'expense',
+            ])
+            ->assertStatus(200);
+
+        $fresh = $category->fresh();
+
+        $this->assertEquals('expense', $fresh->type);
+        $this->assertFalse($fresh->enabled);
+    }
+
     public function testItShouldDeleteCategory()
     {
         $request = $this->getRequest();

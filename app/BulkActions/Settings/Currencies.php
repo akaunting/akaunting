@@ -68,11 +68,6 @@ class Currencies extends BulkAction
 
         foreach ($currencies as $currency) {
             try {
-                $request->merge([
-                    'code' => $currency->code,
-                    'enabled' => $currency->enabled,
-                ]); // for update job authorize..
-
                 $this->dispatch(new UpdateCurrency($currency, $this->getUpdateRequest($request)));
             } catch (\Exception $e) {
                 flash($e->getMessage())->error()->important();

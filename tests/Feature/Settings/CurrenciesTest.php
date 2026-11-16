@@ -144,6 +144,28 @@ class CurrenciesTest extends FeatureTestCase
         $this->assertEquals($currency->code, $currency->fresh()->code);
     }
 
+    public function testItShouldBulkUpdateCurrencyUsedByVendor()
+    {
+        $currency = $this->createCurrencyUsedByVendor();
+
+        $this->loginAs()
+            ->post(route('bulk-actions.action', ['group' => 'settings', 'type' => 'currencies']), [
+                'handle' => 'update',
+                'selected' => [$currency->id],
+                'rate' => '2.5',
+                'precision' => '',
+                'decimal_mark' => '',
+                'thousands_separator' => '',
+            ])
+            ->assertStatus(200);
+
+        $fresh = $currency->fresh();
+
+        $this->assertEquals(2.5, $fresh->rate);
+        $this->assertEquals($currency->code, $fresh->code);
+        $this->assertTrue($fresh->enabled);
+    }
+
     public function createCurrencyUsedByVendor(): Currency
     {
         $currency = $this->dispatch(new CreateCurrency($this->getRequest()));

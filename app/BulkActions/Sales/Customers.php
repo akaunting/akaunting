@@ -67,9 +67,8 @@ class Customers extends BulkAction
         foreach ($customers as $customer) {
             try {
                 $request->merge([
-                    'enabled' => $customer->enabled,
                     'uploaded_logo' => $customer->logo,
-                ]); // for update job authorize..
+                ]); // so that the update job keeps the logo
 
                 $this->dispatch(new UpdateContact($customer, $this->getUpdateRequest($request)));
             } catch (\Exception $e) {
