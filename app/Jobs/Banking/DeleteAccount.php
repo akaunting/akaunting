@@ -41,6 +41,7 @@ class DeleteAccount extends Job implements ShouldDelete
     {
         $rels = [
             'transactions' => 'transactions',
+            'transaction_recurring' => 'recurring_transactions',
             'reconciliations' => 'reconciliations',
         ];
 

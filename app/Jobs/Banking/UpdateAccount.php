@@ -62,6 +62,7 @@ class UpdateAccount extends Job implements ShouldUpdate
     {
         $rels = [
             'transactions' => 'transactions',
+            'transaction_recurring' => 'recurring_transactions',
         ];
 
         return $this->countRelationships($this->model, $rels);
