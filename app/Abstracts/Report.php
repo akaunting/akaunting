@@ -1669,8 +1669,12 @@ abstract class Report
         return $documents->flatMap(function (Document $d) {
             // The item totals are before the discount on the document total. It is shared out to the items by
             // their totals, as App\Reports\DiscountSummary does, so that the items add up to the document.
+            // A filter that loads only some of the items, by category for example, loads the sum of all of them as
+            // items_sum_total (withSum('items', 'total')), so they get their share and not the whole discount.
             $discount = (float) $d->totals->where('code', 'discount')->sum('amount');
-            $items_total = (float) $d->items->sum('total');
+            $items_total = array_key_exists('items_sum_total', $d->getAttributes())
+                ? (float) $d->getAttributes()['items_sum_total']
+                : (float) $d->items->sum('total');
 
             return $d->items->map(function (DocumentItem $di) use ($d, $discount, $items_total) {
                 $proxy = clone $di;
