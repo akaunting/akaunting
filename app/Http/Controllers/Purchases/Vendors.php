@@ -41,13 +41,12 @@ class Vendors extends Controller
      */
     public function index()
     {
-        $vendors = Contact::with([
-                'media',
-                'bills.histories',
-                'bills.totals.item_taxes',
-                'bills.transactions',
-                'bills.media'
-            ])
+        // The search filters and the contact card read only the contact itself
+        $relations = (request()->expectsJson() && request()->isNotApi())
+            ? ['media']
+            : ['media', 'bills.histories', 'bills.totals', 'bills.transactions', 'bills.media'];
+
+        $vendors = Contact::with($relations)
             ->withCount([
                 'contact_persons as contact_persons_with_email_count' => function ($query) {
                     $query->whereNotNull('email');
