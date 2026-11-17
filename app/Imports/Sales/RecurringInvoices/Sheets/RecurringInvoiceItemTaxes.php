@@ -42,7 +42,9 @@ class RecurringInvoiceItemTaxes extends Import
 
         $row = parent::map($row);
 
-        $document = Document::with('items')->invoiceRecurring()->number($row['invoice_number'])->first();
+        // By type, as the other sheets: invoiceRecurring() takes only a document with a schedule, and the schedule
+        // sheet is read last, so no row found its document and the import stopped before the schedule.
+        $document = Document::with('items')->where('type', Document::INVOICE_RECURRING_TYPE)->number($row['invoice_number'])->first();
 
         if (! $document) {
             return [];
@@ -55,7 +57,7 @@ class RecurringInvoiceItemTaxes extends Import
 
             $item_id = Item::name($row['item_name'])->whereIn('id', $document_items_ids)->pluck('id')->first();
 
-            $row['document_item_id'] = DocumentItem::invoiceRecurring()
+            $row['document_item_id'] = DocumentItem::where('type', Document::INVOICE_RECURRING_TYPE)
                 ->where('document_id', $row['document_id'])
                 ->where('item_id', $item_id)
                 ->pluck('id')

@@ -42,7 +42,9 @@ class RecurringBillItemTaxes extends Import
 
         $row = parent::map($row);
 
-        $document = Document::with('items')->billRecurring()->number($row['bill_number'])->first();
+        // By type, as the other sheets: billRecurring() takes only a document with a schedule, and the schedule
+        // sheet is read last, so no row found its document and the import stopped before the schedule.
+        $document = Document::with('items')->where('type', Document::BILL_RECURRING_TYPE)->number($row['bill_number'])->first();
 
         if (! $document) {
             return [];
@@ -53,7 +55,7 @@ class RecurringBillItemTaxes extends Import
         if (empty($row['document_item_id']) && !empty($row['item_name'])) {
             $item_id = Item::name($row['item_name'])->pluck('id')->first();
             
-            $row['document_item_id'] = DocumentItem::billRecurring()
+            $row['document_item_id'] = DocumentItem::where('type', Document::BILL_RECURRING_TYPE)
                 ->where('document_id', $row['document_id'])
                 ->where('item_id', $item_id)
                 ->pluck('id')
