@@ -1666,8 +1666,13 @@ abstract class Report
 
     public function flattenDocumentItems(Collection $documents): Collection
     {
-        return $documents->flatMap(fn (Document $d) =>
-            $d->items->map(function (DocumentItem $di) use ($d) {
+        return $documents->flatMap(function (Document $d) {
+            // The item totals are before the discount on the document total. It is shared out to the items by
+            // their totals, as App\Reports\DiscountSummary does, so that the items add up to the document.
+            $discount = (float) $d->totals->where('code', 'discount')->sum('amount');
+            $items_total = (float) $d->items->sum('total');
+
+            return $d->items->map(function (DocumentItem $di) use ($d, $discount, $items_total) {
                 $proxy = clone $di;
                 $proxy->type = $d->type;
                 $proxy->document_number = $d->document_number;
@@ -1679,9 +1684,13 @@ abstract class Report
                 $proxy->amount = $di->total;
                 $proxy->contact_id = $d->contact_id;
 
+                if (! empty($discount) && ! empty($items_total)) {
+                    $proxy->amount -= $discount * $di->total / $items_total;
+                }
+
                 return $proxy;
-            })
-        );
+            });
+        });
     }
 
     public function getUrl($action = 'print')
