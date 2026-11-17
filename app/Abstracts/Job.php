@@ -108,6 +108,16 @@ abstract class Job
         return $class->merge($request);
     }
 
+    /**
+     * The forms and the API send the whole record, with the given field they require. Enabling,
+     * disabling, the bulk actions and the other flows send only what they change, so an update
+     * job keeps what they leave out, such as the relations and the files it would otherwise remove.
+     */
+    public function isWholeRecord(string $field = 'name'): bool
+    {
+        return $this->request instanceof Request && $this->request->has($field);
+    }
+
     public function setOwner(): void
     {
         if (! $this->request instanceof Request) {

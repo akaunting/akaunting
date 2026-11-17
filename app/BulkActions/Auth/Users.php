@@ -83,10 +83,7 @@ class Users extends BulkAction
 
         foreach ($users as $user) {
             try {
-                $request->merge([
-                    'uploaded_logo' => $user->logo,
-                ]); // so that the update job keeps the logo
-
+                // UpdateUser keeps the picture the bulk edit does not send
                 $this->dispatch(new UpdateUser($user, $this->getUpdateRequest($request)));
             } catch (\Exception $e) {
                 flash($e->getMessage())->error()->important();

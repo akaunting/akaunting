@@ -34,15 +34,18 @@ class UpdateItem extends Job implements ShouldUpdate
                 $media = $this->getMedia($this->request->file('picture'), 'items');
 
                 $this->model->attachMedia($media, 'picture');
-            } elseif ($this->request->isNotApi() && ! $this->request->file('picture') && $this->model->picture) {
+            } elseif ($this->isWholeRecord() && $this->request->isNotApi() && ! $this->request->file('picture') && $this->model->picture) {
                 $this->deleteMediaModel($this->model, 'picture', $this->request);
             } elseif ($this->request->isApi() && $this->request->has('remove_picture') && $this->model->picture) {
                 $this->deleteMediaModel($this->model, 'picture', $this->request);
             }
 
-            $this->deleteRelationships($this->model, ['taxes']);
+            // The form sends nothing for an item without taxes, so the whole record replaces them too
+            if ($this->isWholeRecord() || $this->request->hasAny(['tax_ids', 'tax_id'])) {
+                $this->deleteRelationships($this->model, ['taxes']);
 
-            $this->dispatch(new CreateItemTaxes($this->model, $this->request));
+                $this->dispatch(new CreateItemTaxes($this->model, $this->request));
+            }
         });
 
         event(new ItemUpdated($this->model, $this->request));

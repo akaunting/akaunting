@@ -35,7 +35,7 @@ class UpdateUser extends Job implements ShouldUpdate
                 $media = $this->getMedia($this->request->file('picture'), 'users');
 
                 $this->model->attachMedia($media, 'picture');
-            } elseif ($this->request->isNotApi() && ! $this->request->file('picture') && $this->model->picture) {
+            } elseif ($this->isWholeRecord() && $this->request->isNotApi() && ! $this->request->file('picture') && $this->model->picture) {
                 $this->deleteMediaModel($this->model, 'picture', $this->request);
             } elseif ($this->request->isApi() && $this->request->has('remove_picture') && $this->model->picture) {
                 $this->deleteMediaModel($this->model, 'picture', $this->request);

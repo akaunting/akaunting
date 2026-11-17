@@ -62,15 +62,11 @@ class Vendors extends BulkAction
 
     public function update($request)
     {
-        $vendors = $this->getSelectedRecords($request, 'contact_persons');
+        $vendors = $this->getSelectedRecords($request);
 
         foreach ($vendors as $vendor) {
             try {
-                $request->merge([
-                    'uploaded_logo' => $vendor->logo,
-                    'contact_persons' => $vendor->contact_persons->map->only(['name', 'email', 'phone'])->all(),
-                ]); // so that the update job keeps the logo and the contact persons
-
+                // UpdateContact keeps the logo and the contact persons the bulk edit does not send
                 $this->dispatch(new UpdateContact($vendor, $this->getUpdateRequest($request)));
             } catch (\Exception $e) {
                 flash($e->getMessage())->error()->important();

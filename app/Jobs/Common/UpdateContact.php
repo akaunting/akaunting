@@ -34,15 +34,18 @@ class UpdateContact extends Job implements ShouldUpdate
                 $media = $this->getMedia($this->request->file('logo'), Str::plural($this->model->type));
 
                 $this->model->attachMedia($media, 'logo');
-            } elseif ($this->request->isNotApi() && ! $this->request->file('logo') && $this->model->logo) {
+            } elseif ($this->isWholeRecord() && $this->request->isNotApi() && ! $this->request->file('logo') && $this->model->logo) {
                 $this->deleteMediaModel($this->model, 'logo', $this->request);
             } elseif ($this->request->isApi() && $this->request->has('remove_logo') && $this->model->logo) {
                 $this->deleteMediaModel($this->model, 'logo', $this->request);
             }
 
-            $this->deleteRelationships($this->model, ['contact_persons']);
+            // The form sends nothing for a contact without persons, so the whole record replaces them too
+            if ($this->isWholeRecord() || $this->request->has('contact_persons')) {
+                $this->deleteRelationships($this->model, ['contact_persons']);
 
-            $this->dispatch(new CreateContactPersons($this->model, $this->request));
+                $this->dispatch(new CreateContactPersons($this->model, $this->request));
+            }
 
             $this->model->update($this->request->all());
 

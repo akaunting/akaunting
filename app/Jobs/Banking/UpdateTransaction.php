@@ -16,6 +16,12 @@ class UpdateTransaction extends Job implements ShouldUpdate
     {
         $this->authorize();
 
+        // A request without a type, such as ending a recurring template, keeps the one it has
+        // rather than turning an expense into an income
+        if (! $this->request->has('type')) {
+            $this->request->merge(['type' => $this->model->type]);
+        }
+
         event(new TransactionUpdating($this->model, $this->request));
 
         if (! array_key_exists($this->request->get('type'), config('type.transaction'))) {
@@ -41,15 +47,19 @@ class UpdateTransaction extends Job implements ShouldUpdate
 
                     $this->model->attachMedia($media, 'attachment');
                 }
-            } elseif ($this->request->isNotApi() && ! $this->request->file('attachment') && $this->model->attachment) {
+            } elseif ($this->isWholeRecord('amount') && $this->request->isNotApi() && ! $this->request->file('attachment') && $this->model->attachment) {
                 $this->deleteMediaModel($this->model, 'attachment', $this->request);
             } elseif ($this->request->isApi() && $this->request->has('remove_attachment') && $this->model->attachment) {
                 $this->deleteMediaModel($this->model, 'attachment', $this->request);
             }
 
-            $this->deleteRelationships($this->model, ['taxes'], true);
+            // The taxes are worked out from the amount, which only the whole record sends; matching
+            // to a document, ending a recurring template or a bulk edit keeps them
+            if ($this->isWholeRecord('amount')) {
+                $this->deleteRelationships($this->model, ['taxes'], true);
 
-            $this->dispatch(new CreateTransactionTaxes($this->model, $this->request));
+                $this->dispatch(new CreateTransactionTaxes($this->model, $this->request));
+            }
 
             // Recurring
             $this->model->updateRecurring($this->request->all());

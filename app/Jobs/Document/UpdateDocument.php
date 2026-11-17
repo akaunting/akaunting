@@ -62,7 +62,9 @@ class UpdateDocument extends Job implements ShouldUpdate
 
                     $this->model->attachMedia($media, 'attachment');
                 }
-            } elseif ($this->request->isNotApi() && ! $this->request->file('attachment') && $this->model->attachment) {
+            } elseif ($has_items && $this->request->isNotApi() && ! $this->request->file('attachment') && $this->model->attachment) {
+                // Only the form, which sends the lines, removes what it no longer lists; ending a
+                // recurring template or a bulk edit keeps the attachments
                 $this->deleteMediaModel($this->model, 'attachment', $this->request);
             } elseif ($this->request->isApi() && $this->request->has('remove_attachment') && $this->model->attachment) {
                 $this->deleteMediaModel($this->model, 'attachment', $this->request);
