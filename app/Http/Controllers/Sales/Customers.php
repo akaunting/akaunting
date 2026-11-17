@@ -41,14 +41,13 @@ class Customers extends Controller
      */
     public function index()
     {
+        // The search filters and the contact card read only the contact itself
+        $relations = (request()->expectsJson() && request()->isNotApi())
+            ? ['media']
+            : ['media', 'invoices.histories', 'invoices.totals', 'invoices.transactions', 'invoices.media'];
+
         $customers = Contact::customer()
-            ->with([
-                'media',
-                'invoices.histories',
-                'invoices.totals',
-                'invoices.transactions',
-                'invoices.media'
-            ])
+            ->with($relations)
             ->withCount([
                 'contact_persons as contact_persons_with_email_count' => function ($query) {
                     $query->whereNotNull('email');
