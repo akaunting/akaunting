@@ -21,7 +21,8 @@ class Vendors extends Export
         }
 
         $model->country = $country;
-        $model->category_name = $model->category->name ?? null;
+        // The relation falls back to an "N/A" category, which the import would open for real
+        $model->category_name = $model->category->exists ? $model->category->name : null;
 
         return parent::map($model);
     }

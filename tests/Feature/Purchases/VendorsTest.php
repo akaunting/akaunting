@@ -7,6 +7,7 @@ use App\Jobs\Common\CreateContact;
 use App\Jobs\Document\CreateDocument;
 use App\Models\Common\Contact;
 use App\Models\Document\Document;
+use App\Models\Setting\Category;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
@@ -212,6 +213,23 @@ class VendorsTest extends FeatureTestCase
                 return $export->collection()->count() === $select_count;
             }
         );
+    }
+
+    public function testItShouldNotExportTheNotAvailableCategoryOfAVendorWithNone()
+    {
+        // The category relation falls back to an "N/A" category; written to the file, the
+        // import opened an expense category of that name and put every such vendor in it
+        $category = Category::factory()->expense()->create();
+
+        $without = Contact::factory()->vendor()->create(['category_id' => null]);
+        $with = Contact::factory()->vendor()->create(['category_id' => $category->id]);
+
+        $export = new Export([$without->id, $with->id]);
+
+        $rows = $export->collection()->keyBy('id')->map(fn ($vendor) => array_combine($export->fields, $export->map($vendor)));
+
+        $this->assertNull($rows[$without->id]['category_name']);
+        $this->assertSame($category->name, $rows[$with->id]['category_name']);
     }
 
     public function testItShouldKeepContactPersonsAndRecurringBillsOnBulkUpdate()
