@@ -12,12 +12,13 @@ class Categories extends Export
 
     public function collection()
     {
-        return Model::collectForExport($this->ids);
+        return $this->parentsFirst(Model::collectForExport($this->ids)->collect());
     }
 
     public function map($model): array
     {
-        $model->parent_name = Model::find($model->parent_id)?->name;
+        // A sub-category can be the parent too.
+        $model->parent_name = Model::withSubCategory()->find($model->parent_id)?->name;
 
         return parent::map($model);
     }
@@ -33,5 +34,29 @@ class Categories extends Export
             'parent_name',
             'enabled',
         ];
+    }
+
+    /**
+     * The import finds a row's parent among the categories there before it, so write every category after its
+     * parent, keeping the requested order within each level.
+     */
+    protected function parentsFirst($categories)
+    {
+        $parent_ids = Model::withSubCategory()->pluck('parent_id', 'id');
+
+        $level = function ($category) use ($parent_ids) {
+            $level = 0;
+            $parent_id = $category->parent_id;
+
+            // The bound guards against a parent loop.
+            while (! empty($parent_id) && $level < $parent_ids->count()) {
+                $level++;
+                $parent_id = $parent_ids->get($parent_id);
+            }
+
+            return $level;
+        };
+
+        return $categories->sortBy($level)->values();
     }
 }
