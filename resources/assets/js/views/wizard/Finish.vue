@@ -115,9 +115,13 @@ export default {
     },
 
     created() {
+        // Sent as POST with _method, as the forms do, since some servers and firewalls refuse PATCH requests
         window.axios({
-            method: "PATCH",
+            method: "POST",
             url: url + "/wizard/finish",
+            data: {
+                _method: "PATCH",
+            },
         })
         .then((response) => {
         })
