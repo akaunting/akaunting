@@ -26,9 +26,11 @@ class SendDocumentPaymentNotification
             return;
         }
 
+        $notification = $this->getNotificationClass($document->type);
+
         // Notify the customer
         if ($document->contact && !empty($document->contact_email)) {
-            $document->contact->notify(new Notification($document, $transaction, "{$document->type}_payment_customer"), true);
+            $document->contact->notify(new $notification($document, $transaction, "{$document->type}_payment_customer"), true);
         }
 
         // Notify all users assigned to this company
@@ -37,7 +39,23 @@ class SendDocumentPaymentNotification
                 continue;
             }
 
-            $user->notify(new Notification($document, $transaction, "{$document->type}_payment_admin"));
+            $user->notify(new $notification($document, $transaction, "{$document->type}_payment_admin"));
         }
+    }
+
+    /**
+     * A module's document type can bring its own class, for its own tags, links and texts. It has to be one of
+     * core's, as it is built and sent the same way, so a class that is missing, such as one of an app removed
+     * without its settings, or one of another kind falls back to core's and the payment is still notified.
+     */
+    protected function getNotificationClass(string $type): string
+    {
+        $class = config('type.document.' . $type . '.notification.payment_class');
+
+        if (empty($class) || ! is_string($class) || ! class_exists($class) || ! is_a($class, Notification::class, true)) {
+            return Notification::class;
+        }
+
+        return $class;
     }
 }
