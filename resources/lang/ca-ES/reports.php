@@ -35,6 +35,14 @@ return [
     'pin_text' => [
         'unpin_report'              => 'Afixa el teu informe',
         'pin_report'                => 'Fixa el teu informe',
-    ]
+    ],
+
+    'discount_display' => [
+        'title'                     => 'Descomptes',
+        'spread'                    => 'Inclosos als imports',
+        'separate'                  => 'En una fila pròpia',
+        'sales'                     => 'Descomptes de vendes',
+        'purchases'                 => 'Descomptes de compres',
+    ],
 
 ];

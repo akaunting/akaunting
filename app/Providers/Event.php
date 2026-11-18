@@ -158,5 +158,6 @@ class Event extends Provider
         \App\Listeners\Report\AddPeriod::class,
         \App\Listeners\Report\AddDate::class,
         \App\Listeners\Report\AddDiscount::class,
+        \App\Listeners\Report\AddDiscountDisplay::class,
     ];
 }

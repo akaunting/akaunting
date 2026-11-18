@@ -25,6 +25,14 @@ return [
     'income_expense_description'    => 'Get an overview of your income and expenses.',
     'accounting_description'        => 'Get a clear picture of how your business is doing.',
 
+    'discount_display' => [
+        'title'                     => 'Discounts',
+        'spread'                    => 'Included in the amounts',
+        'separate'                  => 'On a separate row',
+        'sales'                     => 'Sales Discounts',
+        'purchases'                 => 'Purchase Discounts',
+    ],
+
     'as_of_presets' => [
         'end_of_this_month'                 => 'End of This Month',
         'end_of_last_month'                 => 'End of Last Month',

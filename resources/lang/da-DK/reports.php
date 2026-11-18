@@ -38,6 +38,14 @@ return [
     'pin_text' => [
         'unpin_report'              => 'Frigør din rapport',
         'pin_report'                => 'Fastgør din rapport',
-    ]
+    ],
+
+    'discount_display' => [
+        'title'                     => 'Rabatter',
+        'spread'                    => 'Indregnet i beløbene',
+        'separate'                  => 'På egen række',
+        'sales'                     => 'Salgsrabatter',
+        'purchases'                 => 'Købsrabatter',
+    ],
 
 ];

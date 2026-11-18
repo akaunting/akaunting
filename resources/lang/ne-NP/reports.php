@@ -25,4 +25,12 @@ return [
         'pie'                   => 'पाइ',
     ],
 
+    'discount_display' => [
+        'title'                     => 'छुट',
+        'spread'                    => 'रकममा समावेश',
+        'separate'                  => 'छुट्टै पङ्क्तिमा',
+        'sales'                     => 'बिक्री छुट',
+        'purchases'                 => 'खरिद छुट',
+    ],
+
 ];

@@ -6,9 +6,12 @@ use App\Abstracts\Report;
 use App\Models\Banking\Transaction;
 use App\Models\Document\Document;
 use App\Utilities\Recurring;
+use App\Traits\ReportDiscountDisplay;
 
 class IncomeSummary extends Report
 {
+    use ReportDiscountDisplay;
+
     public $default_name = 'reports.income_summary';
 
     public $icon = 'payments';
@@ -63,5 +66,15 @@ class IncomeSummary extends Report
 
                 break;
         }
+    }
+
+    public function getFields()
+    {
+        return [
+            $this->getGroupField(),
+            $this->getPeriodField(),
+            $this->getBasisField(),
+            $this->getDiscountDisplayField(),
+        ];
     }
 }

@@ -38,6 +38,14 @@ return [
     'pin_text' => [
         'unpin_report'              => 'Desanclar tu informe',
         'pin_report'                => 'Anclar tu informe',
-    ]
+    ],
+
+    'discount_display' => [
+        'title'                     => 'Descuentos',
+        'spread'                    => 'Incluidos en los importes',
+        'separate'                  => 'En una fila propia',
+        'sales'                     => 'Descuentos sobre ventas',
+        'purchases'                 => 'Descuentos sobre compras',
+    ],
 
 ];

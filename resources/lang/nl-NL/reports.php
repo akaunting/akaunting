@@ -25,6 +25,14 @@ return [
     'income_expense_description'    => 'Een overzicht van uw inkomsten en uitgaven.',
     'accounting_description'        => 'Krijg een duidelijk beeld van hoe uw bedrijf het doet.',
 
+    'discount_display' => [
+        'title'                     => 'Kortingen',
+        'spread'                    => 'Verwerkt in de bedragen',
+        'separate'                  => 'Op een eigen regel',
+        'sales'                     => 'Verkoopkortingen',
+        'purchases'                 => 'Inkoopkortingen',
+    ],
+
     'as_of_presets' => [
         'end_of_this_month'                 => 'Einde van deze maand',
         'end_of_last_month'                 => 'Einde van vorige maand',

@@ -38,6 +38,14 @@ return [
     'pin_text' => [
         'unpin_report'              => 'Otkačite svoj izvještaj',
         'pin_report'                => 'Zakačite svoj izvještaj',
-    ]
+    ],
+
+    'discount_display' => [
+        'title'                     => 'Popusti',
+        'spread'                    => 'Uključeni u iznose',
+        'separate'                  => 'U zasebnom redu',
+        'sales'                     => 'Popusti na prodaju',
+        'purchases'                 => 'Popusti na nabavku',
+    ],
 
 ];

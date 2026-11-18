@@ -25,6 +25,14 @@ return [
     'income_expense_description'    => 'Obtenez un aperçu de vos revenus et dépenses.',
     'accounting_description'        => 'Obtenez une image claire de la façon dont votre entreprise se déroule.',
 
+    'discount_display' => [
+        'title'                     => 'Remises',
+        'spread'                    => 'Inclus dans les montants',
+        'separate'                  => 'Sur une ligne distincte',
+        'sales'                     => 'Remises sur ventes',
+        'purchases'                 => 'Remises sur achats',
+    ],
+
     'as_of_presets' => [
         'end_of_this_month'                 => 'Fin du mois en cours',
         'end_of_last_month'                 => 'Fin du mois précédent',

@@ -38,6 +38,14 @@ return [
     'pin_text' => [
         'unpin_report'              => 'Lossa rapporten',
         'pin_report'                => 'Fäst rapporten',
-    ]
+    ],
+
+    'discount_display' => [
+        'title'                     => 'Rabatter',
+        'spread'                    => 'Inräknade i beloppen',
+        'separate'                  => 'På egen rad',
+        'sales'                     => 'Försäljningsrabatter',
+        'purchases'                 => 'Inköpsrabatter',
+    ],
 
 ];

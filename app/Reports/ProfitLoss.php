@@ -10,9 +10,12 @@ use App\Models\Setting\Category;
 use App\Utilities\Date;
 use App\Utilities\Recurring;
 use Illuminate\Database\Eloquent\Builder;
+use App\Traits\ReportDiscountDisplay;
 
 class ProfitLoss extends Report
 {
+    use ReportDiscountDisplay;
+
     public $default_name = 'reports.profit_loss';
 
     public $category = 'general.accounting';
@@ -215,6 +218,7 @@ class ProfitLoss extends Report
             $this->getGroupField(),
             $this->getPeriodField(),
             $this->getBasisField(),
+            $this->getDiscountDisplayField(),
             $this->getPercentageField(),
         ];
     }

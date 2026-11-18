@@ -25,6 +25,14 @@ return [
     'income_expense_description'    => 'Dapatkan ikhtisar pendapatan dan pengeluaran Anda.',
     'accounting_description'        => 'Dapatkan gambaran yang jelas tentang bagaimana bisnis Anda berjalan.',
 
+    'discount_display' => [
+        'title'                     => 'Diskon',
+        'spread'                    => 'Termasuk dalam jumlah',
+        'separate'                  => 'Di baris tersendiri',
+        'sales'                     => 'Diskon Penjualan',
+        'purchases'                 => 'Diskon Pembelian',
+    ],
+
     'as_of_presets' => [
         'end_of_this_month'                 => 'Akhir Bulan Ini',
         'end_of_last_month'                 => 'Akhir Bulan Lalu',

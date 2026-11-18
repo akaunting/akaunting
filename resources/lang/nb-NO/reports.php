@@ -25,4 +25,12 @@ return [
         'pie'                   => 'Pai',
     ],
 
+    'discount_display' => [
+        'title'                     => 'Rabatter',
+        'spread'                    => 'Inkludert i beløpene',
+        'separate'                  => 'På egen linje',
+        'sales'                     => 'Salgsrabatter',
+        'purchases'                 => 'Innkjøpsrabatter',
+    ],
+
 ];

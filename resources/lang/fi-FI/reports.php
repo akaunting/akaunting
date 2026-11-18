@@ -25,4 +25,12 @@ return [
         'pie'                   => 'Ympyrä',
     ],
 
+    'discount_display' => [
+        'title'                     => 'Alennukset',
+        'spread'                    => 'Sisältyy summiin',
+        'separate'                  => 'Omalla rivillään',
+        'sales'                     => 'Myynnin alennukset',
+        'purchases'                 => 'Oston alennukset',
+    ],
+
 ];

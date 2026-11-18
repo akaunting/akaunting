@@ -24,4 +24,12 @@ return [
         '4'                     => 'Quý IV',
     ],
 
+    'discount_display' => [
+        'title'                     => 'Chiết khấu',
+        'spread'                    => 'Tính vào số tiền',
+        'separate'                  => 'Ở dòng riêng',
+        'sales'                     => 'Chiết khấu bán hàng',
+        'purchases'                 => 'Chiết khấu mua hàng',
+    ],
+
 ];

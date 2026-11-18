@@ -24,4 +24,12 @@ return [
         '4'                     => 'Október-December',
     ],
 
+    'discount_display' => [
+        'title'                     => 'Zľavy',
+        'spread'                    => 'Zahrnuté v sumách',
+        'separate'                  => 'V samostatnom riadku',
+        'sales'                     => 'Zľavy z predaja',
+        'purchases'                 => 'Zľavy z nákupu',
+    ],
+
 ];

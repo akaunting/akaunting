@@ -24,4 +24,12 @@ return [
         'pie'                   => 'Skritulinė',
     ],
 
+    'discount_display' => [
+        'title'                     => 'Nuolaidos',
+        'spread'                    => 'Įtrauktos į sumas',
+        'separate'                  => 'Atskiroje eilutėje',
+        'sales'                     => 'Pardavimų nuolaidos',
+        'purchases'                 => 'Pirkimų nuolaidos',
+    ],
+
 ];

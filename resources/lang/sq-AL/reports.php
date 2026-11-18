@@ -25,4 +25,12 @@ return [
         'pie'                   => 'Tortë',
     ],
 
+    'discount_display' => [
+        'title'                     => 'Zbritjet',
+        'spread'                    => 'Të përfshira në shuma',
+        'separate'                  => 'Në rresht më vete',
+        'sales'                     => 'Zbritjet e shitjeve',
+        'purchases'                 => 'Zbritjet e blerjeve',
+    ],
+
 ];

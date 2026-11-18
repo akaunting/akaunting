@@ -25,6 +25,14 @@ return [
     'income_expense_description'    => '获取您的收入和支出的概览。',
     'accounting_description'        => '清晰了解您的业务运营状况。',
 
+    'discount_display' => [
+        'title'                     => '折扣',
+        'spread'                    => '计入金额',
+        'separate'                  => '单独一行',
+        'sales'                     => '销售折扣',
+        'purchases'                 => '采购折扣',
+    ],
+
     'as_of_presets' => [
         'end_of_this_month'                 => '本月末',
         'end_of_last_month'                 => '上月末',

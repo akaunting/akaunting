@@ -24,4 +24,12 @@ return [
         '4'                     => '10월-12월',
     ],
 
+    'discount_display' => [
+        'title'                     => '할인',
+        'spread'                    => '금액에 포함',
+        'separate'                  => '별도 행에 표시',
+        'sales'                     => '매출 할인',
+        'purchases'                 => '매입 할인',
+    ],
+
 ];

@@ -38,6 +38,14 @@ return [
     'pin_text' => [
         'unpin_report'              => 'Atspraust savu ziņojumu',
         'pin_report'                => 'Piespraust savu pārskatu',
-    ]
+    ],
+
+    'discount_display' => [
+        'title'                     => 'Atlaides',
+        'spread'                    => 'Iekļautas summās',
+        'separate'                  => 'Atsevišķā rindā',
+        'sales'                     => 'Pārdošanas atlaides',
+        'purchases'                 => 'Iepirkuma atlaides',
+    ],
 
 ];

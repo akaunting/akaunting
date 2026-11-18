@@ -25,6 +25,14 @@ return [
     'income_expense_description'    => 'Uzyskaj przegląd swoich dochodów i wydatków.',
     'accounting_description'        => 'Uzyskaj jasny obraz tego, jak radzi sobie Twój biznes.',
 
+    'discount_display' => [
+        'title'                     => 'Rabaty',
+        'spread'                    => 'Uwzględnione w kwotach',
+        'separate'                  => 'W osobnym wierszu',
+        'sales'                     => 'Rabaty od sprzedaży',
+        'purchases'                 => 'Rabaty od zakupów',
+    ],
+
     'as_of_presets' => [
         'end_of_this_month'                 => 'Koniec bieżącego miesiąca',
         'end_of_last_month'                 => 'Koniec poprzedniego miesiąca',

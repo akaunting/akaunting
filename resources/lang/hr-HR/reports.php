@@ -24,4 +24,12 @@ return [
         'pie'                   => 'Pita',
     ],
 
+    'discount_display' => [
+        'title'                     => 'Popusti',
+        'spread'                    => 'Uključeni u iznose',
+        'separate'                  => 'U zasebnom retku',
+        'sales'                     => 'Popusti na prodaju',
+        'purchases'                 => 'Popusti na nabavu',
+    ],
+
 ];

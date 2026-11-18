@@ -48,7 +48,7 @@ abstract class Report
      */
     protected const FILTER_BAR_ORDER = [
         'strip' => ['date_field', 'date_range', 'as_of', 'basis', 'ageing_by', 'discount', 'period', 'group', 'mode', 'group_by'],
-        'display' => ['sort_by', 'direction'],
+        'display' => ['sort_by', 'direction', 'discount_display'],
         'filters' => ['sources', 'contact_id', 'status', 'category_id', 'item_category_id', 'account_id', 'item_id', 'tax_id', 'warehouse_id', 'currency_code', 'amount'],
     ];
 
@@ -263,7 +263,14 @@ abstract class Report
             }
         }
 
-        $tmp_values = collect($tmp_values)->sort()->reverse()->take(10)->all();
+        // The donut shows the parts of the whole. A deduction from it, the discount on its own row or a category with
+        // more refunds than sales, is no part of it and would turn a slice negative and the others over 100%.
+        $tmp_values = collect($tmp_values)
+            ->reject(fn ($value, $id) => ($value < 0) || ($this->showsDiscountRow() && ($id === static::DISCOUNT_ROW)))
+            ->sort()
+            ->reverse()
+            ->take(10)
+            ->all();
 
         $total = array_sum($tmp_values);
         $total = !empty($total) ? $total : 1;
@@ -596,6 +603,11 @@ abstract class Report
         }
 
         foreach (array_diff_key($fields, array_flip($keys)) as $name => $field) {
+            // A setting that does not apply to this run, such as one of the accrual basis on the cash basis
+            if (($field['applies'] ?? true) === false) {
+                continue;
+            }
+
             $values = (isset($field['values']) && is_array($field['values'])) ? $field['values'] : [];
 
             // A field the options bar changes per run prints the value of this run, as the bar shows it
@@ -952,6 +964,11 @@ abstract class Report
         $position = count($chips);
 
         foreach (array_diff_key($fields, array_flip($keys)) as $name => $field) {
+            // A setting that does not apply to this run, such as one of the accrual basis on the cash basis
+            if (($field['applies'] ?? true) === false) {
+                continue;
+            }
+
             $placement = $field['placement'] ?? null;
             $values = (isset($field['values']) && is_array($field['values'])) ? $field['values'] : [];
 
@@ -1666,7 +1683,9 @@ abstract class Report
 
     public function flattenDocumentItems(Collection $documents): Collection
     {
-        return $documents->flatMap(function (Document $d) {
+        $separate = $this->showsDiscountRow();
+
+        return $documents->flatMap(function (Document $d) use ($separate) {
             // The item totals are before the discount on the document total. It is shared out to the items by
             // their totals, as App\Reports\DiscountSummary does, so that the items add up to the document.
             // A filter that loads only some of the items, by category for example, loads the sum of all of them as
@@ -1676,7 +1695,7 @@ abstract class Report
                 ? (float) $d->getAttributes()['items_sum_total']
                 : (float) $d->items->sum('total');
 
-            return $d->items->map(function (DocumentItem $di) use ($d, $discount, $items_total) {
+            $lines = $d->items->map(function (DocumentItem $di) use ($d, $discount, $items_total, $separate) {
                 $proxy = clone $di;
                 $proxy->type = $d->type;
                 $proxy->document_number = $d->document_number;
@@ -1688,13 +1707,55 @@ abstract class Report
                 $proxy->amount = $di->total;
                 $proxy->contact_id = $d->contact_id;
 
-                if (! empty($discount) && ! empty($items_total)) {
+                if (! $separate && ! empty($discount) && ! empty($items_total)) {
                     $proxy->amount -= $discount * $di->total / $items_total;
                 }
 
                 return $proxy;
             });
+
+            if (! $separate || empty($discount) || empty($items_total)) {
+                return $lines;
+            }
+
+            return $lines->concat($this->getDocumentDiscountLines($lines, $discount, $items_total));
         });
+    }
+
+    /**
+     * The discount on the document total as lines of their own, on the discount row (ReportDiscountDisplay::DISCOUNT_ROW) of the table the
+     * lines are counted in: one for the lines of each category type, with their share of it. A bill that has lines
+     * of direct cost and of expense takes it off both, as each table counts its own lines.
+     */
+    protected function getDocumentDiscountLines(Collection $lines, float $discount, float $items_total): Collection
+    {
+        return $lines
+            ->filter(fn (DocumentItem $line) => ! empty($line->category))
+            ->groupBy(fn (DocumentItem $line) => $line->category->type)
+            ->map(function (Collection $group) use ($discount, $items_total) {
+                $first = $group->first();
+
+                $proxy = clone $first;
+                $proxy->setRelation('category', $first->category);
+
+                // Not one of the document's lines, so nothing reads it as a line of its own
+                $proxy->id = null;
+                $proxy->item_id = null;
+                $proxy->category_id = static::DISCOUNT_ROW;
+                $proxy->amount = -($discount * $group->sum('total') / $items_total);
+
+                return $proxy;
+            })
+            ->values();
+    }
+
+    /**
+     * Whether the discount on the document total shows on a row of its own instead of being shared out over the
+     * lines. A report that offers it says so (App\Traits\ReportDiscountDisplay).
+     */
+    public function showsDiscountRow(): bool
+    {
+        return false;
     }
 
     public function getUrl($action = 'print')

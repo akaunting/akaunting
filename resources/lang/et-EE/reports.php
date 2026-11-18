@@ -25,4 +25,12 @@ return [
         'pie'                   => 'Pie',
     ],
 
+    'discount_display' => [
+        'title'                     => 'Allahindlused',
+        'spread'                    => 'Summade sees',
+        'separate'                  => 'Eraldi real',
+        'sales'                     => 'Müügiallahindlused',
+        'purchases'                 => 'Ostuallahindlused',
+    ],
+
 ];

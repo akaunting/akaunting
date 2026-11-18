@@ -34,6 +34,14 @@ return [
     'pin_text' => [
         'unpin_report'              => 'Odepnout hlášení',
         'pin_report'                => 'Připnout hlášení',
-    ]
+    ],
+
+    'discount_display' => [
+        'title'                     => 'Slevy',
+        'spread'                    => 'Zahrnuté v částkách',
+        'separate'                  => 'Na samostatném řádku',
+        'sales'                     => 'Slevy z prodeje',
+        'purchases'                 => 'Slevy z nákupu',
+    ],
 
 ];

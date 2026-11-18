@@ -25,6 +25,14 @@ return [
     'income_expense_description'    => 'Erhalten Sie einen Überblick über Ihre Einnahmen und Ausgaben.',
     'accounting_description'        => 'Schaffen Sie sich ein klares Bild davon, wie Ihr Geschäft abläuft.',
 
+    'discount_display' => [
+        'title'                     => 'Rabatte',
+        'spread'                    => 'In den Beträgen enthalten',
+        'separate'                  => 'In eigener Zeile',
+        'sales'                     => 'Verkaufsrabatte',
+        'purchases'                 => 'Einkaufsrabatte',
+    ],
+
     'as_of_presets' => [
         'end_of_this_month'                 => 'Ende dieses Monats',
         'end_of_last_month'                 => 'Ende des vorherigen Monats',

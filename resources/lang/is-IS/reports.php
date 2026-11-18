@@ -24,4 +24,12 @@ return [
         'pie'                   => 'Pie',
     ],
 
+    'discount_display' => [
+        'title'                     => 'Afslættir',
+        'spread'                    => 'Innifalið í upphæðum',
+        'separate'                  => 'Í sérlínu',
+        'sales'                     => 'Söluafslættir',
+        'purchases'                 => 'Innkaupaafslættir',
+    ],
+
 ];

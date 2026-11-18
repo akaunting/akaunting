@@ -48,4 +48,12 @@ return [
 
     'percentage_of_income'          => 'Прикажи % од приход',
 
+    'discount_display' => [
+        'title'                     => 'Попусти',
+        'spread'                    => 'Вклучени во износите',
+        'separate'                  => 'Во посебен ред',
+        'sales'                     => 'Попусти на продажба',
+        'purchases'                 => 'Попусти на набавка',
+    ],
+
 ];

@@ -24,4 +24,12 @@ return [
         'pie'                   => 'Aylana chiziq grafikasi',
     ],
 
+    'discount_display' => [
+        'title'                     => 'Chegirmalar',
+        'spread'                    => 'Summalarga kiritilgan',
+        'separate'                  => 'Alohida qatorda',
+        'sales'                     => 'Sotuv chegirmalari',
+        'purchases'                 => 'Xarid chegirmalari',
+    ],
+
 ];

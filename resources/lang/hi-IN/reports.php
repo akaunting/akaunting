@@ -25,6 +25,14 @@ return [
     'income_expense_description'    => 'अपनी आय और व्यय का अवलोकन प्राप्त करें।',
     'accounting_description'        => 'समझें कि आपका व्यवसाय कैसा कर रहा है।',
 
+    'discount_display' => [
+        'title'                     => 'छूट',
+        'spread'                    => 'राशियों में शामिल',
+        'separate'                  => 'अलग पंक्ति में',
+        'sales'                     => 'बिक्री छूट',
+        'purchases'                 => 'खरीद छूट',
+    ],
+
     'as_of_presets' => [
         'end_of_this_month'                 => 'इस महीने का अंत',
         'end_of_last_month'                 => 'पिछले महीने का अंत',

@@ -24,4 +24,12 @@ return [
         'pie'                   => 'Circular',
     ],
 
+    'discount_display' => [
+        'title'                     => 'Descontos',
+        'spread'                    => 'Incluídos nos valores',
+        'separate'                  => 'Numa linha própria',
+        'sales'                     => 'Descontos sobre vendas',
+        'purchases'                 => 'Descontos sobre compras',
+    ],
+
 ];

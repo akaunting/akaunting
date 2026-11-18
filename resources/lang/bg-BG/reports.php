@@ -25,6 +25,14 @@ return [
     'income_expense_description'    => 'Получете преглед на вашите приходи и разходи.',
     'accounting_description'        => 'Получете ясна картина за това как върви вашият бизнес.',
 
+    'discount_display' => [
+        'title'                     => 'Отстъпки',
+        'spread'                    => 'Включени в сумите',
+        'separate'                  => 'На отделен ред',
+        'sales'                     => 'Отстъпки от продажби',
+        'purchases'                 => 'Отстъпки от покупки',
+    ],
+
     'as_of_presets' => [
         'end_of_this_month'                 => 'Край на този месец',
         'end_of_last_month'                 => 'Край на миналия месец',

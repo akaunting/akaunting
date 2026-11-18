@@ -25,6 +25,14 @@ return [
     'income_expense_description'    => 'Получите обзор ваших доходов и расходов.',
     'accounting_description'        => 'Получите чёткое представление о состоянии вашего бизнеса.',
 
+    'discount_display' => [
+        'title'                     => 'Скидки',
+        'spread'                    => 'Включены в суммы',
+        'separate'                  => 'Отдельной строкой',
+        'sales'                     => 'Скидки с продаж',
+        'purchases'                 => 'Скидки на закупки',
+    ],
+
     'as_of_presets' => [
         'end_of_this_month'                 => 'Конец этого месяца',
         'end_of_last_month'                 => 'Конец предыдущего месяца',

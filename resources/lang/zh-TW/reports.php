@@ -24,4 +24,12 @@ return [
         'pie'                   => '餅狀',
     ],
 
+    'discount_display' => [
+        'title'                     => '折扣',
+        'spread'                    => '計入金額',
+        'separate'                  => '單獨一行',
+        'sales'                     => '銷售折扣',
+        'purchases'                 => '採購折扣',
+    ],
+
 ];

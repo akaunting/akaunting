@@ -24,4 +24,12 @@ return [
         'pie'                   => 'Körcikk',
     ],
 
+    'discount_display' => [
+        'title'                     => 'Kedvezmények',
+        'spread'                    => 'Az összegekben',
+        'separate'                  => 'Külön sorban',
+        'sales'                     => 'Értékesítési kedvezmények',
+        'purchases'                 => 'Beszerzési kedvezmények',
+    ],
+
 ];

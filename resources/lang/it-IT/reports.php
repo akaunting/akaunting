@@ -25,6 +25,14 @@ return [
     'income_expense_description'    => 'Ottieni una panoramica delle tue entrate e uscite.',
     'accounting_description'        => 'Ottieni un quadro chiaro dell\'andamento della tua attività.',
 
+    'discount_display' => [
+        'title'                     => 'Sconti',
+        'spread'                    => 'Inclusi negli importi',
+        'separate'                  => 'In una riga a parte',
+        'sales'                     => 'Sconti sulle vendite',
+        'purchases'                 => 'Sconti sugli acquisti',
+    ],
+
     'as_of_presets' => [
         'end_of_this_month'                 => 'Fine del mese in corso',
         'end_of_last_month'                 => 'Fine del mese precedente',

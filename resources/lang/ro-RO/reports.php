@@ -38,6 +38,14 @@ return [
     'pin_text' => [
         'unpin_report'              => 'Anulează-ți fixarea raportului',
         'pin_report'                => 'Fixează-ți raportul',
-    ]
+    ],
+
+    'discount_display' => [
+        'title'                     => 'Reduceri',
+        'spread'                    => 'Incluse în sume',
+        'separate'                  => 'Pe un rând separat',
+        'sales'                     => 'Reduceri la vânzări',
+        'purchases'                 => 'Reduceri la achiziții',
+    ],
 
 ];

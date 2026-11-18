@@ -25,4 +25,12 @@ return [
         'pie'                   => 'Tort',
     ],
 
+    'discount_display' => [
+        'title'                     => 'Endirimlər',
+        'spread'                    => 'Məbləğlərə daxil',
+        'separate'                  => 'Ayrı sətirdə',
+        'sales'                     => 'Satış endirimləri',
+        'purchases'                 => 'Alış endirimləri',
+    ],
+
 ];

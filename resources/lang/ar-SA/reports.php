@@ -25,6 +25,14 @@ return [
     'income_expense_description'    => 'احصل على لمحة عامة عن إيراداتك ومصروفاتك.',
     'accounting_description'        => 'احصل على صورة واضحة عن كيفية أداء عملك.',
 
+    'discount_display' => [
+        'title'                     => 'الخصومات',
+        'spread'                    => 'ضمن المبالغ',
+        'separate'                  => 'في صف مستقل',
+        'sales'                     => 'خصومات المبيعات',
+        'purchases'                 => 'خصومات المشتريات',
+    ],
+
     'as_of_presets' => [
         'end_of_this_month'                 => 'نهاية هذا الشهر',
         'end_of_last_month'                 => 'نهاية الشهر الماضي',

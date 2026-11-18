@@ -35,6 +35,14 @@ Tukaj lahko vnesete splošne informacije o transakciji, kot so ime, tip, opis it
     'pin_text' => [
         'unpin_report'              => 'Odpni poročilo',
         'pin_report'                => 'Pripni poročilo',
-    ]
+    ],
+
+    'discount_display' => [
+        'title'                     => 'Popusti',
+        'spread'                    => 'Vključeni v zneske',
+        'separate'                  => 'V ločeni vrstici',
+        'sales'                     => 'Prodajni popusti',
+        'purchases'                 => 'Nabavni popusti',
+    ],
 
 ];

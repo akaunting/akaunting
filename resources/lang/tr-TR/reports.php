@@ -25,6 +25,14 @@ return [
     'income_expense_description'    => 'Gelir ve giderlerinizin genel görünümünü alın.',
     'accounting_description'        => 'İşletmenizin nasıl gittiğine dair net bir resim elde edin.',
 
+    'discount_display' => [
+        'title'                     => 'İndirimler',
+        'spread'                    => 'Tutarlara dahil',
+        'separate'                  => 'Ayrı satırda',
+        'sales'                     => 'Satış İndirimleri',
+        'purchases'                 => 'Alış İndirimleri',
+    ],
+
     'as_of_presets' => [
         'end_of_this_month'                 => 'Bu Ay Sonu',
         'end_of_last_month'                 => 'Önceki Ay Sonu',

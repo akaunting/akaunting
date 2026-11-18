@@ -25,6 +25,14 @@ return [
     'income_expense_description'    => 'Obtenha uma visão geral de suas receitas e despesas.',
     'accounting_description'        => 'Obtenha uma visão clara de como está o seu negócio.',
 
+    'discount_display' => [
+        'title'                     => 'Descontos',
+        'spread'                    => 'Incluídos nos valores',
+        'separate'                  => 'Em uma linha própria',
+        'sales'                     => 'Descontos sobre vendas',
+        'purchases'                 => 'Descontos sobre compras',
+    ],
+
     'as_of_presets' => [
         'end_of_this_month'                 => 'Fim deste mês',
         'end_of_last_month'                 => 'Fim do mês passado',

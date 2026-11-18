@@ -25,6 +25,14 @@ return [
     'income_expense_description'    => 'Dapatkan gambaran keseluruhan pendapatan dan perbelanjaan anda.',
     'accounting_description'        => 'Dapatkan gambaran jelas tentang prestasi perniagaan anda.',
 
+    'discount_display' => [
+        'title'                     => 'Diskaun',
+        'spread'                    => 'Termasuk dalam amaun',
+        'separate'                  => 'Pada baris tersendiri',
+        'sales'                     => 'Diskaun Jualan',
+        'purchases'                 => 'Diskaun Belian',
+    ],
+
     'as_of_presets' => [
         'end_of_this_month'                 => 'Akhir Bulan Ini',
         'end_of_last_month'                 => 'Akhir Bulan Lalu',

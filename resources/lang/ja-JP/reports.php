@@ -24,4 +24,12 @@ return [
         'pie'                   => 'パイ',
     ],
 
+    'discount_display' => [
+        'title'                     => '割引',
+        'spread'                    => '金額に含める',
+        'separate'                  => '別の行に表示',
+        'sales'                     => '売上割引',
+        'purchases'                 => '仕入割引',
+    ],
+
 ];
