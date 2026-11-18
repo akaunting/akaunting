@@ -11,6 +11,7 @@ use App\Traits\Currencies;
 use App\Traits\Jobs;
 use App\Traits\Transactions;
 use App\Utilities\Date;
+use Illuminate\Support\Carbon;
 
 class Transfers extends Import
 {
@@ -22,6 +23,16 @@ class Transfers extends Import
         'expense_transaction_id',
         'income_transaction_id',
     ];
+
+    /**
+     * The transactions linked to a transfer of this file so far.
+     */
+    protected array $linked_transaction_ids = [];
+
+    /**
+     * The transactions of the transfers there were before the file, read once.
+     */
+    protected ?array $transfer_transaction_ids = null;
 
     public function model(array $row)
     {
@@ -64,6 +75,20 @@ class Transfers extends Import
 
     private function getExpenseTransactionId($row)
     {
+        $existing = $this->findTransferTransaction(
+            Transaction::EXPENSE_TRANSFER_TYPE,
+            $row['expense_transaction_number'] ?? null,
+            $row['from_account_id'],
+            $row['from_currency_code'],
+            $row['transferred_at'],
+            $row['amount'],
+            $row['description'] ?? null
+        );
+
+        if ($existing) {
+            return $existing->id;
+        }
+
         $expense_transaction = $this->dispatch(new CreateTransaction([
             'company_id' => $row['company_id'],
             'number' => $this->getNextTransactionNumber(),
@@ -80,6 +105,8 @@ class Transfers extends Import
             'reference' => $row['reference'],
             'created_by' => $row['created_by'],
         ]));
+
+        $this->linked_transaction_ids[] = $expense_transaction->id;
 
         return $expense_transaction->id;
     }
@@ -99,6 +126,20 @@ class Transfers extends Import
             );
         }
 
+        $existing = $this->findTransferTransaction(
+            Transaction::INCOME_TRANSFER_TYPE,
+            $row['income_transaction_number'] ?? null,
+            $row['to_account_id'],
+            $row['to_currency_code'],
+            $row['transferred_at'],
+            $amount,
+            $row['description'] ?? null
+        );
+
+        if ($existing) {
+            return $existing->id;
+        }
+
         $income_transaction = $this->dispatch(new CreateTransaction([
             'company_id' => $row['company_id'],
             'number' => $this->getNextTransactionNumber(),
@@ -116,7 +157,78 @@ class Transfers extends Import
             'created_by' => $row['created_by'],
         ]));
 
+        $this->linked_transaction_ids[] = $income_transaction->id;
+
         return $income_transaction->id;
+    }
+
+    /**
+     * The transaction of the given side of the transfer when there is one already, so the transfer is linked to it
+     * instead of moving its money again.
+     *
+     * The transactions export writes a transfer's two transactions as well, and importing both files (a restore of
+     * a backup does) brought each transfer's money in twice: once from the transactions file, once from the two
+     * transactions opened here, and the first pair had no transfer.
+     *
+     * - By the number the transfers export writes beside the transfer. As the transactions import does, the number
+     *   names the transaction: one a transfer has already is that transfer's, and the pair then names the transfer
+     *   for hasRow(), which leaves the row out, so importing the file again does not add it again.
+     * - In a file without the numbers: a transaction of the side's type, account, date and currency that no
+     *   transfer has, the one with the transfer's description and the nearest amount first. The income side's amount
+     *   is converted from the expense's here and may differ from the stored one by the rounding.
+     */
+    protected function findTransferTransaction(string $type, $number, $account_id, $currency_code, $transferred_at, $amount, $description): ?Transaction
+    {
+        $number = is_scalar($number) ? trim((string) $number) : '';
+
+        if ($number !== '') {
+            $transaction = Transaction::where('type', $type)
+                ->where('number', $number)
+                ->whereNotIn('id', $this->linked_transaction_ids)
+                ->orderBy('id')
+                ->first();
+        } elseif (empty($account_id) || empty($transferred_at)) {
+            $transaction = null;
+        } else {
+            $description = trim((string) $description);
+
+            $transaction = Transaction::where('type', $type)
+                ->where('account_id', $account_id)
+                ->where('currency_code', $currency_code)
+                ->whereDate('paid_at', Carbon::parse($transferred_at)->toDateString())
+                ->whereNotIn('id', array_merge($this->getTransferTransactionIds(), $this->linked_transaction_ids))
+                ->orderBy('id')
+                ->get()
+                ->sortBy([
+                    fn ($a, $b) => (trim((string) $b->description) === $description) <=> (trim((string) $a->description) === $description),
+                    fn ($a, $b) => abs((float) $a->amount - (float) $amount) <=> abs((float) $b->amount - (float) $amount),
+                ])
+                ->first();
+        }
+
+        if ($transaction) {
+            $this->linked_transaction_ids[] = $transaction->id;
+        }
+
+        return $transaction;
+    }
+
+    /**
+     * The transactions of the transfers there were before the file.
+     */
+    protected function getTransferTransactionIds(): array
+    {
+        if ($this->transfer_transaction_ids === null) {
+            $this->transfer_transaction_ids = Model::query()
+                ->toBase()
+                ->get(['expense_transaction_id', 'income_transaction_id'])
+                ->flatMap(fn ($transfer) => [$transfer->expense_transaction_id, $transfer->income_transaction_id])
+                ->filter()
+                ->map(fn ($id) => (int) $id)
+                ->all();
+        }
+
+        return $this->transfer_transaction_ids;
     }
 
     private function getFromAccountId($row)

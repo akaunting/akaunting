@@ -36,6 +36,8 @@ class Transfers extends Export implements WithColumnFormatting
         $model->description = $model->income_transaction->description;
         $model->payment_method = $model->income_transaction->payment_method;
         $model->reference = $model->income_transaction->reference;
+        $model->expense_transaction_number = $model->expense_transaction->number;
+        $model->income_transaction_number = $model->income_transaction->number;
 
         return parent::map($model);
     }
@@ -54,6 +56,9 @@ class Transfers extends Export implements WithColumnFormatting
             'description',
             'payment_method',
             'reference',
+            // The transactions export writes these two transactions too: the import links the transfer to them.
+            'expense_transaction_number',
+            'income_transaction_number',
         ];
     }
 
