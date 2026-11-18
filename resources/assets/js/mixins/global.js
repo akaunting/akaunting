@@ -446,9 +446,13 @@ export default {
                     methods: {
                         // Delete action post
                        async onDelete() {
+                            // Sent as POST with _method, as the forms do, since some servers and firewalls refuse DELETE requests
                             let promise = Promise.resolve(axios({
-                                method: 'DELETE',
+                                method: 'POST',
                                 url: this.confirm.url,
+                                data: {
+                                    _method: 'DELETE',
+                                },
                             }));
 
                             promise.then(response => {
@@ -872,10 +876,13 @@ export default {
                     methods: {
                         // Delete action post
                        async onDelete() {
+                            // Sent as POST with _method, as the forms do, since some servers and firewalls refuse DELETE requests
                             let promise = Promise.resolve(axios({
-                                method: 'DELETE',
+                                method: 'POST',
                                 url: this.confirm.url,
-                                data: file_data
+                                data: Object.assign({}, file_data, {
+                                    _method: 'DELETE',
+                                }),
                             }));
 
                             promise.then(response => {
