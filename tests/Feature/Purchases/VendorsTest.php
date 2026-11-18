@@ -226,7 +226,7 @@ class VendorsTest extends FeatureTestCase
 
         $export = new Export([$without->id, $with->id]);
 
-        $rows = $export->collection()->keyBy('id')->map(fn ($vendor) => array_combine($export->fields, $export->map($vendor)));
+        $rows = $export->collection()->keyBy('id')->map(fn ($vendor) => array_combine($export->fields, $export->map($vendor)))->all();
 
         $this->assertNull($rows[$without->id]['category_name']);
         $this->assertSame($category->name, $rows[$with->id]['category_name']);
