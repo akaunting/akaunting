@@ -20,9 +20,12 @@
         </div>
 
         <div class="relative flex items-center ltr:mr-4 rtl:ml-4" v-if="bulk_action.count">
+            {{-- Enable and disable drop out when every selected record already has that status. The
+                 check stands alone for pages built with an older BulkAction that has no canShow:
+                 they keep offering every action. --}}
             @foreach ($actions as $key => $action)
                 @if (! empty($action['icon']))
-                    <div>
+                    <div v-if="! bulk_action.canShow || bulk_action.canShow('{{ $key }}')">
                         <x-tooltip id="{{ $key }}" placement="top" message="{{ trans($action['name']) }}">
                             <x-button @click="onChangeBulkAction('{{ $key }}')"
                                 id="index-bulk-actions-{{ $key }}"
@@ -37,7 +40,7 @@
                         </x-tooltip>
                     </div>
                 @else
-                    <div>
+                    <div v-if="! bulk_action.canShow || bulk_action.canShow('{{ $key }}')">
                         <x-tooltip id="{{ $key }}" placement="top" message="{{ trans($action['name']) }}">
                             <x-button @click="onChangeBulkAction('{{ $key }}')"
                                 id="index-bulk-actions-{{ $key }}"

@@ -1,4 +1,4 @@
-@props(['id', 'name'])
+@props(['id', 'name', 'enabled' => null])
 
 @stack($name . '_input_start')
 
@@ -10,6 +10,10 @@
         :disabled="{{ ($attributes['disabled']) ? true : false }}"
         @else
         data-bulk-action="{{ $id }}"
+        @endif
+        {{-- Optional: the bulk action bar otherwise reads the status from the disabled mark on the row --}}
+        @if (! is_null($enabled))
+        data-enabled="{{ $enabled ? 'true' : 'false' }}"
         @endif
         :value="{{ $id }}"
         v-model="{{ !empty($attributes['v-model']) ? $attributes['v-model'] : 'bulk_action.selected' }}"

@@ -1,4 +1,4 @@
-<div data-index-icon>
+<div data-index-icon data-index-disable>
     <x-tooltip id="{{ $id }}" placement="{{ $position }}" message="{{ $disableText }}">
         <span class="material-icons{{ $iconType }} text-red text-sm ltr:ml-2 rtl:mr-2">
             {{ $icon }}

@@ -1,5 +1,5 @@
 {{-- Lightened on hover only when the whole card leads somewhere; otherwise it reads as a click that does nothing --}}
-<div {{ $attributes->merge(['class' => 'relative flex flex-col p-4 bg-white border border-gray-200 rounded-xl' . ($href ? ' hover:bg-gray-100' : '')]) }}>
+<div data-index-card {{ $attributes->merge(['class' => 'relative flex flex-col p-4 bg-white border border-gray-200 rounded-xl' . ($href ? ' hover:bg-gray-100' : '')]) }}>
     @if ($href)
         <a href="{{ $href }}" class="absolute inset-0" aria-label="{{ $label }}"></a>
     @endif

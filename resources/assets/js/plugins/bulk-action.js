@@ -24,6 +24,10 @@ export default class BulkAction {
         this['selected'] = [];
         // Select all items
         this['select_all'] = false;
+        // Every selected record is enabled, so enabling them changes nothing
+        this['all_enabled'] = false;
+        // Every selected record is disabled, so disabling them changes nothing
+        this['all_disabled'] = false;
     }
 
     // Change checkbox status
@@ -32,6 +36,8 @@ export default class BulkAction {
         this.select_all = false;
 
         this.count = this.selected.length;
+
+        this.selectStatus();
 
         if (this.count == document.querySelectorAll('[data-bulk-action]').length) {
             this.select_all = true;
@@ -59,6 +65,99 @@ export default class BulkAction {
         }
 
         this.count = this.selected.length;
+
+        this.selectStatus();
+    }
+
+    // Works out whether the selection is all enabled or all disabled. Anything it cannot tell
+    // leaves both flags off, so the bar keeps offering both actions as it did before.
+    selectStatus() {
+        this.all_enabled = false;
+        this.all_disabled = false;
+
+        // A checkbox ticked by hand holds its id as a number, one ticked by select all as a string
+        let selected = this.selected.map(id => String(id));
+
+        if (! selected.length) {
+            return;
+        }
+
+        let enabled = 0;
+        let disabled = 0;
+        let from_attribute = 0;
+
+        for (let input of document.querySelectorAll('[data-bulk-action]')) {
+            if (! selected.includes(String(input.value))) {
+                continue;
+            }
+
+            if (input.hasAttribute('data-enabled')) {
+                from_attribute++;
+            }
+
+            let status = this.recordStatus(input);
+
+            if (status === null) {
+                return;
+            }
+
+            if (status) {
+                enabled++;
+            } else {
+                disabled++;
+            }
+        }
+
+        // Some selected record has no checkbox on this page to read it from
+        if ((enabled + disabled) !== selected.length) {
+            return;
+        }
+
+        // A disabled mark proves a record is disabled, so disable can always drop out. Its absence
+        // only proves a record is enabled on a page that marks disabled records at all, so enable
+        // drops out only when the page shows a mark somewhere (or every status came from data-enabled).
+        let marks_disabled = (from_attribute === selected.length)
+            || !! document.querySelector('[data-index-disable]');
+
+        this.all_enabled = ! disabled && marks_disabled;
+        this.all_disabled = ! enabled;
+    }
+
+    // Whether the record behind a checkbox is enabled: true, false, or null when it cannot tell.
+    // A data-enabled attribute on the checkbox wins; otherwise the record is disabled when its
+    // row or card shows the disabled mark, the way every list marks a disabled record.
+    recordStatus(input) {
+        let enabled = input.getAttribute('data-enabled');
+
+        if (enabled === 'true') {
+            return true;
+        }
+
+        if (enabled === 'false') {
+            return false;
+        }
+
+        let row = input.closest('tr, [data-index-card]');
+
+        if (! row) {
+            return null;
+        }
+
+        return ! row.querySelector('[data-index-disable]');
+    }
+
+    // Whether the bar offers an action for the current selection: enable and disable are left
+    // out when they would change nothing, every other action is always offered
+    canShow(type) {
+        if (type === 'enable') {
+            return ! this.all_enabled;
+        }
+
+        if (type === 'disable') {
+            return ! this.all_disabled;
+        }
+
+        return true;
     }
 
     change(type) {
@@ -208,6 +307,8 @@ export default class BulkAction {
         this.show = false;
         this.select_all = false;
         this.selected = [];
+        this.all_enabled = false;
+        this.all_disabled = false;
 
         this.hideSearchHTML();
     }
