@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Events\Common\ImportViewCreating;
 use App\Events\Common\ImportViewCreated;
+use App\Events\Document\ItemCreatedFromDocument;
 use App\Http\Requests\Banking\Account as AccountRequest;
 use App\Http\Requests\Common\Contact as ContactRequest;
 use App\Http\Requests\Common\Item as ItemRequest;
@@ -455,6 +456,9 @@ trait Import
             'description'       => !empty($row['item_description']) ? $row['item_description'] : null,
             'sale_price'        => !empty($row['sale_price']) ? $row['sale_price'] : (!empty($row['price']) ? $row['price'] : 0),
             'purchase_price'    => !empty($row['purchase_price']) ? $row['purchase_price'] : (!empty($row['price']) ? $row['price'] : 0),
+            // The item is not in the sheet, i.e. it is on an invoice or bill line only, so it gets the default
+            // item category as an item written on a document line does (CreateDocumentItemsAndTotals).
+            'category_id'       => setting('default.item_category') ?: null,
             'enabled'           => 1,
             'created_from'      => !empty($row['created_from']) ? $row['created_from'] : $this->getSourcePrefix() . 'import',
             'created_by'        => !empty($row['created_by']) ? $row['created_by'] : user()?->id,
@@ -463,6 +467,11 @@ trait Import
         Validator::validate($data, (new ItemRequest())->rules());
 
         $item = $this->dispatch(new CreateItem($data));
+
+        // The item of a document line, as CreateDocumentItemsAndTotals has it
+        if (! empty($row['document_id']) && ($document = Document::find($row['document_id']))) {
+            event(new ItemCreatedFromDocument($item, $document, $row));
+        }
 
         return $item->id;
     }

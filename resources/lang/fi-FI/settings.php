@@ -77,6 +77,7 @@ return [
         'use_gravatar'      => 'Käytä gravataria',
         'income_category'   => 'Tuloluokka',
         'expense_category'  => 'Menoluokka',
+        'item_category'     => 'Tuoteluokka',
     ],
 
     'email' => [

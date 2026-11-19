@@ -83,6 +83,7 @@ return [
         'use_gravatar'      => '使用 Gravatar',
         'income_category'   => '收入分類',
         'expense_category'  => '支出分類',
+        'item_category'     => '產品分類',
     ],
 
     'email' => [

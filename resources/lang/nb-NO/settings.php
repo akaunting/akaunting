@@ -113,6 +113,7 @@ return [
         'use_gravatar'                  => 'Bruk Gravatar',
         'income_category'               => 'Inntektskategori',
         'expense_category'              => 'Utgiftskategori',
+        'item_category'                 => 'Artikkelkategori',
 
         'form_description' => [
             'general'                   => 'Velg standardkonto, skatt og betalingsmetode for å opprette poster straks. Dashbord og rapporter vises i standardvalutaen.',

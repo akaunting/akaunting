@@ -37,6 +37,8 @@
                         <x-form.group.category name="income_category" label="{{ trans('settings.default.income_category') }}" type="income" :types="$income_category_types" :selected="setting('default.income_category')" :clearable="'false'" without-add-new />
 
                         <x-form.group.category name="expense_category" label="{{ trans('settings.default.expense_category') }}" type="expense" :types="$expense_category_types" :selected="setting('default.expense_category')" :clearable="'false'" without-add-new />
+
+                        <x-form.group.category name="item_category" label="{{ trans('settings.default.item_category') }}" type="item" :types="$item_category_types" :selected="setting('default.item_category')" without-add-new not-required />
                     </x-slot>
                 </x-form.section>
                 @stack('category_section_end')

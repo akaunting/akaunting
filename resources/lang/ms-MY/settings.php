@@ -117,6 +117,7 @@ return [
         'use_gravatar'                  => 'Gunakan Gravatar',
         'income_category'               => 'Kategori Pendapatan',
         'expense_category'              => 'Kategori Perbelanjaan',
+        'item_category'                 => 'Kategori Item',
         'address_format'                => 'Format Alamat',
         'address_tags'                  => '<strong>Tag Tersedia:</strong> :tags',
 

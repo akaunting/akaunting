@@ -89,6 +89,7 @@ return [
         'use_gravatar'      => 'Brug standard-ikoner (Gravatar)',
         'income_category'   => 'Indtægtskategori',
         'expense_category'  => 'Udgiftskategori',
+        'item_category'     => 'Varekategori',
     ],
 
     'email' => [

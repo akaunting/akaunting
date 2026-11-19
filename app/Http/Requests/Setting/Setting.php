@@ -40,6 +40,7 @@ class Setting extends FormRequest
                     'locale'            => 'required|string',
                     'expense_category'  => 'required|integer|exists:categories,id,company_id,' . $company_id . ',deleted_at,NULL',
                     'income_category'   => 'required|integer|exists:categories,id,company_id,' . $company_id . ',deleted_at,NULL',
+                    'item_category'     => 'nullable|integer|exists:categories,id,company_id,' . $company_id . ',deleted_at,NULL',
                     'payment_method'    => 'required|string|payment_method',
                     'address_format'    => 'required|string',
                 ];

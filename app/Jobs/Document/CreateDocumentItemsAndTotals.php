@@ -3,6 +3,7 @@
 namespace App\Jobs\Document;
 
 use App\Abstracts\Job;
+use App\Events\Document\ItemCreatedFromDocument;
 use App\Interfaces\Job\HasOwner;
 use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
@@ -200,7 +201,9 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
                     'description' => $item['description'] ?? null,
                     'sale_price' => $item['price'],
                     'purchase_price' => $item['price'],
-                    'category_id' => $item['category_id'],
+                    // The category of the line is an income or expense one (an account with Double Entry), which is
+                    // not a category an item can have, so the new item gets the default item category.
+                    'category_id' => setting('default.item_category') ?: null,
                     'created_from' => $item['created_from'],
                     'created_by' => $item['created_by'],
                     'enabled' => '1',
@@ -213,6 +216,8 @@ class CreateDocumentItemsAndTotals extends Job implements HasOwner, HasSource, S
                 $new_item = $this->dispatch(new CreateItem($new_item_request));
 
                 $item['item_id'] = $new_item->id;
+
+                event(new ItemCreatedFromDocument($new_item, $this->document, $item));
             }
 
             $document_item = $this->dispatch(new CreateDocumentItem($this->document, $item));

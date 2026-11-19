@@ -117,6 +117,7 @@ return [
         'use_gravatar'                  => 'Χρήση Gravatar',
         'income_category'               => 'Κατηγορία Εσόδων',
         'expense_category'              => 'Κατηγορία Εξόδων',
+        'item_category'                 => 'Κατηγορία Στοιχείων',
         'address_format'                => 'Μορφή διεύθυνσης',
         'address_tags'                  => '<strong>Διαθέσιμες ετικέτες:</strong> :tags',
 

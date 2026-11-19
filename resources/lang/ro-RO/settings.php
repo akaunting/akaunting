@@ -113,6 +113,7 @@ return [
         'use_gravatar'                  => 'Foloseste Gravatar',
         'income_category'               => 'Venituri pe categorii',
         'expense_category'              => 'Cheltuieli pe categorii',
+        'item_category'                 => 'Categorie element',
 
         'form_description' => [
             'general'                   => 'Selectează contul implicit, taxa și metoda de plată pentru a crea înregistrări rapid. Tabloul de bord și rapoartele sunt afișate în moneda implicită.',

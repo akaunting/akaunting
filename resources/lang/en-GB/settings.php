@@ -117,6 +117,7 @@ return [
         'use_gravatar'                  => 'Use Gravatar',
         'income_category'               => 'Income Category',
         'expense_category'              => 'Expense Category',
+        'item_category'                 => 'Item Category',
         'address_format'                => 'Address Format',
         'address_tags'                  => '<strong>Available Tags:</strong> :tags',
 

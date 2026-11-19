@@ -96,6 +96,10 @@ class DeleteCategory extends Job implements ShouldDelete
             $relationships[] = strtolower(trans_choice('general.expenses', 1));
         }
 
+        if ($model->id == setting('default.item_category')) {
+            $relationships[] = strtolower(trans_choice('general.items', 1));
+        }
+
         return $relationships;
     }
 

@@ -117,6 +117,7 @@ return [
         'use_gravatar'                  => 'Gravatar verwenden',
         'income_category'               => 'Einnahmekategorie',
         'expense_category'              => 'Ausgabekategorie',
+        'item_category'                 => 'Artikelkategorie',
         'address_format'                => 'Adressformat',
         'address_tags'                  => '<strong>Verfügbare Tags:</strong> :tags',
 

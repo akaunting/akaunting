@@ -83,6 +83,7 @@ return [
         'use_gravatar'      => 'Kasuta Gravatari',
         'income_category'   => 'Sissetulekud kategooria järgi',
         'expense_category'  => 'Kulud kategooriate järgi',
+        'item_category'     => 'Eseme kategooria',
     ],
 
     'email' => [

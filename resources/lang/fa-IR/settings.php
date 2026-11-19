@@ -77,6 +77,7 @@ return [
         'use_gravatar'      => 'استفاده از آواتار شناخته شده جهانی',
         'income_category'   => 'دسته درآمد',
         'expense_category'  => 'دسته هزینه',
+        'item_category'     => 'دسته مورد',
     ],
 
     'email' => [

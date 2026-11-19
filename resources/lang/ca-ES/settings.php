@@ -117,6 +117,7 @@ return [
         'use_gravatar'                  => 'Fes servir Gravatar',
         'income_category'               => 'Categoria d\'ingrés',
         'expense_category'              => 'Categoria de despesa',
+        'item_category'                 => 'Categoria d\'article',
         'address_format'                => 'Format de l\'adreça',
         'address_tags'                  => '<strong>Etiquetes disponibles:</strong>:tags',
 

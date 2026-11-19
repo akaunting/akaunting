@@ -117,6 +117,7 @@ return [
         'use_gravatar'                  => '使用 Gravatar',
         'income_category'               => '收入类别',
         'expense_category'              => '支出类别',
+        'item_category'                 => '项目类别',
         'address_format'                => '地址格式',
         'address_tags'                  => '<strong>可用标签：</strong> :tags',
 

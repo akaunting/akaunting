@@ -21,12 +21,14 @@ class Defaults extends SettingController
         // the initial list" fallback are all handled by x-form.group.category.
         $income_category_types = $this->getIncomeCategoryTypes();
         $expense_category_types = $this->getExpenseCategoryTypes();
+        $item_category_types = $this->getItemCategoryTypes();
 
         return view('settings.default.edit', compact(
             'accounts',
             'taxes',
             'income_category_types',
             'expense_category_types',
+            'item_category_types',
         ));
     }
 }

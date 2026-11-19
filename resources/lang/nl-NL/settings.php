@@ -117,6 +117,7 @@ return [
         'use_gravatar'                  => 'Gebruik Gravatar',
         'income_category'               => 'Inkomenscategorie',
         'expense_category'              => 'Onkostencategorie',
+        'item_category'                 => 'Artikelcategorie',
         'address_format'                => 'Adres Formaat',
         'address_tags'                  => '<strong>Beschikbare tags:</strong> :tags',
 

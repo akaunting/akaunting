@@ -28,7 +28,7 @@
 
                         <x-form.group.text name="name" label="{{ trans('general.name') }}" />
 
-                        <x-form.group.category type="item" not-required />
+                        <x-form.group.category type="item" :selected="setting('default.item_category')" not-required />
 
                         <x-form.group.textarea name="description" label="{{ trans('general.description') }}" not-required />
                     </x-slot>

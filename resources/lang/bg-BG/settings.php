@@ -117,6 +117,7 @@ return [
         'use_gravatar'                  => 'Използвай Gravatar',
         'income_category'               => 'Категория Приход',
         'expense_category'              => 'Категория Разход',
+        'item_category'                 => 'Категория Стока',
         'address_format'                => 'Формат на адреса',
         'address_tags'                  => '<strong>Възможни тагове:</strong> :tags',
 

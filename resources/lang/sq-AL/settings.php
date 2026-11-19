@@ -83,6 +83,7 @@ return [
         'use_gravatar'      => 'Përdorni Gravatar',
         'income_category'   => 'Kategoria e Fitimeve',
         'expense_category'  => 'Kategoria e Shpenzimeve',
+        'item_category'     => 'Kategoria e Artikujve',
     ],
 
     'email' => [

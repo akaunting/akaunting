@@ -117,6 +117,7 @@ return [
         'use_gravatar'                  => 'Utiliser Gravatar',
         'income_category'               => 'Catégorie de revenu',
         'expense_category'              => 'Catégorie de dépenses',
+        'item_category'                 => 'Catégorie d\'articles',
         'address_format'                => 'Format d\'adresse',
         'address_tags'                  => '<strong>Balises disponibles :</strong> :tags',
 

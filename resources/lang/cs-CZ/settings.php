@@ -113,6 +113,7 @@ return [
         'use_gravatar'                  => 'Použít Gravatar',
         'income_category'               => 'Kategorie příjmu',
         'expense_category'              => 'Kategorie výdaje',
+        'item_category'                 => 'Kategorie položky',
 
         'form_description' => [
             'general'                   => 'Vyberte výchozí účet, daň a způsob platby pro rychlé vytváření záznamů. Nástěnka a reporty jsou zobrazeny pod výchozí měnou.',
