@@ -4,6 +4,7 @@ namespace Tests\Feature\Banking;
 
 use App\Jobs\Banking\CreateReconciliation;
 use App\Models\Banking\Reconciliation;
+use App\Models\Banking\Transaction;
 use Tests\Feature\FeatureTestCase;
 
 class ReconciliationsTest extends FeatureTestCase
@@ -33,6 +34,35 @@ class ReconciliationsTest extends FeatureTestCase
             ->assertStatus(200);
 
         $this->assertFlashLevel('success');
+    }
+
+    public function testItShouldReconcileOnlyCheckedTransactions()
+    {
+        $checked = Transaction::factory()->income()->create(['paid_at' => '2026-01-10 10:00:00']);
+        $unchecked = Transaction::factory()->expense()->create(['paid_at' => '2026-01-11 10:00:00']);
+        $never_checked = Transaction::factory()->income()->create(['paid_at' => '2026-01-12 10:00:00']);
+
+        $request = $this->getRequest();
+        $request['account_id'] = setting('default.account');
+        $request['started_at'] = '2026-01-01';
+        $request['ended_at'] = '2026-01-31';
+
+        // What the form posts when a transaction is checked, checked and then unchecked, or left alone
+        $request['transactions'] = [
+            'income_' . $checked->id => 'true',
+            'expense_' . $unchecked->id => 'false',
+            'income_' . $never_checked->id => '',
+        ];
+
+        $this->loginAs()
+            ->post(route('reconciliations.store'), $request)
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('success');
+
+        $this->assertEquals(1, $checked->fresh()->reconciled);
+        $this->assertEquals(0, $unchecked->fresh()->reconciled);
+        $this->assertEquals(0, $never_checked->fresh()->reconciled);
     }
 
     public function testItShouldNotCreateReconciliationWithInvalidAccount()
