@@ -117,6 +117,7 @@ return [
         'use_gravatar'                  => 'Gravatar kullanın',
         'income_category'               => 'Gelir Kategorisi',
         'expense_category'              => 'Gider Kategorisi',
+        'item_category'                 => 'Ürün / Hizmet Kategorisi',
         'address_format'                => 'Adres Biçimi',
         'address_tags'                  => '<strong>Kullanılabilir Etiketler:</strong> :tags',
 

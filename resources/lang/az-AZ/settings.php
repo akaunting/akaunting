@@ -83,6 +83,7 @@ return [
         'use_gravatar'      => 'Gravatar istifadə edin',
         'income_category'   => 'Gəlir Kateqoriyası',
         'expense_category'  => 'Xərc Kateqoriyası',
+        'item_category'     => 'Məhsul / Xidmət Kateqoriyası',
     ],
 
     'email' => [

@@ -117,6 +117,7 @@ return [
         'use_gravatar'                  => 'Gravatar का उपयोग करें',
         'income_category'               => 'आय श्रेणी',
         'expense_category'              => 'व्यय की श्रेणी',
+        'item_category'                 => 'वस्तु की श्रेणी',
         'address_format'                => 'पता प्रारूप',
         'address_tags'                  => '<strong>उपलब्ध टैग:</strong> :tags',
 

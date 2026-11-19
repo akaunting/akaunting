@@ -117,6 +117,7 @@ return [
         'use_gravatar'                  => 'Usa Gravatar',
         'income_category'               => 'Categoria entrata',
         'expense_category'              => 'Categoria uscita',
+        'item_category'                 => 'Categoria articolo',
         'address_format'                => 'Formato indirizzo',
         'address_tags'                  => '<strong>Tag disponibili:</strong> :tags',
 

@@ -113,6 +113,7 @@ return [
         'use_gravatar'                  => 'Uporabi Gravatar',
         'income_category'               => 'Kategorija prihodkov',
         'expense_category'              => 'Stroški po kategorijah',
+        'item_category'                 => 'Kategorija izdelka',
 
         'form_description' => [
             'general'                   => 'Izberite privzeti račun, davek in način plačila za hitro ustvarjanje zapisov. Nadzorna plošča in poročila so prikazani pod privzeto valuto.',

@@ -83,6 +83,7 @@ return [
         'use_gravatar'      => 'अवतार प्रयोग गर्नुहोस्',
         'income_category'   => 'आय को वर्ग ',
         'expense_category'  => 'खर्चको वर्ग',
+        'item_category'     => 'विवरणको वर्ग',
     ],
 
     'email' => [

@@ -10,7 +10,7 @@
 
         <x-form.group.text name="purchase_price" label="{{ trans('items.purchase_price') }}" />
 
-        <x-form.group.category type="item" not-required without-add-new />
+        <x-form.group.category type="item" :selected="setting('default.item_category')" not-required without-add-new />
 
         <x-form.input.hidden name="enabled" value="1" />
     </div>

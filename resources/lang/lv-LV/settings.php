@@ -113,6 +113,7 @@ return [
         'use_gravatar'                  => 'Izmantot Gravatar',
         'income_category'               => 'Ieņēmumu kategorijas',
         'expense_category'              => 'Izdevumu kategorijas',
+        'item_category'                 => 'Preču kategorija',
 
         'form_description' => [
             'general'                   => 'Atlasiet noklusējuma kontu, nodokļus un maksājuma veidu, lai ātri izveidotu ierakstus. Informācijas panelis un pārskati tiek rādīti noklusējuma valūtā.',

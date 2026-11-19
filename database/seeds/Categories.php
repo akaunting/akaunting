@@ -75,7 +75,7 @@ class Categories extends Seeder
             ],
         ];
 
-        $income_category_id = $expense_category_id = 0;
+        $income_category_id = $expense_category_id = $item_category_id = 0;
 
         foreach ($rows as $row) {
             $row['created_from'] = 'core::seed';
@@ -95,10 +95,17 @@ class Categories extends Seeder
                     }
 
                     break;
+                case Category::ITEM_TYPE:
+                    if (empty($item_category_id)) {
+                        $item_category_id = $category->id;
+                    }
+
+                    break;
             }
         }
 
         setting()->set('default.income_category', $income_category_id);
         setting()->set('default.expense_category', $expense_category_id);
+        setting()->set('default.item_category', $item_category_id);
     }
 }

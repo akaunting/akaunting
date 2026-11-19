@@ -48,13 +48,14 @@ class InvoiceItems extends Import
 
         $row['document_id'] = (int) Document::invoice()->number($row['invoice_number'])->pluck('id')->first();
 
+        // Before the item, which is created for the line when it is not in the company yet (ItemCreatedFromDocument)
+        $row['category_id'] = $this->getCategoryId($row, Category::INCOME_TYPE);
+
         if (empty($row['item_id']) && ! empty($row['item_name'])) {
             $row['item_id'] = $this->getItemIdFromName($row);
 
             $row['name'] = $row['item_name'];
         }
-
-        $row['category_id'] = $this->getCategoryId($row, Category::INCOME_TYPE);
 
         $row['description'] = !empty($row['item_description']) ? $row['item_description'] : '';
 

@@ -117,6 +117,7 @@ return [
         'use_gravatar'                  => 'Користи Граватар',
         'income_category'               => 'Категорија на приход',
         'expense_category'              => 'Категотија на Трошок',
+        'item_category'                 => 'Категорија на Ставка',
         'address_format'                => 'Формат на адреса',
         'address_tags'                  => '<strong>Достапни ознаки:</strong> :tags',
 

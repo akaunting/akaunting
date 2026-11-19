@@ -117,6 +117,7 @@ return [
         'use_gravatar'                  => 'استخدام Gravatar',
         'income_category'               => 'فئة الإيرادات',
         'expense_category'              => 'فئة المصروف',
+        'item_category'                 => 'فئة الصنف',
         'address_format'                => 'تنسيق العنوان',
         'address_tags'                  => '<strong>العلامات المتاحة:</strong> :tags',
 

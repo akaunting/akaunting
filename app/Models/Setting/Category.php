@@ -35,6 +35,7 @@ class Category extends Model
     protected const DEFAULT_CATEGORY_LABELS = [
         'income_category' => 'sales',
         'expense_category' => 'expenses',
+        'item_category' => 'items',
         'categories_receivable' => 'receivable',
         'categories_payable' => 'payable',
         'categories_sales_discount' => 'sales_discount',

@@ -113,6 +113,7 @@ return [
         'use_gravatar'                  => 'Använda Gravatar',
         'income_category'               => 'Kategori för inkomst',
         'expense_category'              => 'Kategori för utlägg',
+        'item_category'                 => 'Artikelkategori',
 
         'form_description' => [
             'general'                   => 'Välj standardkonto, skatt och betalningsmetod för att snabbt skapa poster. Övervakningspanel och rapporter visas i standardvalutan.',
