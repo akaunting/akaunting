@@ -3,6 +3,7 @@
 namespace App\BulkActions\Banking;
 
 use App\Abstracts\BulkAction;
+use App\Jobs\Banking\DeleteReconciliation;
 use App\Models\Banking\Reconciliation;
 use App\Models\Banking\Transaction;
 
@@ -62,6 +63,11 @@ class Reconciliations extends BulkAction
         $reconciliations = $this->getSelectedRecords($request);
 
         foreach ($reconciliations as $reconciliation) {
+            // Same as deleting it, one that isn't reconciled hasn't cleared any transactions
+            if (! $reconciliation->reconciled) {
+                continue;
+            }
+
             \DB::transaction(function () use ($reconciliation) {
                 $reconciliation->reconciled = 0;
                 $reconciliation->save();
@@ -81,16 +87,11 @@ class Reconciliations extends BulkAction
         $reconciliations = $this->getSelectedRecords($request);
 
         foreach ($reconciliations as $reconciliation) {
-            \DB::transaction(function () use ($reconciliation) {
-                $reconciliation->delete();
-
-                Transaction::where('account_id', $reconciliation->account_id)
-                    ->isReconciled()
-                    ->whereBetween('paid_at', [$reconciliation->started_at, $reconciliation->ended_at])->each(function ($item) {
-                        $item->reconciled = 0;
-                        $item->save();
-                    });
-            });
+            try {
+                $this->dispatch(new DeleteReconciliation($reconciliation));
+            } catch (\Exception $e) {
+                flash($e->getMessage())->error()->important();
+            }
         }
     }
 }
