@@ -33,7 +33,8 @@ class CreateReconciliation extends Job implements HasOwner, HasSource, ShouldCre
                 $transaction_ids = [];
 
                 foreach ($transactions as $key => $value) {
-                    if (empty($value)) {
+                    // The form sends 'false' for a transaction that was checked and then unchecked
+                    if (empty($value) || $value === 'false') {
                         continue;
                     }
 
