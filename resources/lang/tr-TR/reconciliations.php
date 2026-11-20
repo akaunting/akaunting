@@ -19,5 +19,7 @@ return [
     'save_draft'            => 'Taslak Olarak Kaydet',
     'irreconcilable'        => 'Mutabakat Yapılamaz',
     'overlapping'           => 'Bu dönem, mutabakatı zaten yapılmış :period dönemiyle çakışıyor.',
+    'difference_not_zero'   => ':period mutabakatı fark 0 olduğunda yapılabilir, şu anki fark :difference.',
+    'not_reconcilable'      => 'Mutabakatta yalnız hesabın bu dönemdeki işlemleri olabilir, şunlar değil: :transactions.',
 
 ];

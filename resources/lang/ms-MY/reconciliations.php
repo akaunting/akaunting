@@ -19,5 +19,7 @@ return [
     'save_draft'            => 'Simpan sebagai Draf',
     'irreconcilable'        => 'Tidak Boleh Disesuaikan',
     'overlapping'           => 'Tempoh ini bertindih dengan penyesuaian :period yang telah disesuaikan.',
+    'difference_not_zero'   => 'Penyesuaian :period boleh disesuaikan apabila perbezaannya 0, kini perbezaannya :difference.',
+    'not_reconcilable'      => 'Penyesuaian hanya boleh mengandungi transaksi akaun dalam tempoh tersebut, transaksi ini bukan: :transactions.',
 
 ];

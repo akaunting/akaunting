@@ -4,8 +4,10 @@ namespace Tests\Feature\Banking;
 
 use App\Jobs\Banking\CreateReconciliation;
 use App\Jobs\Banking\UpdateReconciliation;
+use App\Models\Banking\Account;
 use App\Models\Banking\Reconciliation;
 use App\Models\Banking\Transaction;
+use App\Traits\Reconciliations;
 use Tests\Feature\FeatureTestCase;
 
 class ReconciliationsTest extends FeatureTestCase
@@ -54,6 +56,8 @@ class ReconciliationsTest extends FeatureTestCase
             'expense_' . $unchecked->id => 'false',
             'income_' . $never_checked->id => '',
         ];
+
+        $request['closing_balance'] = $this->getClosingBalance($request['account_id'], $request['started_at'], $request['transactions']);
 
         $this->loginAs()
             ->post(route('reconciliations.store'), $request)
@@ -346,16 +350,140 @@ class ReconciliationsTest extends FeatureTestCase
         $this->assertEquals(0, $draft_only->fresh()->reconciled);
     }
 
-    protected function getPeriodRequest(int $account_id, string $started_at, string $ended_at): array
+    public function testItShouldReconcileOnlyTheCheckedTransactionsOfADraftInBulk()
+    {
+        $checked = Transaction::factory()->income()->create(['paid_at' => '2026-01-10 10:00:00']);
+        $unchecked = Transaction::factory()->expense()->create(['paid_at' => '2026-01-11 10:00:00']);
+        $never_checked = Transaction::factory()->income()->create(['paid_at' => '2026-01-12 10:00:00']);
+
+        $draft = $this->createDraft($checked->account_id, [
+            $checked->type . '_' . $checked->id => 'true',
+            $unchecked->type . '_' . $unchecked->id => 'false',
+            $never_checked->type . '_' . $never_checked->id => '',
+        ]);
+
+        $this->bulkReconcile($draft);
+
+        $this->assertTrue($draft->fresh()->reconciled);
+
+        // A transaction left unchecked, i.e. one not on the bank statement, stays open
+        $this->assertEquals(1, $checked->fresh()->reconciled);
+        $this->assertEquals(0, $unchecked->fresh()->reconciled);
+        $this->assertEquals(0, $never_checked->fresh()->reconciled);
+    }
+
+    public function testItShouldNotReconcileADraftOverlappingAReconciledOneInBulk()
+    {
+        $transaction = Transaction::factory()->income()->create(['paid_at' => '2026-01-10 10:00:00']);
+        $other = Transaction::factory()->income()->create(['paid_at' => '2026-01-20 10:00:00']);
+
+        $reconciled = $this->createJanuaryReconciliation($transaction, 1);
+
+        // Started before it was refused
+        $draft = $this->createDraft($transaction->account_id, [$other->type . '_' . $other->id => 'true']);
+
+        $this->bulkReconcile($draft);
+
+        $this->assertFlashLevel('warning');
+
+        $this->assertFalse($draft->fresh()->reconciled);
+        $this->assertEquals(0, $other->fresh()->reconciled);
+        $this->assertEquals(1, $transaction->fresh()->reconciled);
+        $this->assertTrue($reconciled->fresh()->reconciled);
+    }
+
+    public function testItShouldNotReconcileADraftWithADifferenceInBulk()
+    {
+        $transaction = Transaction::factory()->income()->create(['paid_at' => '2026-01-10 10:00:00']);
+
+        // The transaction is on the bank statement, but not checked
+        $draft = $this->createDraft(
+            $transaction->account_id,
+            [$transaction->type . '_' . $transaction->id => 'false'],
+            $this->getClosingBalance($transaction->account_id, '2026-01-01', [$transaction->type . '_' . $transaction->id => 1])
+        );
+
+        $this->bulkReconcile($draft);
+
+        $this->assertFlashLevel('warning');
+
+        $this->assertFalse($draft->fresh()->reconciled);
+        $this->assertEquals(0, $transaction->fresh()->reconciled);
+    }
+
+    public function testItShouldNotChangeAReconciledOneInBulk()
+    {
+        $transaction = Transaction::factory()->income()->create(['paid_at' => '2026-01-10 10:00:00']);
+
+        $reconciled = $this->createJanuaryReconciliation($transaction, 1);
+
+        // Entered after the period was reconciled, it is not on its bank statement
+        $later = Transaction::factory()->income()->create(['paid_at' => '2026-01-15 10:00:00']);
+
+        $this->bulkReconcile($reconciled);
+
+        $this->assertEquals(1, $transaction->fresh()->reconciled);
+        $this->assertEquals(0, $later->fresh()->reconciled);
+    }
+
+    public function testTheUnusedCalculateRouteShouldBeGone()
+    {
+        $this->assertFalse(collect(app('router')->getRoutes()->getRoutes())->contains(
+            fn ($route) => str_ends_with($route->uri(), 'reconciliations/calculate')
+        ));
+    }
+
+    protected function createDraft(int $account_id, array $transactions, ?float $closing_balance = null): Reconciliation
+    {
+        $request = $this->getPeriodRequest($account_id, '2026-01-01', '2026-01-31', $transactions);
+        $request['reconcile'] = 0;
+
+        if (! is_null($closing_balance)) {
+            $request['closing_balance'] = $closing_balance;
+        }
+
+        return $this->dispatch(new CreateReconciliation($request));
+    }
+
+    protected function bulkReconcile(Reconciliation $reconciliation): void
+    {
+        $this->loginAs()
+            ->post(
+                route('bulk-actions.action', ['group' => 'banking', 'type' => 'reconciliations']),
+                ['handle' => 'reconcile', 'selected' => [$reconciliation->id]]
+            )
+            ->assertStatus(200);
+    }
+
+    /**
+     * What the page posts to reconcile the period with the transactions checked: the bank statement and the books
+     * agree, the difference is 0.
+     */
+    protected function getPeriodRequest(int $account_id, string $started_at, string $ended_at, array $transactions = []): array
     {
         $request = $this->getRequest();
         $request['account_id'] = $account_id;
         $request['started_at'] = $started_at . ' 00:00:00';
         $request['ended_at'] = $ended_at . ' 23:59:59';
         $request['reconcile'] = 1;
-        $request['transactions'] = [];
+        $request['transactions'] = $transactions;
+        $request['closing_balance'] = $this->getClosingBalance($account_id, $started_at, $transactions);
 
         return $request;
+    }
+
+    /**
+     * The closing balance of the bank statement the checked transactions make the difference 0 for.
+     */
+    protected function getClosingBalance($account_id, $started_at, array $transactions = []): float
+    {
+        $rules = new class {
+            use Reconciliations;
+        };
+
+        $checked = Transaction::whereIn('id', $rules->getCheckedTransactionIds($transactions))->get();
+
+        return -1 * $rules->getReconciliationDifference(Account::find($account_id), $started_at, 0, $checked);
     }
 
     protected function createJanuaryReconciliation(Transaction $transaction, int $reconcile): Reconciliation
@@ -366,12 +494,18 @@ class ReconciliationsTest extends FeatureTestCase
         $request['ended_at'] = '2026-01-31';
         $request['reconcile'] = $reconcile;
         $request['transactions'] = [$transaction->type . '_' . $transaction->id => 1];
+        $request['closing_balance'] = $this->getClosingBalance($transaction->account_id, '2026-01-01', $request['transactions']);
 
         return $this->dispatch(new CreateReconciliation($request));
     }
 
     private function getRequest()
     {
-        return Reconciliation::factory()->reconciled()->raw();
+        $request = Reconciliation::factory()->reconciled()->raw();
+
+        // Reconciled with nothing checked, as the page lets it be when the closing balance is the opening one
+        $request['closing_balance'] = $this->getClosingBalance($request['account_id'], $request['started_at']);
+
+        return $request;
     }
 }

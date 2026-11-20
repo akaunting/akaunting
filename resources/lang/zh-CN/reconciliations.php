@@ -19,5 +19,7 @@ return [
     'save_draft'            => '存为草稿',
     'irreconcilable'        => '无法对账',
     'overlapping'           => '此期间与 :period 的对账重叠，该对账已完成。',
+    'difference_not_zero'   => ':period 的对账在差额为 0 时才能完成，当前差额为 :difference。',
+    'not_reconcilable'      => '对账只能包含该账户在此期间内的交易，以下交易不符合: :transactions。',
 
 ];

@@ -19,5 +19,7 @@ return [
     'save_draft'            => 'Sačuvaj u pripremu',
     'irreconcilable'        => 'Nepomirljiv',
     'overlapping'           => 'Ovaj period se preklapa sa usklađivanjem za :period, koje je već usklađeno.',
+    'difference_not_zero'   => 'Usklađivanje za :period može se uskladiti kada je razlika 0, a ona iznosi :difference.',
+    'not_reconcilable'      => 'Usklađivanje može sadržavati samo transakcije računa u periodu, ove nisu: :transactions.',
 
 ];

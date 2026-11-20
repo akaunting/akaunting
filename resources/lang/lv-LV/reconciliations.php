@@ -19,5 +19,7 @@ return [
     'save_draft'            => 'Saglabāt melnrakstu',
     'irreconcilable'        => 'Nesamierināms',
     'overlapping'           => 'Šis periods pārklājas ar jau saskaņoto :period saskaņošanu.',
+    'difference_not_zero'   => ':period saskaņošanu var saskaņot, kad starpība ir 0, pašlaik tā ir :difference.',
+    'not_reconcilable'      => 'Saskaņošanā var būt tikai konta darījumi periodā, šie tādi nav: :transactions.',
 
 ];

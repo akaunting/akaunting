@@ -19,5 +19,7 @@ return [
     'save_draft'            => 'Gem som kladde',
     'irreconcilable'        => 'Uforenelige',
     'overlapping'           => 'Denne periode overlapper afstemningen for :period, som allerede er afstemt.',
+    'difference_not_zero'   => 'Afstemningen for :period kan afstemmes, når differencen er 0, den er :difference.',
+    'not_reconcilable'      => 'Afstemningen kan kun indeholde kontoens transaktioner i perioden, disse er ikke: :transactions.',
 
 ];

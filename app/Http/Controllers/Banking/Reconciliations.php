@@ -4,26 +4,19 @@ namespace App\Http\Controllers\Banking;
 
 use App\Abstracts\Http\Controller;
 use App\Http\Requests\Banking\Reconciliation as Request;
-use App\Http\Requests\Banking\ReconciliationCalculate as CalculateRequest;
 use App\Jobs\Banking\CreateReconciliation;
 use App\Jobs\Banking\DeleteReconciliation;
 use App\Jobs\Banking\UpdateReconciliation;
 use App\Models\Banking\Account;
 use App\Models\Banking\Reconciliation;
 use App\Models\Banking\Transaction;
+use App\Traits\Reconciliations as ReconciliationRules;
 use App\Utilities\Date;
 
 class Reconciliations extends Controller
 {
-    /**
-     * Instantiate a new controller instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->middleware('permission:update-banking-reconciliations')->only('calculate');
-    }
+    // getOpeningBalance(), the page starts the difference from it as the server does
+    use ReconciliationRules;
 
     /**
      * Display a listing of the resource.
@@ -204,68 +197,5 @@ class Reconciliations extends Controller
         $transactions = Transaction::with('account', 'contact')->where('account_id', $account->id)->whereBetween('paid_at', [$started, $ended])->get();
 
         return collect($transactions)->sortByDesc('paid_at');
-    }
-
-    /**
-     * Get the opening balance
-     *
-     * @param $account
-     * @param $started_at
-     *
-     * @return string
-     */
-    public function getOpeningBalance($account, $started_at)
-    {
-        // Opening Balance
-        $total = $account->opening_balance;
-
-        // Sum income transactions
-        $transactions = $account->income_transactions()->whereDate('paid_at', '<', $started_at)->get();
-        foreach ($transactions as $item) {
-            $total += $item->amount;
-        }
-
-        // Subtract expense transactions
-        $transactions = $account->expense_transactions()->whereDate('paid_at', '<', $started_at)->get();
-        foreach ($transactions as $item) {
-            $total -= $item->amount;
-        }
-
-        return $total;
-    }
-
-    public function calculate(CalculateRequest $request)
-    {
-        $currency_code = $request['currency_code'];
-        $closing_balance = $request['closing_balance'];
-
-        $json = new \stdClass();
-
-        $cleared_amount = $difference = $income_total = $expense_total = 0;
-
-        if ($transactions = $request['transactions']) {
-            $opening_balance = $request['opening_balance'];
-
-            foreach ($transactions as $key => $value) {
-                $k = explode('_', $key);
-
-                if ($k[1] == 'income') {
-                    $income_total += $value;
-                } else {
-                    $expense_total += $value;
-                }
-            }
-
-            $cleared_amount = $opening_balance + ($income_total - $expense_total);
-        }
-
-        $difference = $closing_balance - $cleared_amount;
-
-        $json->closing_balance = money($closing_balance, $currency_code)->format();
-        $json->cleared_amount = money($cleared_amount, $currency_code)->format();
-        $json->difference = money($difference, $currency_code)->format();
-        $json->difference_raw = (int) $difference;
-
-        return response()->json($json);
     }
 }

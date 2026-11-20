@@ -19,5 +19,7 @@ return [
     'save_draft'            => 'ड्राफ्ट के रूप में सेव करें',
     'irreconcilable'        => 'अमेल-मिलाप',
     'overlapping'           => 'यह अवधि :period के मिलान से ओवरलैप करती है, जिसका मिलान पहले ही हो चुका है।',
+    'difference_not_zero'   => ':period का मिलान तभी हो सकता है जब अंतर 0 हो, अभी अंतर :difference है।',
+    'not_reconcilable'      => 'मिलान में केवल अवधि के भीतर खाते के लेन-देन हो सकते हैं, ये नहीं हैं: :transactions।',
 
 ];

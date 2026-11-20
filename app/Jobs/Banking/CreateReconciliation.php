@@ -7,18 +7,20 @@ use App\Interfaces\Job\HasOwner;
 use App\Interfaces\Job\HasSource;
 use App\Interfaces\Job\ShouldCreate;
 use App\Models\Banking\Reconciliation;
-use App\Models\Banking\Transaction;
+use App\Traits\Reconciliations;
 use App\Utilities\Date;
 
 class CreateReconciliation extends Job implements HasOwner, HasSource, ShouldCreate
 {
+    use Reconciliations;
+
     public function handle(): Reconciliation
     {
         \DB::transaction(function () {
             $started_at = Date::parse($this->request->get('started_at'))->startOfDay();
             $ended_at = Date::parse($this->request->get('ended_at'))->endOfDay();
 
-            $reconcile = (int) $this->request->get('reconcile');
+            $reconcile = (int) filter_var($this->request->get('reconcile'), FILTER_VALIDATE_BOOLEAN);
             $transactions = $this->request->get('transactions');
 
             $this->request->merge([
@@ -30,24 +32,18 @@ class CreateReconciliation extends Job implements HasOwner, HasSource, ShouldCre
             $this->model = Reconciliation::create($this->request->all());
 
             if ($reconcile && $transactions) {
-                $transaction_ids = [];
+                // The form sends 'false' for a transaction that was checked and then unchecked
+                $transaction_ids = $this->getCheckedTransactionIds($transactions);
 
-                foreach ($transactions as $key => $value) {
-                    // The form sends 'false' for a transaction that was checked and then unchecked
-                    if (empty($value) || $value === 'false') {
-                        continue;
-                    }
-
-                    $t = explode('_', $key);
-
-                    $transaction_ids[] = $t[1];
-                }
-
-                // One query for the transactions, save() keeps the observers running
-                foreach (Transaction::find($transaction_ids) as $transaction) {
-                    $transaction->reconciled = 1;
-                    $transaction->save();
-                }
+                // Only the ones the page lists, of the account and in the period, as Requests\Banking\Reconciliation
+                // has it, or deleting the reconciliation could not open them again. save() keeps the observers running
+                $this->getReconcilableTransactions($this->model->account_id, $started_at, $ended_at, $this->model->id)
+                    ->whereIn('id', $transaction_ids)
+                    ->get()
+                    ->each(function ($transaction) {
+                        $transaction->reconciled = 1;
+                        $transaction->save();
+                    });
             }
         });
 

@@ -13,5 +13,7 @@ return [
     'deposit'               => 'Deposit',
     'withdrawal'            => 'Withdrawal',
     'overlapping'           => 'Овај период се преклапа са усаглашавањем за :period, које је већ усаглашено.',
+    'difference_not_zero'   => 'Усаглашавање за :period може се усагласити када је разлика 0, а она износи :difference.',
+    'not_reconcilable'      => 'Усаглашавање може да садржи само трансакције рачуна у периоду, ове нису: :transactions.',
 
 ];

@@ -19,5 +19,7 @@ return [
     'save_draft'            => 'Opslaan als concept',
     'irreconcilable'        => 'Niet af te stemmen',
     'overlapping'           => 'Deze periode overlapt met de afstemming van :period, die al is afgestemd.',
+    'difference_not_zero'   => 'De afstemming van :period kan worden afgestemd als het verschil 0 is, het is :difference.',
+    'not_reconcilable'      => 'De afstemming kan alleen transacties van de rekening in de periode bevatten, deze niet: :transactions.',
 
 ];

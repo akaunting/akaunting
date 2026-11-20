@@ -15,5 +15,7 @@ return [
     'deposit'               => 'निक्षेप',
     'withdrawal'            => 'फिर्ता',
     'overlapping'           => 'यो अवधि :period को मिलानसँग खप्टिन्छ, जुन पहिले नै मिलान गरिएको छ।',
+    'difference_not_zero'   => ':period को मिलान फरक 0 हुँदा मात्र गर्न सकिन्छ, अहिले फरक :difference छ।',
+    'not_reconcilable'      => 'मिलानमा अवधिभित्रका खाताका कारोबार मात्र हुन सक्छन्, यी होइनन्: :transactions।',
 
 ];

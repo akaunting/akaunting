@@ -15,5 +15,7 @@ return [
     'deposit'               => 'Befizetések',
     'withdrawal'            => 'Kifizetések',
     'overlapping'           => 'Ez az időszak átfedésben van a(z) :period egyeztetésével, amely már egyeztetve van.',
+    'difference_not_zero'   => 'A(z) :period egyeztetése akkor zárható le, ha a különbség 0, jelenleg :difference.',
+    'not_reconcilable'      => 'Az egyeztetésben csak a számla időszakon belüli tranzakciói szerepelhetnek, ezek nem azok: :transactions.',
 
 ];

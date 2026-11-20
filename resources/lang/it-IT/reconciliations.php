@@ -19,5 +19,7 @@ return [
     'save_draft'            => 'Salva come bozza',
     'irreconcilable'        => 'Non riconciliabile',
     'overlapping'           => 'Questo periodo si sovrappone alla riconciliazione del :period, che è già riconciliata.',
+    'difference_not_zero'   => 'La riconciliazione del :period può essere riconciliata quando la differenza è 0, ora è :difference.',
+    'not_reconcilable'      => 'La riconciliazione può contenere solo le transazioni del conto nel periodo, queste non lo sono: :transactions.',
 
 ];

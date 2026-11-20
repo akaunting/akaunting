@@ -4,10 +4,12 @@ namespace App\Jobs\Banking;
 
 use App\Abstracts\Job;
 use App\Interfaces\Job\ShouldDelete;
-use App\Models\Banking\Transaction;
+use App\Traits\Reconciliations;
 
 class DeleteReconciliation extends Job implements ShouldDelete
 {
+    use Reconciliations;
+
     public function handle(): bool
     {
         \DB::transaction(function () {
@@ -19,12 +21,7 @@ class DeleteReconciliation extends Job implements ShouldDelete
                 return;
             }
 
-            Transaction::where('account_id', $this->model->account_id)
-                ->isReconciled()
-                ->whereBetween('paid_at', [$this->model->started_at, $this->model->ended_at])->each(function ($transaction) {
-                    $transaction->reconciled = 0;
-                    $transaction->save();
-                });
+            $this->releaseReconciledTransactions($this->model);
         });
 
         return true;

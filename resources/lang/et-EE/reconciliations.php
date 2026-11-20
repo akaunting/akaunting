@@ -15,5 +15,7 @@ return [
     'deposit'               => 'Deposiit',
     'withdrawal'            => 'Tagasivõtmine',
     'overlapping'           => 'See periood kattub juba kooskõlastatud perioodi :period kooskõlastusega.',
+    'difference_not_zero'   => 'Perioodi :period kooskõlastuse saab kooskõlastada, kui vahe on 0, praegu on see :difference.',
+    'not_reconcilable'      => 'Kooskõlastuses saavad olla ainult konto tehingud perioodi sees, need ei ole: :transactions.',
 
 ];

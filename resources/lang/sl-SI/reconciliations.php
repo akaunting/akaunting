@@ -19,5 +19,7 @@ return [
     'save_draft'            => 'Shrani kot osnutek',
     'irreconcilable'        => 'Nezdružljivo',
     'overlapping'           => 'To obdobje se prekriva z usklajevanjem za :period, ki je že usklajeno.',
+    'difference_not_zero'   => 'Usklajevanje za :period je mogoče uskladiti, ko je razlika 0, zdaj je :difference.',
+    'not_reconcilable'      => 'Usklajevanje lahko vsebuje le transakcije računa v obdobju, te niso: :transactions.',
 
 ];

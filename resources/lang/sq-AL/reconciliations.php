@@ -15,5 +15,7 @@ return [
     'deposit'               => 'Depozite',
     'withdrawal'            => 'Tërheqje',
     'overlapping'           => 'Kjo periudhë mbivendoset me rakordimin e :period, i cili është tashmë i rakorduar.',
+    'difference_not_zero'   => 'Rakordimi i :period mund të rakordohet kur diferenca është 0, tani është :difference.',
+    'not_reconcilable'      => 'Rakordimi mund të përmbajë vetëm transaksionet e llogarisë brenda periudhës, këto nuk janë: :transactions.',
 
 ];

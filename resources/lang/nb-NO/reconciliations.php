@@ -19,5 +19,7 @@ return [
     'save_draft'            => 'Lagre som utkast',
     'irreconcilable'        => 'Uforenlig',
     'overlapping'           => 'Denne perioden overlapper avstemmingen for :period, som allerede er avstemt.',
+    'difference_not_zero'   => 'Avstemmingen for :period kan avstemmes når differansen er 0, den er :difference.',
+    'not_reconcilable'      => 'Avstemmingen kan bare inneholde kontoens transaksjoner i perioden, disse er ikke det: :transactions.',
 
 ];

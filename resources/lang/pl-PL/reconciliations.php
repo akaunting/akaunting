@@ -19,5 +19,7 @@ return [
     'save_draft'            => 'Zapisz jako wersję roboczą',
     'irreconcilable'        => 'Nieuzgadnialne',
     'overlapping'           => 'Ten okres pokrywa się z uzgodnieniem za :period, które zostało już uzgodnione.',
+    'difference_not_zero'   => 'Uzgodnienie za :period można uzgodnić, gdy różnica wynosi 0, obecnie wynosi :difference.',
+    'not_reconcilable'      => 'Uzgodnienie może zawierać tylko transakcje rachunku z danego okresu, te nimi nie są: :transactions.',
 
 ];

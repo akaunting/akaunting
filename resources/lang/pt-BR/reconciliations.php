@@ -19,5 +19,7 @@ return [
     'save_draft'            => 'Salvar como rascunho',
     'irreconcilable'        => 'Irreconciliável',
     'overlapping'           => 'Este período se sobrepõe à conciliação de :period, que já está conciliada.',
+    'difference_not_zero'   => 'A conciliação de :period pode ser conciliada quando a diferença é 0, e agora é :difference.',
+    'not_reconcilable'      => 'A conciliação só pode conter transações da conta no período, estas não são: :transactions.',
 
 ];

@@ -15,5 +15,7 @@ return [
     'deposit'               => 'Talletus',
     'withdrawal'            => 'Nosto',
     'overlapping'           => 'Tämä jakso on päällekkäinen jo täsmäytetyn jakson :period täsmäytyksen kanssa.',
+    'difference_not_zero'   => 'Jakson :period täsmäytyksen voi täsmäyttää, kun erotus on 0, nyt se on :difference.',
+    'not_reconcilable'      => 'Täsmäytyksessä voi olla vain tilin tapahtumia jakson ajalta, nämä eivät ole: :transactions.',
 
 ];

@@ -11,5 +11,7 @@ return [
     'end_date'              => 'End Date',
     'cleared_amount'        => 'Cleared Amount',
     'overlapping'           => 'תקופה זו חופפת להתאמה של :period, שכבר הותאמה.',
+    'difference_not_zero'   => 'ניתן להתאים את ההתאמה של :period כשההפרש הוא 0, כעת הוא :difference.',
+    'not_reconcilable'      => 'ההתאמה יכולה לכלול רק תנועות של החשבון בתקופה, אלה אינן: :transactions.',
 
 ];

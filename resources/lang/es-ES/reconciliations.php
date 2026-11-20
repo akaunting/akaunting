@@ -19,5 +19,7 @@ return [
     'save_draft'            => 'Guardar como borrador',
     'irreconcilable'        => 'No conciliable',
     'overlapping'           => 'Este período se superpone con la conciliación de :period, que ya está conciliada.',
+    'difference_not_zero'   => 'La conciliación de :period se puede conciliar cuando la diferencia es 0, y ahora es :difference.',
+    'not_reconcilable'      => 'La conciliación solo puede incluir transacciones de la cuenta dentro del período, estas no lo son: :transactions.',
 
 ];

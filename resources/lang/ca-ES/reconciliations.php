@@ -19,5 +19,7 @@ return [
     'save_draft'            => 'Desa com a esborrany',
     'irreconcilable'        => 'No es pot conciliar',
     'overlapping'           => 'Aquest període se solapa amb la conciliació de :period, que ja està conciliada.',
+    'difference_not_zero'   => 'La conciliació de :period es pot conciliar quan la diferència és 0, i ara és :difference.',
+    'not_reconcilable'      => 'La conciliació només pot incloure les transaccions del compte dins del període, aquestes no ho són: :transactions.',
 
 ];

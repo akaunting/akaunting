@@ -19,5 +19,7 @@ return [
     'save_draft'            => 'Uložit jako koncept',
     'irreconcilable'        => 'Neověřené',
     'overlapping'           => 'Toto období se překrývá s odsouhlasením za :period, které je již odsouhlaseno.',
+    'difference_not_zero'   => 'Odsouhlasení za :period lze odsouhlasit, když je rozdíl 0, nyní je :difference.',
+    'not_reconcilable'      => 'Odsouhlasení může obsahovat jen transakce účtu v daném období, tyto mezi ně nepatří: :transactions.',
 
 ];

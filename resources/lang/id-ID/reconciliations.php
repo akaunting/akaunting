@@ -19,5 +19,7 @@ return [
     'save_draft'            => 'Simpan sebagai draf',
     'irreconcilable'        => 'Tidak dapat direkonsiliasi',
     'overlapping'           => 'Periode ini tumpang tindih dengan rekonsiliasi :period yang sudah direkonsiliasi.',
+    'difference_not_zero'   => 'Rekonsiliasi :period dapat direkonsiliasi jika selisihnya 0, saat ini selisihnya :difference.',
+    'not_reconcilable'      => 'Rekonsiliasi hanya dapat berisi transaksi akun dalam periode tersebut, transaksi ini bukan: :transactions.',
 
 ];

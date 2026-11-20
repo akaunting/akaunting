@@ -19,5 +19,7 @@ return [
     'deposit'               => 'إيداع',
     'withdrawal'            => 'سحب',
     'overlapping'           => 'تتداخل هذه الفترة مع تسوية :period، وهي مسواة بالفعل.',
+    'difference_not_zero'   => 'يمكن تسوية تسوية :period عندما يكون الفرق 0، وهو حاليًا :difference.',
+    'not_reconcilable'      => 'يمكن أن تتضمن التسوية معاملات الحساب ضمن الفترة فقط، وهذه ليست كذلك: :transactions.',
 
 ];
