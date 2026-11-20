@@ -18,5 +18,6 @@ return [
     'in_progress'           => 'Probíhá',
     'save_draft'            => 'Uložit jako koncept',
     'irreconcilable'        => 'Neověřené',
+    'overlapping'           => 'Toto období se překrývá s odsouhlasením za :period, které je již odsouhlaseno.',
 
 ];

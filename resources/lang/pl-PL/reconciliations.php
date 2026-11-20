@@ -18,5 +18,6 @@ return [
     'in_progress'           => 'W toku',
     'save_draft'            => 'Zapisz jako wersję roboczą',
     'irreconcilable'        => 'Nieuzgadnialne',
+    'overlapping'           => 'Ten okres pokrywa się z uzgodnieniem za :period, które zostało już uzgodnione.',
 
 ];

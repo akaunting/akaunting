@@ -18,5 +18,6 @@ return [
     'in_progress'           => 'In Progress',
     'save_draft'            => 'Save as Draft',
     'irreconcilable'        => 'Irreconcilable',
+    'overlapping'           => 'This period overlaps the reconciliation of :period, which is already reconciled.',
 
 ];

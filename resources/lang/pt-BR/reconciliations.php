@@ -18,5 +18,6 @@ return [
     'in_progress'           => 'Em andamento',
     'save_draft'            => 'Salvar como rascunho',
     'irreconcilable'        => 'Irreconciliável',
+    'overlapping'           => 'Este período se sobrepõe à conciliação de :period, que já está conciliada.',
 
 ];

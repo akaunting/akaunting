@@ -12,5 +12,6 @@ return [
     'cleared_amount'        => 'Samþykkt upphæð',
     'deposit'               => 'Innlegg',
     'withdrawal'            => 'Úttekt',
+    'overlapping'           => 'Þetta tímabil skarast við afstemmingu fyrir :period, sem þegar er afstemmd.',
 
 ];

@@ -18,5 +18,6 @@ return [
     'in_progress'           => 'En curs',
     'save_draft'            => 'Desa com a esborrany',
     'irreconcilable'        => 'No es pot conciliar',
+    'overlapping'           => 'Aquest període se solapa amb la conciliació de :period, que ja està conciliada.',
 
 ];

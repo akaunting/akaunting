@@ -14,5 +14,6 @@ return [
     'cleared_amount'        => 'Kustutatud summa',
     'deposit'               => 'Deposiit',
     'withdrawal'            => 'Tagasivõtmine',
+    'overlapping'           => 'See periood kattub juba kooskõlastatud perioodi :period kooskõlastusega.',
 
 ];

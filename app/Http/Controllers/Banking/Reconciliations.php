@@ -76,7 +76,10 @@ class Reconciliations extends Controller
 
         $opening_balance = $this->getOpeningBalance($account, $started_at);
 
-        return view('banking.reconciliations.create', compact('account', 'currency', 'opening_balance', 'transactions'));
+        // Told before the transactions are checked, saving it is refused (Requests\Banking\Reconciliation)
+        $overlapping = Reconciliation::reconciledOverlapping($account->id, $started_at, $ended_at)->first();
+
+        return view('banking.reconciliations.create', compact('account', 'currency', 'opening_balance', 'transactions', 'overlapping'));
     }
 
     /**
@@ -124,7 +127,9 @@ class Reconciliations extends Controller
 
         $opening_balance = $this->getOpeningBalance($account, $reconciliation->started_at, $reconciliation->ended_at);
 
-        return view('banking.reconciliations.edit', compact('reconciliation', 'account', 'currency', 'opening_balance', 'transactions'));
+        $overlapping = Reconciliation::reconciledOverlapping($account->id, $reconciliation->started_at, $reconciliation->ended_at, $reconciliation->id)->first();
+
+        return view('banking.reconciliations.edit', compact('reconciliation', 'account', 'currency', 'opening_balance', 'transactions', 'overlapping'));
     }
 
     /**

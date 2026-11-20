@@ -14,5 +14,6 @@ return [
     'cleared_amount'        => 'مبلغ تصفیه شده',
     'deposit'               => 'سپرده',
     'withdrawal'            => 'برداشت',
+    'overlapping'           => 'این دوره با تطبیق :period که قبلاً تطبیق داده شده است، همپوشانی دارد.',
 
 ];

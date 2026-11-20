@@ -18,5 +18,6 @@ return [
     'in_progress'           => 'In Bearbeitung',
     'save_draft'            => 'Als Entwurf speichern',
     'irreconcilable'        => 'Nicht abgleichbar',
+    'overlapping'           => 'Dieser Zeitraum überschneidet sich mit dem bereits abgeschlossenen Abgleich für :period.',
 
 ];

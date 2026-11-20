@@ -12,5 +12,6 @@ return [
     'cleared_amount'        => 'Очишћен износ',
     'deposit'               => 'Deposit',
     'withdrawal'            => 'Withdrawal',
+    'overlapping'           => 'Овај период се преклапа са усаглашавањем за :period, које је већ усаглашено.',
 
 ];

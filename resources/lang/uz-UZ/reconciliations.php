@@ -12,5 +12,6 @@ return [
     'cleared_amount'        => 'Tozalangan miqdor',
     'deposit'               => 'Omonat',
     'withdrawal'            => 'Pulni qaytarib olish',
+    'overlapping'           => 'Bu davr allaqachon solishtirilgan :period solishtirmasi bilan ustma-ust tushadi.',
 
 ];

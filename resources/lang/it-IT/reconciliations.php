@@ -18,5 +18,6 @@ return [
     'in_progress'           => 'In corso',
     'save_draft'            => 'Salva come bozza',
     'irreconcilable'        => 'Non riconciliabile',
+    'overlapping'           => 'Questo periodo si sovrappone alla riconciliazione del :period, che è già riconciliata.',
 
 ];

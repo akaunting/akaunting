@@ -18,5 +18,6 @@ return [
     'in_progress'           => 'Procesā',
     'save_draft'            => 'Saglabāt melnrakstu',
     'irreconcilable'        => 'Nesamierināms',
+    'overlapping'           => 'Šis periods pārklājas ar jau saskaņoto :period saskaņošanu.',
 
 ];

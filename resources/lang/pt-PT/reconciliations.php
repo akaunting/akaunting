@@ -13,5 +13,6 @@ return [
     'cleared_amount'        => 'Montante Apurado',
     'deposit'               => 'Depósito',
     'withdrawal'            => 'Levantamento',
+    'overlapping'           => 'Este período sobrepõe-se à reconciliação de :period, que já está reconciliada.',
 
 ];

@@ -18,5 +18,6 @@ return [
     'in_progress'           => 'Devam Etmekte',
     'save_draft'            => 'Taslak Olarak Kaydet',
     'irreconcilable'        => 'Mutabakat Yapılamaz',
+    'overlapping'           => 'Bu dönem, mutabakatı zaten yapılmış :period dönemiyle çakışıyor.',
 
 ];

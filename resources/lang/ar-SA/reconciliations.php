@@ -18,5 +18,6 @@ return [
     'cleared_amount'        => 'المبلغ المصفّى',
     'deposit'               => 'إيداع',
     'withdrawal'            => 'سحب',
+    'overlapping'           => 'تتداخل هذه الفترة مع تسوية :period، وهي مسواة بالفعل.',
 
 ];

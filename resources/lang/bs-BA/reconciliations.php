@@ -18,5 +18,6 @@ return [
     'in_progress'           => 'U toku',
     'save_draft'            => 'Sačuvaj u pripremu',
     'irreconcilable'        => 'Nepomirljiv',
+    'overlapping'           => 'Ovaj period se preklapa sa usklađivanjem za :period, koje je već usklađeno.',
 
 ];

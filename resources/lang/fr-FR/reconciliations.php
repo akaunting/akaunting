@@ -18,5 +18,6 @@ return [
     'in_progress'           => 'En cours',
     'save_draft'            => 'Enregistrer comme brouillon',
     'irreconcilable'        => 'Non rapprochable',
+    'overlapping'           => 'Cette période chevauche le rapprochement du :period, qui est déjà rapproché.',
 
 ];

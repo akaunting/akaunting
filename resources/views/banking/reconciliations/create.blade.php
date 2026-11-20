@@ -71,6 +71,12 @@
             </x-form>
 
             <div id="reconciliations-table">
+                @if (! empty($overlapping))
+                    <div class="mb-4">
+                        <x-alert.warning message="{{ trans('reconciliations.overlapping', ['period' => $overlapping->period]) }}" />
+                    </div>
+                @endif
+
                 <h2 class="text-lg font-medium text-black mb-3">
                     {{ trans_choice('general.transactions', 2) }}
                 </h2>

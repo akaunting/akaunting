@@ -18,5 +18,6 @@ return [
     'in_progress'           => 'În desfășurare',
     'save_draft'            => 'Salvează ca ciornă',
     'irreconcilable'        => 'ireconciliabil',
+    'overlapping'           => 'Această perioadă se suprapune cu reconcilierea pentru :period, care este deja reconciliată.',
 
 ];

@@ -3,6 +3,7 @@
 namespace App\Models\Banking;
 
 use App\Abstracts\Model;
+use App\Utilities\Date;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Reconciliation extends Model
@@ -42,6 +43,41 @@ class Reconciliation extends Model
     public function account()
     {
         return $this->belongsTo('App\Models\Banking\Account')->withDefault(['name' => trans('general.na')]);
+    }
+
+    /**
+     * Scope to the reconciled reconciliations of an account whose period overlaps the one given.
+     *
+     * A transaction does not keep the reconciliation that cleared it, the one whose period it is in did. So the
+     * periods of the reconciled reconciliations of an account can not overlap, or which one cleared a transaction
+     * is not known any more, and saving or deleting one of them marks the transactions of the other as not
+     * reconciled.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  int  $account_id
+     * @param  mixed  $started_at
+     * @param  mixed  $ended_at
+     * @param  int|null  $except_id  the reconciliation itself, when it is updated
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeReconciledOverlapping($query, $account_id, $started_at, $ended_at, $except_id = null)
+    {
+        return $query->where('account_id', $account_id)
+            ->where('reconciled', 1)
+            ->where('started_at', '<=', Date::parse($ended_at)->endOfDay()->toDateTimeString())
+            ->where('ended_at', '>=', Date::parse($started_at)->startOfDay()->toDateTimeString())
+            ->when($except_id, fn ($query) => $query->where('id', '<>', $except_id))
+            ->orderBy('started_at');
+    }
+
+    /**
+     * The period of the reconciliation, as a warning names it.
+     *
+     * @return string
+     */
+    public function getPeriodAttribute(): string
+    {
+        return company_date($this->started_at) . ' - ' . company_date($this->ended_at);
     }
 
     /**

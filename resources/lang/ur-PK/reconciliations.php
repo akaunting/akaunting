@@ -12,5 +12,6 @@ return [
     'cleared_amount'        => 'ادا شدہ رقم',
     'deposit'               => 'ڈپازٹ',
     'withdrawal'            => 'واپسی',
+    'overlapping'           => 'یہ مدت :period کی مطابقت سے متصادم ہے، جو پہلے ہی مطابقت شدہ ہے۔',
 
 ];

@@ -18,5 +18,6 @@ return [
     'in_progress'           => 'Dalam Proses',
     'save_draft'            => 'Simpan sebagai draf',
     'irreconcilable'        => 'Tidak dapat direkonsiliasi',
+    'overlapping'           => 'Periode ini tumpang tindih dengan rekonsiliasi :period yang sudah direkonsiliasi.',
 
 ];

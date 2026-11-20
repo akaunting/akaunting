@@ -14,5 +14,6 @@ return [
     'cleared_amount'        => 'Shuma e Pastruar',
     'deposit'               => 'Depozite',
     'withdrawal'            => 'Tërheqje',
+    'overlapping'           => 'Kjo periudhë mbivendoset me rakordimin e :period, i cili është tashmë i rakorduar.',
 
 ];

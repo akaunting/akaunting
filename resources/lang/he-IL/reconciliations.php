@@ -10,5 +10,6 @@ return [
     'start_date'            => 'Start Date',
     'end_date'              => 'End Date',
     'cleared_amount'        => 'Cleared Amount',
+    'overlapping'           => 'תקופה זו חופפת להתאמה של :period, שכבר הותאמה.',
 
 ];

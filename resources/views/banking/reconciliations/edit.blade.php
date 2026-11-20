@@ -5,6 +5,12 @@
 
     <x-slot name="content">
         <div id="reconciliations-table" class="mt-3.5 lg:mt-8">
+            @if (! empty($overlapping))
+                <div class="mb-4">
+                    <x-alert.warning message="{{ trans('reconciliations.overlapping', ['period' => $overlapping->period]) }}" />
+                </div>
+            @endif
+
             <x-form id="reconciliation" method="PATCH" :route="['reconciliations.update', $reconciliation->id]" :model="$reconciliation">
                 <div>
                     <h2 class="text-lg font-medium text-black mb-3">{{ trans_choice('general.transactions', 2) }}</h2>

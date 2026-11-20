@@ -3,6 +3,7 @@
 namespace Tests\Feature\Banking;
 
 use App\Jobs\Banking\CreateReconciliation;
+use App\Jobs\Banking\UpdateReconciliation;
 use App\Models\Banking\Reconciliation;
 use App\Models\Banking\Transaction;
 use Tests\Feature\FeatureTestCase;
@@ -200,6 +201,161 @@ class ReconciliationsTest extends FeatureTestCase
 
         $this->assertFalse($reconciled->fresh()->reconciled);
         $this->assertEquals(0, $transaction->fresh()->reconciled);
+    }
+
+    public function testItShouldNotCreateReconciliationOverlappingAReconciledOne()
+    {
+        $transaction = Transaction::factory()->income()->create(['paid_at' => '2026-01-10 10:00:00']);
+
+        $this->createJanuaryReconciliation($transaction, 1);
+
+        $request = $this->getPeriodRequest($transaction->account_id, '2026-01-15', '2026-02-15');
+
+        $this->withExceptionHandling()
+            ->loginAs()
+            ->postJson(route('reconciliations.store'), $request)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['started_at']);
+
+        $this->assertEquals(1, Reconciliation::count());
+    }
+
+    public function testItShouldCreateReconciliationNextToAReconciledOne()
+    {
+        $transaction = Transaction::factory()->income()->create(['paid_at' => '2026-01-10 10:00:00']);
+
+        $this->createJanuaryReconciliation($transaction, 1);
+
+        $this->loginAs()
+            ->post(route('reconciliations.store'), $this->getPeriodRequest($transaction->account_id, '2026-02-01', '2026-02-28'))
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('success');
+
+        $this->assertEquals(2, Reconciliation::count());
+    }
+
+    public function testItShouldCreateReconciliationOverlappingADraft()
+    {
+        $transaction = Transaction::factory()->income()->create(['paid_at' => '2026-01-10 10:00:00']);
+
+        // A draft clears no transactions, so another one can be started for its period
+        $this->createJanuaryReconciliation($transaction, 0);
+
+        $request = $this->getPeriodRequest($transaction->account_id, '2026-01-01', '2026-01-31');
+        $request['reconcile'] = 0;
+
+        $this->loginAs()
+            ->post(route('reconciliations.store'), $request)
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('success');
+
+        $this->assertEquals(2, Reconciliation::count());
+    }
+
+    public function testItShouldWarnOfAReconciledOneOnTheCreatePage()
+    {
+        $transaction = Transaction::factory()->income()->create(['paid_at' => '2026-01-10 10:00:00']);
+
+        $reconciled = $this->createJanuaryReconciliation($transaction, 1);
+
+        $warning = trans('reconciliations.overlapping', ['period' => $reconciled->period]);
+
+        $this->loginAs()
+            ->get(route('reconciliations.create', [
+                'account_id' => $transaction->account_id,
+                'started_at' => '2026-01-20',
+                'ended_at' => '2026-02-10',
+            ]))
+            ->assertStatus(200)
+            ->assertSee($warning);
+
+        $this->loginAs()
+            ->get(route('reconciliations.create', [
+                'account_id' => $transaction->account_id,
+                'started_at' => '2026-02-01',
+                'ended_at' => '2026-02-28',
+            ]))
+            ->assertStatus(200)
+            ->assertDontSee($warning);
+    }
+
+    public function testItShouldNotUpdateADraftOverlappingAReconciledOne()
+    {
+        $transaction = Transaction::factory()->income()->create(['paid_at' => '2026-01-10 10:00:00']);
+
+        $reconciled = $this->createJanuaryReconciliation($transaction, 1);
+
+        // Started before it was refused
+        $draft = $this->createJanuaryReconciliation($transaction, 0);
+
+        $this->loginAs()
+            ->get(route('reconciliations.edit', $draft->id))
+            ->assertStatus(200)
+            ->assertSee(trans('reconciliations.overlapping', ['period' => $reconciled->period]));
+
+        $request = $this->getPeriodRequest($transaction->account_id, '2026-01-01', '2026-01-31');
+        $request['reconcile'] = 0;
+
+        $this->withExceptionHandling()
+            ->loginAs()
+            ->patchJson(route('reconciliations.update', $draft->id), $request)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['started_at']);
+
+        $this->assertEquals(1, $transaction->fresh()->reconciled);
+
+        // The reconciled one itself is not in the way of its own update
+        $request['reconcile'] = 1;
+        $request['transactions'] = [$transaction->type . '_' . $transaction->id => 1];
+
+        $this->loginAs()
+            ->patch(route('reconciliations.update', $reconciled->id), $request)
+            ->assertStatus(200);
+
+        $this->assertFlashLevel('success');
+    }
+
+    public function testSavingADraftOverlappingAReconciledOneShouldKeepItsTransactionsReconciled()
+    {
+        $transaction = Transaction::factory()->income()->create(['paid_at' => '2026-01-10 10:00:00']);
+        $draft_only = Transaction::factory()->income()->create(['paid_at' => '2026-02-10 10:00:00']);
+
+        $this->createJanuaryReconciliation($transaction, 1);
+
+        // A draft for January and February, started before it was refused
+        $request = $this->getPeriodRequest($transaction->account_id, '2026-01-01', '2026-02-28');
+        $request['reconcile'] = 0;
+
+        $draft = $this->dispatch(new CreateReconciliation($request));
+
+        $draft_only->reconciled = 1;
+        $draft_only->save();
+
+        // Saved with nothing checked, as the form sends it
+        $request['transactions'] = [
+            $transaction->type . '_' . $transaction->id => 'false',
+            $draft_only->type . '_' . $draft_only->id => '',
+        ];
+
+        $this->dispatch(new UpdateReconciliation($draft, $request));
+
+        // The transaction of the reconciled January stays reconciled, the one of the draft only does not
+        $this->assertEquals(1, $transaction->fresh()->reconciled);
+        $this->assertEquals(0, $draft_only->fresh()->reconciled);
+    }
+
+    protected function getPeriodRequest(int $account_id, string $started_at, string $ended_at): array
+    {
+        $request = $this->getRequest();
+        $request['account_id'] = $account_id;
+        $request['started_at'] = $started_at . ' 00:00:00';
+        $request['ended_at'] = $ended_at . ' 23:59:59';
+        $request['reconcile'] = 1;
+        $request['transactions'] = [];
+
+        return $request;
     }
 
     protected function createJanuaryReconciliation(Transaction $transaction, int $reconcile): Reconciliation

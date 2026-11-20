@@ -12,5 +12,6 @@ return [
     'cleared_amount'        => 'Cleared Amount',
     'deposit'               => 'Deposit',
     'withdrawal'            => 'Withdrawal',
+    'overlapping'           => 'ช่วงเวลานี้ทับซ้อนกับการกระทบยอดของ :period ซึ่งกระทบยอดแล้ว',
 
 ];

@@ -18,5 +18,6 @@ return [
     'in_progress'           => 'V teku',
     'save_draft'            => 'Shrani kot osnutek',
     'irreconcilable'        => 'Nezdružljivo',
+    'overlapping'           => 'To obdobje se prekriva z usklajevanjem za :period, ki je že usklajeno.',
 
 ];

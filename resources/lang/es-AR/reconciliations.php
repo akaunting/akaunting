@@ -14,5 +14,6 @@ return [
     'cleared_amount'        => 'Monto',
     'deposit'               => 'Depósito',
     'withdrawal'            => 'Retiro',
+    'overlapping'           => 'Este período se superpone con la conciliación de :period, que ya está conciliada.',
 
 ];

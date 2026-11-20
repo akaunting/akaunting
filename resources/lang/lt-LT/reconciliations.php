@@ -12,5 +12,6 @@ return [
     'cleared_amount'        => 'Cleared Amount',
     'deposit'               => 'Depozitas',
     'withdrawal'            => 'Withdrawal',
+    'overlapping'           => 'Šis laikotarpis sutampa su jau suderintu :period suderinimu.',
 
 ];

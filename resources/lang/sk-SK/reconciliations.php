@@ -10,5 +10,6 @@ return [
     'start_date'            => 'Dátum začiatku',
     'end_date'              => 'Dátum ukončenia',
     'cleared_amount'        => 'Vyrovnaná suma',
+    'overlapping'           => 'Toto obdobie sa prekrýva s odsúhlasením za :period, ktoré je už odsúhlasené.',
 
 ];

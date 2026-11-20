@@ -14,5 +14,6 @@ return [
     'cleared_amount'        => '清算金額',
     'deposit'               => '存款',
     'withdrawal'            => '提款',
+    'overlapping'           => '此期間與 :period 的對帳重疊，該對帳已完成。',
 
 ];

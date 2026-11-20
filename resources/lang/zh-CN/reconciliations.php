@@ -18,5 +18,6 @@ return [
     'in_progress'           => '进行中',
     'save_draft'            => '存为草稿',
     'irreconcilable'        => '无法对账',
+    'overlapping'           => '此期间与 :period 的对账重叠，该对账已完成。',
 
 ];

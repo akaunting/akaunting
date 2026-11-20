@@ -14,5 +14,6 @@ return [
     'cleared_amount'        => 'Selvitetty summa',
     'deposit'               => 'Talletus',
     'withdrawal'            => 'Nosto',
+    'overlapping'           => 'Tämä jakso on päällekkäinen jo täsmäytetyn jakson :period täsmäytyksen kanssa.',
 
 ];

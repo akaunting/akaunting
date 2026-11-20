@@ -14,5 +14,6 @@ return [
     'cleared_amount'        => 'Elszámolt összeg',
     'deposit'               => 'Befizetések',
     'withdrawal'            => 'Kifizetések',
+    'overlapping'           => 'Ez az időszak átfedésben van a(z) :period egyeztetésével, amely már egyeztetve van.',
 
 ];

@@ -18,5 +18,6 @@ return [
     'in_progress'           => 'Pågående',
     'save_draft'            => 'Spara som utkast',
     'irreconcilable'        => 'Oavstämbar',
+    'overlapping'           => 'Den här perioden överlappar avstämningen för :period, som redan är avstämd.',
 
 ];

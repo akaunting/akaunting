@@ -14,5 +14,6 @@ return [
     'cleared_amount'        => 'Təmizlənmiş Məbləğ',
     'deposit'               => 'Əmanət edildi',
     'withdrawal'            => 'Çıxarılan',
+    'overlapping'           => 'Bu dövr artıq uzlaşdırılmış :period uzlaşdırması ilə üst-üstə düşür.',
 
 ];

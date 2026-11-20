@@ -12,5 +12,6 @@ return [
     'cleared_amount'        => '삭제된 금액',
     'deposit'               => '예치금',
     'withdrawal'            => '인출',
+    'overlapping'           => '이 기간은 이미 조정이 완료된 :period 조정과 겹칩니다.',
 
 ];

@@ -18,5 +18,6 @@ return [
     'in_progress'           => 'Sedang Berjalan',
     'save_draft'            => 'Simpan sebagai Draf',
     'irreconcilable'        => 'Tidak Boleh Disesuaikan',
+    'overlapping'           => 'Tempoh ini bertindih dengan penyesuaian :period yang telah disesuaikan.',
 
 ];

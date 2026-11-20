@@ -12,5 +12,6 @@ return [
     'cleared_amount'        => 'Видалена Сума',
     'deposit'               => 'Аванс',
     'withdrawal'            => 'Вивести',
+    'overlapping'           => 'Цей період перетинається зі звіркою за :period, яку вже проведено.',
 
 ];

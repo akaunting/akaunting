@@ -10,5 +10,6 @@ return [
     'start_date'            => 'Start Date',
     'end_date'              => 'End Date',
     'cleared_amount'        => 'Cleared Amount',
+    'overlapping'           => 'Kỳ này trùng với kỳ đối chiếu :period, đã được đối chiếu.',
 
 ];

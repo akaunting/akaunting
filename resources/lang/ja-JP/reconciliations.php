@@ -12,5 +12,6 @@ return [
     'cleared_amount'        => 'クリアの量',
     'deposit'               => '預金',
     'withdrawal'            => '撤退',
+    'overlapping'           => 'この期間は、すでに照合済みの :period の照合と重複しています。',
 
 ];

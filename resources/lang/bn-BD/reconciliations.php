@@ -12,5 +12,6 @@ return [
     'cleared_amount'        => 'অবমুক্ত ',
     'deposit'               => 'আমানত',
     'withdrawal'            => 'উত্তোলন',
+    'overlapping'           => 'এই সময়কাল :period এর মিলকরণের সাথে মিলে যায়, যা ইতিমধ্যে মিলানো হয়েছে।',
 
 ];

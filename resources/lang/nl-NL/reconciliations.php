@@ -18,5 +18,6 @@ return [
     'in_progress'           => 'In uitvoering',
     'save_draft'            => 'Opslaan als concept',
     'irreconcilable'        => 'Niet af te stemmen',
+    'overlapping'           => 'Deze periode overlapt met de afstemming van :period, die al is afgestemd.',
 
 ];

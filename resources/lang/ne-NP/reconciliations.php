@@ -14,5 +14,6 @@ return [
     'cleared_amount'        => 'रकम खालि गरियो',
     'deposit'               => 'निक्षेप',
     'withdrawal'            => 'फिर्ता',
+    'overlapping'           => 'यो अवधि :period को मिलानसँग खप्टिन्छ, जुन पहिले नै मिलान गरिएको छ।',
 
 ];
