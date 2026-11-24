@@ -1271,7 +1271,7 @@ abstract class Form extends Component
             return $title;
         }
 
-        if (! empty($this->document) && $this->document->title !== '') {
+        if (! empty($this->document) && ($this->document->title ?? '') !== '') {
             return $this->document->title;
         }
 
@@ -1284,7 +1284,7 @@ abstract class Form extends Component
             return $subheading;
         }
 
-        if (! empty($this->document) && $this->document->title !== '') {
+        if (! empty($this->document) && ($this->document->subheading ?? '') !== '') {
             return $this->document->subheading;
         }
 

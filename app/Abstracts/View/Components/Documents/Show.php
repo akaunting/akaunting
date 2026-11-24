@@ -1047,7 +1047,7 @@ abstract class Show extends Component
             return $textDocumentTitle;
         }
 
-        if (! empty($this->document) && $this->document->title !== '') {
+        if (! empty($this->document) && ($this->document->title ?? '') !== '') {
             return $this->document->title;
         }
 
@@ -1072,7 +1072,7 @@ abstract class Show extends Component
             return $textDocumentSubheading;
         }
 
-        if (! empty($this->document) && $this->document->subheading !== '') {
+        if (! empty($this->document) && ($this->document->subheading ?? '') !== '') {
             return $this->document->subheading;
         }
 
