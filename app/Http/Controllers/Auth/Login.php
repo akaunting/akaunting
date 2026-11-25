@@ -155,7 +155,14 @@ class Login extends Controller
     {
         $this->logout();
 
-        return redirect()->route('login');
+        // A new session and CSRF token with the other session drivers too, logout() renews the database ones
+        if (config('session.driver') != 'database') {
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
+        }
+
+        // The browser drops the pages it keeps of the app, so going back after logging out does not show them
+        return redirect()->route('login')->header('Clear-Site-Data', '"cache"');
     }
 
     public function logout()

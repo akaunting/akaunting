@@ -106,6 +106,28 @@ class SessionSecurityTest extends FeatureTestCase
         $this->assertSame($user->fresh()->getAuthPassword(), session('password_hash_web'));
     }
 
+    public function testItShouldRenewTheSessionOnLogout()
+    {
+        $user = $this->createUser();
+
+        $this->post(route('login.store'), ['email' => $user->email, 'password' => 'user-password'])
+            ->assertJson(['success' => true]);
+
+        session()->put('left.behind', 'value');
+
+        $id = session()->getId();
+        $token = session()->token();
+
+        $this->get(route('logout', ['company_id' => $this->company->id]))
+            ->assertRedirect(route('login'))
+            ->assertHeader('Clear-Site-Data', '"cache"');
+
+        $this->assertGuest();
+        $this->assertNotSame($id, session()->getId());
+        $this->assertNotSame($token, session()->token());
+        $this->assertNull(session('left.behind'));
+    }
+
     public function testItShouldKeepTheSessionOfAUserLoggingInAfterAnotherOnTheSameBrowser()
     {
         $first = $this->createUser();
@@ -114,7 +136,6 @@ class SessionSecurityTest extends FeatureTestCase
         $this->post(route('login.store'), ['email' => $first->email, 'password' => 'user-password'])
             ->assertJson(['success' => true]);
 
-        // The logout keeps the session data with the file and array drivers
         $this->get(route('logout', ['company_id' => $this->company->id]));
 
         $this->post(route('login.store'), ['email' => $second->email, 'password' => 'user-password'])
