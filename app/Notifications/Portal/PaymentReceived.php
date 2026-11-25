@@ -9,7 +9,6 @@ use App\Models\Document\Document;
 use App\Traits\Documents;
 use Illuminate\Mail\Attachment;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Support\Facades\URL;
 
 class PaymentReceived extends Notification
 {
@@ -135,7 +134,7 @@ class PaymentReceived extends Notification
             money($this->invoice->amount, $this->invoice->currency_code),
             company_date($this->invoice->due_at),
             trans('documents.statuses.' . $this->invoice->status),
-            URL::signedRoute('signed.invoices.show', $route_params),
+            signed_route('signed.invoices.show', $route_params),
             route('invoices.show', $route_params),
             route('portal.invoices.show', $route_params),
             money($this->transaction->amount, $this->transaction->currency_code),

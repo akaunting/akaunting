@@ -9,7 +9,6 @@ use App\Traits\Transactions;
 use App\Utilities\Modules;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Intervention\Image\Exception\NotReadableException;
@@ -667,9 +666,9 @@ abstract class Show extends Component
         try {
             route($route, [$this->transaction->id, 'company_id' => company_id()]);
 
-            $signedUrl = URL::signedRoute($route, [$this->transaction->id]);
+            $signedUrl = signed_route($route, [$this->transaction->id]);
         } catch (\Exception $e) {
-            $signedUrl = URL::signedRoute('signed.payments.show', [$this->transaction->id]);
+            $signedUrl = signed_route('signed.payments.show', [$this->transaction->id]);
         }
 
         return $signedUrl;

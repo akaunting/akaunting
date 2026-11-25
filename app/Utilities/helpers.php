@@ -10,6 +10,7 @@ use App\Utilities\Date;
 use App\Utilities\Widgets;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 if (! function_exists('user')) {
     /**
@@ -648,5 +649,23 @@ if (! function_exists('escape_html')) {
     function escape_html($value, bool $double_encode = true): string
     {
         return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8', $double_encode);
+    }
+}
+
+if (! function_exists('signed_route')) {
+    /**
+     * The signed link of a document or payment that is shared with the customer. It never
+     * expires, as invoices are paid long after they are sent, unless app.signed_links.expire
+     * sets the days it is valid for.
+     */
+    function signed_route(string $name, $parameters = [], bool $absolute = true): string
+    {
+        $days = (int) config('app.signed_links.expire');
+
+        if ($days > 0) {
+            return URL::temporarySignedRoute($name, now()->addDays($days), $parameters, $absolute);
+        }
+
+        return URL::signedRoute($name, $parameters, null, $absolute);
     }
 }

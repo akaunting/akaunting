@@ -22,6 +22,11 @@ return [
 
     'eager_load' => (bool) env('APP_EAGER_LOAD', true),
 
+    'signed_links' => [
+        // Days the shared links of documents and payments are valid for, empty or 0 for never expire
+        'expire' => env('APP_SIGNED_LINKS_EXPIRE', 0),
+    ],
+
     'throttles' => [
         'api' => env('APP_THROTTLES_API', '60'),
         'oauth' => env('APP_THROTTLES_OAUTH', '60'),

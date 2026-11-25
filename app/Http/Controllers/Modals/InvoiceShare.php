@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Modals;
 
 use App\Abstracts\Http\Controller;
 use App\Models\Document\Document;
-use Illuminate\Support\Facades\URL;
 
 class InvoiceShare extends Controller
 {
@@ -50,9 +49,9 @@ class InvoiceShare extends Controller
         try {
             route($signed_route, [$invoice->id, 'company_id' => company_id()]);
 
-            $signedUrl = URL::signedRoute($signed_route, [$invoice->id]);
+            $signedUrl = signed_route($signed_route, [$invoice->id]);
         } catch (\Exception $e) {
-            $signedUrl = URL::signedRoute('signed.invoices.show', [$invoice->id]);
+            $signedUrl = signed_route('signed.invoices.show', [$invoice->id]);
         }
 
         $html = view('modals.invoices.share', compact('invoice', 'previewUrl', 'signedUrl'))->render();

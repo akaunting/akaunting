@@ -11,7 +11,6 @@ use App\Traits\Documents;
 use App\Traits\Uploads;
 use App\Utilities\Modules;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\URL;
 
 class Invoices extends Controller
 {
@@ -177,7 +176,7 @@ class Invoices extends Controller
             }
 
             if (!isset($payment_actions[$codes[0]])) {
-                $payment_actions[$codes[0]] = URL::signedRoute($route, [$invoice->id]);
+                $payment_actions[$codes[0]] = signed_route($route, [$invoice->id]);
             }
         }
 
@@ -228,12 +227,12 @@ class Invoices extends Controller
             }
 
             if (!isset($payment_actions[$codes[0]])) {
-                $payment_actions[$codes[0]] = URL::signedRoute($route, [$invoice->id]);
+                $payment_actions[$codes[0]] = signed_route($route, [$invoice->id]);
             }
         }
 
-        $print_action = URL::signedRoute('signed.invoices.print', [$invoice->id]);
-        $pdf_action = URL::signedRoute('signed.invoices.pdf', [$invoice->id]);
+        $print_action = signed_route('signed.invoices.print', [$invoice->id]);
+        $pdf_action = signed_route('signed.invoices.pdf', [$invoice->id]);
 
         // Guest or Invoice contact user track the invoice viewed.
         if (empty(user()) || user()->id == $invoice->contact->user_id) {

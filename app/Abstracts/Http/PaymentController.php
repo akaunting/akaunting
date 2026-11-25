@@ -6,7 +6,6 @@ use App\Events\Document\PaymentReceived;
 use App\Http\Requests\Portal\InvoicePayment as PaymentRequest;
 use App\Models\Document\Document;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Storage;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -150,14 +149,14 @@ abstract class PaymentController extends BaseController
     {
         return request()->isPortal($invoice->company_id)
                 ? route('portal.invoices.show', $invoice->id)
-                : URL::signedRoute('signed.invoices.show', [$invoice->id]);
+                : signed_route('signed.invoices.show', [$invoice->id]);
     }
 
     public function getFinishUrl($invoice)
     {
         return request()->isPortal($invoice->company_id)
                 ? route('portal.invoices.finish', $invoice->id)
-                : URL::signedRoute('signed.invoices.finish', [$invoice->id]);
+                : signed_route('signed.invoices.finish', [$invoice->id]);
     }
 
     public function getConfirmUrl($invoice)
@@ -184,7 +183,7 @@ abstract class PaymentController extends BaseController
     {
         return request()->isPortal($invoice->company_id)
                 ? route('portal.' . $this->alias . '.invoices.' . $suffix, $invoice->id)
-                : URL::signedRoute('signed.' . $this->alias . '.invoices.' . $suffix, [$invoice->id]);
+                : signed_route('signed.' . $this->alias . '.invoices.' . $suffix, [$invoice->id]);
     }
 
     public function getLogger()

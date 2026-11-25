@@ -8,7 +8,6 @@ use App\Models\Setting\EmailTemplate;
 use App\Traits\Transactions;
 use Illuminate\Mail\Attachment;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Support\Facades\URL;
 
 class Transaction extends Notification
 {
@@ -145,7 +144,7 @@ class Transaction extends Notification
         return [
             money($this->transaction->amount, $this->transaction->currency_code),
             company_date($this->transaction->paid_at),
-            URL::signedRoute('signed.payments.show', $route_params),
+            signed_route('signed.payments.show', $route_params),
             route('transactions.show', $route_params),
             route('portal.payments.show', $route_params),
             $this->transaction->contact->name,

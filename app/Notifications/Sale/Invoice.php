@@ -8,7 +8,6 @@ use App\Models\Document\Document;
 use App\Traits\Documents;
 use Illuminate\Mail\Attachment;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Support\Facades\URL;
 
 class Invoice extends Notification
 {
@@ -152,7 +151,7 @@ class Invoice extends Notification
             money($this->invoice->amount_due, $this->invoice->currency_code),
             company_date($this->invoice->issued_at),
             company_date($this->invoice->due_at),
-            URL::signedRoute('signed.invoices.show', $route_params),
+            signed_route('signed.invoices.show', $route_params),
             route('invoices.show', $route_params),
             route('portal.invoices.show', $route_params),
             $this->invoice->contact_name,

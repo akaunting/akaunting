@@ -9,7 +9,6 @@ use App\Traits\Tailwind;
 use App\Traits\ViewComponents;
 use App\Abstracts\View\Component;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Intervention\Image\Exception\NotReadableException;
@@ -591,9 +590,9 @@ abstract class Show extends Component
         try {
             route($route, [$this->document->id, 'company_id' => company_id()]);
 
-            $signedUrl = URL::signedRoute($route, [$this->document->id]);
+            $signedUrl = signed_route($route, [$this->document->id]);
         } catch (\Exception $e) {
-            $signedUrl = URL::signedRoute('signed.invoices.show', [$this->document->id]);
+            $signedUrl = signed_route('signed.invoices.show', [$this->document->id]);
         }
 
         return $signedUrl;

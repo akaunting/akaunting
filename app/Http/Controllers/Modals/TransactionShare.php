@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Modals;
 
 use App\Abstracts\Http\Controller;
 use App\Models\Banking\Transaction;
-use Illuminate\Support\Facades\URL;
 
 class TransactionShare extends Controller
 {
@@ -49,9 +48,9 @@ class TransactionShare extends Controller
         try {
             route($signed_route, [$this->document->id, 'company_id' => company_id()]);
 
-            $signedUrl = URL::signedRoute($signed_route, [$transaction->id]);
+            $signedUrl = signed_route($signed_route, [$transaction->id]);
         } catch (\Exception $e) {
-            $signedUrl = URL::signedRoute('signed.payments.show', [$transaction->id]);
+            $signedUrl = signed_route('signed.payments.show', [$transaction->id]);
         }
 
         $html = view('modals.transactions.share', compact('transaction', 'previewUrl', 'signedUrl'))->render();
