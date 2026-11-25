@@ -4,6 +4,7 @@ namespace Tests\Feature\Common;
 
 use App\Http\Livewire\Menu\Notifications;
 use App\Jobs\Auth\CreateUser;
+use App\Models\Common\Media;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Str;
@@ -34,6 +35,23 @@ class UploadsAndNotificationsTest extends FeatureTestCase
             ->assertOk();
 
         $this->assertEmpty(setting('company.logo'));
+    }
+
+    public function testItShouldUploadAFileAgainAfterItIsDeleted()
+    {
+        $deleted = Media::find($this->uploadLogo());
+
+        $this->loginAs()
+            ->deleteJson(route('uploads.destroy', $deleted->id), ['ajax' => 1, 'page' => 'setting', 'key' => 'company.logo'])
+            ->assertOk();
+
+        // The same name on the same day, which the deleted record still holds
+        $media = Media::find($this->uploadLogo());
+
+        $this->assertNotNull($media);
+        $this->assertNotSame($deleted->filename, $media->filename);
+        $this->assertStringStartsWith('logo', $media->filename);
+        $this->assertTrue($media->fileExists());
     }
 
     public function testItShouldMarkOnlyTheOwnNotificationsRead()

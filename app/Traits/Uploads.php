@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Models\Common\Media as MediaModel;
 use App\Utilities\Date;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use MediaUploader;
 use Image;
@@ -34,6 +35,8 @@ trait Uploads
                                     $media->company_id = company_id();
                                     $media->created_from = source_name();
                                     $media->created_by = user_id();
+
+                                    $media->filename = $this->getFreeMediaFileName($media);
                                 })
                                 ->fromSource($normalized_file)
                                 ->toDirectory($path)
@@ -223,6 +226,33 @@ trait Uploads
 
         if (Str::length($file_name) > '110') {
             $file_name = Str::limit($file_name, 110);
+        }
+
+        return $file_name;
+    }
+
+    /**
+     * A deleted file keeps its record, which still holds its name in the folder, and the
+     * uploader looks only at the disk for a free name. So the name gets a number at its
+     * end, as the uploader does, until neither a record nor a file of the folder has it.
+     */
+    protected function getFreeMediaFileName(MediaModel $media): string
+    {
+        $storage = Storage::disk($media->disk);
+
+        $file_name = $media->filename;
+        $counter = 0;
+
+        while (
+            $storage->exists($media->directory . '/' . $file_name . '.' . $media->extension)
+            || MediaModel::withoutGlobalScopes()
+                ->where('disk', $media->disk)
+                ->where('directory', $media->directory)
+                ->where('filename', $file_name)
+                ->where('extension', $media->extension)
+                ->exists()
+        ) {
+            $file_name = $media->filename . '-' . ++$counter;
         }
 
         return $file_name;
