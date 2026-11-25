@@ -40,6 +40,7 @@ class Kernel extends HttpKernel
             'session.auth',
             'session.errors',
             'csrf',
+            'same.site', // The GET routes that change data are not run from a link on another site
             'install.redirect',
             'header.x',
             'language',
@@ -192,6 +193,7 @@ class Kernel extends HttpKernel
         'install.redirect' => \App\Http\Middleware\RedirectIfNotInstalled::class,
         'money' => \App\Http\Middleware\Money::class,
         'read.only' => \App\Http\Middleware\CheckForReadOnlyMode::class,
+        'same.site' => \App\Http\Middleware\VerifySameSite::class,
         'wizard.redirect' => \App\Http\Middleware\RedirectIfWizardNotCompleted::class,
 
         // Vendor
