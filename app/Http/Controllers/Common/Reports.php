@@ -315,7 +315,8 @@ class Reports extends Controller
     {
         $class = request('class');
 
-        if (!class_exists($class)) {
+        // Only one of the reports the form offers is created here
+        if (! is_string($class) || ! array_key_exists($class, Utility::getClasses())) {
             return response()->json([
                 'success' => false,
                 'error' => true,

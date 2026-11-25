@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Common;
 
 use App\Abstracts\Http\FormRequest;
+use App\Utilities\Reports;
+use Illuminate\Validation\Rule;
 
 class Report extends FormRequest
 {
@@ -16,7 +18,8 @@ class Report extends FormRequest
         return [
             'name' => 'required|string',
             'description' => 'required|string',
-            'class' => 'required|string',
+            // One of the reports the form offers, the class is created when the report is shown
+            'class' => ['required', 'string', Rule::in(array_keys(Reports::getClasses()))],
         ];
     }
 }

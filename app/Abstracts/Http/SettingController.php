@@ -19,6 +19,12 @@ abstract class SettingController extends Controller
 
     public $redirect_route = '';
 
+    /**
+     * The settings group the page saves, like localisation. When it is set, the
+     * _prefix of the request cannot point the page to another group.
+     */
+    public $prefix = null;
+
     public $skip_keys = ['company_id', '_method', '_token', '_prefix'];
 
     public $file_keys = ['company.logo', 'invoice.logo'];
@@ -34,6 +40,10 @@ abstract class SettingController extends Controller
      */
     public function update(Request $request)
     {
+        if (! empty($this->prefix)) {
+            $request->merge(['_prefix' => $this->prefix]);
+        }
+
         $fields = $request->all();
         $prefix = $request->get('_prefix', 'general');
         $company_id = $request->get('company_id');

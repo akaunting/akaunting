@@ -28,7 +28,8 @@ class TransferTemplates extends Controller
     public function update(Request $request)
     {
         $fields = $request->all();
-        $prefix = $request->get('_prefix', 'transfer');
+        // The modal only saves the transfer template settings
+        $prefix = 'transfer';
         $company_id = $request->get('company_id');
 
         if (empty($company_id)) {

@@ -6,6 +6,8 @@ use App\Abstracts\Http\SettingController;
 
 class Invoice extends SettingController
 {
+    public $prefix = 'invoice';
+
     public function edit()
     {
         $item_names = [

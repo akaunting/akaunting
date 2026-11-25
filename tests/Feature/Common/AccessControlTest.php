@@ -216,6 +216,64 @@ class AccessControlTest extends FeatureTestCase
         $this->assertSame('paid', $invoice->fresh()->status);
     }
 
+    public function testItShouldOnlySaveTheSettingsGroupOfThePage()
+    {
+        $user = $this->createUserWithPermissions(['read-admin-panel', 'read-settings-localisation', 'update-settings-localisation']);
+
+        // The localisation page asked to save the mail settings instead
+        $this->loginAs($user)
+            ->patch(route('settings.localisation.update'), [
+                '_prefix' => 'email',
+                'smtp_host' => 'mail.attacker.test',
+            ])
+            ->assertOk();
+
+        $this->assertNotSame('mail.attacker.test', setting('email.smtp_host'));
+    }
+
+    public function testItShouldOnlyCreateTheReportsTheFormOffers()
+    {
+        $this->loginAs()
+            ->get(route('reports.fields', ['class' => \App\Models\Auth\User::class]))
+            ->assertOk()
+            ->assertJson(['success' => false]);
+
+        $this->loginAs()
+            ->get(route('reports.fields', ['class' => \App\Reports\ProfitLoss::class]))
+            ->assertOk()
+            ->assertJson(['success' => true]);
+
+        $this->loginAs()
+            ->withExceptionHandling()
+            ->postJson(route('reports.store'), [
+                'name' => 'Report',
+                'description' => 'Description',
+                'class' => \App\Models\Auth\User::class,
+            ])
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors('class');
+    }
+
+    public function testItShouldNotSuggestTheCompaniesOfOtherUsers()
+    {
+        $owner = $this->dispatch(new CreateUser(array_merge(user_model_class()::factory()->raw(), ['enabled' => 1])));
+
+        // CreateCompany assigns the new company to the user creating it
+        $this->actingAs($owner);
+
+        $this->dispatch(new \App\Jobs\Common\CreateCompany(\App\Models\Common\Company::factory()->enabled()->raw([
+            'name' => 'Someone Elses Company',
+            'settings' => ['wizard.completed' => '1', 'email.protocol' => 'array'],
+        ])));
+
+        $this->company->makeCurrent();
+
+        $this->loginAs()
+            ->get(route('companies.autocomplete', ['query' => 'Someone Elses']))
+            ->assertOk()
+            ->assertDontSee('Someone Elses Company');
+    }
+
     protected function createCustomerWithUser(): Contact
     {
         $contact = $this->dispatch(new CreateContact(array_merge(Contact::factory()->customer()->enabled()->raw(), [

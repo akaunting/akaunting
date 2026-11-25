@@ -28,7 +28,8 @@ class InvoiceTemplates extends Controller
     public function update(Request $request)
     {
         $fields = $request->all();
-        $prefix = $request->get('_prefix', 'invoice');
+        // The modal only saves the invoice template settings
+        $prefix = 'invoice';
         $company_id = $request->get('company_id');
 
         if (empty($company_id)) {

@@ -9,6 +9,8 @@ use App\Utilities\Installer;
 
 class Email extends SettingController
 {
+    public $prefix = 'email';
+
     public function edit()
     {
         $email_protocols = [

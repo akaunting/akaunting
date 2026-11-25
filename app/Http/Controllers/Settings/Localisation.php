@@ -10,6 +10,8 @@ class Localisation extends SettingController
 {
     use DateTime;
 
+    public $prefix = 'localisation';
+
     public function edit()
     {
         $timezones = $this->getTimezones();

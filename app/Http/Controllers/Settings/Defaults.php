@@ -11,6 +11,8 @@ class Defaults extends SettingController
 {
     use Categories;
 
+    public $prefix = 'default';
+
     public function edit()
     {
         $accounts = Account::enabled()->orderBy('name')->get()->pluck('title', 'id');
