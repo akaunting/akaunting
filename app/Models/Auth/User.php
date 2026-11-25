@@ -268,6 +268,34 @@ class User extends Authenticatable implements HasLocalePreference
     }
 
     /**
+     * Scope to the users the logged in user can manage, themselves and the users
+     * sharing a company with them. Users are not company scoped and the permissions
+     * to manage them are not either, so without this they reach every company.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeManageable($query)
+    {
+        $user = user();
+
+        if (empty($user)) {
+            return app()->runningInConsole() ? $query : $query->whereRaw('1 = 0');
+        }
+
+        $company_ids = $user->withoutEvents(function () use ($user) {
+            return $user->companies()->pluck('companies.id')->toArray();
+        });
+
+        return $query->where(function ($query) use ($user, $company_ids) {
+            $query->whereKey($user->id)
+                ->orWhereHas('companies', function ($query) use ($company_ids) {
+                    $query->whereIn('companies.id', $company_ids);
+                });
+        });
+    }
+
+    /**
      * Attach company_ids attribute to model.
      *
      * @return void

@@ -6,6 +6,7 @@ use App\Abstracts\BulkAction;
 use App\Events\Auth\LandingPageShowing;
 use App\Jobs\Auth\DeleteUser;
 use App\Jobs\Auth\UpdateUser;
+use Illuminate\Support\Arr;
 
 class Users extends BulkAction
 {
@@ -15,6 +16,14 @@ class Users extends BulkAction
     public function __construct()
     {
         $this->model = user_model_class();
+    }
+
+    public function getSelectedRecords($request, $relationships = null)
+    {
+        $query = empty($relationships) ? $this->model::query() : $this->model::with(Arr::wrap($relationships));
+
+        // Users are not company scoped, so the selection is limited to the manageable ones
+        return $query->manageable()->find($this->getSelectedInput($request));
     }
 
     public $text = 'general.users';

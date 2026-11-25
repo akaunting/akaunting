@@ -8,10 +8,13 @@ use App\Events\Auth\UserUpdating;
 use App\Exceptions\Job\NotAllowed;
 use App\Interfaces\Job\ShouldUpdate;
 use App\Models\Common\Company;
+use App\Traits\Users;
 use Illuminate\Support\Facades\Artisan;
 
 class UpdateUser extends Job implements ShouldUpdate
 {
+    use Users;
+
     public function handle()
     {
         $this->authorize();
@@ -87,6 +90,11 @@ class UpdateUser extends Job implements ShouldUpdate
      */
     public function authorize(): void
     {
+        // Can't update the users of companies you are not in
+        if (! request()->isInstall() && $this->isNotUserManageable($this->model)) {
+            throw new NotAllowed(trans('errors.message.403'));
+        }
+
         // Security: Defense-in-depth — only users with 'update-auth-users'
         // permission may change role assignments. The profile edit form
         // includes a roles field even for self-edits (visible to managers),

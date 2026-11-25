@@ -18,7 +18,7 @@ class Users extends ApiController
      */
     public function index()
     {
-        $users = user_model_class()::with('companies', 'media', 'owner', 'permissions', 'roles')->isNotCustomer()->collect();
+        $users = user_model_class()::with('companies', 'media', 'owner', 'permissions', 'roles')->isNotCustomer()->manageable()->collect();
 
         return Resource::collection($users);
     }
@@ -36,9 +36,9 @@ class Users extends ApiController
 
         // Check if we're querying by id or email
         if (is_numeric($id)) {
-            $user = $model_class::with('companies', 'owner', 'permissions', 'roles')->find($id);
+            $user = $model_class::with('companies', 'owner', 'permissions', 'roles')->manageable()->find($id);
         } else {
-            $user = $model_class::with('companies', 'owner', 'permissions', 'roles')->where('email', $id)->first();
+            $user = $model_class::with('companies', 'owner', 'permissions', 'roles')->manageable()->where('email', $id)->first();
         }
 
         if (! $user instanceof $model_class) {
@@ -71,7 +71,11 @@ class Users extends ApiController
      */
     public function update($user_id, Request $request)
     {
-        $user = user_model_class()::query()->isNotCustomer()->find($user_id);
+        $user = user_model_class()::query()->isNotCustomer()->manageable()->find($user_id);
+
+        if (empty($user)) {
+            $this->errorNotFound();
+        }
 
         $user = $this->dispatch(new UpdateUser($user, $request));
 
@@ -87,7 +91,11 @@ class Users extends ApiController
      */
     public function enable($user_id)
     {
-        $user = user_model_class()::query()->isNotCustomer()->find($user_id);
+        $user = user_model_class()::query()->isNotCustomer()->manageable()->find($user_id);
+
+        if (empty($user)) {
+            $this->errorNotFound();
+        }
 
         $user = $this->dispatch(new UpdateUser($user, request()->merge(['enabled' => 1])));
 
@@ -103,7 +111,11 @@ class Users extends ApiController
      */
     public function disable($user_id)
     {
-        $user = user_model_class()::query()->isNotCustomer()->find($user_id);
+        $user = user_model_class()::query()->isNotCustomer()->manageable()->find($user_id);
+
+        if (empty($user)) {
+            $this->errorNotFound();
+        }
 
         $user = $this->dispatch(new UpdateUser($user, request()->merge(['enabled' => 0])));
 
@@ -121,7 +133,11 @@ class Users extends ApiController
      */
     public function destroy($user_id)
     {
-        $user = user_model_class()::query()->isNotCustomer()->find($user_id);
+        $user = user_model_class()::query()->isNotCustomer()->manageable()->find($user_id);
+
+        if (empty($user)) {
+            $this->errorNotFound();
+        }
 
         try {
             $this->dispatch(new DeleteUser($user));

@@ -45,6 +45,28 @@ trait Users
     }
 
     /**
+     * Check if the logged in user can manage the given user
+     *
+     * @param  $target
+     *
+     * @return boolean
+     * @see \App\Models\Auth\User::scopeManageable()
+     */
+    public function isUserManageable($target)
+    {
+        if (empty($target)) {
+            return false;
+        }
+
+        return user_model_class()::query()->manageable()->whereKey($target->id)->exists();
+    }
+
+    public function isNotUserManageable($target)
+    {
+        return !$this->isUserManageable($target);
+    }
+
+    /**
      * Check user dashboard assignment
      *
      * @param  $id

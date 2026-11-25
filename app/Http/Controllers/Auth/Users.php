@@ -35,7 +35,7 @@ class Users extends Controller
      */
     public function index()
     {
-        $users = user_model_class()::with('companies', 'media', 'permissions', 'roles')->isNotCustomer()->collect();
+        $users = user_model_class()::with('companies', 'media', 'permissions', 'roles')->isNotCustomer()->manageable()->collect();
 
         return $this->response('auth.users.index', compact('users'));
     }
@@ -47,7 +47,11 @@ class Users extends Controller
      */
     public function show($user_id)
     {
-        $user = user_model_class()::find($user_id);
+        $user = user_model_class()::manageable()->find($user_id);
+
+        if (empty($user)) {
+            abort(403);
+        }
 
         $u = new \stdClass();
         $u->role = $user->roles()->first();
@@ -130,7 +134,7 @@ class Users extends Controller
      */
     public function edit($user_id)
     {
-        $user = user_model_class()::query()->isNotCustomer()->find($user_id);
+        $user = user_model_class()::query()->isNotCustomer()->manageable()->find($user_id);
 
         if ((user()->cannot('read-auth-users') && ($user->id != user()->id)) || empty($user)) {
             abort(403);
@@ -196,7 +200,7 @@ class Users extends Controller
      */
     public function update($user_id, Request $request)
     {
-        $user = user_model_class()::find($user_id);
+        $user = user_model_class()::manageable()->find($user_id);
 
         if ((user()->cannot('update-auth-users') && ($user->id != user()->id)) || empty($user)) {
             abort(403);
@@ -230,7 +234,7 @@ class Users extends Controller
      */
     public function enable($user_id)
     {
-        $user = user_model_class()::query()->isNotCustomer()->find($user_id);
+        $user = user_model_class()::query()->isNotCustomer()->manageable()->find($user_id);
 
         if (user()->cannot('update-auth-users') || empty($user)) {
             abort(403);
@@ -254,7 +258,7 @@ class Users extends Controller
      */
     public function disable($user_id)
     {
-        $user = user_model_class()::query()->isNotCustomer()->find($user_id);
+        $user = user_model_class()::query()->isNotCustomer()->manageable()->find($user_id);
 
         if (user()->cannot('update-auth-users') || empty($user)) {
             abort(403);
@@ -278,7 +282,7 @@ class Users extends Controller
      */
     public function destroy($user_id)
     {
-        $user = user_model_class()::query()->isNotCustomer()->find($user_id);
+        $user = user_model_class()::query()->isNotCustomer()->manageable()->find($user_id);
 
         if (user()->cannot('delete-auth-users') || empty($user)) {
             abort(403);
@@ -310,7 +314,7 @@ class Users extends Controller
      */
     public function readUpcomingBills($user_id)
     {
-        $user = user_model_class()::query()->isNotCustomer()->find($user_id);
+        $user = user_model_class()::query()->isNotCustomer()->manageable()->find($user_id);
 
         if (user()->cannot('read-auth-users') || empty($user)) {
             abort(403);
@@ -338,7 +342,7 @@ class Users extends Controller
      */
     public function readOverdueInvoices($user_id)
     {
-        $user = user_model_class()::query()->isNotCustomer()->find($user_id);
+        $user = user_model_class()::query()->isNotCustomer()->manageable()->find($user_id);
 
         if (user()->cannot('read-auth-users') || empty($user)) {
             abort(403);
@@ -368,13 +372,13 @@ class Users extends Controller
         if (! empty($column) && ! empty($value)) {
             switch ($column) {
                 case 'id':
-                    $user = user_model_class()::find((int) $value);
+                    $user = user_model_class()::manageable()->find((int) $value);
                     break;
                 case 'email':
-                    $user = user_model_class()::where('email', $value)->first();
+                    $user = user_model_class()::manageable()->where('email', $value)->first();
                     break;
                 default:
-                    $user = user_model_class()::where($column, $value)->first();
+                    $user = user_model_class()::manageable()->where($column, $value)->first();
             }
 
             $data = $user;
@@ -398,7 +402,11 @@ class Users extends Controller
      */
     public function invite($user_id)
     {
-        $user = user_model_class()::find($user_id);
+        $user = user_model_class()::manageable()->find($user_id);
+
+        if (empty($user)) {
+            abort(403);
+        }
 
         $response = $this->ajaxDispatch(new CreateInvitation($user, company()));
 
