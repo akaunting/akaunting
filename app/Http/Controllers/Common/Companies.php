@@ -250,7 +250,7 @@ class Companies extends Controller
         // Only the companies of the user, the others are not theirs to see
         $autocomplete = Company::autocomplete([
             'name' => $query
-        ])->whereIn('id', user()->company_ids ?? []);
+        ])->whereIn('companies.id', user()->company_ids ?? []);
 
         $companies = $autocomplete->get()->sortBy('name')->pluck('name', 'id');
 
