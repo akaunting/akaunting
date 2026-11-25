@@ -26,7 +26,7 @@ class DocumentItem extends FormRequest
             'type' => 'required|string',
             'document_id' => 'required|integer|exists:documents,id,company_id,' . $company_id . ',deleted_at,NULL',
             'name' => 'required|string|max:255',
-            'quantity' => 'required|max:' . $this->quantity_size,
+            'quantity' => 'required|quantity|max:' . $this->quantity_size,
             'price' => 'required|amount',
             'total' => 'required',
             'tax' => 'required',

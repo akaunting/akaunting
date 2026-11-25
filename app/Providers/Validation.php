@@ -85,6 +85,21 @@ class Validation extends Provider
             return trans('validation.custom.invalid_amount', ['attribute' => $attribute]);
         });
 
+        // Check quantity is not below zero, refunds and discounts have their own documents and fields
+        Validator::extend('quantity', function ($attribute, $value, $parameters, $validator) {
+            try {
+                return calculation_to_quantity($value) >= 0;
+            } catch (\InvalidArgumentException $e) {
+                // The expression itself is reported by the request
+                return true;
+            }
+        });
+
+        // Custom message for quantity validation
+        Validator::replacer('quantity', function($message, $attribute, $rule, $parameters) {
+            return trans('validation.min.numeric', ['attribute' => Str::lower(trans('invoices.quantity')), 'min' => 0]);
+        });
+
         // Check extension is valid
         Validator::extend('extension', function ($attribute, $value, $parameters, $validator) {
             $extension = $value->getClientOriginalExtension();

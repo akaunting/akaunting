@@ -93,7 +93,7 @@ class Document extends FormRequest
         if ($items) {
             foreach ($items as $key => $item) {
                 $size = 10;
-                $quantityRule = ['required'];
+                $quantityRule = ['required', 'quantity'];
 
                 // A request does not always carry a quantity for every item, which the
                 // required rule below reports, so the key is not assumed to be there.
