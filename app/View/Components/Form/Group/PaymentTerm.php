@@ -33,7 +33,8 @@ class PaymentTerm extends Form
         }
 
         if (! array_key_exists($this->selected, $payment_terms)) {
-            $this->value = $this->selected;
+            // A number of days, the view puts it into a script expression
+            $this->value = (int) $this->selected;
             $this->selected = 'custom';
         }
 

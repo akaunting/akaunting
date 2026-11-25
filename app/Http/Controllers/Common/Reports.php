@@ -201,7 +201,7 @@ class Reports extends Controller
         if ($response['success']) {
             $response['redirect'] = route('reports.index');
 
-            $message = trans('messages.success.updated', ['type' => $report->name]);
+            $message = trans('messages.success.updated', ['type' => escape_html($report->name)]);
 
             flash($message)->success();
         } else {
@@ -229,7 +229,7 @@ class Reports extends Controller
         $response['redirect'] = route('reports.index');
 
         if ($response['success']) {
-            $message = trans('messages.success.deleted', ['type' => $report->name]);
+            $message = trans('messages.success.deleted', ['type' => escape_html($report->name)]);
 
             flash($message)->success();
         } else {

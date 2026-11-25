@@ -36,7 +36,7 @@
                             <td class="px-3 py-3 ltr:pl-2 rtl:pr-2 ltr:text-left rtl:text-right align-top border-b-0 name">
                                 @if (! $hideItemName)
                                     <span class="flex items-center text-sm" tabindex="0" v-if="row.item_id">
-                                        <div v-html="row.name"></div>
+                                        <div v-text="row.name"></div>
                                     </span>
 
                                     <div v-else>

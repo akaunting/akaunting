@@ -42,7 +42,7 @@ class UpdateAccount extends Job implements ShouldUpdate
         if (($this->request->has('enabled') && ! $this->request->get('enabled')) && ($this->model->id == setting('default.account'))) {
             $relationships[] = strtolower(trans_choice('general.companies', 1));
 
-            $message = trans('messages.warning.disabled', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.disabled', ['name' => escape_html($this->model->name), 'text' => implode(', ', $relationships)]);
 
             throw new NotAllowed($message);
         }
@@ -52,7 +52,7 @@ class UpdateAccount extends Job implements ShouldUpdate
         }
 
         if ($this->request->has('currency_code') && ($this->request->get('currency_code') != $this->model->currency_code)) {
-            $message = trans('messages.warning.disable_code', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.disable_code', ['name' => escape_html($this->model->name), 'text' => implode(', ', $relationships)]);
 
             throw new NotAllowed($message);
         }

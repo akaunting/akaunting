@@ -94,7 +94,7 @@ class Currencies extends Controller
         $currency->default = default_currency() == $currency->code;
 
         if ($response['success']) {
-            $message = trans('messages.success.updated', ['type' => $currency->name]);
+            $message = trans('messages.success.updated', ['type' => escape_html($currency->name)]);
         } else {
             $message = $response['message'];
         }
@@ -118,7 +118,7 @@ class Currencies extends Controller
         $response = $this->ajaxDispatch(new DeleteCurrency($currency));
 
         if ($response['success']) {
-            $message = trans('messages.success.deleted', ['type' => $currency->name]);
+            $message = trans('messages.success.deleted', ['type' => escape_html($currency->name)]);
         } else {
             $message = $response['message'];
         }

@@ -3,8 +3,8 @@
 
     @if ($transfer)
         @php
-            $from_account = '<span class="font-medium">' . $transfer->expense_account->title . '</span>';
-            $to_account = '<span class="font-medium">' . $transfer->income_account->title . '</span>';
+            $from_account = '<span class="font-medium">' . escape_html($transfer->expense_account->title) . '</span>';
+            $to_account = '<span class="font-medium">' . escape_html($transfer->income_account->title) . '</span>';
             $date = '<a href="' . route('transfers.show', $transfer->id) . '" class="text-purple">' . company_date($transaction->paid_at) . '</a>';
         @endphp
     @endif
@@ -14,7 +14,7 @@
             <x-show.accordion.head
                 title="{{ trans_choice('general.transfers', 1) }}"
             />
-            
+
             @if ($transfer)
                 <div class="text-black-400 text-sm space-y-3 mt-1">
                     {!! trans('transactions.slider.transfer_headline', ['from_account' => $from_account, 'to_account' => $to_account]) !!}

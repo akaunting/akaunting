@@ -26,7 +26,7 @@
                         </div>
 
                         <slot name="modal-body">
-                            <div class="py-1 px-5" v-html="message"></div>
+                            <div class="py-1 px-5" v-html="sanitizeHtml(message)"></div>
                         </slot>
 
                         <div class="p-5 border-gray-300">
@@ -57,6 +57,7 @@ import AkauntingSelect from './AkauntingSelect';
 import AkauntingDate from './AkauntingDate';
 import AkauntingRecurring from './AkauntingRecurring';
 import AkauntingMoney from './AkauntingMoney';
+import { sanitizeHtml } from './../plugins/functions';
 
 export default {
     name: 'akaunting-modal',
@@ -145,6 +146,8 @@ export default {
     },
 
     methods: {
+        sanitizeHtml,
+
         closeModal() {
             this.$emit("update:show", false);
             this.$emit("close");

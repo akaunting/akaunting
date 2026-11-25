@@ -51,6 +51,11 @@ abstract class Import implements HasLocalePreference, ShouldQueue, SkipsEmptyRow
         // the queue payload encoding and the insert. Sanitise the values up front.
         $row = $this->sanitizeRowEncoding($row);
 
+        // Names are plain text, as the forms keep them, not markup from the file
+        if (isset($row['name']) && is_string($row['name'])) {
+            $row['name'] = strip_tags($row['name']);
+        }
+
         $row['company_id'] = company_id();
 
         // created_by is equal to the owner id. Therefore, the value in export is owner email.

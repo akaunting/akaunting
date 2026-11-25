@@ -211,7 +211,7 @@ class Users extends Controller
         if ($response['success']) {
             $response['redirect'] = user()->can('read-auth-users') ? route('users.show', $user->id) : route('users.edit', $user->id);
 
-            $message = trans('messages.success.updated', ['type' => $user->name]);
+            $message = trans('messages.success.updated', ['type' => escape_html($user->name)]);
 
             flash($message)->success();
         } else {
@@ -243,7 +243,7 @@ class Users extends Controller
         $response = $this->ajaxDispatch(new UpdateUser($user, request()->merge(['enabled' => 1])));
 
         if ($response['success']) {
-            $response['message'] = trans('messages.success.enabled', ['type' => $user->name]);
+            $response['message'] = trans('messages.success.enabled', ['type' => escape_html($user->name)]);
         }
 
         return response()->json($response);
@@ -267,7 +267,7 @@ class Users extends Controller
         $response = $this->ajaxDispatch(new UpdateUser($user, request()->merge(['enabled' => 0])));
 
         if ($response['success']) {
-            $response['message'] = trans('messages.success.disabled', ['type' => $user->name]);
+            $response['message'] = trans('messages.success.disabled', ['type' => escape_html($user->name)]);
         }
 
         return response()->json($response);
@@ -293,7 +293,7 @@ class Users extends Controller
         $response['redirect'] = route('users.index');
 
         if ($response['success']) {
-            $message = trans('messages.success.deleted', ['type' => $user->name]);
+            $message = trans('messages.success.deleted', ['type' => escape_html($user->name)]);
 
             flash($message)->success();
         } else {

@@ -150,7 +150,7 @@ class Currencies extends Controller
         if ($response['success']) {
             $response['redirect'] = route('currencies.index');
 
-            $message = trans('messages.success.updated', ['type' => $currency->name]);
+            $message = trans('messages.success.updated', ['type' => escape_html($currency->name)]);
 
             flash($message)->success();
         } else {
@@ -176,7 +176,7 @@ class Currencies extends Controller
         $response = $this->ajaxDispatch(new UpdateCurrency($currency, request()->merge(['enabled' => 1])));
 
         if ($response['success']) {
-            $response['message'] = trans('messages.success.enabled', ['type' => $currency->name]);
+            $response['message'] = trans('messages.success.enabled', ['type' => escape_html($currency->name)]);
         }
 
         return response()->json($response);
@@ -194,7 +194,7 @@ class Currencies extends Controller
         $response = $this->ajaxDispatch(new UpdateCurrency($currency, request()->merge(['enabled' => 0])));
 
         if ($response['success']) {
-            $response['message'] = trans('messages.success.disabled', ['type' => $currency->name]);
+            $response['message'] = trans('messages.success.disabled', ['type' => escape_html($currency->name)]);
         }
 
         return response()->json($response);
@@ -214,7 +214,7 @@ class Currencies extends Controller
         $response['redirect'] = route('currencies.index');
 
         if ($response['success']) {
-            $message = trans('messages.success.deleted', ['type' => $currency->name]);
+            $message = trans('messages.success.deleted', ['type' => escape_html($currency->name)]);
 
             flash($message)->success();
         } else {

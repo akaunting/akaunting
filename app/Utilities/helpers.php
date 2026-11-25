@@ -637,3 +637,16 @@ if (! function_exists('invoice_logo_size')) {
         return $size;
     }
 }
+
+if (! function_exists('escape_html')) {
+    /**
+     * Escape a value people type, like a name, before it goes into a message shown as HTML.
+     *
+     * $double_encode false keeps a value that is already escaped as it is, for a view
+     * that gets both raw values and values escaped by a component attribute.
+     */
+    function escape_html($value, bool $double_encode = true): string
+    {
+        return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8', $double_encode);
+    }
+}

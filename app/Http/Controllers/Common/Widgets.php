@@ -89,7 +89,7 @@ class Widgets extends Controller
                 'sort'      => $widget->sort,
             ];
 
-            $message = trans('messages.success.added', ['type' => $widget->name]);
+            $message = trans('messages.success.added', ['type' => escape_html($widget->name)]);
 
             flash($message)->success();
         } else {
@@ -171,7 +171,7 @@ class Widgets extends Controller
                 'sort'      => $widget->sort,
             ];
 
-            $message = trans('messages.success.updated', ['type' => $widget->name]);
+            $message = trans('messages.success.updated', ['type' => escape_html($widget->name)]);
 
             flash($message)->success();
         } else {
@@ -201,7 +201,7 @@ class Widgets extends Controller
         $response['redirect'] = route('dashboard');
 
         if ($response['success']) {
-            $message = trans('messages.success.deleted', ['type' => $widget->name]);
+            $message = trans('messages.success.deleted', ['type' => escape_html($widget->name)]);
 
             flash($message)->success();
         } else {

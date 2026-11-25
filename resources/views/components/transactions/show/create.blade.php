@@ -2,10 +2,10 @@
     <x-slot name="head">
         @php
             $created_date = '<span class="font-medium">' . company_date($transaction->created_at) . '</span>';
-            $description = trans('transactions.slider.create', ['user' => $transaction->owner->name, 'date' => $created_date]);
+            $description = trans('transactions.slider.create', ['user' => escape_html($transaction->owner->name), 'date' => $created_date]);
 
             if ($transaction->isRecurringTransaction()) {
-                $description = trans('transactions.slider.create_recurring', ['user' => $transaction->owner->name, 'date' => $created_date]);
+                $description = trans('transactions.slider.create_recurring', ['user' => escape_html($transaction->owner->name), 'date' => $created_date]);
             }
         @endphp
 

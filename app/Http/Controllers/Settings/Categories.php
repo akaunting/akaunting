@@ -213,7 +213,7 @@ class Categories extends Controller
         if ($response['success']) {
             $response['redirect'] = route('categories.index');
 
-            $message = trans('messages.success.updated', ['type' => $category->name]);
+            $message = trans('messages.success.updated', ['type' => escape_html($category->name)]);
 
             flash($message)->success();
         } else {
@@ -239,7 +239,7 @@ class Categories extends Controller
         $response = $this->ajaxDispatch(new UpdateCategory($category, request()->merge(['enabled' => 1])));
 
         if ($response['success']) {
-            $response['message'] = trans('messages.success.enabled', ['type' => $category->name]);
+            $response['message'] = trans('messages.success.enabled', ['type' => escape_html($category->name)]);
         }
 
         return response()->json($response);
@@ -257,7 +257,7 @@ class Categories extends Controller
         $response = $this->ajaxDispatch(new UpdateCategory($category, request()->merge(['enabled' => 0])));
 
         if ($response['success']) {
-            $response['message'] = trans('messages.success.disabled', ['type' => $category->name]);
+            $response['message'] = trans('messages.success.disabled', ['type' => escape_html($category->name)]);
         }
 
         return response()->json($response);
@@ -277,7 +277,7 @@ class Categories extends Controller
         $response['redirect'] = route('categories.index');
 
         if ($response['success']) {
-            $message = trans('messages.success.deleted', ['type' => $category->name]);
+            $message = trans('messages.success.deleted', ['type' => escape_html($category->name)]);
 
             flash($message)->success();
         } else {

@@ -45,7 +45,7 @@ class CreateContact extends Job implements HasOwner, HasSource, ShouldCreate
     {
         // Check if user exist
         if ($user = user_model_class()::where('email', $this->request['email'])->first()) {
-            $message = trans('messages.error.customer', ['name' => $user->name]);
+            $message = trans('messages.error.customer', ['name' => escape_html($user->name)]);
 
             throw new \Exception($message);
         }

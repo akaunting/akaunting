@@ -4,6 +4,7 @@ namespace App\Http\Requests\Setting;
 
 use App\Abstracts\Http\FormRequest;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class Setting extends FormRequest
 {
@@ -54,6 +55,20 @@ class Setting extends FormRequest
 
         if ($this->request->has('number_next')) {
             $rules['number_next'] = 'required|integer';
+        }
+
+        // A number of days, any custom one included
+        if ($this->request->has('payment_terms')) {
+            $rules['payment_terms'] = 'nullable|integer|min:0';
+        }
+
+        // Only the offered date formats and separators
+        if ($this->request->has('date_format')) {
+            $rules['date_format'] = ['required', 'string', Rule::in(config('date.formats'))];
+        }
+
+        if ($this->request->has('date_separator')) {
+            $rules['date_separator'] = ['required', 'string', Rule::in(array_keys(config('date.separators')))];
         }
 
         // The logo is resized to these, and an image cannot be 0 pixels wide

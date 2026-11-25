@@ -177,7 +177,7 @@ class Vendors extends Controller
         if ($response['success']) {
             $response['redirect'] = route('vendors.show', $response['data']->id);
 
-            $message = trans('messages.success.updated', ['type' => $vendor->name]);
+            $message = trans('messages.success.updated', ['type' => escape_html($vendor->name)]);
 
             flash($message)->success();
         } else {
@@ -203,7 +203,7 @@ class Vendors extends Controller
         $response = $this->ajaxDispatch(new UpdateContact($vendor, request()->merge(['enabled' => 1])));
 
         if ($response['success']) {
-            $response['message'] = trans('messages.success.enabled', ['type' => $vendor->name]);
+            $response['message'] = trans('messages.success.enabled', ['type' => escape_html($vendor->name)]);
         }
 
         return response()->json($response);
@@ -221,7 +221,7 @@ class Vendors extends Controller
         $response = $this->ajaxDispatch(new UpdateContact($vendor, request()->merge(['enabled' => 0])));
 
         if ($response['success']) {
-            $response['message'] = trans('messages.success.disabled', ['type' => $vendor->name]);
+            $response['message'] = trans('messages.success.disabled', ['type' => escape_html($vendor->name)]);
         }
 
         return response()->json($response);
@@ -241,7 +241,7 @@ class Vendors extends Controller
         $response['redirect'] = route('vendors.index');
 
         if ($response['success']) {
-            $message = trans('messages.success.deleted', ['type' => $vendor->name]);
+            $message = trans('messages.success.deleted', ['type' => escape_html($vendor->name)]);
 
             flash($message)->success();
         } else {

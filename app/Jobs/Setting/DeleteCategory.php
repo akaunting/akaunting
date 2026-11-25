@@ -48,7 +48,7 @@ class DeleteCategory extends Job implements ShouldDelete
     {
         // Can not delete transfer category
         if ($this->model->isTransferCategory()) {
-            $message = trans('messages.error.transfer_category', ['type' => $this->model->name]);
+            $message = trans('messages.error.transfer_category', ['type' => escape_html($this->model->name)]);
 
             throw new NotAllowed($message);
         }
@@ -63,7 +63,7 @@ class DeleteCategory extends Job implements ShouldDelete
         }
 
         if ($relationships = $this->getRelationships()) {
-            $message = trans('messages.warning.deleted', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.deleted', ['name' => escape_html($this->model->name), 'text' => implode(', ', $relationships)]);
 
             throw new NotAllowed($message);
         }
@@ -106,7 +106,7 @@ class DeleteCategory extends Job implements ShouldDelete
     public function getSubCategoryRelationships($model)
     {
         if ($relationships = $this->getRelationships($model)) {
-            $message = trans('messages.warning.deleted', ['name' => $model->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.deleted', ['name' => escape_html($model->name), 'text' => implode(', ', $relationships)]);
     
             throw new \Exception($message);
         }

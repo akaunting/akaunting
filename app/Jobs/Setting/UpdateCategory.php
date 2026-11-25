@@ -34,7 +34,7 @@ class UpdateCategory extends Job implements ShouldUpdate
         $type_changed = $this->request->has('type') && ($this->request->get('type') != $this->model->type);
 
         if ($type_changed && $this->model->isTypeLocked()) {
-            $message = trans('messages.error.locked_type', ['name' => $this->model->name]);
+            $message = trans('messages.error.locked_type', ['name' => escape_html($this->model->name)]);
 
             throw new NotAllowed($message);
         }
@@ -50,7 +50,7 @@ class UpdateCategory extends Job implements ShouldUpdate
         }
 
         if ($this->request->has('enabled') && ! $this->request->get('enabled')) {
-            $message = trans('messages.warning.disabled', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.disabled', ['name' => escape_html($this->model->name), 'text' => implode(', ', $relationships)]);
 
             throw new NotAllowed($message);
         }

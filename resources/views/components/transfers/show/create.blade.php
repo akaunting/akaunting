@@ -4,7 +4,7 @@
     <x-slot name="head">
         <x-show.accordion.head
             title="{{ trans('general.create') }}"
-            description="{!! trans('transactions.slider.create', ['user' => $transfer->owner->name, 'date' => $created_date]) !!}"
+            description="{!! trans('transactions.slider.create', ['user' => escape_html($transfer->owner->name), 'date' => $created_date]) !!}"
         />
     </x-slot>
 

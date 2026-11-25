@@ -157,7 +157,7 @@ class Accounts extends Controller
         if ($response['success']) {
             $response['redirect'] = route('accounts.show', $account->id);
 
-            $message = trans('messages.success.updated', ['type' => $account->name]);
+            $message = trans('messages.success.updated', ['type' => escape_html($account->name)]);
 
             flash($message)->success();
         } else {
@@ -183,7 +183,7 @@ class Accounts extends Controller
         $response = $this->ajaxDispatch(new UpdateAccount($account, request()->merge(['enabled' => 1])));
 
         if ($response['success']) {
-            $response['message'] = trans('messages.success.enabled', ['type' => $account->name]);
+            $response['message'] = trans('messages.success.enabled', ['type' => escape_html($account->name)]);
         }
 
         // The bulk actions ask for this in the background and are handed the outcome to
@@ -214,7 +214,7 @@ class Accounts extends Controller
         $response = $this->ajaxDispatch(new UpdateAccount($account, request()->merge(['enabled' => 0])));
 
         if ($response['success']) {
-            $response['message'] = trans('messages.success.disabled', ['type' => $account->name]);
+            $response['message'] = trans('messages.success.disabled', ['type' => escape_html($account->name)]);
         }
 
         // The bulk actions ask for this in the background and are handed the outcome to
@@ -247,7 +247,7 @@ class Accounts extends Controller
         $response['redirect'] = route('accounts.index');
 
         if ($response['success']) {
-            $message = trans('messages.success.deleted', ['type' => $account->name]);
+            $message = trans('messages.success.deleted', ['type' => escape_html($account->name)]);
 
             flash($message)->success();
         } else {

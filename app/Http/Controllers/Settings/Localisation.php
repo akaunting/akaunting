@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Settings;
 
 use App\Abstracts\Http\SettingController;
 use App\Traits\DateTime;
+use App\Utilities\Date;
 
 class Localisation extends SettingController
 {
@@ -13,21 +14,14 @@ class Localisation extends SettingController
     {
         $timezones = $this->getTimezones();
 
-        $date_formats = [
-            'd M Y' => '31 Dec 2017',
-            'd F Y' => '31 December 2017',
-            'd m Y' => '31 12 2017',
-            'm d Y' => '12 31 2017',
-            'Y m d' => '2017 12 31',
-        ];
+        // Each format is shown with a sample date, like 31 Dec 2017
+        $date_formats = collect(config('date.formats'))->mapWithKeys(function ($format) {
+            return [$format => Date::parse('2017-12-31')->format($format)];
+        })->all();
 
-        $date_separators = [
-            'dash' => trans('settings.localisation.date.dash'),
-            'slash' => trans('settings.localisation.date.slash'),
-            'dot' => trans('settings.localisation.date.dot'),
-            'comma' => trans('settings.localisation.date.comma'),
-            'space' => trans('settings.localisation.date.space'),
-        ];
+        $date_separators = collect(config('date.separators'))->mapWithKeys(function ($character, $separator) {
+            return [$separator => trans('settings.localisation.date.' . $separator)];
+        })->all();
 
         $percent_positions = [
             'before' => trans('settings.localisation.percent.before'),

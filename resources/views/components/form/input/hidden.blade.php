@@ -1,7 +1,7 @@
 <input type="hidden"
     name="{{ $name }}"
     id="{{ $id }}"
-    value="{!! $value !!}"
+    value="{!! escape_html($value, false) !!}"
     placeholder="{{ $placeholder }}"
     @if ($disabled)
     disabled="disabled"

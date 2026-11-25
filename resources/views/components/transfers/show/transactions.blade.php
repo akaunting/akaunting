@@ -8,17 +8,17 @@
     <x-slot name="head">
         <x-show.accordion.head
             title="{{ trans_choice('general.transactions', 2) }}"
-            description="{!! trans('transfers.slider.transactions', ['user' => $transfer->owner->name]) !!}"
+            description="{!! trans('transfers.slider.transactions', ['user' => escape_html($transfer->owner->name)]) !!}"
         />
     </x-slot>
 
     <x-slot name="body">
         <div class="my-2">
-            {!! trans('transfers.slider.transactions_desc', ['number' => $expense_number, 'account' => $transfer->expense_account->title]) !!}
+            {!! trans('transfers.slider.transactions_desc', ['number' => $expense_number, 'account' => escape_html($transfer->expense_account->title)]) !!}
         </div>
 
         <div class="my-2">
-            {!! trans('transfers.slider.transactions_desc', ['number' => $income_number, 'account' => $transfer->income_account->title]) !!}
+            {!! trans('transfers.slider.transactions_desc', ['number' => $income_number, 'account' => escape_html($transfer->income_account->title)]) !!}
         </div>
     </x-slot>
 </x-show.accordion>

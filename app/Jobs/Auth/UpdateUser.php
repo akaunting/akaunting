@@ -131,7 +131,7 @@ class UpdateUser extends Job implements ShouldUpdate
                     $company = Company::withCount('users')->find($company_id);
 
                     if ($company->users_count < 2) {
-                        $errors[] = trans('auth.error.unassigned', ['company' => $company->name]);
+                        $errors[] = trans('auth.error.unassigned', ['company' => escape_html($company->name)]);
                     }
                 }
 

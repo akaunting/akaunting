@@ -177,7 +177,7 @@ class Customers extends Controller
         if ($response['success']) {
             $response['redirect'] = route('customers.show', $response['data']->id);
 
-            $message = trans('messages.success.updated', ['type' => $customer->name]);
+            $message = trans('messages.success.updated', ['type' => escape_html($customer->name)]);
 
             flash($message)->success();
         } else {
@@ -203,7 +203,7 @@ class Customers extends Controller
         $response = $this->ajaxDispatch(new UpdateContact($customer, request()->merge(['enabled' => 1])));
 
         if ($response['success']) {
-            $response['message'] = trans('messages.success.enabled', ['type' => $customer->name]);
+            $response['message'] = trans('messages.success.enabled', ['type' => escape_html($customer->name)]);
         }
 
         return response()->json($response);
@@ -221,7 +221,7 @@ class Customers extends Controller
         $response = $this->ajaxDispatch(new UpdateContact($customer, request()->merge(['enabled' => 0])));
 
         if ($response['success']) {
-            $response['message'] = trans('messages.success.disabled', ['type' => $customer->name]);
+            $response['message'] = trans('messages.success.disabled', ['type' => escape_html($customer->name)]);
         }
 
         return response()->json($response);
@@ -241,7 +241,7 @@ class Customers extends Controller
         $response['redirect'] = route('customers.index');
 
         if ($response['success']) {
-            $message = trans('messages.success.deleted', ['type' => $customer->name]);
+            $message = trans('messages.success.deleted', ['type' => escape_html($customer->name)]);
 
             flash($message)->success();
         } else {

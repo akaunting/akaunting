@@ -161,7 +161,7 @@ class Taxes extends Controller
         if ($response['success']) {
             $response['redirect'] = route('taxes.index');
 
-            $message = trans('messages.success.updated', ['type' => $tax->name]);
+            $message = trans('messages.success.updated', ['type' => escape_html($tax->name)]);
 
             flash($message)->success();
         } else {
@@ -187,7 +187,7 @@ class Taxes extends Controller
         $response = $this->ajaxDispatch(new UpdateTax($tax, request()->merge(['enabled' => 1])));
 
         if ($response['success']) {
-            $response['message'] = trans('messages.success.enabled', ['type' => $tax->name]);
+            $response['message'] = trans('messages.success.enabled', ['type' => escape_html($tax->name)]);
         }
 
         return response()->json($response);
@@ -205,7 +205,7 @@ class Taxes extends Controller
         $response = $this->ajaxDispatch(new UpdateTax($tax, request()->merge(['enabled' => 0])));
 
         if ($response['success']) {
-            $response['message'] = trans('messages.success.disabled', ['type' => $tax->name]);
+            $response['message'] = trans('messages.success.disabled', ['type' => escape_html($tax->name)]);
         }
 
         return response()->json($response);
@@ -225,7 +225,7 @@ class Taxes extends Controller
         $response['redirect'] = route('taxes.index');
 
         if ($response['success']) {
-            $message = trans('messages.success.deleted', ['type' => $tax->name]);
+            $message = trans('messages.success.deleted', ['type' => escape_html($tax->name)]);
 
             flash($message)->success();
         } else {

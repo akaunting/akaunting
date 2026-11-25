@@ -3,7 +3,7 @@
         <x-show.accordion.head
             title="{{ trans('general.create') }}"
             description="{!! trans($description, [
-                'user' => $user_name,
+                'user' => escape_html($user_name),
                 'type' => $type_lowercase,
                 'date' => $created_date,
             ]) !!}"

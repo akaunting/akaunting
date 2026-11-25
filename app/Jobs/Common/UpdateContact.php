@@ -63,7 +63,7 @@ class UpdateContact extends Job implements ShouldUpdate
     public function authorize(): void
     {
         if (($this->request->has('enabled') && ! $this->request->get('enabled')) && ($relationships = $this->getRelationships())) {
-            $message = trans('messages.warning.disabled', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.disabled', ['name' => escape_html($this->model->name), 'text' => implode(', ', $relationships)]);
 
             throw new NotAllowed($message);
         }
@@ -73,7 +73,7 @@ class UpdateContact extends Job implements ShouldUpdate
     {
         // Check if user exist
         if ($user = user_model_class()::where('email', $this->request['email'])->first()) {
-            $message = trans('messages.error.customer', ['name' => $user->name]);
+            $message = trans('messages.error.customer', ['name' => escape_html($user->name)]);
 
             throw new \Exception($message);
         }

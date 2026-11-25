@@ -31,7 +31,7 @@ class DeleteAccount extends Job implements ShouldDelete
     public function authorize(): void
     {
         if ($relationships = $this->getRelationships()) {
-            $message = trans('messages.warning.deleted', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.deleted', ['name' => escape_html($this->model->name), 'text' => implode(', ', $relationships)]);
 
             throw new NotAllowed($message);
         }

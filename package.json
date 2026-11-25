@@ -30,6 +30,7 @@
         "body-parser": "^1.20.3",
         "cropperjs": "^1.6.2",
         "date-fns": "^2.29.3",
+        "dompurify": "^3.2.6",
         "dropzone": "^5.9.3",
         "element-ui": "^2.15.13",
         "es6-promise": "^4.2.8",

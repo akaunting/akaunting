@@ -42,7 +42,7 @@
                     <b>{{ title }}<br/></b>
                 </span>
 
-                <span v-if="message" v-html="message"></span>
+                <span v-if="message" v-html="sanitizeHtml(message)"></span>
 
                 <content-render v-if="!message && component" :component="component"></content-render>
             </span>
@@ -62,6 +62,8 @@
 </template>
 
 <script>
+    import { sanitizeHtml } from './../../plugins/functions';
+
     export default {
         name: 'notification',
 
@@ -233,6 +235,8 @@
         },
 
         methods: {
+            sanitizeHtml,
+
             close() {
                 this.$emit('close', this.timestamp);
             },

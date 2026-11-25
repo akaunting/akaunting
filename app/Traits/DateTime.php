@@ -21,12 +21,17 @@ trait DateTime
             return $default;
         }
 
-        $chars = ['dash' => '-', 'slash' => '/', 'dot' => '.', 'comma' => ',', 'space' => ' '];
+        $chars = config('date.separators');
 
         $date_format = setting('localisation.date_format', $default) ?? $default;
 
+        // The format goes into the pages as it is, so only the offered ones are used
+        if (! in_array($date_format, config('date.formats'), true)) {
+            $date_format = $default;
+        }
+
         $char = setting('localisation.date_separator', 'space') ?? 'space';
-        $date_separator = $chars[$char];
+        $date_separator = $chars[$char] ?? $chars['space'];
 
         return str_replace(' ', $date_separator, $date_format);
     }

@@ -159,7 +159,7 @@ class Items extends Controller
         if ($response['success']) {
             $response['redirect'] = route('items.index');
 
-            $message = trans('messages.success.updated', ['type' => $item->name]);
+            $message = trans('messages.success.updated', ['type' => escape_html($item->name)]);
 
             flash($message)->success();
         } else {
@@ -185,7 +185,7 @@ class Items extends Controller
         $response = $this->ajaxDispatch(new UpdateItem($item, request()->merge(['enabled' => 1])));
 
         if ($response['success']) {
-            $response['message'] = trans('messages.success.enabled', ['type' => $item->name]);
+            $response['message'] = trans('messages.success.enabled', ['type' => escape_html($item->name)]);
         }
 
         return response()->json($response);
@@ -203,7 +203,7 @@ class Items extends Controller
         $response = $this->ajaxDispatch(new UpdateItem($item, request()->merge(['enabled' => 0])));
 
         if ($response['success']) {
-            $response['message'] = trans('messages.success.disabled', ['type' => $item->name]);
+            $response['message'] = trans('messages.success.disabled', ['type' => escape_html($item->name)]);
         }
 
         return response()->json($response);
@@ -223,7 +223,7 @@ class Items extends Controller
         $response['redirect'] = route('items.index');
 
         if ($response['success']) {
-            $message = trans('messages.success.deleted', ['type' => $item->name]);
+            $message = trans('messages.success.deleted', ['type' => escape_html($item->name)]);
 
             flash($message)->success();
         } else {

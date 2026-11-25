@@ -47,13 +47,13 @@ class UpdateCurrency extends Job implements ShouldUpdate
         }
 
         if ($this->request->has('code') && ($this->request->get('code') != $this->model->code)) {
-            $message = trans('messages.warning.disable_code', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.disable_code', ['name' => escape_html($this->model->name), 'text' => implode(', ', $relationships)]);
 
             throw new NotAllowed($message);
         }
 
         if ($this->request->has('enabled') && ! $this->request->get('enabled')) {
-            $message = trans('messages.warning.disable_code', ['name' => $this->model->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.disable_code', ['name' => escape_html($this->model->name), 'text' => implode(', ', $relationships)]);
 
             throw new NotAllowed($message);
         }

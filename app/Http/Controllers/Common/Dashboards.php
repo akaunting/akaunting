@@ -229,7 +229,7 @@ class Dashboards extends Controller
         $response['redirect'] = route('dashboards.index');
 
         if ($response['success']) {
-            $message = trans('messages.success.deleted', ['type' => $dashboard->name]);
+            $message = trans('messages.success.deleted', ['type' => escape_html($dashboard->name)]);
 
             flash($message)->success();
 
