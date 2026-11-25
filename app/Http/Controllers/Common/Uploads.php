@@ -199,9 +199,14 @@ class Uploads extends Controller
         if (!empty($request->input('page'))) {
             switch ($request->input('page')) {
                 case 'setting':
-                    setting()->set($request->input('key'), '');
+                    // Only the setting that holds this file, like the company logo, is cleared
+                    $key = (string) $request->input('key');
 
-                    setting()->save();
+                    if (! empty($key) && ((string) setting($key) === (string) $media->id)) {
+                        setting()->set($key, '');
+
+                        setting()->save();
+                    }
                     break;
             }
         }

@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Menu;
 use App\Events\Menu\NotificationsCreated;
 use App\Events\Menu\NotificationsCreating;
 use Illuminate\Contracts\View\View;
-use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
@@ -38,7 +37,13 @@ class Notifications extends Component
                 $this->markNewAppRead($notification_id);
                 break;
             default:
-                $notification = DatabaseNotification::find($notification_id);
+                // Only a notification of the logged in user
+                $notification = user()->notifications()->find($notification_id);
+
+                if (! $notification) {
+                    return;
+                }
+
                 $data = $notification->getAttribute('data');
 
                 $notification->markAsRead();
