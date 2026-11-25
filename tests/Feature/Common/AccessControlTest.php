@@ -3,11 +3,14 @@
 namespace Tests\Feature\Common;
 
 use App\Jobs\Auth\CreateUser;
+use App\Jobs\Common\CreateContact;
+use App\Jobs\Document\CreateDocument;
 use App\Models\Common\Contact;
 use App\Models\Common\Item;
 use App\Models\Common\Widget;
 use App\Models\Document\Document;
 use App\Traits\Permissions;
+use Illuminate\Support\Facades\Notification;
 use Tests\Feature\FeatureTestCase;
 
 class AccessControlTest extends FeatureTestCase
@@ -179,6 +182,50 @@ class AccessControlTest extends FeatureTestCase
         $api->getJson(route('api.contacts.show', [$vendor->id, 'search' => 'type:customer']))->assertStatus(500)->assertJsonMissing(['email' => $vendor->email]);
 
         $this->assertModelExists($bill);
+    }
+
+    public function testItShouldOnlyPayTheOwnInvoicesOnThePortal()
+    {
+        Notification::fake();
+
+        $owner = $this->createCustomerWithUser();
+        $other = $this->createCustomerWithUser();
+
+        $invoice = $this->dispatch(new CreateDocument(Document::factory()->invoice()->sent()->items()->raw([
+            'contact_id' => $owner->id,
+            'contact_name' => $owner->name,
+        ])));
+
+        $payment = ['payment_method' => 'offline-payments.cash.1'];
+
+        // Another customer of the company reaches neither the payment page nor the confirm
+        $this->loginAs($other->user)->withExceptionHandling();
+
+        $this->get(route('portal.offline-payments.invoices.show', [$invoice->id] + $payment))->assertForbidden();
+        $this->post(route('portal.offline-payments.invoices.confirm', $invoice->id), $payment)->assertForbidden();
+
+        $this->assertNotEquals('paid', $invoice->fresh()->status);
+        $this->assertSame(0, $invoice->transactions()->count());
+
+        // The customer of the invoice pays it
+        $this->loginAs($owner->user)
+            ->post(route('portal.offline-payments.invoices.confirm', $invoice->id), $payment)
+            ->assertOk()
+            ->assertJson(['success' => true]);
+
+        $this->assertSame('paid', $invoice->fresh()->status);
+    }
+
+    protected function createCustomerWithUser(): Contact
+    {
+        $contact = $this->dispatch(new CreateContact(array_merge(Contact::factory()->customer()->enabled()->raw(), [
+            'create_user' => 'true',
+            'locale' => 'en-GB',
+            'password' => 'customer-password',
+            'password_confirmation' => 'customer-password',
+        ])));
+
+        return $contact->fresh('user');
     }
 
     protected function createUserWithPermissions(array $permissions)

@@ -38,8 +38,36 @@ abstract class PaymentController extends BaseController
 
             $this->module = module($this->alias);
 
+            // On the portal a customer only reaches their own invoices, the signed
+            // links are tied to their invoice by the signature already
+            $invoice = $request->route('invoice');
+
+            if (($invoice instanceof Document) && $request->isPortal($invoice->company_id) && ! $this->isInvoiceOfUser($invoice)) {
+                abort(403);
+            }
+
             return $next($request);
         });
+    }
+
+    /**
+     * The same rule as the invoice page of the portal.
+     *
+     * @see \App\Http\Requests\Portal\InvoiceShow::authorize()
+     */
+    protected function isInvoiceOfUser(Document $invoice): bool
+    {
+        $user = user();
+
+        if (empty($user)) {
+            return false;
+        }
+
+        if ($user->can('read-sales-invoices')) {
+            return true;
+        }
+
+        return ! empty($user->contact) && ((int) $invoice->contact_id === (int) $user->contact->id);
     }
 
     public function show(Document $invoice, PaymentRequest $request, $cards = [])
