@@ -40,8 +40,13 @@ class Customers extends Import
         $row['currency_code'] = $this->getCurrencyCode($row);
         $row['user_id'] = null;
 
-        if (isset($row['can_login']) && isset($row['email'])) {
-            $row['user_id'] = user_model_class()::where('email', $row['email'])->first()?->id ?? null;
+        // The export writes can_login as true or false, and isset() held for false too: every customer with an
+        // e-mail looked a user up, and one that cannot log in was linked to a user of the same e-mail.
+        // The id alone is read: a user model reads its companies when it is retrieved.
+        if (filter_var($row['can_login'] ?? false, FILTER_VALIDATE_BOOLEAN) && ! empty($row['email'])) {
+            $user_id = user_model_class()::where('email', $row['email'])->toBase()->value('id');
+
+            $row['user_id'] = $user_id ? (int) $user_id : null;
         }
 
         return $row;

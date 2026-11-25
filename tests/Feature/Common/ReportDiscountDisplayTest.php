@@ -25,6 +25,8 @@ class ReportDiscountDisplayTest extends FeatureTestCase
 {
     public function testItShouldShowTheSalesDiscountOnARowOfItsOwn()
     {
+        $this->skipWhereTheDiscountIsOnItsAccounts();
+
         [$first, $second] = $this->createDocument(Document::INVOICE_TYPE, Category::INCOME_TYPE, Category::INCOME_TYPE);
 
         $report = $this->loadReport(IncomeSummary::class, 'discount_display:separate');
@@ -62,6 +64,8 @@ class ReportDiscountDisplayTest extends FeatureTestCase
 
     public function testItShouldShowThePurchaseDiscountOnARowOfItsOwn()
     {
+        $this->skipWhereTheDiscountIsOnItsAccounts();
+
         [$first, $second] = $this->createDocument(Document::BILL_TYPE, Category::EXPENSE_TYPE, Category::EXPENSE_TYPE);
 
         $report = $this->loadReport(ExpenseSummary::class, 'discount_display:separate');
@@ -78,6 +82,8 @@ class ReportDiscountDisplayTest extends FeatureTestCase
      */
     public function testItShouldShareThePurchaseDiscountOverTheCostTablesOfTheProfitAndLoss()
     {
+        $this->skipWhereTheDiscountIsOnItsAccounts();
+
         [$sales, $other_sales] = $this->createDocument(Document::INVOICE_TYPE, Category::INCOME_TYPE, Category::INCOME_TYPE);
         [$cost, $expense] = $this->createDocument(Document::BILL_TYPE, Category::DIRECT_COST_TYPE, Category::EXPENSE_TYPE);
 
@@ -143,6 +149,8 @@ class ReportDiscountDisplayTest extends FeatureTestCase
      */
     public function testItShouldShowTheDiscountRowAsTheReportIsSet()
     {
+        $this->skipWhereTheDiscountIsOnItsAccounts();
+
         [$first] = $this->createDocument(Document::INVOICE_TYPE, Category::INCOME_TYPE, Category::INCOME_TYPE);
 
         // Saved, as the options bar links to the report
@@ -191,6 +199,17 @@ class ReportDiscountDisplayTest extends FeatureTestCase
 
         $this->assertSame(ProfitLoss::DISCOUNT_DISPLAY_SEPARATE, collect($controls['display'])->firstWhere('key', 'discount_display')['value']);
         $this->assertNull(collect($controls['strip'])->firstWhere('key', 'discount_display'));
+    }
+
+    /**
+     * The Double-Entry app lists the discount on the accounts it is booked to, the sales and the purchase discount
+     * accounts, in place of the discount row, and tests that itself (DocumentDiscountAccountsTest).
+     */
+    protected function skipWhereTheDiscountIsOnItsAccounts(): void
+    {
+        if (module_is_enabled('double-entry')) {
+            $this->markTestSkipped('The Double-Entry app lists the discount on its accounts, not on the discount row.');
+        }
     }
 
     protected function getControls($report): array

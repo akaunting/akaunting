@@ -37,6 +37,13 @@ trait Import
 {
     use Categories, Jobs, Sources, Translations;
 
+    /**
+     * The ids of the users the created_by column names, by e-mail.
+     *
+     * @var array
+     */
+    protected $created_by_ids = [];
+
     public function getImportView($group, $type, $route = null)
     {
         // Get the view path
@@ -162,10 +169,20 @@ trait Import
             return $this->user?->id;
         }
 
-        $user = user_model_class()::where('email', $row['created_by'])->first();
+        $email = (string) $row['created_by'];
 
-        if (! empty($user)) {
-            return $user->id;
+        // Looked up once per import (once per chunk on the queue), not for every row: the rows of a file name
+        // a few users. The id alone is read, from the query builder: a user model reads its companies when it is
+        // retrieved, and Eloquent's pluck('id') makes one, the id being cast. A user not found is looked up again,
+        // as a row before the next one may create it.
+        if (empty($this->created_by_ids[$email])) {
+            $id = user_model_class()::where('email', $email)->toBase()->value('id');
+
+            $this->created_by_ids[$email] = $id ? (int) $id : null;
+        }
+
+        if (! empty($this->created_by_ids[$email])) {
+            return $this->created_by_ids[$email];
         }
 
         return $this->user->id;
