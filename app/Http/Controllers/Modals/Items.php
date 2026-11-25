@@ -60,7 +60,13 @@ class Items extends Controller
                 'enabled' => 1,
             ];
 
-            $data[$request->get('field')] = $request->get('value');
+            // The select sends its field, name or the own field of an app, but
+            // the keys of the record itself are not the user's to set.
+            $field = (string) $request->get('field');
+
+            if (! in_array($field, ['company_id', 'created_by', 'created_from'], true)) {
+                $data[$field] = $request->get('value');
+            }
 
             $request = $data;
         }

@@ -19,7 +19,7 @@ class Documents extends ApiController
      */
     public function index()
     {
-        $documents = Document::with('contact', 'histories', 'items', 'item_taxes', 'owner', 'totals', 'transactions')->collect(['issued_at'=> 'desc']);
+        $documents = Document::with('contact', 'histories', 'items', 'item_taxes', 'owner', 'totals', 'transactions')->where('documents.type', $this->getSearchType())->collect(['issued_at'=> 'desc']);
 
         return Resource::collection($documents);
     }
@@ -46,7 +46,7 @@ class Documents extends ApiController
                 'transactions.currency',
                 'transactions.account',
                 'transactions.category',
-            ])->find($id);
+            ])->where('documents.type', $this->getSearchType())->find($id);
         } else {
             $document = Document::with([
                 'contact',
@@ -60,7 +60,7 @@ class Documents extends ApiController
                 'transactions.currency',
                 'transactions.account',
                 'transactions.category',
-            ])->where('document_number', $id)->first();
+            ])->where('documents.type', $this->getSearchType())->where('document_number', $id)->first();
         }
 
         if (! $document instanceof Document) {
@@ -79,6 +79,8 @@ class Documents extends ApiController
      */
     public function store(Request $request)
     {
+        $this->authorizeRequestType($request);
+
         $document = $this->dispatch(new CreateDocument($request));
 
         return $this->created(route('api.documents.show', $document->id), new Resource($document));
@@ -94,6 +96,9 @@ class Documents extends ApiController
      */
     public function update(Document $document, Request $request)
     {
+        $this->authorizeType($document);
+        $this->authorizeRequestType($request);
+
         $document = $this->dispatch(new UpdateDocument($document, $request));
 
         return new Resource($document->fresh());
@@ -108,6 +113,8 @@ class Documents extends ApiController
      */
     public function destroy(Document $document)
     {
+        $this->authorizeType($document);
+
         try {
             $this->dispatch(new DeleteDocument($document));
 

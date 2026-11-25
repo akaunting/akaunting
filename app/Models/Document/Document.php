@@ -839,6 +839,16 @@ class Document extends Model
     {
         $query = $this->where('id', $value);
 
+        // The permission checked for the route is the one of its type, so an id
+        // of another type, like a bill on an invoice route, must not resolve.
+        if (request()->route()->hasParameter('invoice')) {
+            $query->invoice();
+        }
+
+        if (request()->route()->hasParameter('bill')) {
+            $query->bill();
+        }
+
         if (request()->route()->hasParameter('recurring_invoice')) {
             $query->invoiceRecurring();
         }

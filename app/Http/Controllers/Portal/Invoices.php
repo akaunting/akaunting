@@ -18,6 +18,17 @@ class Invoices extends Controller
     use DateTime, Currencies, Documents, Uploads;
 
     /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        // The preview routes only ask for the admin panel
+        $this->middleware('permission:read-sales-invoices')->only('preview');
+    }
+
+    /**
      * @var string
      */
     public $type = Document::INVOICE_TYPE;

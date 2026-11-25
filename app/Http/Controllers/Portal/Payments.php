@@ -16,6 +16,17 @@ class Payments extends Controller
     use Transactions;
 
     /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        // The preview routes only ask for the admin panel
+        $this->middleware('permission:read-banking-transactions')->only('preview');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response

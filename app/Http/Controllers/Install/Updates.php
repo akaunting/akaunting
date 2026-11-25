@@ -18,6 +18,18 @@ use Illuminate\Support\Facades\Cache;
 class Updates extends Controller
 {
     /**
+     * Instantiate a new controller instance.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        // The update steps are not CRUD methods, so they need their own permission checks
+        $this->middleware('permission:read-install-updates')->only('changelog');
+        $this->middleware('permission:update-install-updates')->only('check', 'run', 'steps', 'download', 'unzip', 'copyFiles', 'finish', 'redirect');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response

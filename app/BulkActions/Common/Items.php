@@ -54,6 +54,7 @@ class Items extends BulkAction
             'icon'          => 'file_download',
             'name'          => 'general.export',
             'message'       => 'bulk_actions.message.export',
+            'permission'    => 'read-common-items',
             'type'          => 'download',
         ],
     ];

@@ -22,7 +22,7 @@ class Contacts extends ApiController
      */
     public function index()
     {
-        $contacts = Contact::with('owner')->collect();
+        $contacts = Contact::with('owner')->where('contacts.type', $this->getSearchType())->collect();
 
         return Resource::collection($contacts);
     }
@@ -37,9 +37,9 @@ class Contacts extends ApiController
     {
         // Check if we're querying by id or email
         if (is_numeric($id)) {
-            $contact = Contact::find($id);
+            $contact = Contact::where('contacts.type', $this->getSearchType())->find($id);
         } else {
-            $contact = Contact::where('email', $id)->first();
+            $contact = Contact::where('contacts.type', $this->getSearchType())->where('email', $id)->first();
         }
 
         if (! $contact instanceof Contact) {
@@ -58,6 +58,8 @@ class Contacts extends ApiController
      */
     public function store(Request $request)
     {
+        $this->authorizeRequestType($request);
+
         $contact = $this->dispatch(new CreateContact($request));
 
         return $this->created(route('api.contacts.show', $contact->id), new Resource($contact));
@@ -72,6 +74,9 @@ class Contacts extends ApiController
      */
     public function update(Contact $contact, Request $request)
     {
+        $this->authorizeType($contact);
+        $this->authorizeRequestType($request);
+
         $contact = $this->dispatch(new UpdateContact($contact, $request));
 
         return new Resource($contact->fresh());
@@ -85,6 +90,8 @@ class Contacts extends ApiController
      */
     public function enable(Contact $contact)
     {
+        $this->authorizeType($contact);
+
         $contact = $this->dispatch(new UpdateContact($contact, request()->merge(['enabled' => 1])));
 
         return new Resource($contact->fresh());
@@ -98,6 +105,8 @@ class Contacts extends ApiController
      */
     public function disable(Contact $contact)
     {
+        $this->authorizeType($contact);
+
         try {
             $contact = $this->dispatch(new UpdateContact($contact, request()->merge(['enabled' => 0])));
 
@@ -115,6 +124,8 @@ class Contacts extends ApiController
      */
     public function destroy(Contact $contact)
     {
+        $this->authorizeType($contact);
+
         try {
             $this->dispatch(new DeleteContact($contact));
 

@@ -183,4 +183,46 @@ abstract class ApiController extends BaseController
     {
         $this->error($message, 405);
     }
+
+    /**
+     * The type the permission of the contacts and documents endpoints is checked
+     * for, taken from the search like ?search=type:invoice.
+     *
+     * @see \App\Traits\Permissions::assignPermissionsToController()
+     */
+    public function getSearchType(): string
+    {
+        $type = $this->getSearchStringValue('type');
+
+        return is_string($type) ? $type : '';
+    }
+
+    /**
+     * The permission is checked for the searched type, so a record of another
+     * type must not be reached, a bill with the permission of invoices for instance.
+     *
+     * @param \Illuminate\Database\Eloquent\Model $model
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     */
+    public function authorizeType($model): void
+    {
+        if (empty($model) || ($model->type !== $this->getSearchType())) {
+            $this->errorNotFound();
+        }
+    }
+
+    /**
+     * A record must not be created as or turned into another type than the searched one.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     */
+    public function authorizeRequestType($request): void
+    {
+        if ($request->has('type') && ($request->get('type') !== $this->getSearchType())) {
+            $this->errorForbidden();
+        }
+    }
 }

@@ -53,12 +53,14 @@ class Invoices extends BulkAction
             'icon'          => 'file_download',
             'name'          => 'general.export',
             'message'       => 'bulk_actions.message.export',
+            'permission'    => 'read-sales-invoices',
             'type'          => 'download',
         ],
         'download' => [
             'icon'          => 'download',
             'name'          => 'general.download',
             'message'       => 'bulk_actions.message.download',
+            'permission'    => 'read-sales-invoices',
             'type'          => 'download',
         ],
     ];

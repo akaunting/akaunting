@@ -88,10 +88,11 @@ class BulkActions extends Controller
             }
         }
 
-        if (
-            isset($bulk_actions->actions[$action_key]['permission'])
-            && ! user()->can($bulk_actions->actions[$action_key]['permission'])
-        ) {
+        // The route serves every page, so an action that declares no permission, such as
+        // the export of an app, still needs the read permission of the page it runs on.
+        $permission = $bulk_actions->actions[$action_key]['permission'] ?? $this->getReadPermission($group, $type);
+
+        if (! empty($permission) && ! user()->can($permission)) {
             flash(trans('errors.message.403'))->error()->important();
 
             return response()->json([
@@ -163,5 +164,17 @@ class BulkActions extends Controller
                 'message' => $message,
             ]);
         }
+    }
+
+    /**
+     * The read permission of the page, like read-sales-invoices, when there is one.
+     */
+    protected function getReadPermission(string $group, string $type): ?string
+    {
+        $name = 'read-' . $group . '-' . str_replace('.', '-', $type);
+
+        $exists = config('laratrust.models.permission')::where('name', $name)->exists();
+
+        return $exists ? $name : null;
     }
 }

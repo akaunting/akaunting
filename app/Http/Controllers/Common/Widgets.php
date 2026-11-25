@@ -8,10 +8,13 @@ use App\Models\Common\Widget;
 use App\Jobs\Common\CreateWidget;
 use App\Jobs\Common\DeleteWidget;
 use App\Jobs\Common\UpdateWidget;
+use App\Traits\Users;
 use App\Utilities\Widgets as Utility;
 
 class Widgets extends Controller
 {
+    use Users;
+
     /**
      * Instantiate a new controller instance.
      */
@@ -61,6 +64,10 @@ class Widgets extends Controller
      */
     public function store(Request $request)
     {
+        if ($this->isNotUserDashboard($request->get('dashboard_id'))) {
+            return $this->notUserDashboardResponse();
+        }
+
         $request['settings'] = [
             'width' => $request->get('width'),
             'limit' => $request->get('limit'),
@@ -105,6 +112,10 @@ class Widgets extends Controller
      */
     public function edit(Widget $widget)
     {
+        if ($this->isNotUserDashboard($widget->dashboard_id)) {
+            abort(403);
+        }
+
         $settings = $widget->settings;
 
         $class_name = $widget->class;
@@ -136,6 +147,11 @@ class Widgets extends Controller
      */
     public function update(Widget $widget, Request $request)
     {
+        // Both the dashboard the widget is on and the one it may move to
+        if ($this->isNotUserDashboard($widget->dashboard_id) || $this->isNotUserDashboard($request->get('dashboard_id'))) {
+            return $this->notUserDashboardResponse();
+        }
+
         $request['settings'] = [
             'width' => $request->get('width'),
             'limit' => $request->get('limit'),
@@ -176,6 +192,10 @@ class Widgets extends Controller
      */
     public function destroy(Widget $widget)
     {
+        if ($this->isNotUserDashboard($widget->dashboard_id)) {
+            return $this->notUserDashboardResponse();
+        }
+
         $response = $this->ajaxDispatch(new DeleteWidget($widget));
 
         $response['redirect'] = route('dashboard');
@@ -191,6 +211,24 @@ class Widgets extends Controller
         }
 
         return response()->json($response);
+    }
+
+    /**
+     * Widgets can only be changed on the dashboards of the logged in user.
+     */
+    protected function notUserDashboardResponse()
+    {
+        $message = trans('dashboards.error.not_user_dashboard');
+
+        flash($message)->error()->important();
+
+        return response()->json([
+            'success' => false,
+            'error' => true,
+            'data' => null,
+            'message' => $message,
+            'redirect' => route('dashboard'),
+        ], 403);
     }
 
     public function getData(Request $request)
