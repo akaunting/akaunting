@@ -89,6 +89,9 @@ class UsersTest extends FeatureTestCase
 
         $request['email'] = $this->faker->freeEmail;
 
+        // The edit form sends the password of the user themself only
+        unset($request['password'], $request['password_confirmation']);
+
         $this->loginAs()
             ->patch(route('users.update', $user->id), $request)
             ->assertOk()

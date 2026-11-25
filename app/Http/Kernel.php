@@ -34,7 +34,10 @@ class Kernel extends HttpKernel
             'cookies.encrypt',
             'cookies.response',
             'session.start',
-            // 'session.auth',
+            // Ties the session to the password it was opened with, so changing the password
+            // ends the sessions and remember cookies of the other devices. The device the
+            // password is changed on keeps its session, see User::passwordChanged()
+            'session.auth',
             'session.errors',
             'csrf',
             'install.redirect',

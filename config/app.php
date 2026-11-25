@@ -27,6 +27,10 @@ return [
         'oauth' => env('APP_THROTTLES_OAUTH', '60'),
         'import' => env('APP_THROTTLES_IMPORT', '1'),
         'dcr' => env('APP_THROTTLES_DCR', '60'),
+        // Failed logins per minute for an email from an IP address
+        'login' => env('APP_THROTTLES_LOGIN', '5'),
+        // Password reset requests per minute from an IP address
+        'forgot' => env('APP_THROTTLES_FORGOT', '5'),
         'email' => [
             'minute' => env('APP_THROTTLES_EMAIL_MINUTE', '5'),
             'month' => env('APP_THROTTLES_EMAIL_MONTH', '500'),

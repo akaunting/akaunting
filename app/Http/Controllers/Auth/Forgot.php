@@ -7,6 +7,7 @@ use App\Abstracts\Http\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use App\Http\Requests\Auth\Forgot as Request;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\RateLimiter;
 
 class Forgot extends Controller
 {
@@ -47,6 +48,17 @@ class Forgot extends Controller
      */
     public function store(Request $request)
     {
+        // The forgot limit is applied here and not as middleware, which would answer
+        // with a 429 the form does not show
+        $limit = RateLimiter::limiter('forgot')($request);
+        $throttle_key = 'forgot|' . $limit->key;
+
+        if (RateLimiter::tooManyAttempts($throttle_key, $limit->maxAttempts)) {
+            return $this->sendThrottledResponse(RateLimiter::availableIn($throttle_key));
+        }
+
+        RateLimiter::hit($throttle_key, $limit->decayMinutes * 60);
+
         // We will send the password reset link to this user. Once we have attempted
         // to send the link, we will examine the response then see the message we
         // need to show to the user. Finally, we'll send out a proper response.
@@ -54,9 +66,25 @@ class Forgot extends Controller
             $request->only('email')
         );
 
-        return $response == Password::RESET_LINK_SENT
-            ? $this->sendResetLinkResponse($response)
+        // The same answer whether the email has an account or not, and whether a link
+        // was sent to it a moment ago, so the form does not tell which emails have one
+        $answered = [Password::RESET_LINK_SENT, Password::INVALID_USER, Password::RESET_THROTTLED];
+
+        return in_array($response, $answered, true)
+            ? $this->sendResetLinkResponse(Password::RESET_LINK_SENT)
             : $this->sendResetLinkFailedResponse($request, $response);
+    }
+
+    protected function sendThrottledResponse(int $seconds)
+    {
+        return response()->json([
+            'status' => null,
+            'success' => false,
+            'error' => true,
+            'message' => trans('auth.throttle', ['seconds' => $seconds]),
+            'data' => null,
+            'redirect' => null,
+        ]);
     }
 
     /**

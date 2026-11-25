@@ -94,6 +94,116 @@ class UsersCompanyIsolationTest extends FeatureTestCase
         $this->assertUserUntouched($other);
     }
 
+    public function testItShouldNotChangeTheEmailOrPasswordOfAUserInOtherCompaniesToo()
+    {
+        // In this company and in one the logged in user is not in
+        $shared = $this->createUserOfAnotherCompany();
+        $shared->companies()->attach($this->company->id);
+        $shared = $shared->fresh();
+
+        // Both companies, so the request is refused for the email and password only
+        $request = [
+            'name' => $shared->name,
+            'email' => $shared->email,
+            'companies' => $shared->companies()->pluck('companies.id')->all(),
+            'roles' => '1',
+            'landing_page' => 'dashboard',
+        ];
+
+        // Their password, even without the change password box of their own profile
+        $this->loginAs()
+            ->patchJson(route('users.update', $shared->id), $request + ['password' => 'taken-over'])
+            ->assertOk()
+            ->assertJson(['success' => false]);
+
+        // Their email, which a password reset would follow
+        $this->loginAs()
+            ->patchJson(route('users.update', $shared->id), array_merge($request, ['email' => $this->faker->freeEmail]))
+            ->assertOk()
+            ->assertJson(['success' => false]);
+
+        $this->api()
+            ->patchJson(route('api.users.update', $shared->id), $request + ['password' => 'taken-over'])
+            ->assertForbidden();
+
+        $fresh = $shared->fresh();
+
+        $this->assertSame($shared->email, $fresh->email);
+        $this->assertSame($shared->getAuthPassword(), $fresh->getAuthPassword());
+    }
+
+    public function testItShouldKeepTheOtherCompaniesOfAUserWhenTheirCompaniesAreUpdated()
+    {
+        // In this company and in one the logged in user is not in
+        $shared = $this->createUserOfAnotherCompany();
+        $other_company_id = $shared->companies()->first()->id;
+        $shared->companies()->attach($this->company->id);
+
+        // UpdateUser assigns the companies as they are in the console, the web request filters them
+        (fn () => $this->isRunningInConsole = false)->call($this->app);
+
+        $this->loginAs()
+            ->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class)
+            ->patchJson(route('users.update', $shared->id), [
+                'name' => 'Renamed',
+                'email' => $shared->email,
+                'companies' => [$this->company->id, $other_company_id],
+                'roles' => '1',
+                'landing_page' => 'dashboard',
+            ])
+            ->assertOk()
+            ->assertJson(['success' => true]);
+
+        $this->assertEqualsCanonicalizing(
+            [$this->company->id, $other_company_id],
+            $shared->fresh()->companies()->pluck('companies.id')->all()
+        );
+    }
+
+    public function testItShouldStillChangeTheEmailOfAUserOnlyInTheSameCompany()
+    {
+        $user = $this->dispatch(new CreateUser($this->getUserRequest()));
+
+        $this->loginAs()
+            ->patchJson(route('users.update', $user->id), [
+                'name' => $user->name,
+                'email' => $email = $this->faker->freeEmail,
+                'companies' => [$this->company->id],
+                'roles' => '1',
+                'landing_page' => 'dashboard',
+            ])
+            ->assertOk()
+            ->assertJson(['success' => true]);
+
+        $this->assertSame($email, $user->fresh()->email);
+    }
+
+    public function testItShouldNotChangeThePasswordOfAnotherUserOfTheSameCompany()
+    {
+        $user = $this->dispatch(new CreateUser($this->getUserRequest()));
+
+        $request = [
+            'name' => $user->name,
+            'email' => $user->email,
+            'password' => 'taken-over',
+            'companies' => [$this->company->id],
+            'roles' => '1',
+            'landing_page' => 'dashboard',
+        ];
+
+        // The edit form offers the password to the user themself only, so it is sent by hand here
+        $this->loginAs()
+            ->patchJson(route('users.update', $user->id), $request)
+            ->assertOk()
+            ->assertJson(['success' => false]);
+
+        $this->api()
+            ->patchJson(route('api.users.update', $user->id), $request)
+            ->assertForbidden();
+
+        $this->assertSame($user->getAuthPassword(), $user->fresh()->getAuthPassword());
+    }
+
     public function testItShouldStillManageUsersOfTheSameCompany()
     {
         $user = $this->dispatch(new CreateUser($this->getUserRequest()));

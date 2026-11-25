@@ -58,8 +58,13 @@ class UpdateUser extends Job implements ShouldUpdate
                         return $user->companies()->whereIn('id', $this->request->get('companies'))->pluck('id');
                     });
 
+                    // The companies of the user that the logged in user is not in stay as they are
+                    $other_companies = $this->model->withoutEvents(function () use ($user) {
+                        return $this->model->companies()->whereNotIn('id', $user->companies()->pluck('id'))->pluck('id');
+                    });
+
                     if ($companies->isNotEmpty()) {
-                        $sync = $this->model->companies()->sync($companies->toArray());
+                        $sync = $this->model->companies()->sync($companies->merge($other_companies)->unique()->values()->toArray());
                     }
                 }
             }
@@ -88,10 +93,34 @@ class UpdateUser extends Job implements ShouldUpdate
     /**
      * Determine if this action is applicable.
      */
+    /**
+     * Whether the request sets a new password or another email.
+     */
+    protected function changesIdentity(): bool
+    {
+        if (! empty($this->request['password'])) {
+            return true;
+        }
+
+        $email = $this->request['email'] ?? null;
+
+        return ! empty($email) && (mb_strtolower((string) $email) !== mb_strtolower((string) $this->model->email));
+    }
+
     public function authorize(): void
     {
         // Can't update the users of companies you are not in
         if (! request()->isInstall() && $this->isNotUserManageable($this->model)) {
+            throw new NotAllowed(trans('errors.message.403'));
+        }
+
+        // Can't change the password of another user
+        if (($actor = user()) && ! empty($this->request['password']) && ! $actor->canChangePasswordOf($this->model)) {
+            throw new NotAllowed(trans('errors.message.403'));
+        }
+
+        // Can't change the email or password of a user who is in companies you are not in
+        if (($actor = user()) && $this->changesIdentity() && ! $actor->canChangeIdentityOf($this->model)) {
             throw new NotAllowed(trans('errors.message.403'));
         }
 

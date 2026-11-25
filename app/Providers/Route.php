@@ -326,5 +326,17 @@ class Route extends Provider
                 Limit::perMinute(config('app.throttles.email.minute')),
             ];
         });
+
+        // Failed logins of an email from an address, counted by Auth\Login
+        RateLimiter::for('login', function (Request $request) {
+            return Limit::perMinute(config('app.throttles.login'))
+                        ->by(mb_strtolower((string) $request->get('email')) . '|' . $request->ip());
+        });
+
+        // Password reset requests from an address, counted by Auth\Forgot
+        RateLimiter::for('forgot', function (Request $request) {
+            return Limit::perMinute(config('app.throttles.forgot'))
+                        ->by($request->ip());
+        });
     }
 }

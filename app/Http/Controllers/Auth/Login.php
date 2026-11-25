@@ -6,6 +6,7 @@ use App\Abstracts\Http\Controller;
 use App\Http\Requests\Auth\Login as Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -37,10 +38,24 @@ class Login extends Controller
 
     public function store(Request $request)
     {
+        // Only the failed logins count against the login limit, so it is applied here
+        // and not as middleware, which would count every login and answer with a 429
+        // the login form does not show
+        $limit = RateLimiter::limiter('login')($request);
+        $throttle_key = 'login|' . $limit->key;
+
+        if (RateLimiter::tooManyAttempts($throttle_key, $limit->maxAttempts)) {
+            return $this->respondLoginFailed(trans('auth.throttle', ['seconds' => RateLimiter::availableIn($throttle_key)]));
+        }
+
         // Attempt to login
         if (! auth()->attempt($request->only('email', 'password'), $request->get('remember', false))) {
+            RateLimiter::hit($throttle_key, $limit->decayMinutes * 60);
+
             return $this->respondLoginFailed();
         }
+
+        RateLimiter::clear($throttle_key);
 
         // Get user object
         $user = user();
@@ -124,13 +139,13 @@ class Login extends Controller
      * "email does not exist" from "disabled" or "no company" and enumerate
      * valid registered email addresses.
      */
-    protected function respondLoginFailed()
+    protected function respondLoginFailed(?string $message = null)
     {
         return response()->json([
             'status' => null,
             'success' => false,
             'error' => true,
-            'message' => trans('auth.failed'),
+            'message' => $message ?? trans('auth.failed'),
             'data' => null,
             'redirect' => null,
         ]);

@@ -19,5 +19,11 @@ class Login
         $event->user->last_logged_in_at = Date::now();
 
         $event->user->save();
+
+        // The session may still hold the password of a user logged out on this browser,
+        // which session.auth would take for a changed password, so the new one is written
+        if (request()->hasSession()) {
+            request()->session()->put('password_hash_' . $event->guard, $event->user->getAuthPassword());
+        }
     }
 }

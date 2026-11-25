@@ -11,11 +11,13 @@ use App\Traits\Sources;
 use App\Traits\Tenants;
 use App\Traits\Users;
 use App\Utilities\Date;
+use Illuminate\Auth\SessionGuard;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Password;
 use Laratrust\Traits\LaratrustUserTrait;
 use Lorisleiva\LaravelSearchString\Concerns\SearchString;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
@@ -71,6 +73,72 @@ class User extends Authenticatable implements HasLocalePreference
         static::saving(function ($model) {
             $model->unsetCompanyIds();
         });
+
+        static::updated(function ($model) {
+            if ($model->wasChanged('password')) {
+                $model->passwordChanged();
+            }
+        });
+    }
+
+    /**
+     * The email and password are the user's in every company they are in, so another user
+     * changes them only when they are in all those companies too.
+     *
+     * @param \App\Models\Auth\User $target
+     */
+    public function canChangeIdentityOf($target): bool
+    {
+        if ($target->id === $this->id) {
+            return true;
+        }
+
+        $mine = $this->withoutEvents(fn () => $this->companies()->pluck('companies.id'));
+        $theirs = $target->withoutEvents(fn () => $target->companies()->pluck('companies.id'));
+
+        return $theirs->diff($mine)->isEmpty();
+    }
+
+    /**
+     * The password is changed only by the user themself, as the edit form offers it to them only.
+     *
+     * @param \App\Models\Auth\User $target
+     */
+    public function canChangePasswordOf($target): bool
+    {
+        return $target->id === $this->id;
+    }
+
+    /**
+     * A new password ends what the old one opened: the reset links sent before and,
+     * through the session.auth middleware, the sessions on other devices. The user
+     * changing their own password stays logged in on the device they changed it on.
+     */
+    public function passwordChanged(): void
+    {
+        Password::broker()->deleteToken($this);
+
+        $guard = auth()->guard();
+
+        if (! ($guard instanceof SessionGuard) || ! $guard->check() || ($guard->id() !== $this->id) || ! request()->hasSession()) {
+            return;
+        }
+
+        // The logged in user may be another copy of this one, still with the old password,
+        // which session.auth would write back to the session at the end of the request
+        $guard->setUser($this);
+
+        request()->session()->put('password_hash_' . auth()->getDefaultDriver(), $this->getAuthPassword());
+
+        // The remember cookie of this device carries the password too, so it is renewed
+        $jar = $guard->getCookieJar();
+
+        if (request()->cookies->has($guard->getRecallerName())) {
+            $jar->queue($jar->forever(
+                $guard->getRecallerName(),
+                $this->getAuthIdentifier() . '|' . $this->getRememberToken() . '|' . $this->getAuthPassword()
+            ));
+        }
     }
 
     public function companies()
