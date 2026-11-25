@@ -27,6 +27,11 @@ return [
         'expire' => env('APP_SIGNED_LINKS_EXPIRE', 0),
     ],
 
+    'invitations' => [
+        // Days an invitation link to set the password is valid for, 0 for never expire
+        'expire' => env('APP_INVITATIONS_EXPIRE', 7),
+    ],
+
     'throttles' => [
         'api' => env('APP_THROTTLES_API', '60'),
         'oauth' => env('APP_THROTTLES_OAUTH', '60'),

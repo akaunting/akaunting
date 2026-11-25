@@ -33,7 +33,7 @@ class Register extends Controller
 
     public function create($token)
     {
-        $invitation = UserInvitation::token($token)->first();
+        $invitation = UserInvitation::token($token)->notExpired()->first();
 
         if ($invitation) {
             return view('auth.register.create', ['token' => $token]);
@@ -44,7 +44,7 @@ class Register extends Controller
 
     public function store(Request $request)
     {
-        $invitation = UserInvitation::token($request->get('token'))->first();
+        $invitation = UserInvitation::token($request->get('token'))->notExpired()->first();
 
         // The invited user may have been deleted while the invitation was still
         // pending, which makes the invitation as invalid as a missing one.
