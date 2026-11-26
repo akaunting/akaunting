@@ -4,7 +4,10 @@ namespace Tests\Feature\Common;
 
 use App\Imports\Common\Sheets\Items as ItemsImport;
 use App\Jobs\Banking\CreateTransfer;
+use App\Jobs\Common\CreateContact;
 use App\Jobs\Common\CreateItem;
+use App\Jobs\Document\CreateDocument;
+use App\Models\Common\Contact;
 use App\Models\Banking\Transfer;
 use App\Models\Document\Document;
 use App\Models\Setting\Tax;
@@ -129,5 +132,50 @@ class OutputEscapingTest extends FeatureTestCase
             ->assertOk()
             ->assertDontSee('<svg/onload', false)
             ->assertSee(escape_html($this->payload), false);
+    }
+
+    public function testItShouldKeepTheVueExpressionsOfAValueAsText()
+    {
+        $this->assertSame('{&#8203;{ 7*7 }}', escape_html('{{ 7*7 }}'));
+        $this->assertSame('{&#8203;{ 7*7 }}', escape_vue('{{ 7*7 }}'));
+
+        // The HTML the views build keeps its own Vue expressions
+        $this->assertSame('{{ form.name }}', escape_vue(new \Illuminate\Support\HtmlString('{{ form.name }}')));
+
+        // The JSON given to the Vue components keeps the braces of its nested objects
+        $this->assertSame(e(json_encode(['a' => ['b' => 1]])), escape_vue(json_encode(['a' => ['b' => 1]])));
+
+        $this->dispatch(new CreateContact(array_merge(Contact::factory()->customer()->enabled()->raw(), ['name' => '{{ 7*7 }}'])));
+
+        $response = $this->loginAs()
+            ->get(route('customers.index'))
+            ->assertOk()
+            ->assertSee('{&#8203;{ 7*7 }}', false);
+
+        $this->assertStringNotContainsString('{{ 7*7 }}', $response->getContent());
+    }
+
+    public function testItShouldEscapeTheNumberOfAChildInvoice()
+    {
+        $recurring = $this->dispatch(new CreateDocument(Document::factory()->invoice()->items()->recurring()->raw()));
+
+        Document::factory()->invoice()->create([
+            'parent_id' => $recurring->id,
+            'document_number' => $this->payload,
+        ]);
+
+        $this->loginAs()
+            ->get(route('recurring-invoices.show', $recurring->id))
+            ->assertOk()
+            ->assertDontSee('<svg/onload', false)
+            ->assertSee(escape_html($this->payload), false);
+    }
+
+    public function testItShouldNotRunTheUpdateOfAVersionThatIsNotOne()
+    {
+        $this->loginAs()
+            ->withExceptionHandling()
+            ->get(url($this->company->id . '/install/updates/run/core/' . rawurlencode('{{ 7*7 }}')))
+            ->assertNotFound();
     }
 }

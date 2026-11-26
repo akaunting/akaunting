@@ -243,7 +243,7 @@ Route::group(['prefix' => 'install'], function () {
     Route::get('updates', 'Install\Updates@index')->name('updates.index');
     Route::get('updates/changelog', 'Install\Updates@changelog')->name('updates.changelog');
     Route::get('updates/check', 'Install\Updates@check')->name('updates.check');
-    Route::get('updates/run/{alias}/{version}', 'Install\Updates@run')->name('updates.run');
+    Route::get('updates/run/{alias}/{version}', 'Install\Updates@run')->where('version', '[0-9A-Za-z.\-]+')->name('updates.run');
     Route::post('updates/steps', 'Install\Updates@steps')->name('updates.steps');
     Route::post('updates/download', 'Install\Updates@download')->middleware('api.key')->name('updates.download');
     Route::post('updates/unzip', 'Install\Updates@unzip')->middleware('api.key')->name('updates.unzip');

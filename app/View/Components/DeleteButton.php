@@ -217,7 +217,7 @@ class DeleteButton extends Component
             }
 
             $text = $this->text ? $this->text : $page;
-            $name = e($this->model->{$this->modelName});
+            $name = escape_vue($this->model->{$this->modelName});
             $name = addslashes($name);
             $name = Str::replace(['\"', '"'], '&quot;', $name);
 

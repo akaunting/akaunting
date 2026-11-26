@@ -9,7 +9,7 @@
     <x-slot name="body">
         @if ($transaction->splits()->count())
             @foreach ($transaction->splits()->get() as $split)
-                @php $url = '<a href="' . route('transactions.show', $split->id) . '" class="text-purple">' . $split->number . '</a>' @endphp
+                @php $url = '<a href="' . route('transactions.show', $split->id) . '" class="text-purple">' . escape_html($split->number) . '</a>' @endphp
 
                 <div class="my-2">
                     {!! trans('recurring.child', ['url' => $url, 'date' => company_date($split->paid_at)]) !!}

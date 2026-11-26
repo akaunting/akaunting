@@ -198,6 +198,15 @@ class AccessControlTest extends FeatureTestCase
 
         $payment = ['payment_method' => 'offline-payments.cash.1'];
 
+        // Shown to the customers, the methods the company starts with are for the admins only
+        setting(['offline-payments.methods' => json_encode([[
+            'code' => 'offline-payments.cash.1',
+            'name' => 'Cash',
+            'customer' => '1',
+            'order' => '1',
+            'description' => null,
+        ]])])->save();
+
         // Another customer of the company reaches neither the payment page nor the confirm
         $this->loginAs($other->user)->withExceptionHandling();
 

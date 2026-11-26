@@ -15,7 +15,7 @@
         @if ($document->children()->count())
             @foreach ($document->children()->get() as $child)
                 @php
-                    $url = '<a href="' . route(Str::replace('recurring-', '', $showRoute), $child->id) . '" class="text-purple">' . $child->document_number . '</a>';
+                    $url = '<a href="' . route(Str::replace('recurring-', '', $showRoute), $child->id) . '" class="text-purple">' . escape_html($child->document_number) . '</a>';
                 @endphp
 
                 <div class="my-2">

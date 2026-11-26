@@ -78,7 +78,7 @@
                             </tr>
 
                             <tr v-if="contact.location">
-                                <th class="font-normal text-sm ltr:text-left rtl:text-right p-0" v-html="contact.location"></th>
+                                <th class="font-normal text-sm ltr:text-left rtl:text-right p-0 whitespace-pre-line">{{ contact.location }}</th>
                             </tr>
 
                             <tr v-if="contact.tax_number">

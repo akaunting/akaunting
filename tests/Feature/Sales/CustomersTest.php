@@ -58,16 +58,18 @@ class CustomersTest extends FeatureTestCase
         $this->assertDatabaseHas('contacts', $request);
     }
 
-    public function testItShouldNotCreateCustomerWithInvalidUser()
+    public function testItShouldNotLinkCustomerToTheUserSent()
     {
         $request = $this->getRequest();
-        $request['user_id'] = 99999;
+        $request['user_id'] = $this->user->id;
 
-        $this->withExceptionHandling()
-            ->loginAs()
+        // The user of a contact is the one it creates, the one sent is not taken
+        $this->loginAs()
             ->postJson(route('customers.store'), $request)
-            ->assertStatus(422)
-            ->assertJsonValidationErrors(['user_id']);
+            ->assertOk()
+            ->assertJson(['success' => true]);
+
+        $this->assertDatabaseHas('contacts', ['email' => $request['email'], 'user_id' => null]);
     }
 
     public function testItShouldCreateCustomerWithUser()

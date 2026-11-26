@@ -21,6 +21,9 @@ class Blade extends ServiceProvider
      */
     public function boot()
     {
+        // The {{ }} of the views, escaped for Vue too, see escape_vue()
+        Facade::setEchoFormat('escape_vue(%s)');
+
         Facade::directive('date', function ($expression) {
             return "<?php echo company_date($expression); ?>";
         });

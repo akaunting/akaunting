@@ -648,7 +648,31 @@ if (! function_exists('escape_html')) {
      */
     function escape_html($value, bool $double_encode = true): string
     {
-        return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8', $double_encode);
+        $value = htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8', $double_encode);
+
+        // As escape_vue(), the pages are compiled by Vue too
+        return str_replace('{{', '{&#8203;{', $value);
+    }
+}
+
+if (! function_exists('escape_vue')) {
+    /**
+     * The echo of the Blade views. Vue compiles the pages after they are rendered, so a value
+     * people type, like a name with {{ }} in it, would run as an expression. A zero width space
+     * between the opening braces shows nothing and keeps it as text. The closing ones stay, as
+     * the JSON the views give to the Vue components ends its nested objects with them, and the
+     * JSON has {{ only in its strings.
+     *
+     * The HTML the views build, like the slots of the components, is left as it is, as e() does:
+     * the Vue expressions in it are the views' own.
+     */
+    function escape_vue($value, bool $double_encode = true): string
+    {
+        if ($value instanceof \Illuminate\Contracts\Support\Htmlable) {
+            return $value->toHtml();
+        }
+
+        return str_replace('{{', '{&#8203;{', e($value, $double_encode));
     }
 }
 
