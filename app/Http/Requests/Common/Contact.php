@@ -8,6 +8,21 @@ use Illuminate\Support\Str;
 class Contact extends FormRequest
 {
     /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        parent::prepareForValidation();
+
+        // The user of a contact is the one the contact creates or the import finds, it is not sent
+        $this->getInputSource()->remove('user_id');
+        $this->request->remove('user_id');
+        $this->query->remove('user_id');
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array

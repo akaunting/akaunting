@@ -60,7 +60,10 @@ class CreateContact extends Job implements HasOwner, HasSource, ShouldCreate
             'companies' => [$this->request->get('company_id')],
         ]);
 
-        $user = $this->dispatch(new CreateUser($this->request));
+        // Only the fields of the user, the rest of the contact request, like permissions, is not its
+        $user = $this->dispatch(new CreateUser($this->request->only([
+            'name', 'email', 'password', 'password_confirmation', 'enabled', 'locale', 'roles', 'companies',
+        ])));
 
         $this->request['user_id'] = $user->id;
     }

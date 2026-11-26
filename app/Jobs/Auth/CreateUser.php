@@ -41,7 +41,8 @@ class CreateUser extends Job implements HasOwner, HasSource, ShouldCreate
                 $this->model->dashboards()->attach($this->request->get('dashboards'));
             }
 
-            if ($this->request->has('permissions')) {
+            // The permissions come with the roles, a user is given its own ones only by the console and install
+            if ($this->request->has('permissions') && (app()->runningInConsole() || request()->isInstall())) {
                 $this->model->permissions()->attach($this->request->get('permissions'));
             }
 

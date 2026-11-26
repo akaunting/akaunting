@@ -44,7 +44,12 @@ class Customers extends Import
         // e-mail looked a user up, and one that cannot log in was linked to a user of the same e-mail.
         // The id alone is read: a user model reads its companies when it is retrieved.
         if (filter_var($row['can_login'] ?? false, FILTER_VALIDATE_BOOLEAN) && ! empty($row['email'])) {
-            $user_id = user_model_class()::where('email', $row['email'])->toBase()->value('id');
+            // Only a customer user of this company, the e-mail of an employee or of another company's user is not linked
+            $user_id = user_model_class()::where('email', $row['email'])
+                ->isCustomer()
+                ->whereHas('companies', fn ($query) => $query->where('companies.id', company_id()))
+                ->toBase()
+                ->value('users.id');
 
             $row['user_id'] = $user_id ? (int) $user_id : null;
         }
