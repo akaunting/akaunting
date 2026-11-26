@@ -3,6 +3,7 @@
 namespace Tests\Feature\Common;
 
 use App\Imports\Common\Sheets\Items as ItemsImport;
+use App\Jobs\Banking\CreateBankingDocumentTransaction;
 use App\Jobs\Banking\CreateTransfer;
 use App\Jobs\Common\CreateContact;
 use App\Jobs\Common\CreateItem;
@@ -11,6 +12,8 @@ use App\Models\Common\Contact;
 use App\Models\Banking\Transfer;
 use App\Models\Document\Document;
 use App\Models\Setting\Tax;
+use App\Notifications\Sale\Invoice as InvoiceNotification;
+use App\Traits\Charts;
 use Tests\Feature\FeatureTestCase;
 
 class OutputEscapingTest extends FeatureTestCase
@@ -177,5 +180,72 @@ class OutputEscapingTest extends FeatureTestCase
             ->withExceptionHandling()
             ->get(url($this->company->id . '/install/updates/run/core/' . rawurlencode('{{ 7*7 }}')))
             ->assertNotFound();
+    }
+
+    public function testItShouldGiveTheEditorItsValueAsAString()
+    {
+        $html = (string) $this->blade('<x-form.group.editor name="body" :value="$value" />', [
+            'value' => 'Dear ${alert(1)} `x`',
+        ]);
+
+        // Not a template literal, where ${} would run
+        $this->assertStringNotContainsString(':value="`', $html);
+        $this->assertStringContainsString(":value=\"'Dear \${alert(1)} `x`'\"", $html);
+    }
+
+    public function testItShouldEscapeTheLabelsOfADonutChart()
+    {
+        $chart = new class {
+            use Charts;
+        };
+
+        $chart->addMoneyToDonutChart('#000000', 10, $this->payload);
+
+        $this->assertStringContainsString(escape_html($this->payload), $chart->donut['labels'][0]);
+        $this->assertStringNotContainsString('<svg', $chart->donut['labels'][0]);
+    }
+
+    public function testItShouldEscapeThePaymentMethodOfAPaymentOnTheSignedInvoice()
+    {
+        $invoice = $this->dispatch(new CreateDocument(Document::factory()->invoice()->sent()->items()->raw()));
+
+        $this->dispatch(new CreateBankingDocumentTransaction($invoice, [
+            'type' => 'income',
+            'payment_method' => 'offline-payments.cash.1',
+        ]));
+
+        // The customer sees the name of the payment method
+        setting(['offline-payments.methods' => json_encode([[
+            'code' => 'offline-payments.cash.1',
+            'name' => $this->payload,
+            'customer' => '1',
+            'order' => '1',
+            'description' => null,
+        ]])])->save();
+
+        \App\Utilities\Modules::clearPaymentMethodsCache();
+
+        $this->get(signed_route('signed.invoices.show', ['company_id' => $invoice->company_id, 'invoice' => $invoice->id]))
+            ->assertOk()
+            ->assertDontSee('<svg/onload', false)
+            ->assertSee(escape_html($this->payload), false);
+    }
+
+    public function testItShouldEscapeTheValuesInTheBodyOfAnEmail()
+    {
+        $this->loginAs();
+
+        $invoice = $this->dispatch(new CreateDocument(Document::factory()->invoice()->sent()->items()->raw([
+            'contact_name' => $this->payload,
+        ])));
+
+        $notification = new InvoiceNotification($invoice, 'invoice_new_customer');
+
+        $this->assertStringNotContainsString('<svg/onload', $notification->getBody());
+        $this->assertStringContainsString(escape_html($this->payload), $notification->getBody());
+
+        // The subject is text, and a line break a value carries stays in the body
+        $this->assertSame($invoice->document_number . ' invoice created', $notification->getSubject());
+        $this->assertSame("A &amp; B<br />\nC", $notification->escapeTagValue(nl2br("A & B\nC")));
     }
 }

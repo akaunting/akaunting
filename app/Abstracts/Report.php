@@ -280,7 +280,8 @@ abstract class Report
         $labels = $colors = $values = [];
 
         foreach ($tmp_values as $id => $value) {
-            $labels[$id] = $this->row_names[$table_key][$id];
+            // The chart puts its labels in the page as HTML, and they are names people type
+            $labels[$id] = escape_html($this->row_names[$table_key][$id]);
 
             $colors[$id] = ($group == 'category')
                             ? Category::withSubCategory()->find($id)?->colorHexCode

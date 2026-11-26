@@ -110,8 +110,8 @@
                                                 </x-link>
                                                 - {!! trans($text_document_transaction, [
                                                     'amount' => '<span class="font-medium">' . money($transaction->amount, $transaction->currency_code) . '</span>',
-                                                    'payment_method' => '<span class="font-medium">' . $transaction->payment_method_title . '</span>',
-                                                    'account' => '<span class="font-medium">' . $transaction->account->name . '</span>',
+                                                    'payment_method' => '<span class="font-medium">' . escape_html($transaction->payment_method_title) . '</span>',
+                                                    'account' => '<span class="font-medium">' . escape_html($transaction->account->name) . '</span>',
                                                 ]) !!}
                                             </span>
                                         </div>

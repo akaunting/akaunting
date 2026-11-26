@@ -22,7 +22,8 @@ trait Charts
     public function addToDonutChart($color, $label, $value)
     {
         $this->donut['colors'][] = $color;
-        $this->donut['labels'][] = $label;
+        // The chart puts its labels in the page as HTML, and they carry names people type
+        $this->donut['labels'][] = escape_html($label);
         $this->donut['values'][] = (int) $value;
     }
 

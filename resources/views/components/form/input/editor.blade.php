@@ -2,7 +2,8 @@
     name="{{ $name }}"
 
     @if (! empty($value))
-    :value="`{!! $value !!}`"
+    {{-- A JS string, as a template literal would run the ${} of the value; the group escaped the value --}}
+    :value="{{ \Illuminate\Support\Js::from(html_entity_decode((string) $value, ENT_QUOTES | ENT_HTML5)) }}"
     @else
     :value="''"
     @endif

@@ -83,17 +83,40 @@ abstract class Notification extends BaseNotification implements ShouldQueue
     {
         $body = !empty($this->custom_mail['body'])
             ? EmailTemplate::sanitizeBody($this->custom_mail['body'])
-            : $this->replaceTags($this->template->body);
+            : $this->replaceTags($this->template->body, true);
 
         return $body . $this->getFooter();
     }
 
-    public function replaceTags(string $content): string
+    /**
+     * $escape is for the body, which is HTML: the values people type, like the name of the
+     * contact, go in as text. The subject is text, so its values go in as they are.
+     */
+    public function replaceTags(string $content, bool $escape = false): string
     {
         $pattern = $this->getTagsPattern();
-        $replacement = $this->applyQuote($this->getTagsReplacement());
+        $values = $this->getTagsReplacement();
+
+        if ($escape) {
+            $values = array_map(fn ($value) => $this->escapeTagValue($value), $values);
+        }
+
+        $replacement = $this->applyQuote($values);
 
         return $this->revertQuote(preg_replace($pattern, $replacement, $content));
+    }
+
+    /**
+     * A tag value as text in the HTML body. The line breaks some values carry, like the nl2br
+     * of an address, stay.
+     */
+    public function escapeTagValue($value): string
+    {
+        return str_replace(
+            ['&lt;br /&gt;', '&lt;br/&gt;', '&lt;br&gt;'],
+            ['<br />', '<br/>', '<br>'],
+            escape_html((string) $value)
+        );
     }
 
     public function getFooter()
