@@ -50,6 +50,10 @@ class IdentifyCompany
 
         $company->makeCurrent();
 
+        // The company of the input is the one the request is identified by, as the form requests
+        // do, so a company_id sent to enable, disable or a bulk action does not move a record
+        $this->request->merge(['company_id' => $company_id]);
+
         // Load company-specific modules (event listeners, providers)
         $this->registerModules();
 

@@ -24,7 +24,7 @@ class UpdateContact extends Job implements ShouldUpdate
             if ($this->request->get('create_user', 'false') === 'true') {
                 $this->createUser();
             } elseif ($this->model->user) {
-                $this->model->user->update($this->request->all());
+                $this->updateUser();
             }
 
             // Upload logo
@@ -88,9 +88,27 @@ class UpdateContact extends Job implements ShouldUpdate
             'companies' => [$this->request->get('company_id')],
         ]);
 
-        $user = $this->dispatch(new CreateUser($this->request));
+        // Only the fields of the user, the rest of the contact request, like permissions, is not its
+        $user = $this->dispatch(new CreateUser($this->request->only([
+            'name', 'email', 'password', 'password_confirmation', 'enabled', 'locale', 'roles', 'companies',
+        ])));
 
         $this->request['user_id'] = $user->id;
+    }
+
+    /**
+     * The name and email of the contact are its user's too. The password and the rest of the user
+     * are the user's to change, and a user in companies the logged in user is not in keeps them.
+     */
+    public function updateUser(): void
+    {
+        $user = $this->model->user;
+
+        if (($actor = user()) && ! $actor->canChangeIdentityOf($user)) {
+            return;
+        }
+
+        $user->update($this->request->only(['name', 'email']));
     }
 
     public function updateRecurringDocument(): void
