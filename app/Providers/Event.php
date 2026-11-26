@@ -38,6 +38,7 @@ class Event extends Provider
             \App\Listeners\Update\V32\Version324::class,
             \App\Listeners\Update\V33\Version331::class,
             \App\Listeners\Update\V33\Version332::class,
+            \App\Listeners\Update\V33\Version333::class,
         ],
         \Illuminate\Routing\Events\PreparingResponse::class => [
             \App\Listeners\Common\PreparingResponse::class,
