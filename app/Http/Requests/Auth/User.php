@@ -64,16 +64,18 @@ class User extends FormRequest
 
         $email .= '|unique:users,email,' . ($id ?? 'null') . ',id,deleted_at,NULL';
 
-        $change_password = $this->request->get('change_password') == true || $this->request->get('change_password') != null;
+        // A new password of your own asks for the current one, also without the change password box
+        $change_password = $this->request->get('change_password') == true || $this->request->get('change_password') != null
+            || ($this->filled('password') && ! empty($id) && ((int) $id === (int) user()?->id));
 
-        $current_password = $change_password ? '|current_password' : '';
-        $password = $change_password ? '|confirmed' : '';
+        $current_password = $change_password ? 'required|current_password' : 'nullable';
+        $password = $change_password ? 'required|confirmed' : 'nullable';
 
         return [
             'name'              => 'required|string|max:255',
             'email'             => $email,
-            'current_password'  => 'required_if:change_password,true' . $current_password,
-            'password'          => 'required_if:change_password,true' . $password,
+            'current_password'  => $current_password,
+            'password'          => $password,
             'companies'         => $companies,
             'roles'             => $roles,
             'picture'           => $picture,

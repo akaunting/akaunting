@@ -91,8 +91,21 @@ class UpdateUser extends Job implements ShouldUpdate
     }
 
     /**
-     * Determine if this action is applicable.
+     * Whether the request sets other roles than the user has.
      */
+    protected function changesRoles(): bool
+    {
+        if (! $this->request->has('roles')) {
+            return false;
+        }
+
+        $roles = collect((array) $this->request->get('roles'))->filter()->map(fn ($id) => (int) $id)->sort()->values();
+
+        $current = $this->model->withoutEvents(fn () => $this->model->roles()->pluck('roles.id'))->map(fn ($id) => (int) $id)->sort()->values();
+
+        return $roles->all() !== $current->all();
+    }
+
     /**
      * Whether the request sets a new password or another email.
      */
@@ -107,6 +120,9 @@ class UpdateUser extends Job implements ShouldUpdate
         return ! empty($email) && (mb_strtolower((string) $email) !== mb_strtolower((string) $this->model->email));
     }
 
+    /**
+     * Determine if this action is applicable.
+     */
     public function authorize(): void
     {
         // Can't update the users of companies you are not in
@@ -137,6 +153,11 @@ class UpdateUser extends Job implements ShouldUpdate
             && ! user()->can('update-auth-users')
         ) {
             $this->request->request->remove('roles');
+        }
+
+        // Can't change the roles of a user who is in companies you are not in, the roles are the same in all of them
+        if (($actor = user()) && $this->changesRoles() && ! $actor->canChangeIdentityOf($this->model)) {
+            throw new NotAllowed(trans('errors.message.403'));
         }
 
         // Can't disable yourself

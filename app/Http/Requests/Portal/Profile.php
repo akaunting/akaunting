@@ -34,16 +34,18 @@ class Profile extends FormRequest
                       . ',deleted_at,NULL';
         }
 
-        $change_password = $this->request->get('change_password') == true || $this->request->get('change_password') != null;
+        // A new password asks for the current one, also without the change password box
+        $change_password = $this->request->get('change_password') == true || $this->request->get('change_password') != null
+            || $this->filled('password');
 
-        $current_password = $change_password ? '|current_password' : '';
-        $password = $change_password ? '|confirmed' : '';
+        $current_password = $change_password ? 'required|current_password' : 'nullable';
+        $password = $change_password ? 'required|confirmed' : 'nullable';
 
         return [
             'name'              => 'required|string',
             'email'             => $email,
-            'current_password'  => 'required_if:change_password,true' . $current_password,
-            'password'          => 'required_if:change_password,true' . $password,
+            'current_password'  => $current_password,
+            'password'          => $password,
             'picture'           => $picture,
             'tax_number'       => 'nullable|string|max:50',
             'phone'             => 'nullable|string|max:20',

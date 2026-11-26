@@ -160,6 +160,50 @@ class UsersCompanyIsolationTest extends FeatureTestCase
         );
     }
 
+    public function testItShouldNotChangeTheRolesOfAUserInOtherCompaniesToo()
+    {
+        // In this company and in one the logged in user is not in
+        $shared = $this->createUserOfAnotherCompany();
+        $shared->companies()->attach($this->company->id);
+        $shared = $shared->fresh();
+
+        $roles = $shared->roles()->pluck('roles.id')->all();
+        $other_role = role_model_class()::whereNotIn('id', $roles)->first();
+
+        $this->loginAs()
+            ->patchJson(route('users.update', $shared->id), [
+                'name' => $shared->name,
+                'email' => $shared->email,
+                'companies' => $shared->companies()->pluck('companies.id')->all(),
+                'roles' => (string) $other_role->id,
+                'landing_page' => 'dashboard',
+            ])
+            ->assertOk()
+            ->assertJson(['success' => false]);
+
+        $this->assertEqualsCanonicalizing($roles, $shared->fresh()->roles()->pluck('roles.id')->all());
+    }
+
+    public function testItShouldStillChangeTheRolesOfAUserOnlyInTheSameCompany()
+    {
+        $user = $this->dispatch(new CreateUser($this->getUserRequest()));
+
+        $other_role = role_model_class()::whereNotIn('id', $user->roles()->pluck('roles.id'))->first();
+
+        $this->loginAs()
+            ->patchJson(route('users.update', $user->id), [
+                'name' => $user->name,
+                'email' => $user->email,
+                'companies' => [$this->company->id],
+                'roles' => (string) $other_role->id,
+                'landing_page' => 'dashboard',
+            ])
+            ->assertOk()
+            ->assertJson(['success' => true]);
+
+        $this->assertSame([$other_role->id], $user->fresh()->roles()->pluck('roles.id')->all());
+    }
+
     public function testItShouldStillChangeTheEmailOfAUserOnlyInTheSameCompany()
     {
         $user = $this->dispatch(new CreateUser($this->getUserRequest()));

@@ -201,6 +201,63 @@ class SessionSecurityTest extends FeatureTestCase
         $this->assertAuthenticatedAs($user);
     }
 
+    public function testItShouldAskTheCurrentPasswordForANewPasswordOfYourOwn()
+    {
+        $user = $this->createUser();
+
+        $this->post(route('login.store'), ['email' => $user->email, 'password' => 'user-password'])
+            ->assertJson(['success' => true]);
+
+        app('url')->defaults(['company_id' => $this->company->id]);
+
+        // Without the change password box, as a session left open would send it
+        $this->withExceptionHandling()
+            ->patchJson(route('profile.update', $user->id), [
+                'name' => $user->name,
+                'email' => $user->email,
+                'password' => 'new-password',
+                'password_confirmation' => 'new-password',
+                'companies' => [$this->company->id],
+                'roles' => (string) $this->user->roles->first()->id,
+                'landing_page' => 'dashboard',
+            ])
+            ->assertStatus(422)
+            ->assertJsonValidationErrors('current_password');
+
+        $this->assertTrue(password_verify('user-password', $user->fresh()->getAuthPassword()));
+    }
+
+    public function testItShouldAskTheCurrentPasswordForANewPasswordOnThePortal()
+    {
+        Notification::fake();
+
+        $contact = $this->dispatch(new CreateContact(array_merge(Contact::factory()->customer()->enabled()->raw(), [
+            'create_user' => 'true',
+            'locale' => 'en-GB',
+            'password' => 'user-password',
+            'password_confirmation' => 'user-password',
+        ])));
+
+        $user = $contact->fresh('user')->user;
+
+        $this->post(route('login.store'), ['email' => $user->email, 'password' => 'user-password'])
+            ->assertJson(['success' => true]);
+
+        app('url')->defaults(['company_id' => $this->company->id]);
+
+        $this->withExceptionHandling()
+            ->patchJson(route('portal.profile.update', $user->id), [
+                'name' => $contact->name,
+                'email' => $user->email,
+                'password' => 'new-password',
+                'password_confirmation' => 'new-password',
+            ])
+            ->assertStatus(422)
+            ->assertJsonValidationErrors('current_password');
+
+        $this->assertTrue(password_verify('user-password', $user->fresh()->getAuthPassword()));
+    }
+
     public function testItShouldRenewTheRememberCookieOfTheDeviceThePasswordIsChangedOn()
     {
         $user = $this->createUser();
