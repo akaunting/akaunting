@@ -9,6 +9,12 @@ use Illuminate\Support\Str;
 
 class Overrider
 {
+    /**
+     * The sendmail path the settings take: an absolute path with letter flags, like
+     * /usr/sbin/sendmail -bs. Symfony Mailer runs it in a shell, so nothing else goes.
+     */
+    public const SENDMAIL_PATH = '/^\/[\w.\/-]+( -[A-Za-z]+)*$/';
+
     public static $company_id;
 
     public static function load($type)
@@ -45,7 +51,12 @@ class Overrider
         config(['mail.from.address' => setting('company.email')]);
 
         if ($email_protocol == 'sendmail') {
-            config(['mail.mailers.sendmail.path' => setting('email.sendmail_path')]);
+            // A path saved before it was validated keeps the default of the config
+            $sendmail_path = (string) setting('email.sendmail_path');
+
+            if (preg_match(static::SENDMAIL_PATH, $sendmail_path)) {
+                config(['mail.mailers.sendmail.path' => $sendmail_path]);
+            }
         } elseif ($email_protocol == 'smtp') {
             config(['mail.mailers.smtp.host' => setting('email.smtp_host')]);
             config(['mail.mailers.smtp.port' => setting('email.smtp_port')]);

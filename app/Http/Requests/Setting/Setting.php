@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Setting;
 
 use App\Abstracts\Http\FormRequest;
+use App\Utilities\Overrider;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -76,6 +77,11 @@ class Setting extends FormRequest
             if ($this->request->has($logo_size)) {
                 $rules[$logo_size] = 'nullable|integer|min:1|max:1000';
             }
+        }
+
+        // Run in a shell by the mailer, so a path and its flags only, whatever page sends it
+        if ($this->request->has('sendmail_path')) {
+            $rules['sendmail_path'] = ['nullable', 'string', 'regex:' . Overrider::SENDMAIL_PATH];
         }
 
         if ($this->request->has('color')) {

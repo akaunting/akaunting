@@ -90,6 +90,9 @@ class Document extends FormRequest
 
         $items = $this->request->all('items');
 
+        // The amount left after the line discounts, which a fixed discount of the document does not pass
+        $total = 0;
+
         if ($items) {
             foreach ($items as $key => $item) {
                 $size = 10;
@@ -99,8 +102,14 @@ class Document extends FormRequest
                 // required rule below reports, so the key is not assumed to be there.
                 $quantity = $item['quantity'] ?? null;
 
+                $amount = null;
+
                 try {
                     $items[$key]['quantity'] = calculation_to_quantity($quantity);
+
+                    if (is_numeric($item['price'] ?? null)) {
+                        $amount = (double) $item['price'] * (double) $items[$key]['quantity'];
+                    }
                 } catch (\InvalidArgumentException $e) {
                     $quantityRule[] = function ($attribute, $value, $fail) {
                         $fail(trans('validation.custom.invalid_quantity', [
@@ -117,13 +126,56 @@ class Document extends FormRequest
 
                 $rules['items.' . $key . '.quantity'] = $quantityRule;
 
+                $discount_type = $item['discount_type'] ?? null;
+
+                $rules['items.' . $key . '.discount'] = $this->getDiscountRule($discount_type, $amount);
+
+                $total = $this->getDiscountedTotal($total, $amount, $item['discount'] ?? null, $discount_type);
+
                 $this->items_quantity_size[$key] = $size;
             }
 
             $this->request->set('items', $items);
         }
 
+        $rules['discount'] = $this->getDiscountRule($this->request->get('discount_type'), $total);
+
         return $rules;
+    }
+
+    /**
+     * A discount lowers the amount, so it is not below zero, a percentage is not above 100 and
+     * a fixed one is not above the amount it lowers, when the amount is known.
+     */
+    protected function getDiscountRule($type, ?float $amount = null): string
+    {
+        $rule = 'nullable|numeric|min:0';
+
+        if ($type === 'percentage') {
+            return $rule . '|max:100';
+        }
+
+        if (! is_null($amount)) {
+            $rule .= '|max:' . number_format(max($amount, 0), 6, '.', '');
+        }
+
+        return $rule;
+    }
+
+    /**
+     * The total with the amount of a line added after its discount, null once a line amount is not known.
+     */
+    protected function getDiscountedTotal(?float $total, ?float $amount, $discount, $type): ?float
+    {
+        if (is_null($total) || is_null($amount)) {
+            return null;
+        }
+
+        $discount = is_numeric($discount) ? (double) $discount : 0;
+
+        $amount -= ($type === 'percentage') ? ($amount * $discount / 100) : $discount;
+
+        return $total + max($amount, 0);
     }
 
     public function withValidator($validator)
