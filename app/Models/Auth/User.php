@@ -141,6 +141,14 @@ class User extends Authenticatable implements HasLocalePreference
         }
     }
 
+    /**
+     * The user who added this one, as the owner of the other models.
+     */
+    public function owner()
+    {
+        return $this->belongsTo(user_model_class(), 'created_by', 'id')->withDefault(['name' => trans('general.na')]);
+    }
+
     public function companies()
     {
         return $this->belongsToMany('App\Models\Common\Company', 'App\Models\Auth\UserCompany');

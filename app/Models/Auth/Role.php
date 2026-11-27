@@ -30,6 +30,14 @@ class Role extends LaratrustRole
     public $cloneable_relations = ['permissions'];
 
     /**
+     * The user who added the role, as the owner of the other models.
+     */
+    public function owner()
+    {
+        return $this->belongsTo(user_model_class(), 'created_by', 'id')->withDefault(['name' => trans('general.na')]);
+    }
+
+    /**
      * Scope to get all rows filtered, sorted and paginated.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query

@@ -296,6 +296,27 @@ class UsersCompanyIsolationTest extends FeatureTestCase
         $this->assertSame($user->getAuthPassword(), $fresh->getAuthPassword());
     }
 
+    public function testItShouldListAndShowUsersWithTheirOwnerOverApi()
+    {
+        $this->loginAs();
+
+        $user = $this->dispatch(new CreateUser($this->getUserRequest()));
+
+        $role = $user->roles()->first();
+        $role->forceFill(['created_by' => $this->user->id])->save();
+
+        $this->api()
+            ->getJson(route('api.users.index'))
+            ->assertOk()
+            ->assertJsonFragment(['email' => $user->email]);
+
+        $this->api()
+            ->getJson(route('api.users.show', $user->id))
+            ->assertOk()
+            ->assertJsonPath('data.owner.email', $this->user->email)
+            ->assertJsonPath('data.roles.data.0.owner.email', $this->user->email);
+    }
+
     protected function api(): self
     {
         return $this->withExceptionHandling()->withHeaders([
