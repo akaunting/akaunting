@@ -11,7 +11,7 @@
         >
             <div class="w-full lg:w-1/2 flex flex-col gap-6 justify-center">
                 <h2 class="font-bold text-3xl">
-                    {!! $cta->title !!}
+                    {{ $cta->title }}
                 </h2>
 
                 <div class="flex flex-col gap-4 divide-y">

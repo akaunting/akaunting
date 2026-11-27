@@ -104,11 +104,11 @@ class Actions extends Component
         }
 
         if (is_array($value) && $key === 'class') {
-            return 'class=' . implode(' ', $value);
+            return 'class="' . e(implode(' ', $value), false) . '"';
         }
 
         if (! is_null($value)) {
-            return $key . '=' . e($value, false);
+            return $key . '="' . e($value, false) . '"';
         }
     }
 }

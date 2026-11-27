@@ -32,7 +32,7 @@
 
                 <div class="w-full lg:w-1/2">
                     <p class="text-sm lh-160">
-                        {!! nl2br($review->text) !!}
+                        {!! nl2br(escape_html($review->text)) !!}
                     </p>
                 </div>
             </div>

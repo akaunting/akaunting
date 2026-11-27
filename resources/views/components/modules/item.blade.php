@@ -13,7 +13,7 @@
         <div class="flex items-baseline justify-between">
             <h4 class="w-32 truncate">
                 <x-link href="{{ route('apps.app.show', $module->slug) }}" override="class">
-                    {!! $module->name !!}
+                    {{ $module->name }}
                 </x-link>
             </h4>
 

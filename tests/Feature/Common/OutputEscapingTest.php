@@ -248,4 +248,66 @@ class OutputEscapingTest extends FeatureTestCase
         $this->assertSame($invoice->document_number . ' invoice created', $notification->getSubject());
         $this->assertSame("A &amp; B<br />\nC", $notification->escapeTagValue(nl2br("A & B\nC")));
     }
+
+    public function testItShouldEscapeTheTextOfAnAppReview()
+    {
+        $html = view('components.layouts.modules.reviews', [
+            'reviews' => (object) ['data' => [(object) [
+                'author' => 'Someone',
+                'created_at' => '2026-01-01',
+                'rating' => 5,
+                'text' => $this->payload . "\nSecond line",
+            ]]],
+        ])->render();
+
+        $this->assertStringNotContainsString('<svg/onload', $html);
+        $this->assertStringContainsString(escape_html($this->payload) . "<br />\nSecond line", $html);
+    }
+
+    public function testItShouldShowTheTitleOfACallToActionAsText()
+    {
+        $html = view('components.layouts.modules.show.features', [
+            'module' => (object) ['call_to_actions' => [(object) [
+                'position' => 'left',
+                'title' => $this->payload,
+                'description' => 'Text',
+                'thumb' => (object) ['path_string' => '', 'alt_attribute' => ''],
+            ]]],
+        ])->render();
+
+        $this->assertStringNotContainsString('<svg/onload', $html);
+        $this->assertStringContainsString(escape_html($this->payload), $html);
+    }
+
+    public function testItShouldEscapeTheErrorAndTheCompanyNameInTheInvalidEmailMail()
+    {
+        $this->loginAs();
+
+        setting(['company.name' => $this->payload]);
+
+        $html = (string) (new \App\Notifications\Email\InvalidEmail('a@b.c', 'customer', $this->payload))
+            ->toMail(user())
+            ->render();
+
+        $this->assertStringNotContainsString('<svg/onload', $html);
+        // The CSS inliner gives the tags a style and writes the quotes back
+        $this->assertStringContainsString('X"&gt;&lt;svg/onload=alert(1)&gt;</i>', $html);
+        $this->assertStringContainsString('<br> X"&gt;&lt;svg/onload=alert(1)&gt;', $html);
+    }
+
+    public function testItShouldQuoteTheAttributesOfATableAction()
+    {
+        $actions = new \App\View\Components\Table\Actions(false, [[
+            'type' => 'button',
+            'title' => 'Test',
+            'icon' => 'edit',
+            'url' => '#',
+            'attributes' => [
+                'id' => 'x onmouseover=alert(1)',
+                'required' => true,
+            ],
+        ]]);
+
+        $this->assertSame(' id="x onmouseover=alert(1)" required', $actions->actions[0]['attributes']);
+    }
 }

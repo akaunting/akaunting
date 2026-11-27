@@ -87,7 +87,7 @@
                                 <div class="flex flex-col">
                                     <div class="flex flex-wrap items-baseline space-x-4 rtl:space-x-reverse">
                                         <h3 class="text-4xl font-semibold text-black">
-                                            {!! $module->name !!}
+                                            {{ $module->name }}
                                         </h3>
 
                                         @if ($module->vendor_name)

@@ -55,14 +55,14 @@
             @can('create-modules-item')
                 @if ($module->install)
                     @if (! empty($module->isPurchase) && (! empty($module->purchase_type) && $module->purchase_type == 'monthly'))
-                        <x-tooltip message="{!! trans('modules.can_not_install', ['app' => $module->name]) !!}" placement="{{ language()->direction() === 'rtl' ? 'left' : 'right' }}">
+                        <x-tooltip message="{!! trans('modules.can_not_install', ['app' => escape_html($module->name)]) !!}" placement="{{ language()->direction() === 'rtl' ? 'left' : 'right' }}">
                             <x-button disabled="disabled">
                                 {{ trans('modules.install') }}
                             </x-button>
                         </x-tooltip>
                     @else
                         <button type="button"
-                            @click="onInstall('{{ $module->action_url }}', '{{ $module->slug }}', '{!! str_replace("'", "\'", $module->name) !!}', '{{ $module->version }}')"
+                            @click="onInstall('{{ $module->action_url }}', '{{ $module->slug }}', '{{ str_replace("'", "\'", $module->name) }}', '{{ $module->version }}')"
                             class="relative bg-green disabled:bg-green-100 rounded-md text-white text-sm text-center w-full py-2 truncate hover:bg-green-700"
                             id="install-module"
                             :disabled="installation.show"
@@ -140,14 +140,14 @@
             @can('create-modules-item')
                 @if ($module->install)
                     @if (! empty($module->isPurchase) && (! empty($module->purchase_type) && $module->purchase_type == 'monthly'))
-                        <x-tooltip message="{!! trans('modules.can_not_install', ['app' => $module->name]) !!}" placement="{{ language()->direction() === 'rtl' ? 'left' : 'right' }}">
+                        <x-tooltip message="{!! trans('modules.can_not_install', ['app' => escape_html($module->name)]) !!}" placement="{{ language()->direction() === 'rtl' ? 'left' : 'right' }}">
                             <x-button disabled="disabled">
                                 {{ trans('modules.install') }}
                             </x-button>
                         </x-tooltip>
                     @else
                         <button type="button"
-                            @click="onInstall('{{ $module->action_url }}', '{{ $module->slug }}', '{!! str_replace("'", "\'", $module->name) !!}', '{{ $module->version }}')"
+                            @click="onInstall('{{ $module->action_url }}', '{{ $module->slug }}', '{{ str_replace("'", "\'", $module->name) }}', '{{ $module->version }}')"
                             class="relative bg-green disabled:bg-green-100 rounded-md text-white text-sm text-center w-full py-2 truncate hover:bg-green-700"
                             id="install-module"
                             :disabled="installation.show"

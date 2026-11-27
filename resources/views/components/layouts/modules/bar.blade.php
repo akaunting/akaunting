@@ -41,7 +41,7 @@
 
                                             <div class="flex flex-col py-1 gap-0">
                                                 <h6 class="text-sm font-bold capitalize">
-                                                    {!! $item->name !!}
+                                                    {{ $item->name }}
                                                 </h6>
 
                                                 <div class="h-12 overflow-hidden">
